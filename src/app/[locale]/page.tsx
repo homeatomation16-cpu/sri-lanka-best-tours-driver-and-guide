@@ -9,7 +9,7 @@ import TailorMade from "@/components/TailorMade";
 import WhyUs from "@/components/WhyUs";
 import Testimonials from "@/components/Testimonials";
 import Gallery from "@/components/Gallery";
-import VehiclesSection from "@/components/Vehicle";
+import VehiclesSection from "@/components/VehiclesSection";
 import Tours from "@/components/Tours";
 
 export default async function HomePage({

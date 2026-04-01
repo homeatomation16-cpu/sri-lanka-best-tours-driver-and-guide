@@ -1,56 +1,30 @@
 import { notFound } from "next/navigation";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import {
   Users, Gauge, Fuel, Star,
-  Languages, Check, ChevronRight,
+  Languages, Check,
 } from "lucide-react";
 import Image from "next/image";
+
+// Database Imports
+import connectDB from "@/lib/mongodb";
+import Vehicle from "@/models/Vehicle";
 
 // Components
 import Carousel from "@/components/Carousel";
 import VehicleSlider from "@/components/VehicleSlider";
 import BookingBox from "@/components/BookingBox";
 
-// 1. වාහන දත්ත සඳහා Interface එක
-interface Vehicle {
-  id: string;
-  name: string;
-  type: string;
-  price: string;
-  passengers: number;
-  fuel: string;
-  transmission: string;
-  gallery: string[];
-  driver?: {
-    experience: string;
-    languages: string[];
-  };
-  overview?: string;
-  paymentPolicy?: string[];
-}
-
-// 2. ගතිකව දත්ත Load කරන Utility එක (Folder නම 'vehicles' විය යුතුයි)
-async function getVehicleData(locale: string, id: string): Promise<Vehicle | null> {
-  try {
-    // ඔබේ structure එකට අනුව path එක: @/data/vehicles/en.ts
-    const mod = await import(`@/data/vehicles/${locale}`);
-    const vehiclesArray = mod.vehicles || mod.default || [];
-    return vehiclesArray.find((v: Vehicle) => v.id === id) || null;
-  } catch (error) {
-    console.error(`Error loading ${locale} data:`, error);
-    return null;
-  }
-}
-
-// 3. Static Params (Build වීමේදී සියලු පිටු සෑදීමට)
+// 1. Static Params (Build වීමේදී සියලු වාහන පිටු සෑදීමට DB එක පාවිච්චි කරයි)
 export async function generateStaticParams() {
-  const { vehicles } = await import("@/data/vehicles/en");
+  await connectDB();
+  const vehicles = await Vehicle.find({ status: "active" }).select("vehicleId").lean();
   const locales = ["en", "si", "ar", "zh", "ru", "fr", "de", "es", "it", "ja", "ko", "pt", "ta", "hi"];
   
   return locales.flatMap((locale) => 
     vehicles.map((v: any) => ({
       locale,
-      id: v.id,
+      id: v.vehicleId,
     }))
   );
 }
@@ -63,26 +37,38 @@ export default async function VehiclePage({
   const { id, locale } = await params;
   const t = await getTranslations("vehicles");
 
-  // දත්ත ලබා ගැනීම (පළමුව අදාළ භාෂාවෙන්, නැතිනම් ඉංග්‍රීසි භාෂාවෙන්)
-  let v = await getVehicleData(locale, id);
-  if (!v && locale !== "en") {
-    v = await getVehicleData("en", id);
-  }
+  // 2. Database එකට Connect වී දත්ත ලබා ගැනීම
+  await connectDB();
+  const vehicleRaw = await Vehicle.findOne({ vehicleId: id }).lean();
 
-  if (!v) return notFound();
+  if (!vehicleRaw) return notFound();
+
+  // Serialization Fix (Next.js සඳහා දත්ත පිරිසිදු කිරීම)
+  const vPlain = JSON.parse(JSON.stringify(vehicleRaw));
+
+  // 3. භාෂාවට අදාළ දත්ත තෝරාගැනීම (Translations Logic)
+  const translation = vPlain.translations?.[locale] || vPlain.translations?.["en"] || {};
+  
+  // දත්ත එකතු කිරීම (Merge properties)
+  const v = {
+    ...vPlain,
+    name: translation.name || vPlain.name,
+    overview: translation.overview || vPlain.overview,
+    features: translation.features || vPlain.features || [],
+    paymentPolicy: translation.paymentPolicy || vPlain.paymentPolicy || [],
+  };
 
   const safeGallery = (v.gallery || []).filter(
-    (img): img is string => typeof img === "string" && img.trim() !== ""
+    (img: any): img is string => typeof img === "string" && img.trim() !== ""
   );
 
   const specs = [
-    { icon: Users,  label: t("passengers"),   value: v.passengers   },
+    { icon: Users,  label: t("passengers"),   value: `${v.passengers} Seats` },
     { icon: Gauge,  label: t("transmission"), value: v.transmission },
     { icon: Fuel,   label: t("fuel"),         value: v.fuel         },
     { icon: Star,   label: t("rating"),       value: "4.9 ★"       },
   ];
 
-  // නම Hero එකේ පෙන්වීමට සැකසීම
   const nameParts  = v.name.includes(" ") ? v.name.split(" ") : null;
   const namePrefix = nameParts ? nameParts.slice(0, -1).join(" ") : null;
   const nameSuffix = nameParts ? nameParts[nameParts.length - 1] : v.name;
@@ -102,7 +88,7 @@ export default async function VehiclePage({
         <section className="relative h-105 md:h-125 overflow-hidden flex items-end">
           <Image src="/vehicalcover.jpg" alt={v.name} fill priority className="object-cover" />
           <div className="absolute inset-0 z-10 bg-linear-to-b from-black/5 via-black/25 to-[#1a1714]/95" />
-          <div className="relative z-20 w-full max-w-350 mx-auto px-6 md:px-12 pb-12">
+          <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 pb-12">
             <div className="vd-anim mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B5541A]/20 border border-[#B5541A]/40 backdrop-blur-md">
               <span className="text-[9px] font-bold uppercase tracking-widest text-[#F4A96B]">{v.type}</span>
             </div>
@@ -114,7 +100,7 @@ export default async function VehiclePage({
         </section>
 
         {/* CONTENT SECTION */}
-        <main className="relative z-30 max-w-350 mx-auto px-6 md:px-12 -mt-16 pb-24">
+        <main className="relative z-30 max-w-7xl mx-auto px-6 md:px-12 -mt-16 pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 items-start">
             <div className="space-y-12">
               <div className="vd-anim overflow-hidden shadow-2xl rounded-2xl bg-white aspect-video max-h-110 border border-white/60">
@@ -149,7 +135,7 @@ export default async function VehiclePage({
                     </div>
                     <p className="text-sm italic text-gray-500 mb-6">{t("experience")}: {v.driver.experience}</p>
                     <div className="flex flex-wrap gap-2">
-                      {v.driver.languages.map((l, idx) => (
+                      {v.driver.languages?.map((l: string, idx: number) => (
                         <span key={idx} className="px-3 py-1 bg-gray-50 text-[9px] font-bold rounded-full border border-black/5 text-gray-500">{l}</span>
                       ))}
                     </div>
@@ -158,7 +144,7 @@ export default async function VehiclePage({
                 <div className="bg-white p-8 rounded-2xl border border-black/5 shadow-sm">
                   <h3 className="text-[#B5541A] uppercase text-[10px] font-bold tracking-widest mb-6">{t("included")}</h3>
                   <ul className="space-y-3">
-                    {v.paymentPolicy?.map((p, idx) => (
+                    {v.paymentPolicy?.map((p: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-3 text-xs text-gray-600">
                         <Check size={14} className="text-green-500 shrink-0 mt-0.5" /> {p}
                       </li>
@@ -178,6 +164,7 @@ export default async function VehiclePage({
                     {v.price.replace("$", "")}
                   </span>
                 </div>
+                {/* BookingBox වෙත DB එකෙන් ගත් දත්ත පාස් කිරීම */}
                 <BookingBox vehicle={v} />
                 <p className="mt-8 text-[9px] text-gray-400 italic uppercase tracking-tighter">{t("disclaimer")}</p>
               </div>

@@ -52,11 +52,12 @@
     "contactDirectly": "O contattaci direttamente:",
     "exploreTour": "Esplora il Tour",
     "planPrivate": "Pianifica un Tour Privato di un Giorno",
-    "luxuryDayTrips": "Escursioni di Lusso di un Giorno",
-    "oneDayPackages": "Pacchetti Tour di un Giorno",
+    "luxuryDayTrips": "Gite di un giorno di lusso",
+    "oneDayPackages": "Pacchetti premium di un giorno",
+    "oneDayDesc": "Poco tempo ma tanta voglia di avventura? Le nostre escursioni di un giorno sono pensate per mostrarvi il meglio dello Sri Lanka in un unico, indimenticabile giorno.",
     "upToGuests": "Fino a {count} Ospiti"
   },
-  
+
   "vehicles": {
     "whatsNew": "Novità",
     "heading": "La Migliore Flotta di Veicoli a Noleggio in Sri Lanka",
@@ -83,8 +84,7 @@
     "disclaimer": "* Nessun costo nascosto. Pagamento diretto all'autista.",
     "auto": "Automatico",
     "petrol": "Benzina"
-  }
-,
+  },
   "about": {
     "title": "Informazioni su Sri Lanka Tours Driver",
     "label": "Chi Siamo",
@@ -375,24 +375,26 @@
     }
   },
   "seasonal": {
-    "label": "Tour Stagionali",
-    "heading": "I Migliori Tour di Stagione"
+    "label": "Selezione stagionale",
+    "heading": "Pacchetti stagionali",
+    "season": "(Maggio a Settembre)",
+    "description": "Esplora i nostri esclusivi pacchetti stagionali progettati per abbinarsi ai momenti migliori per visitare lo Sri Lanka. Dalle spiagge assolate ai lussureggianti rifugi in collina, ogni pacchetto è su misura per offrire esperienze indimenticabili durante la stagione ideale. Scopri la bellezza dello Sri Lanka tutto l'anno con tour curati per ogni viaggiatore!"
   },
   "specialOffer": {
     "label": "Offerte Speciali",
     "heading": "Offerte Esclusive per Te"
   },
   "tailorMade": {
-  "label": "Tour su misura",
-  "heading": "Il tuo viaggio,",
-  "desc": "Creato alla perfezione",
-  "tags": ["Media 14 giorni", "100% privato", "Completamente guidato"],
-  "yearsExpert": "Anni di esperienza",
-  "subtext1": "Scopri lo Sri Lanka a modo tuo: viaggi progettati interamente intorno a te.",
-  "subtext2": "Luna di miele romantica, avventura in famiglia o fuga di lusso esclusiva: i nostri specialisti creano itinerari perfetti con accesso privilegiato.",
-  "buttonPrimary": "Progetta il mio viaggio",
-  "buttonSecondary": "Parla con uno specialista →"
-},
+    "label": "Tour su misura",
+    "heading": "Il tuo viaggio,",
+    "desc": "Creato alla perfezione",
+    "tags": ["Media 14 giorni", "100% privato", "Completamente guidato"],
+    "yearsExpert": "Anni di esperienza",
+    "subtext1": "Scopri lo Sri Lanka a modo tuo: viaggi progettati interamente intorno a te.",
+    "subtext2": "Luna di miele romantica, avventura in famiglia o fuga di lusso esclusiva: i nostri specialisti creano itinerari perfetti con accesso privilegiato.",
+    "buttonPrimary": "Progetta il mio viaggio",
+    "buttonSecondary": "Parla con uno specialista →"
+  },
   "testimonials": {
     "label": "Recensioni",
     "heading": "Cosa Dicono i Nostri Ospiti"

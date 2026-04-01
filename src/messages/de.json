@@ -53,10 +53,11 @@
     "exploreTour": "Tour entdecken",
     "planPrivate": "Einen privaten Tagesausflug planen",
     "luxuryDayTrips": "Luxus-Tagesausflüge",
-    "oneDayPackages": "Tages-Tour-Pakete",
+    "oneDayPackages": "Premium-Tagespakete",
+    "oneDayDesc": "Wenig Zeit, aber große Abenteuerlust? Unsere Tagesausflüge sind darauf ausgelegt, Ihnen das Beste von Sri Lanka an einem einzigen, unvergesslichen Tag zu zeigen.",
     "upToGuests": "Bis zu {count} Gäste"
   },
-  
+
   "vehicles": {
     "whatsNew": "Neu",
     "heading": "Top-Fahrzeugflotte zur Miete in Sri Lanka",
@@ -83,8 +84,7 @@
     "disclaimer": "* Keine versteckten Kosten. Direkte Zahlung an den Fahrer.",
     "auto": "Automatik",
     "petrol": "Benzin"
-  }
-,
+  },
   "about": {
     "title": "Über Sri Lanka Tours Driver",
     "label": "Über uns",
@@ -375,24 +375,26 @@
     }
   },
   "seasonal": {
-    "label": "Saisonale Touren",
-    "heading": "Beste Saisontouren"
+    "label": "Saisonale Auswahl",
+    "heading": "Saisonale Angebote",
+    "season": "(Mai bis September)",
+    "description": "Entdecken Sie unsere exklusiven saisonalen Angebote, die auf die besten Reisezeiten für Sri Lanka abgestimmt sind. Von sonnenverwöhnten Stränden bis hin zu üppigen Rückzugsorten im Hochland – jedes Paket ist darauf zugeschnitten, unvergessliche Erlebnisse während der idealen Jahreszeit zu bieten. Entdecken Sie Sri Lankas Schönheit das ganze Jahr über mit kuratierten Touren für jeden Reisenden!"
   },
   "specialOffer": {
     "label": "Sonderangebote",
     "heading": "Exklusive Deals für Sie"
   },
   "tailorMade": {
-  "label": "Maßgeschneiderte Touren",
-  "heading": "Ihre Reise,",
-  "desc": "Perfekt gestaltet",
-  "tags": ["Durchschnittlich 14 Tage", "100% Privat", "Vollständig geführt"],
-  "yearsExpert": "Jahre Erfahrung",
-  "subtext1": "Entdecken Sie Sri Lanka nach Ihren Wünschen – Reisen, die ganz auf Sie zugeschnitten sind.",
-  "subtext2": "Romantische Flitterwochen, Familienabenteuer oder exklusive Luxusreisen – unsere Spezialisten erstellen nahtlose Reiserouten mit exklusivem Zugang.",
-  "buttonPrimary": "Meine Reise gestalten",
-  "buttonSecondary": "Mit einem Experten sprechen →"
-},
+    "label": "Maßgeschneiderte Touren",
+    "heading": "Ihre Reise,",
+    "desc": "Perfekt gestaltet",
+    "tags": ["Durchschnittlich 14 Tage", "100% Privat", "Vollständig geführt"],
+    "yearsExpert": "Jahre Erfahrung",
+    "subtext1": "Entdecken Sie Sri Lanka nach Ihren Wünschen – Reisen, die ganz auf Sie zugeschnitten sind.",
+    "subtext2": "Romantische Flitterwochen, Familienabenteuer oder exklusive Luxusreisen – unsere Spezialisten erstellen nahtlose Reiserouten mit exklusivem Zugang.",
+    "buttonPrimary": "Meine Reise gestalten",
+    "buttonSecondary": "Mit einem Experten sprechen →"
+  },
   "testimonials": {
     "label": "Bewertungen",
     "heading": "Was unsere Gäste sagen"

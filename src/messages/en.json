@@ -55,6 +55,7 @@
     "planPrivate": "Plan a Private Day Tour",
     "luxuryDayTrips": "Luxury Day Trips",
     "oneDayPackages": "One Day Tour Packages",
+    "oneDayDesc": "Short on time but big on adventure? Our one-day excursions are designed to show you the very best of Sri Lanka in a single, unforgettable day. Perfectly curated for travelers looking to maximize their experience with ease and comfort.",
     "upToGuests": "Up to {count} Guests"
   },
   
@@ -375,10 +376,12 @@
       "Beach": "Beach"
     }
   },
-  "seasonal": {
-    "label": "Seasonal Tours",
-    "heading": "Best Season Tours"
-  },
+ "seasonal": {
+  "label": "Seasonal Selection",
+  "heading": "Seasonal Packages",
+  "season": "(May to September)",
+  "description": "Explore our exclusive seasonal packages designed to match the best times to visit Sri Lanka. From sun-kissed beaches to lush hill country escapes, each package is tailored to offer unforgettable experiences during the ideal season. Discover Sri Lanka’s beauty all year round with curated tours for every traveler!"
+},
   "specialOffer": {
     "label": "Special Offers",
     "heading": "Exclusive Deals for You"

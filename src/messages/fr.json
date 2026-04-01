@@ -52,8 +52,9 @@
     "contactDirectly": "Ou contactez-nous directement :",
     "exploreTour": "Explorer le Circuit",
     "planPrivate": "Planifier une Excursion Privée d'un Jour",
-    "luxuryDayTrips": "Excursions de Luxe d'un Jour",
-    "oneDayPackages": "Forfaits d'un Jour",
+    "luxuryDayTrips": "Excursions d'une journée de luxe",
+"oneDayPackages": "Forfaits d'une journée Premium",
+"oneDayDesc": "Peu de temps mais soif d'aventure ? Nos excursions d'une journée sont conçues pour vous montrer le meilleur du Sri Lanka en une seule journée inoubliable.",
     "upToGuests": "Jusqu'à {count} Invités"
   },
   
@@ -374,10 +375,12 @@
       "Beach": "Plage"
     }
   },
-  "seasonal": {
-    "label": "Voyages de Saison",
-    "heading": "Meilleurs Circuits de Saison"
-  },
+ "seasonal": {
+  "label": "Sélection saisonnière",
+  "heading": "Forfaits saisonniers",
+  "season": "(Mai à Septembre)",
+  "description": "Découvrez nos forfaits saisonniers exclusifs conçus pour correspondre aux meilleurs moments pour visiter le Sri Lanka. Des plages ensoleillées aux escapades luxuriantes dans les montagnes, chaque forfait est conçu pour offrir des expériences inoubliables pendant la saison idéale. Découvrez la beauté du Sri Lanka toute l'année avec des circuits organisés pour chaque voyageur !"
+},
   "specialOffer": {
     "label": "Offres Spéciales",
     "heading": "Offres Exclusives pour Vous"
