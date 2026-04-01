@@ -1,7 +1,7 @@
 export const contact = {
-  phone: "+94702062697",
-  whatsapp: "94702062697",
- whatsappme: "https://wa.me/94702062697",
+  phone: "+94760195005",
+  whatsapp: "+94760195005",
+ whatsappme: "https://wa.me/+94760195005",
   email: "info@srilankabesttourdriverandguide.com",
 
   address:
