@@ -383,10 +383,16 @@
     "heading": "Offerte Esclusive per Te"
   },
   "tailorMade": {
-    "label": "Tour su Misura",
-    "heading": "Esperienze Personalizzate",
-    "desc": "Raccontaci l'itinerario dei tuoi sogni e lo realizzeremo."
-  },
+  "label": "Tour su misura",
+  "heading": "Il tuo viaggio,",
+  "desc": "Creato alla perfezione",
+  "tags": ["Media 14 giorni", "100% privato", "Completamente guidato"],
+  "yearsExpert": "Anni di esperienza",
+  "subtext1": "Scopri lo Sri Lanka a modo tuo: viaggi progettati interamente intorno a te.",
+  "subtext2": "Luna di miele romantica, avventura in famiglia o fuga di lusso esclusiva: i nostri specialisti creano itinerari perfetti con accesso privilegiato.",
+  "buttonPrimary": "Progetta il mio viaggio",
+  "buttonSecondary": "Parla con uno specialista →"
+},
   "testimonials": {
     "label": "Recensioni",
     "heading": "Cosa Dicono i Nostri Ospiti"

@@ -58,12 +58,7 @@ export async function GET() {
           translations: translations,
           status: "active"
         },
-        { 
-          upsert: true, 
-          new: true, 
-          runValidators: true,
-          strict: false // Schema එකේ නැති දත්ත තිබුණත් වැරැද්දක් නොපෙන්වීමට
-        }
+        { upsert: true, returnDocument: 'after', strict: false }
       );
     }
 

@@ -12,12 +12,12 @@ import Gallery from "@/components/Gallery";
 import VehiclesSection from "@/components/Vehicle";
 import Tours from "@/components/Tours";
 
-export default function HomePage({
+export default async function HomePage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
 
   return (
     <div className="relative bg-white">

@@ -17,7 +17,7 @@ const languageDrivers = [
   "Italian Speaking",
 ];
 
-export default function VehiclesSection() {
+export default function VehiclesSection( { locale }: { locale: string } ) {
   const t = useTranslations("vehicles");
   const featured = vehicles.slice(0, 6);
   const [currentLang, setCurrentLang] = useState(0);

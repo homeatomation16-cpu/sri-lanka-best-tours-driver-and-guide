@@ -5,7 +5,8 @@ import { getTranslations } from "next-intl/server";
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 
-export default async function Tours({ locale }: { locale: string }) {
+
+export default async function ToursSection({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "tours" });
 
   await connectDB();

@@ -383,10 +383,16 @@
     "heading": "Ofertas Exclusivas para Ti"
   },
   "tailorMade": {
-    "label": "Tours Personalizados",
-    "heading": "Experiencias a Medida",
-    "desc": "Cuéntanos el itinerario de tus sueños y lo haremos realidad."
-  },
+  "label": "Tours a medida",
+  "heading": "Tu viaje,",
+  "desc": "Perfectly Crafted",
+  "tags": ["14 días promedio", "100% privado", "Totalmente guiado"],
+  "yearsExpert": "Años de experiencia",
+  "subtext1": "Descubre Sri Lanka a tu manera: viajes diseñados exclusivamente para ti.",
+  "subtext2": "Luna de miel romántica, aventura familiar o escapada de lujo exclusiva: nuestros especialistas crean itinerarios perfectos con acceso preferente.",
+  "buttonPrimary": "Diseñar mi viaje",
+  "buttonSecondary": "Hablar con un especialista →"
+},
   "testimonials": {
     "label": "Reseñas",
     "heading": "Lo Que Dicen Nuestros Huéspedes"

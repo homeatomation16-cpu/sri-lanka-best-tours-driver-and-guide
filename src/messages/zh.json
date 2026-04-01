@@ -383,10 +383,16 @@
     "heading": "专属您的特惠"
   },
   "tailorMade": {
-    "label": "定制团",
-    "heading": "量身打造体验",
-    "desc": "告诉我们您的梦想行程，我们将为您实现。"
-  },
+  "label": "私人定制",
+  "heading": "您的旅程，",
+  "desc": "完美打造",
+  "tags": ["平均 14 天", "100% 私人定制", "全程导游陪同"],
+  "yearsExpert": "多年专业经验",
+  "subtext1": "以您的方式探索斯里兰卡 —— 全程为您量身打造。",
+  "subtext2": "浪漫蜜月、家庭冒险或尊享豪华度假 —— 我们的专家将为您打造拥有优质资源的无缝行程。",
+  "buttonPrimary": "开启定制旅程",
+  "buttonSecondary": "咨询专家 →"
+},
   "testimonials": {
     "label": "客户评价",
     "heading": "宾客心声"

@@ -1,10 +1,14 @@
-// src/components/TailorMade.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 export default async function TailorMade() {
+  // translations namespace එක tailorMade ලෙස ගනිමු
   const t = await getTranslations("tailorMade");
+
+  // Tags ටික translations වලින් ලබා ගැනීමට (JSON එකේ arrays ලෙස තිබිය යුතුය)
+  // උදා: "tags": ["14 Days Average", "100% Private", "Fully Guided"]
+  const tags = t.raw("tags") || ["14 Days Average", "100% Private", "Fully Guided"];
 
   return (
     <section className="relative py-28 md:py-36 bg-amber-50 overflow-hidden">
@@ -34,8 +38,10 @@ export default async function TailorMade() {
                 fill
                 priority
                 className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                // මෙන්න මේ පේළිය අනිවාර්යයෙන්ම එකතු කරන්න
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/15 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-stone-900/75 via-stone-900/15 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                 <p className="text-amber-400 text-xs font-semibold uppercase tracking-[0.3em] mb-3">
                   {t("label")}
@@ -44,7 +50,7 @@ export default async function TailorMade() {
                   Sri Lanka
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {["14 Days Average", "100% Private", "Fully Guided"].map((tag) => (
+                  {tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-xs font-medium tracking-wide"
@@ -60,7 +66,7 @@ export default async function TailorMade() {
             <div className="absolute -right-5 top-1/2 transform -translate-y-1/2 bg-amber-500 text-white rounded-2xl px-5 py-4 shadow-xl shadow-amber-400/30">
               <p className="text-2xl font-bold leading-none">15+</p>
               <p className="text-xs font-semibold uppercase tracking-wider mt-1 opacity-80">
-                Years Expert
+                {t("yearsExpert") || "Years Expert"}
               </p>
             </div>
           </div>
@@ -77,33 +83,32 @@ export default async function TailorMade() {
             <h2 className="font-serif text-5xl md:text-6xl xl:text-7xl font-semibold text-stone-900 leading-[1.05] mb-8">
               {t("heading")}
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-500">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-600 to-orange-500">
                 {t("desc")}
               </span>
             </h2>
 
-            <div className="w-full h-px bg-gradient-to-r from-amber-300/80 via-orange-200/60 to-transparent mb-8" />
+            <div className="w-full h-px bg-linear-to-r from-amber-300/80 via-orange-200/60 to-transparent mb-8" />
 
             <p className="text-stone-600 text-lg leading-[1.8] mb-5">
-              Discover Sri Lanka your way — journeys designed entirely around you.
+              {t("subtext1") || "Discover Sri Lanka your way — journeys designed entirely around you."}
             </p>
             <p className="text-stone-600 text-lg leading-[1.8] mb-10">
-              Romantic honeymoon, family adventure, or exclusive luxury escape —
-              our specialists craft seamless itineraries with premium access.
+              {t("subtext2") || "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with premium access."}
             </p>
 
             <div className="flex flex-wrap items-center gap-5">
               <Link
                 href="/tailor-made-tours"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-bold text-base shadow-lg hover:-translate-y-0.5 transition-all duration-300 bg-gradient-to-r from-amber-500 to-orange-500"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-bold text-base shadow-lg hover:-translate-y-0.5 transition-all duration-300 bg-linear-to-r from-amber-500 to-orange-500"
               >
-                Design My Journey
+                {t("buttonPrimary") || "Design My Journey"}
               </Link>
               <Link
                 href="/contact"
                 className="text-stone-500 hover:text-stone-800 text-base font-medium transition-colors duration-200"
               >
-                Talk to a specialist →
+                {t("buttonSecondary") || "Talk to a specialist →"}
               </Link>
             </div>
           </div>

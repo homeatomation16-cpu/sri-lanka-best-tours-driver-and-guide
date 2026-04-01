@@ -19,6 +19,8 @@ const TourSchema = new Schema({
   },
   status: { type: String, default: "active" },
   createdAt: { type: Date, default: Date.now },
+}, { 
+  strict: false // මෙන්න මේ පේළිය අන්තිමට එකතු කරන්න. එතකොට path errors එන්නේ නැහැ.
 });
 
 // Next.js Hot Reload වලදී එන Schema errors වැලැක්වීමට මෙය අත්‍යවශ්‍යයි

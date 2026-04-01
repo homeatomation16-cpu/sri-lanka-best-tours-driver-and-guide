@@ -10,6 +10,7 @@
     "about": "About",
     "whatsapp": "WhatsApp"
   },
+  
   "hero": {
     "tagline": "Luxury Experience",
     "brand": "Sri Lanka Best Tours Driver & Guide",
@@ -383,10 +384,16 @@
     "heading": "Exclusive Deals for You"
   },
   "tailorMade": {
-    "label": "Custom Tours",
-    "heading": "Tailor-Made Experiences",
-    "desc": "Tell us your dream itinerary and we'll make it happen."
-  },
+  "label": "Tailor Made Tours",
+  "heading": "Your Journey,",
+  "desc": "Perfectly Crafted",
+  "tags": ["14 Days Average", "100% Private", "Fully Guided"],
+  "yearsExpert": "Years Expert",
+  "subtext1": "Discover Sri Lanka your way — journeys designed entirely around you.",
+  "subtext2": "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with premium access.",
+  "buttonPrimary": "Design My Journey",
+  "buttonSecondary": "Talk to a specialist →"
+},
   "testimonials": {
     "label": "Reviews",
     "heading": "What Our Guests Say"

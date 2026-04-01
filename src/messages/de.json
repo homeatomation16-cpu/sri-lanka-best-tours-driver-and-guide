@@ -383,10 +383,16 @@
     "heading": "Exklusive Deals für Sie"
   },
   "tailorMade": {
-    "label": "Wunschtouren",
-    "heading": "Individuelle Erlebnisse",
-    "desc": "Sagen Sie uns Ihre Traumreise und wir setzen sie um."
-  },
+  "label": "Maßgeschneiderte Touren",
+  "heading": "Ihre Reise,",
+  "desc": "Perfekt gestaltet",
+  "tags": ["Durchschnittlich 14 Tage", "100% Privat", "Vollständig geführt"],
+  "yearsExpert": "Jahre Erfahrung",
+  "subtext1": "Entdecken Sie Sri Lanka nach Ihren Wünschen – Reisen, die ganz auf Sie zugeschnitten sind.",
+  "subtext2": "Romantische Flitterwochen, Familienabenteuer oder exklusive Luxusreisen – unsere Spezialisten erstellen nahtlose Reiserouten mit exklusivem Zugang.",
+  "buttonPrimary": "Meine Reise gestalten",
+  "buttonSecondary": "Mit einem Experten sprechen →"
+},
   "testimonials": {
     "label": "Bewertungen",
     "heading": "Was unsere Gäste sagen"
