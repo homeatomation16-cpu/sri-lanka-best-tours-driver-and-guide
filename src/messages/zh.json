@@ -57,7 +57,6 @@
     "oneDayDesc": "时间紧迫但渴望冒险？我们的一日游项目旨在让您在一个难忘的日子里领略斯里兰卡最精华的美景。",
     "upToGuests": "最多可容纳 {count} 位宾客"
   },
-
   "vehicles": {
     "whatsNew": "最新动态",
     "heading": "斯里兰卡顶尖租车车队",
@@ -317,26 +316,6 @@
         "title": "冈嘎拉马寺庙",
         "category": "宗教圣地",
         "description": "科伦坡最古老的佛教寺庙之一，也是文化教育中心。"
-      },
-      "galle-face-green": {
-        "title": "加勒费斯绿地",
-        "category": "自然",
-        "description": "紧邻大海的城市公园，以日落美景和路边美食闻名。"
-      },
-      "kelaniya-raja-maha-viharaya": {
-        "title": "凯拉尼亚皇家大寺",
-        "category": "宗教圣地",
-        "description": "历史悠久的佛教寺庙，被视为最神圣的宗教场所之一。"
-      },
-      "yala-national-park": {
-        "title": "雅拉国家公园",
-        "category": "野生动物",
-        "description": "以极高的花豹观测密度而闻名于世。"
-      },
-      "st-marys-church-negombo": {
-        "title": "尼甘布圣玛丽教堂",
-        "category": "宗教圣地",
-        "description": "斯里兰卡最大的天主教堂之一，以其精美的壁画著称。"
       }
     }
   },
@@ -378,7 +357,7 @@
     "label": "季节性选择",
     "heading": "季节性套餐",
     "season": "（5月至9月）",
-    "description": "探索我们专为斯里兰卡最佳旅游时间而设计的独家季节性套餐。从阳光普照的海滩到郁郁葱葱的山区避暑胜地，每个套餐都旨在理想的季节提供难忘的体验。通过为每位旅行者精心策划的旅程，全年发现斯里兰卡之美！"
+    "description": "探索我们专为斯里兰卡最佳旅游时间而设计的独家季节性套餐。"
   },
   "specialOffer": {
     "label": "限时优惠",
@@ -386,14 +365,72 @@
   },
   "tailorMade": {
     "label": "私人定制",
-    "heading": "您的旅程，",
-    "desc": "完美打造",
-    "tags": ["平均 14 天", "100% 私人定制", "全程导游陪同"],
-    "yearsExpert": "多年专业经验",
-    "subtext1": "以您的方式探索斯里兰卡 —— 全程为您量身打造。",
-    "subtext2": "浪漫蜜月、家庭冒险或尊享豪华度假 —— 我们的专家将为您打造拥有优质资源的无缝行程。",
-    "buttonPrimary": "开启定制旅程",
-    "buttonSecondary": "咨询专家 →"
+    "heading": "打造您的专属旅程",
+    "desc": "个性化定制您斯里兰卡冒险之旅的每一个细节。我们的专家将为您打造独一无二的专属行程。",
+    "whyChooseUs": "为何选择我们？",
+    "step1": "旅行偏好",
+    "step2": "假期活动",
+    "step3": "住宿与餐饮",
+    "step4": "旅行详情",
+    "step5": "联系信息",
+    "vehicleType": "车辆类型",
+    "transportMethod": "交通方式",
+    "accommodation": "住宿标准",
+    "mealPlan": "用餐计划（可选）",
+    "startDate": "开始日期",
+    "endDate": "结束日期",
+    "phName": "全名",
+    "phEmail": "电子邮箱",
+    "btnSubmit": "提交定制申请",
+    "btnSending": "验证码发送中...",
+    "tags": [
+      "平均 14 天",
+      "100% 私人定制",
+      "资深导游陪同"
+    ],
+    "styles": {
+      "relaxed": "悠闲型",
+      "moderate": "适中型",
+      "active": "活跃型",
+      "luxury": "豪华型"
+    },
+    "vehicles": {
+      "car": "小轿车",
+      "van": "面包车",
+      "bus": "中巴/大巴"
+    },
+    "methods": {
+      "private": "私人司机",
+      "self": "自驾旅行",
+      "public": "公共交通",
+      "combo": "混合交通"
+    },
+    "accTypes": {
+      "3star": "三星级",
+      "4star": "四星级",
+      "5star": "五星级",
+      "own": "自行安排"
+    },
+    "meals": {
+      "roomOnly": "仅房费",
+      "bb": "含早餐 (B&B)",
+      "hb": "半食宿 (含早晚餐)",
+      "fb": "全食宿 (含三餐)",
+      "allInc": "全包套餐"
+    },
+    "activities": {
+      "nature": "野生动物与萨法里",
+      "culture": "文化遗产巡礼",
+      "beach": "海滨休闲",
+      "trekking": "徒步与登山",
+      "activity": "体验活动与游戏",
+      "boat": "乘船游览",
+      "train": "火车高山旅行",
+      "factory": "参观工厂",
+      "watersports": "水上运动",
+      "diving": "潜水与浮潜",
+      "whales": "观鲸体验"
+    }
   },
   "testimonials": {
     "label": "客户评价",

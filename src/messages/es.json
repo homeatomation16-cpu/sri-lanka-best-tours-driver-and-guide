@@ -57,7 +57,6 @@
     "oneDayDesc": "¿Poco tiempo pero muchas ganas de aventura? Nuestras excursiones de un día están diseñadas para mostrarle lo mejor de Sri Lanka en un solo día inolvidable.",
     "upToGuests": "Hasta {count} Invitados"
   },
-
   "vehicles": {
     "whatsNew": "Nuevo",
     "heading": "La Mejor Flota de Vehículos en Alquiler en Sri Lanka",
@@ -301,42 +300,22 @@
       "old-parliament-building": {
         "title": "Antiguo Edificio del Parlamento",
         "category": "Patrimonio",
-        "description": "Terminado en 1930, es una impresionante estructura neobarroca que albergó la legislatura de Sri Lanka durante 53 años. Ahora es la Secretaría Presidencial."
+        "description": "Terminado en 1930, es una impresionante estructura neobarroca."
       },
       "jami-ul-alfar-mosque": {
         "title": "Mezquita Jami Ul-Alfar",
         "category": "Religioso",
-        "description": "Conocida como la Mezquita Roja, es famosa por su fachada de ladrillos a rayas rojas y blancas en el barrio de Pettah."
+        "description": "Conocida como la Mezquita Roja, famosa por su fachada a rayas."
       },
       "colombo-city": {
         "title": "Ciudad de Colombo",
         "category": "Ciudad",
-        "description": "La capital comercial de Sri Lanka, que mezcla herencia colonial con rascacielos modernos y una vibrante vida nocturna."
+        "description": "La capital comercial de Sri Lanka, que mezcla herencia colonial con modernidad."
       },
       "gangaramaya-temple": {
         "title": "Templo Gangaramaya",
         "category": "Religioso",
-        "description": "Uno de los templos más importantes de Colombo, que funciona también como centro cultural y educativo."
-      },
-      "galle-face-green": {
-        "title": "Galle Face Green",
-        "category": "Naturaleza",
-        "description": "Un parque popular junto al mar, famoso por sus vistas al atardecer y puestos de comida callejera."
-      },
-      "kelaniya-raja-maha-viharaya": {
-        "title": "Kelaniya Raja Maha Viharaya",
-        "category": "Religioso",
-        "description": "Un templo budista histórico considerado uno de los sitios religiosos más sagrados del país."
-      },
-      "yala-national-park": {
-        "title": "Parque Nacional Yala",
-        "category": "Vida Silvestre",
-        "description": "Famoso por tener una de las mayores densidades de leopardos en el mundo, además de elefantes y cocodrilos."
-      },
-      "st-marys-church-negombo": {
-        "title": "Iglesia de Santa María en Negombo",
-        "category": "Religioso",
-        "description": "Una de las catedrales más grandes de Sri Lanka, conocida por sus hermosas pinturas en el techo."
+        "description": "Uno de los templos más importantes de Colombo."
       }
     }
   },
@@ -378,7 +357,7 @@
     "label": "Selección de temporada",
     "heading": "Paquetes estacionales",
     "season": "(Mayo a Septiembre)",
-    "description": "Explore nuestros paquetes estacionales exclusivos diseñados para coincidir con las mejores épocas para visitar Sri Lanka. Desde playas bañadas por el sol hasta escapadas a las exuberantes montañas, cada paquete está diseñado para ofrecer experiencias inolvidables durante la temporada ideal. ¡Descubra la belleza de Sri Lanka durante todo el año con tours seleccionados para cada viajero!"
+    "description": "Explore nuestros paquetes estacionales exclusivos diseñados para coincidir con las mejores épocas para visitar Sri Lanka."
   },
   "specialOffer": {
     "label": "Ofertas Especiales",
@@ -386,14 +365,72 @@
   },
   "tailorMade": {
     "label": "Tours a medida",
-    "heading": "Tu viaje,",
-    "desc": "Perfectly Crafted",
-    "tags": ["14 días promedio", "100% privado", "Totalmente guiado"],
-    "yearsExpert": "Años de experiencia",
-    "subtext1": "Descubre Sri Lanka a tu manera: viajes diseñados exclusivamente para ti.",
-    "subtext2": "Luna de miel romántica, aventura familiar o escapada de lujo exclusiva: nuestros especialistas crean itinerarios perfectos con acceso preferente.",
-    "buttonPrimary": "Diseñar mi viaje",
-    "buttonSecondary": "Hablar con un especialista →"
+    "heading": "Diseña tu Viaje Perfecto",
+    "desc": "Personaliza cada detalle de tu aventura en Sri Lanka. Nuestros expertos crearán un itinerario único para ti.",
+    "whyChooseUs": "¿Por qué elegirnos?",
+    "step1": "Preferencias de Viaje",
+    "step2": "Actividades de Vacaciones",
+    "step3": "Alojamiento y Comidas",
+    "step4": "Detalles del Viaje",
+    "step5": "Información de Contacto",
+    "vehicleType": "Tipo de Vehículo",
+    "transportMethod": "Método de Transporte",
+    "accommodation": "Tipo de Alojamiento",
+    "mealPlan": "Plan de Comidas (Opcional)",
+    "startDate": "Fecha de Inicio",
+    "endDate": "Fecha de Finalización",
+    "phName": "Nombre Completo",
+    "phEmail": "Correo Electrónico",
+    "btnSubmit": "Enviar mi Solicitud",
+    "btnSending": "Enviando código...",
+    "tags": [
+      "14 días prom.",
+      "100% Privado",
+      "Guías Expertos"
+    ],
+    "styles": {
+      "relaxed": "Relajado",
+      "moderate": "Moderado",
+      "active": "Activo",
+      "luxury": "Lujo"
+    },
+    "vehicles": {
+      "car": "Coche",
+      "van": "Van",
+      "bus": "Autobús"
+    },
+    "methods": {
+      "private": "Chofer Privado",
+      "self": "Conducir uno mismo",
+      "public": "Transporte Público",
+      "combo": "Combinación"
+    },
+    "accTypes": {
+      "3star": "3 Estrellas",
+      "4star": "4 Estrellas",
+      "5star": "5 Estrellas",
+      "own": "Yo lo organizo"
+    },
+    "meals": {
+      "roomOnly": "Solo habitación",
+      "bb": "Alojamiento y Desayuno",
+      "hb": "Media Pensión",
+      "fb": "Pensión Completa",
+      "allInc": "Todo Incluido"
+    },
+    "activities": {
+      "nature": "Naturaleza y Safari",
+      "culture": "Patrimonio Cultural",
+      "beach": "Relajación en la Playa",
+      "trekking": "Senderismo y Escalada",
+      "activity": "Actividades y Juegos",
+      "boat": "Paseos en Bote",
+      "train": "Viajes en Tren",
+      "factory": "Visitas a Fábricas",
+      "watersports": "Deportes Acuáticos",
+      "diving": "Buceo y Snorkel",
+      "whales": "Avistamiento de Ballenas"
+    }
   },
   "testimonials": {
     "label": "Reseñas",

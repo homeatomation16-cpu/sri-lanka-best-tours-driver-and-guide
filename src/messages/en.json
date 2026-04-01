@@ -10,7 +10,6 @@
     "about": "About",
     "whatsapp": "WhatsApp"
   },
-  
   "hero": {
     "tagline": "Luxury Experience",
     "brand": "Sri Lanka Best Tours Driver & Guide",
@@ -55,10 +54,9 @@
     "planPrivate": "Plan a Private Day Tour",
     "luxuryDayTrips": "Luxury Day Trips",
     "oneDayPackages": "One Day Tour Packages",
-    "oneDayDesc": "Short on time but big on adventure? Our one-day excursions are designed to show you the very best of Sri Lanka in a single, unforgettable day. Perfectly curated for travelers looking to maximize their experience with ease and comfort.",
+    "oneDayDesc": "Short on time but big on adventure? Our one-day excursions are designed to show you the very best of Sri Lanka in a single, unforgettable day.",
     "upToGuests": "Up to {count} Guests"
   },
-  
   "vehicles": {
     "whatsNew": "New",
     "heading": "Top Vehicle Fleet for Rent in Sri Lanka",
@@ -85,15 +83,14 @@
     "disclaimer": "* No hidden charges. Direct payment to driver.",
     "auto": "Auto",
     "petrol": "Petrol"
-  }
-,
+  },
   "about": {
     "title": "About Sri Lanka Tours Driver",
     "label": "About Us",
     "heading": "We Help You",
     "headingHighlight": "Planning",
     "headingEnd": "Your Journey",
-    "desc1": "A smiling sun all year round, golden beaches, ancient cities, safaris, lovely people in a tropical paradise — Sri Lanka offers an unforgettable travelling experience you can ever imagine. We are a licensed tour guide team based in Colombo.",
+    "desc1": "A smiling sun all year round, golden beaches, ancient cities, safaris, lovely people in a tropical paradise — Sri Lanka offers an unforgettable travelling experience you can ever imagine.",
     "desc2": "With over a decade of experience, we craft private, personalized journeys that connect you with the real heart of Sri Lanka.",
     "checklist": {
       "item1": "Government-licensed professional guides",
@@ -182,7 +179,7 @@
     "date": "Travel Date",
     "time": "Pickup Time",
     "notes": "Special Requests / Notes",
-    "notesPlaceholder": "Dietary requirements, accessibility needs, extra stops, number of people, etc...",
+    "notesPlaceholder": "Dietary, extra stops, number of people...",
     "submit": "Send Message",
     "nameRequired": "Please fill in your name and email."
   },
@@ -201,7 +198,7 @@
   },
   "footer": {
     "brand": "Sri Lanka Best Tours Driver",
-    "desc": "Luxury private tours across Sri Lanka with professional chauffeurs and curated experiences. Travel in comfort, explore in style.",
+    "desc": "Luxury private tours across Sri Lanka with professional chauffeurs and curated experiences.",
     "quickLinks": "Quick Links",
     "gallery": "Gallery",
     "about": "About",
@@ -303,42 +300,22 @@
       "old-parliament-building": {
         "title": "Old Parliament Building",
         "category": "Heritage",
-        "description": "The Old Parliament Building, completed in 1930, is a stunning Neo-Baroque structure that served as Sri Lanka's legislature for 53 years. It now houses the Presidential Secretariat."
+        "description": "The Old Parliament Building, completed in 1930, served as Sri Lanka's legislature for 53 years."
       },
       "jami-ul-alfar-mosque": {
         "title": "Jami Ul-Alfar Mosque",
         "category": "Religious",
-        "description": "Famed for its striking red and white candy-striped brick facade, the Red Mosque is a long-standing landmark in Pettah."
+        "description": "Famed for its striking red and white candy-striped brick facade."
       },
       "colombo-city": {
         "title": "Colombo City",
         "category": "City",
-        "description": "Colombo is Sri Lanka's commercial capital blending colonial heritage, modern skyscrapers, and vibrant nightlife."
+        "description": "Colombo is Sri Lanka's commercial capital blending colonial heritage and modern skyscrapers."
       },
       "gangaramaya-temple": {
         "title": "Gangaramaya Temple",
         "category": "Religious",
-        "description": "One of the oldest Buddhist temples in Colombo, today it serves as a temple, cultural and educational center."
-      },
-      "galle-face-green": {
-        "title": "Galle Face Green",
-        "category": "Nature",
-        "description": "A popular ocean-side park known for sunset views and street food stalls."
-      },
-      "kelaniya-raja-maha-viharaya": {
-        "title": "Kelaniya Raja Maha Viharaya",
-        "category": "Religious",
-        "description": "A historic Buddhist temple believed to have been visited by Lord Buddha."
-      },
-      "yala-national-park": {
-        "title": "Yala National Park",
-        "category": "Wildlife",
-        "description": "Famous for one of the highest concentrations of leopards in the world."
-      },
-      "st-marys-church-negombo": {
-        "title": "St Marys Church Negombo",
-        "category": "Religious",
-        "description": "One of the largest cathedrals in Sri Lanka, known for beautiful ceiling paintings."
+        "description": "One of the oldest Buddhist temples in Colombo."
       }
     }
   },
@@ -376,52 +353,96 @@
       "Beach": "Beach"
     }
   },
- "seasonal": {
-  "label": "Seasonal Selection",
-  "heading": "Seasonal Packages",
-  "season": "(May to September)",
-  "description": "Explore our exclusive seasonal packages designed to match the best times to visit Sri Lanka. From sun-kissed beaches to lush hill country escapes, each package is tailored to offer unforgettable experiences during the ideal season. Discover Sri Lanka’s beauty all year round with curated tours for every traveler!"
-},
+  "seasonal": {
+    "label": "Seasonal Selection",
+    "heading": "Seasonal Packages",
+    "season": "(May to September)",
+    "description": "Explore our exclusive seasonal packages designed to match the best times to visit Sri Lanka."
+  },
   "specialOffer": {
     "label": "Special Offers",
     "heading": "Exclusive Deals for You"
   },
   "tailorMade": {
-  "label": "Tailor Made Tours",
-  "heading": "Design Your Perfect",
-  "desc": "Personalize every detail of your Sri Lankan adventure. Our experts will craft a unique itinerary just for you.",
-  "stepStyle": "Travel Style",
-  "stepActivities": "Activities",
-  "stepDetails": "Trip Details",
-  "stepContact": "Contact Info",
-  "startDate": "Start Date",
-  "endDate": "End Date",
-  "phName": "Full Name",
-  "phEmail": "Email Address",
-  "btnSubmit": "Send My Request",
-  "btnSending": "Sending code...",
-  "whyChooseUs": "Why Choose Us?",
-  "styles": {
-    "relaxed": "Relaxed",
-    "moderate": "Moderate",
-    "active": "Active",
-    "luxury": "Luxury"
+    "label": "Tailor Made Tours",
+    "heading": "Design Your Perfect",
+    "desc": "Personalize every detail of your Sri Lankan adventure. Our experts will craft a unique itinerary just for you.",
+    "whyChooseUs": "Why Choose Us?",
+    "yearsExpert": "Years Expert",
+    "subtext1": "Discover Sri Lanka your way — journeys designed entirely around you.",
+    "subtext2": "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with exclusive access.",
+    "buttonPrimary": "Design My Journey",
+    "buttonSecondary": "Talk to a specialist →",
+    "tags": [
+      "Avg. 14 Days",
+      "100% Private",
+      "Fully Guided"
+    ],
+    "step1": "Travel Preferences",
+    "step2": "Holiday Activities",
+    "step3": "Accommodation & Dining",
+    "step4": "Trip Details",
+    "step5": "Contact Information",
+    "vehicleType": "Type of Vehicle",
+    "transportMethod": "Transportation Method",
+    "accommodation": "Accommodation Type",
+    "mealPlan": "Meal Plan (Optional)",
+    "additionalServices": "Additional Services",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "phName": "Full Name",
+    "phEmail": "Email Address",
+    "btnSubmit": "Send My Request",
+    "btnSending": "Sending code...",
+    "styles": {
+      "relaxed": "Relaxed",
+      "moderate": "Moderate",
+      "active": "Active",
+      "luxury": "Luxury"
+    },
+    "vehicles": {
+      "car": "Car",
+      "van": "Van",
+      "bus": "Bus"
+    },
+    "methods": {
+      "private": "Private Driver",
+      "self": "Self Drive",
+      "public": "Public Transport",
+      "combo": "Combination"
+    },
+    "accTypes": {
+      "3star": "3 Star",
+      "4star": "4 Star",
+      "5star": "5 Star",
+      "own": "I'll Arrange My Own"
+    },
+    "meals": {
+      "roomOnly": "Room only",
+      "bb": "Bed & Breakfast",
+      "hb": "Half Board",
+      "fb": "Full Board",
+      "allInc": "All Inclusive"
+    },
+    "services": {
+      "train": "Train Tickets",
+      "entrance": "Entrance Tickets",
+      "transfer": "Airport Transfer"
+    },
+    "activities": {
+      "nature": "Wildlife & Safari",
+      "culture": "Cultural Heritage",
+      "beach": "Beach Relaxing",
+      "trekking": "Trekking",
+      "activity": "Activities",
+      "boat": "Boat Trips",
+      "train": "Train Rides",
+      "factory": "Factory Visits",
+      "watersports": "Water Sports",
+      "diving": "Diving",
+      "whales": "Whale Watching"
+    }
   },
-  "activities": {
-    "nature": "Wildlife & Safari",
-    "culture": "Cultural Heritage",
-    "beach": "Beach Relaxing",
-    "trekking": "Trekking",
-    "activity": "Activities",
-    "boat": "Boat Trips",
-    "train": "Train Rides",
-    "factory": "Factory Visits",
-    "watersports": "Water Sports",
-    "diving": "Diving",
-    "whales": "Whale Watching"
-  }
-
-},
   "testimonials": {
     "label": "Reviews",
     "heading": "What Our Guests Say"

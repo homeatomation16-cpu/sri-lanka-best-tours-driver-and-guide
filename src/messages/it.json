@@ -57,7 +57,6 @@
     "oneDayDesc": "Poco tempo ma tanta voglia di avventura? Le nostre escursioni di un giorno sono pensate per mostrarvi il meglio dello Sri Lanka in un unico, indimenticabile giorno.",
     "upToGuests": "Fino a {count} Ospiti"
   },
-
   "vehicles": {
     "whatsNew": "Novità",
     "heading": "La Migliore Flotta di Veicoli a Noleggio in Sri Lanka",
@@ -301,42 +300,22 @@
       "old-parliament-building": {
         "title": "Vecchio Palazzo del Parlamento",
         "category": "Patrimonio",
-        "description": "Completato nel 1930, è una splendida struttura neobarocca che ha ospitato la legislatura dello Sri Lanka per 53 anni. Oggi ospita la Segreteria Presidenziale."
+        "description": "Completato nel 1930, è una splendida struttura neobarocca."
       },
       "jami-ul-alfar-mosque": {
         "title": "Moschea Jami Ul-Alfar",
         "category": "Religioso",
-        "description": "Conosciuta come la Moschea Rossa, è famosa per la sua facciata di mattoni a strisce rosse e bianche nel quartiere di Pettah."
+        "description": "Famosa per la sua facciata a strisce bianche e rosse."
       },
       "colombo-city": {
         "title": "Città di Colombo",
         "category": "Città",
-        "description": "La capitale commerciale dello Sri Lanka, che fonde eredità coloniale, grattacieli moderni e una vivace vita notturna."
+        "description": "La capitale commerciale, tra eredità coloniale e modernità."
       },
       "gangaramaya-temple": {
         "title": "Tempio di Gangaramaya",
         "category": "Religioso",
-        "description": "Uno dei templi più importanti di Colombo, che funge oggi da centro culturale ed educativo."
-      },
-      "galle-face-green": {
-        "title": "Galle Face Green",
-        "category": "Naturaleza",
-        "description": "Un parco popolare in riva al mare, famoso per i tramonti e lo street food locale."
-      },
-      "kelaniya-raja-maha-viharaya": {
-        "title": "Kelaniya Raja Maha Viharaya",
-        "category": "Religioso",
-        "description": "Un tempio buddista storico considerato uno dei siti religiosi più sagrati del paese."
-      },
-      "yala-national-park": {
-        "title": "Parco Nazionale di Yala",
-        "category": "Fauna selvatica",
-        "description": "Famoso per avere una delle più alte densità di leopardi al mondo, oltre a elefanti e coccodrilli."
-      },
-      "st-marys-church-negombo": {
-        "title": "Chiesa di Santa Maria a Negombo",
-        "category": "Religioso",
-        "description": "Una delle cattedrali più grandi dello Sri Lanka, nota per i suoi splendidi dipinti sul soffitto."
+        "description": "Uno dei templi più importanti e antichi di Colombo."
       }
     }
   },
@@ -353,12 +332,12 @@
     "footerTagline": "Perla dell'Oceano Indiano"
   },
   "excursionPage": {
-    "details": "Dettagli Escursione",
+    "details": "Dettagli",
     "price": "Prezzo a persona",
     "whatsIncluded": "Cosa è Incluso",
     "planCustomTour": "Pianifica un Tour su Misura",
-    "excursionInfo": "Informazioni Escursione",
-    "pickupTime": "Orario di Prelievo",
+    "excursionInfo": "Informazioni",
+    "pickupTime": "Orario",
     "contactUs": "Contattaci per maggiori dettagli",
     "needHelp": "Hai bisogno di aiuto?",
     "speakToSpecialist": "Parla con uno Specialista",
@@ -378,22 +357,80 @@
     "label": "Selezione stagionale",
     "heading": "Pacchetti stagionali",
     "season": "(Maggio a Settembre)",
-    "description": "Esplora i nostri esclusivi pacchetti stagionali progettati per abbinarsi ai momenti migliori per visitare lo Sri Lanka. Dalle spiagge assolate ai lussureggianti rifugi in collina, ogni pacchetto è su misura per offrire esperienze indimenticabili durante la stagione ideale. Scopri la bellezza dello Sri Lanka tutto l'anno con tour curati per ogni viaggiatore!"
+    "description": "Esplora i nostri pacchetti stagionali esclusivi progettati per i momenti migliori."
   },
   "specialOffer": {
     "label": "Offerte Speciali",
-    "heading": "Offerte Esclusive per Te"
+    "heading": "Offerte Esclusive"
   },
   "tailorMade": {
     "label": "Tour su misura",
-    "heading": "Il tuo viaggio,",
-    "desc": "Creato alla perfezione",
-    "tags": ["Media 14 giorni", "100% privato", "Completamente guidato"],
-    "yearsExpert": "Anni di esperienza",
-    "subtext1": "Scopri lo Sri Lanka a modo tuo: viaggi progettati interamente intorno a te.",
-    "subtext2": "Luna di miele romantica, avventura in famiglia o fuga di lusso esclusiva: i nostri specialisti creano itinerari perfetti con accesso privilegiato.",
-    "buttonPrimary": "Progetta il mio viaggio",
-    "buttonSecondary": "Parla con uno specialista →"
+    "heading": "Progetta il tuo Viaggio Perfetto",
+    "desc": "Personalizza ogni dettaglio della tua avventura in Sri Lanka. I nostri esperti creeranno un itinerario unico per te.",
+    "whyChooseUs": "Perché sceglierci?",
+    "step1": "Preferenze di Viaggio",
+    "step2": "Attività della Vacanza",
+    "step3": "Alloggio e Pasti",
+    "step4": "Dettagli del Viaggio",
+    "step5": "Informazioni di Contatto",
+    "vehicleType": "Tipo di Veicolo",
+    "transportMethod": "Metodo di Trasporto",
+    "accommodation": "Tipo di Alloggio",
+    "mealPlan": "Piano Pasti (Opzionale)",
+    "startDate": "Data di Inizio",
+    "endDate": "Data di Fine",
+    "phName": "Nome Completo",
+    "phEmail": "Indirizzo Email",
+    "btnSubmit": "Invia la mia Richiesta",
+    "btnSending": "Invio codice...",
+    "tags": [
+      "Media 14 giorni",
+      "100% Privato",
+      "Guide Esperte"
+    ],
+    "styles": {
+      "relaxed": "Rilassato",
+      "moderate": "Moderato",
+      "active": "Attivo",
+      "luxury": "Lusso"
+    },
+    "vehicles": {
+      "car": "Auto",
+      "van": "Van",
+      "bus": "Autobus"
+    },
+    "methods": {
+      "private": "Autista Privato",
+      "self": "Guida Autonoma",
+      "public": "Trasporto Pubblico",
+      "combo": "Combinazione"
+    },
+    "accTypes": {
+      "3star": "3 Stelle",
+      "4star": "4 Stelle",
+      "5star": "5 Stelle",
+      "own": "Organizzo io"
+    },
+    "meals": {
+      "roomOnly": "Solo camera",
+      "bb": "Colazione",
+      "hb": "Mezza Pensione",
+      "fb": "Pensione Completa",
+      "allInc": "All Inclusive"
+    },
+    "activities": {
+      "nature": "Natura e Safari",
+      "culture": "Patrimonio Culturale",
+      "beach": "Relax in Spiaggia",
+      "trekking": "Trekking e Scalate",
+      "activity": "Attività e Giochi",
+      "boat": "Gite in Barca",
+      "train": "Viaggi in Treno",
+      "factory": "Visite alle Fabbriche",
+      "watersports": "Sport Acquatici",
+      "diving": "Sub e Snorkeling",
+      "whales": "Avvistamento Balene"
+    }
   },
   "testimonials": {
     "label": "Recensioni",

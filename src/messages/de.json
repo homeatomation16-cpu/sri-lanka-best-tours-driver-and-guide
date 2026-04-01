@@ -49,7 +49,7 @@
     "noPayment": "🔒 Keine sofortige Zahlung erforderlich",
     "freeCancellation": "Kostenlose Stornierung",
     "fastResponse": "Schnelle Antwort",
-    "contactDirectly": "Or kontaktieren Sie uns direkt:",
+    "contactDirectly": "Oder kontaktieren Sie uns direkt:",
     "exploreTour": "Tour entdecken",
     "planPrivate": "Einen privaten Tagesausflug planen",
     "luxuryDayTrips": "Luxus-Tagesausflüge",
@@ -57,7 +57,6 @@
     "oneDayDesc": "Wenig Zeit, aber große Abenteuerlust? Unsere Tagesausflüge sind darauf ausgelegt, Ihnen das Beste von Sri Lanka an einem einzigen, unvergesslichen Tag zu zeigen.",
     "upToGuests": "Bis zu {count} Gäste"
   },
-
   "vehicles": {
     "whatsNew": "Neu",
     "heading": "Top-Fahrzeugflotte zur Miete in Sri Lanka",
@@ -180,7 +179,7 @@
     "date": "Reisedatum",
     "time": "Abholzeit",
     "notes": "Besondere Wünsche / Notizen",
-    "notesPlaceholder": "Ernährungsanforderungen, zusätzliche Stopps, Personenanzahl...",
+    "notesPlaceholder": "Wünsche, Stopps, Personenanzahl...",
     "submit": "Nachricht senden",
     "nameRequired": "Bitte füllen Sie Name und E-Mail aus."
   },
@@ -301,42 +300,22 @@
       "old-parliament-building": {
         "title": "Altes Parlamentsgebäude",
         "category": "Kulturerbe",
-        "description": "Das 1930 fertiggestellte Gebäude ist ein prachtvolles neobarockes Bauwerk, das 53 Jahre lang Sitz der Legislative war. Heute beherbergt es das Präsidialsekretariat."
+        "description": "Das 1930 fertiggestellte Gebäude ist ein prachtvolles neobarockes Bauwerk."
       },
       "jami-ul-alfar-mosque": {
         "title": "Jami Ul-Alfar Moschee",
         "category": "Religiös",
-        "description": "Bekannt als die Rote Moschee, ist sie berühmt für ihre markante rot-weiß gestreifte Ziegelfassade in Pettah."
+        "description": "Berühmt für ihre rot-weiß gestreifte Ziegelfassade."
       },
       "colombo-city": {
         "title": "Colombo Stadt",
         "category": "Stadt",
-        "description": "Sri Lankas Wirtschaftshauptstadt verbindet koloniales Erbe mit modernen Wolkenkratzern und pulsierendem Nachtleben."
+        "description": "Sri Lankas Wirtschaftshauptstadt verbindet koloniales Erbe mit modernen Wolkenkratzern."
       },
       "gangaramaya-temple": {
         "title": "Gangaramaya Tempel",
         "category": "Religiös",
-        "description": "Einer der bedeutendsten Tempel in Colombo, der gleichzeitig als kulturelles und Bildungszentrum dient."
-      },
-      "galle-face-green": {
-        "title": "Galle Face Green",
-        "category": "Natur",
-        "description": "Ein beliebter Park direkt am Meer, bekannt für Sonnenuntergänge und lokales Streetfood."
-      },
-      "kelaniya-raja-maha-viharaya": {
-        "title": "Kelaniya Raja Maha Viharaya",
-        "category": "Religiös",
-        "description": "Ein historischer buddhistischer Tempel, der zu den heiligsten Stätten des Landes zählt."
-      },
-      "yala-national-park": {
-        "title": "Yala Nationalpark",
-        "category": "Wildtiere",
-        "description": "Berühmt für die weltweit höchste Dichte an Leoparden sowie Elefanten und Krokodile."
-      },
-      "st-marys-church-negombo": {
-        "title": "St. Mary's Kirche Negombo",
-        "category": "Religiös",
-        "description": "Eine der größten Kathedralen Sri Lankas, bekannt für ihre wunderschöne Deckenmalerei."
+        "description": "Einer der bedeutendsten buddhistischen Tempel in Colombo."
       }
     }
   },
@@ -378,22 +357,80 @@
     "label": "Saisonale Auswahl",
     "heading": "Saisonale Angebote",
     "season": "(Mai bis September)",
-    "description": "Entdecken Sie unsere exklusiven saisonalen Angebote, die auf die besten Reisezeiten für Sri Lanka abgestimmt sind. Von sonnenverwöhnten Stränden bis hin zu üppigen Rückzugsorten im Hochland – jedes Paket ist darauf zugeschnitten, unvergessliche Erlebnisse während der idealen Jahreszeit zu bieten. Entdecken Sie Sri Lankas Schönheit das ganze Jahr über mit kuratierten Touren für jeden Reisenden!"
+    "description": "Entdecken Sie unsere exklusiven saisonalen Angebote."
   },
   "specialOffer": {
     "label": "Sonderangebote",
     "heading": "Exklusive Deals für Sie"
   },
   "tailorMade": {
-    "label": "Maßgeschneiderte Touren",
+    "label": "Individualreisen",
     "heading": "Ihre Reise,",
-    "desc": "Perfekt gestaltet",
-    "tags": ["Durchschnittlich 14 Tage", "100% Privat", "Vollständig geführt"],
-    "yearsExpert": "Jahre Erfahrung",
-    "subtext1": "Entdecken Sie Sri Lanka nach Ihren Wünschen – Reisen, die ganz auf Sie zugeschnitten sind.",
-    "subtext2": "Romantische Flitterwochen, Familienabenteuer oder exklusive Luxusreisen – unsere Spezialisten erstellen nahtlose Reiserouten mit exklusivem Zugang.",
-    "buttonPrimary": "Meine Reise gestalten",
-    "buttonSecondary": "Mit einem Experten sprechen →"
+    "desc": "Perfekt gestaltet. Personalisieren Sie jedes Detail Ihres Sri Lanka Abenteuers.",
+    "whyChooseUs": "Warum wir?",
+    "step1": "Reisepräferenzen",
+    "step2": "Urlaubsaktivitäten",
+    "step3": "Unterkunft & Verpflegung",
+    "step4": "Reisedetails",
+    "step5": "Kontaktinformationen",
+    "vehicleType": "Fahrzeugtyp",
+    "transportMethod": "Transportart",
+    "accommodation": "Unterkunftskategorie",
+    "mealPlan": "Verpflegung (Optional)",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum",
+    "phName": "Vollständiger Name",
+    "phEmail": "E-Mail-Adresse",
+    "btnSubmit": "Meine Anfrage senden",
+    "btnSending": "Code wird gesendet...",
+    "tags": [
+      "Ø 14 Tage",
+      "100% Privat",
+      "Professionelle Guides"
+    ],
+    "styles": {
+      "relaxed": "Entspannt",
+      "moderate": "Mittel",
+      "active": "Aktiv",
+      "luxury": "Luxus"
+    },
+    "vehicles": {
+      "car": "PKW",
+      "van": "Van",
+      "bus": "Bus"
+    },
+    "methods": {
+      "private": "Privater Fahrer",
+      "self": "Selbstfahrer",
+      "public": "Öffentliche Verkehrsmittel",
+      "combo": "Kombination"
+    },
+    "accTypes": {
+      "3star": "3 Sterne",
+      "4star": "4 Sterne",
+      "5star": "5 Sterne",
+      "own": "Ich organisiere selbst"
+    },
+    "meals": {
+      "roomOnly": "Nur Übernachtung",
+      "bb": "Frühstück (Ü/F)",
+      "hb": "Halbpension (HP)",
+      "fb": "Vollpension (VP)",
+      "allInc": "All Inclusive"
+    },
+    "activities": {
+      "nature": "Natur & Safari",
+      "culture": "Kulturerbe",
+      "beach": "Strandentspannung",
+      "trekking": "Trekking & Wandern",
+      "activity": "Aktivitäten & Spiele",
+      "boat": "Bootsausflüge",
+      "train": "Zugfahrten",
+      "factory": "Fabrikbesuche",
+      "watersports": "Wassersport",
+      "diving": "Tauchen & Schnorcheln",
+      "whales": "Walbeobachtung"
+    }
   },
   "testimonials": {
     "label": "Bewertungen",
