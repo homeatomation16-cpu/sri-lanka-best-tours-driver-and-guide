@@ -1,6 +1,12 @@
+"use client";
+
+import { contact } from "@/data/contact";
 import { Phone, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function ContactCTA() {
+  const t = useTranslations("contact");
+
   return (
     <section
       id="contact"
@@ -10,11 +16,11 @@ export default function ContactCTA() {
 
         {/* TITLE */}
         <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-          Let’s Plan Your Dream Trip
+          {t("title")}
         </h2>
 
         <p className="opacity-90 mb-14 text-lg">
-          Our team is available 24/7 to craft your perfect Sri Lanka journey
+          {t("subtitle")}
         </p>
 
         {/* CONTACT CARDS */}
@@ -22,7 +28,7 @@ export default function ContactCTA() {
 
           {/* PHONE */}
           <a
-            href="tel:+94702062697"
+            href={`tel:${contact.phone}`}
             className="group bg-white/15 backdrop-blur-xl border border-white/30 
                        p-8 rounded-2xl flex items-center justify-center gap-4
                        hover:bg-white hover:text-black transition-all duration-300
@@ -30,13 +36,13 @@ export default function ContactCTA() {
           >
             <Phone className="w-6 h-6 group-hover:text-orange-600" />
             <span className="text-lg font-semibold">
-              (+94) 702062697
+              {contact.phone}
             </span>
           </a>
 
           {/* EMAIL */}
           <a
-            href="mailto:info@srilankatoursdriver.com"
+            href={`mailto:${contact.email}`}
             className="group bg-white/15 backdrop-blur-xl border border-white/30 
                        p-8 rounded-2xl flex items-center justify-center gap-4
                        hover:bg-white hover:text-black transition-all duration-300
@@ -44,7 +50,7 @@ export default function ContactCTA() {
           >
             <Mail className="w-6 h-6 group-hover:text-orange-600" />
             <span className="text-lg font-semibold">
-              info@srilankatoursdriver.com
+              {contact.email}
             </span>
           </a>
 
@@ -52,7 +58,7 @@ export default function ContactCTA() {
 
         {/* BONUS LINE */}
         <p className="mt-14 text-sm opacity-90">
-          ⚡ Quick replies on WhatsApp • Personalized tour planning • Best price guarantee
+          {t("bonus")}
         </p>
 
       </div>
