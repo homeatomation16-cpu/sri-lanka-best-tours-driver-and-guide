@@ -1,0 +1,398 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "tours": "ツアー",
+    "destinations": "目的地",
+    "excursions": "エクスカーション",
+    "vehicles": "車両紹介",
+    "tailorMade": "オーダーメイドツアー",
+    "contact": "お問い合わせ",
+    "about": "私たちについて",
+    "whatsapp": "WhatsApp"
+  },
+  "hero": {
+    "tagline": "贅沢な体験を",
+    "brand": "スリランカ最高のドライバー＆ガイド",
+    "subtitle": "インド洋の真珠を探索する旅へ",
+    "cta": "ツアーを見る",
+    "ctaContact": "お問い合わせ"
+  },
+  "tours": {
+    "sectionLabel": "おすすめ",
+    "tagline": "プライベート・ドライバーガイド・ツアー · スリランカ",
+    "heading": "注目のツアーパッケージ",
+    "season": "（11月〜4月）",
+    "seasonDesc": "スリランカ南海岸を訪れる最高の時期は11月から5月中旬で、穏やかな海と完璧な天候を楽しめます。スリランカは一年中楽しめる目的地です！",
+    "viewAll": "すべてのツアーを見る",
+    "viewDetails": "詳細を見る →",
+    "from": "料金",
+    "days": "日間",
+    "day": "日",
+    "maxPeople": "最大 {count} 名",
+    "perPerson": "/ 1名あたり",
+    "duration": "期間",
+    "priceFrom": "最低料金",
+    "maxGroup": "最大人数",
+    "minAge": "対象年齢",
+    "pax": "名",
+    "overview": "ツアー概要",
+    "itinerary": "詳細な旅程",
+    "included": "料金に含まれるもの",
+    "notIncluded": "料金に含まれないもの",
+    "similarTours": "こちらもおすすめ",
+    "similarDesc": "関連するおすすめツアー",
+    "bookThis": "このツアーを予約する",
+    "sending": "リクエスト送信中...",
+    "sent": "✓ リクエストを送信しました",
+    "error": "エラー – 再試行してください",
+    "reserveYour": "ツアーを予約する",
+    "noPayment": "🔒 事前支払いは不要です",
+    "freeCancellation": "キャンセル無料",
+    "fastResponse": "迅速な対応",
+    "contactDirectly": "または直接お問い合わせください：",
+    "exploreTour": "ツアーを探索する",
+    "planPrivate": "プライベート日帰りツアーを計画する",
+    "luxuryDayTrips": "ラグジュアリー日帰り旅行",
+    "oneDayPackages": "1日ツアーパッケージ",
+    "upToGuests": "最大 {count} 名様まで"
+  },
+  
+  "vehicles": {
+    "whatsNew": "新着情報",
+    "heading": "スリランカ最高のレンタカーラインナップ",
+    "desc": "多言語対応の優秀なドライバーをご案内します：",
+    "viewAll": "すべての車両を見る",
+    "viewDetails": "詳細を見る",
+    "rentalInSL": "スリランカでのレンタル",
+    "overview": "概要",
+    "features": "主な特徴",
+    "passengers": "乗客定員",
+    "transmission": "トランスミッション",
+    "fuel": "燃料",
+    "rating": "評価",
+    "driverTitle": "熟練ドライバー",
+    "experience": "経験",
+    "included": "料金に含まれるもの",
+    "excluded": "料金に含まれないもの",
+    "parkingFees": "駐車場・通行料",
+    "entryTickets": "入場券",
+    "startsFrom": "料金：",
+    "day": "日",
+    "minBooking": "最短予約期間",
+    "mileage": "走行距離制限",
+    "disclaimer": "* 隠れた費用はありません。ドライバーへ直接お支払いください。",
+    "auto": "オートマ",
+    "petrol": "ガソリン"
+  }
+,
+  "about": {
+    "title": "Sri Lanka Tours Driver について",
+    "label": "私たちについて",
+    "heading": "あなたの旅の",
+    "headingHighlight": "計画を",
+    "headingEnd": "お手伝いします",
+    "desc1": "一年中輝く太陽、黄金のビーチ、古代都市、サファリ、そして温かい人々。スリランカは想像を超える忘れられない旅行体験を提供します。私たちはコロンボを拠点とする、政府公認のガイドチームです。",
+    "desc2": "10年以上の経験を活かし、スリランカの真の魅力に触れるプライベートな旅をご提案します。",
+    "checklist": {
+      "item1": "政府公認のプロフェッショナルガイド",
+      "item2": "プライベートツアー（他グループとの相乗りなし）",
+      "item3": "24時間365日の万全なサポート",
+      "item4": "透明性の高いオールインワン料金"
+    },
+    "cta": "お問い合わせ"
+  },
+  "stats": {
+    "experience": "年の経験",
+    "travelers": "満足された旅行者",
+    "support": "充実のサポート",
+    "certified": "公認・認定済み"
+  },
+  "whyUs": {
+    "label": "選ばれる理由",
+    "heading": "すべてのプロセスをスムーズに",
+    "travelConfidence": "最高の",
+    "confidence": "安心と共に",
+    "features": {
+      "agent": {
+        "title": "最高の旅行エージェント",
+        "desc": "スリランカ全土でプレミアムな体験を提供する、業界をリードするラグジュアリーツアーオペレーターです。"
+      },
+      "places": {
+        "title": "美しい場所",
+        "desc": "黄金のビーチ、古代都市、野生動物サファリなど、一年中楽しめる楽園の景色が待っています。"
+      },
+      "tailor": {
+        "title": "オーダーメイド",
+        "desc": "お客様の快適さとご希望に合わせて、完全にカスタマイズされたプライベートツアーを作成します。"
+      },
+      "transport": {
+        "title": "プライベート送迎",
+        "desc": "プロの多言語ドライバーが、近代的で快適な車両でご案内します。"
+      },
+      "price": {
+        "title": "ベストプライス保証",
+        "desc": "お支払いに見合う、最高品質のプレミアムサービスをお約束します。"
+      },
+      "booking": {
+        "title": "迅速なVIP予約",
+        "desc": "WhatsAppやメールでの優先対応、24時間体制のコンシェルジュサポートを提供します。"
+      },
+      "licensed": {
+        "title": "公認ツアーガイド",
+        "desc": "すべてのガイドは政府公認のプロフェッショナルであり、コロンボを拠点としています。"
+      },
+      "rated": {
+        "title": "5つ星のサービス",
+        "desc": "卓越したおもてなしと地元知識により、TripAdvisorで一貫して高い評価を得ています。"
+      },
+      "private": {
+        "title": "プライベート＆パーソナル",
+        "desc": "すべての旅はお客様のグループ専用です。相乗りバスや見知らぬ人との同行はありません。"
+      },
+      "passionate": {
+        "title": "スリランカへの情熱",
+        "desc": "私たちはこの島を愛する地元住民です。スリランカの最高の姿を体験していただきたいと願っています。"
+      },
+      "pata": {
+        "title": "PATA認定メンバー",
+        "desc": "スリランカ観光局および太平洋アジア観光協会（PATA）の公認メンバーです。"
+      },
+      "transparent": {
+        "title": "明朗な価格設定",
+        "desc": "隠れた費用はありません。事前に明確な価格を提示し、安心して旅行をお楽しみいただけます。"
+      }
+    }
+  },
+  "destinations": {
+    "label": "人気の目的地",
+    "heading": "スリランカの定番スポット",
+    "explore": "探索する"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "noWait": "もう待つ必要はありません",
+    "cta": "いつでもお気軽にご相談ください！",
+    "name": "お名前（フルネーム）",
+    "namePlaceholder": "お名前を入力してください",
+    "email": "メールアドレス",
+    "emailPlaceholder": "example@mail.com",
+    "whatsapp": "WhatsApp番号",
+    "date": "旅行予定日",
+    "time": "お迎え時間",
+    "notes": "ご要望・備考",
+    "notesPlaceholder": "食事の制限、追加の立ち寄り先、参加人数など...",
+    "submit": "メッセージを送信",
+    "nameRequired": "お名前とメールアドレスを入力してください。"
+  },
+  "trustBar": {
+    "accredited": "公認・認定",
+    "trustedBy": "観光当局からの信頼",
+    "stayConnected": "SNSで繋がる",
+    "followUs": "最新情報をチェック",
+    "available247": "24時間365日対応",
+    "planDream": "夢の旅行を計画しましょう",
+    "planDesc": "スリランカでの完璧な旅をご提案します。お好みの方法でご連絡ください。",
+    "callUs": "お電話でのご相談",
+    "emailUs": "メールでのご相談",
+    "whatsappDesc": "迅速な返信をお約束します",
+    "tagline": "⚡ WhatsAppでの迅速な返答 • パーソナライズされたプランニング • ベストプライス保証"
+  },
+  "footer": {
+    "brand": "Sri Lanka Best Tours Driver",
+    "desc": "プロのドライバーによるスリランカ全土のラグジュアリーなプライベートツアー。快適な移動とスタイリッシュな探検を。",
+    "quickLinks": "クイックリンク",
+    "gallery": "ギャラリー",
+    "about": "私たちについて",
+    "tours": "ツアー",
+    "contact": "お問い合わせ",
+    "newsletter": "限定オファーを受け取る",
+    "emailPlaceholder": "メールアドレス",
+    "subscribe": "購読する",
+    "copyright": "Sri Lanka Tours Driver — All Rights Reserved",
+    "subscribed": "購読が完了しました！"
+  },
+  "rates": {
+    "title": "ツアーパッケージ料金表",
+    "subtitle": "空港（CMB）発 固定料金",
+    "headers": {
+      "destination": "目的地",
+      "car": "普通車 (USD)",
+      "van": "バン (USD)",
+      "bus": "バス (USD)",
+      "duration": "所要時間（目安）",
+      "distance": "距離"
+    },
+    "units": {
+      "km": "km"
+    },
+    "destinations": {
+      "airport": "空港 (CMB)",
+      "aluthgama": "アルトゥガマ",
+      "anuradhapura": "アヌラーダプラ",
+      "arugam-bay": "アルガムベイ",
+      "beruwala": "ベルワラ",
+      "colombo": "コロンボ",
+      "dambulla": "ダンブッラ",
+      "ella": "エッラ",
+      "galle": "ゴール",
+      "hikkaduwa": "ヒッカドゥワ",
+      "kalutara": "カルタラ",
+      "kandy": "キャンディ",
+      "mirissa": "ミリッサ",
+      "negombo": "ネゴンボ",
+      "nuwara-eliya": "ヌワラエリヤ",
+      "pasikuda": "パシクダ",
+      "sigiriya-habarana": "シギリヤ（ハバラナ）",
+      "trincomalee": "トリンコマリー",
+      "udawalawa": "ウダー・ワラウェ"
+    }
+  },
+  "booking": {
+    "fullName": "お名前",
+    "namePlaceholder": "フルネームを入力",
+    "required": "*",
+    "email": "メールアドレス",
+    "emailPlaceholder": "example@mail.com",
+    "whatsapp": "WhatsApp番号",
+    "date": "旅行日",
+    "time": "お迎え時間",
+    "notes": "ご要望・備考",
+    "notesPlaceholder": "食事、立ち寄り先、人数など...",
+    "bookTour": "このツアーを予約する",
+    "sending": "送信中...",
+    "sent": "✓ 送信完了",
+    "error": "エラー – 再試行",
+    "whatsappOpened": "WhatsAppが開きました。そちらで予約を確定させてください。",
+    "noPayment": "🔒 事前支払いは不要です",
+    "freeCancellation": "キャンセル無料",
+    "fastResponse": "迅速な返信",
+    "contactDirectly": "または直接連絡する：",
+    "from": "から",
+    "reserveYour": "ツアーを予約する",
+    "perPerson": "/ 名あたり"
+  },
+  "loader": {
+    "tagline": "楽園の島を探索しましょう 🌴",
+    "loading": "アドベンチャーを読み込み中..."
+  },
+  "languageSwitcher": {
+    "label": "言語"
+  },
+  "destinationPage": {
+    "travelGuide": "旅行ガイド",
+    "subtitle": "インド洋の真珠にある、最も美しい場所を見つけましょう。",
+    "pearl": "インド洋の真珠",
+    "planYourVisit": "訪問を計画する",
+    "contactUs": "詳細についてはお問い合わせください",
+    "needHelp": "計画にお困りですか？",
+    "speakToSpecialist": "スリランカ専門スタッフに相談する",
+    "planTourHere": "ここでツアーを計画する",
+    "moreDestinations": "他の目的地",
+    "viewAll": "すべて見る",
+    "bestTime": "ベストシーズン",
+    "categories": {
+      "Heritage": "世界遺産",
+      "Religious": "宗教施設",
+      "City": "都市",
+      "Nature": "自然",
+      "Wildlife": "野生動物"
+    },
+    "destinations": {
+      "old-parliament-building": {
+        "title": "旧国会議事堂",
+        "category": "世界遺産",
+        "description": "1930年に完成した見事なネオ・バロック様式の建物で、53年間にわたりスリランカの立法府として使用されました。現在は大統領府として機能しています。"
+      },
+      "jami-ul-alfar-mosque": {
+        "title": "ジャミ・ウル・アルファー・モスク",
+        "category": "宗教施設",
+        "description": "赤白のシマシマの外観が有名で、ペター地区の象徴的なランドマークです。"
+      },
+      "colombo-city": {
+        "title": "コロンボ市内",
+        "category": "都市",
+        "description": "植民地時代の面影と近代的な高層ビル、活気あるナイトライフが融合したスリランカの商業首都です。"
+      },
+      "gangaramaya-temple": {
+        "title": "ガンガラマヤ寺院",
+        "category": "宗教施設",
+        "description": "コロンボで最も重要な仏教寺院の一つであり、現在は文化・教育センターとしても機能しています。"
+      },
+      "galle-face-green": {
+        "title": "ゴール・フェイス・グリーン",
+        "category": "自然",
+        "description": "夕日の絶景と屋台料理で人気のオーシャンサイド・パークです。"
+      },
+      "kelaniya-raja-maha-viharaya": {
+        "title": "ケラニヤ・ラジャ・マハ・ビハーラ",
+        "category": "宗教施設",
+        "description": "お釈迦様が訪れたと信じられている歴史的な仏教寺院です。"
+      },
+      "yala-national-park": {
+        "title": "ヤーラ国立公園",
+        "category": "野生動物",
+        "description": "世界で最もヒョウの生息密度が高い場所の一つとして知られています。"
+      },
+      "st-marys-church-negombo": {
+        "title": "ネゴンボ・聖マリア教会",
+        "category": "宗教施設",
+        "description": "美しい天井画で知られる、スリランカ最大級の大聖堂です。"
+      }
+    }
+  },
+  "excursions": {
+    "title": "私たちのツアー",
+    "label": "エクスカーション",
+    "explore": "探索する",
+    "subtitle": "インド洋の真珠で、最も美しい体験を見つけてください。",
+    "searchPlaceholder": "エクスカーションを検索...",
+    "allCategories": "すべて",
+    "sortLabel": "並び替え",
+    "sortAZ": "昇順 (A - Z)",
+    "sortZA": "降順 (Z - A)",
+    "footerTagline": "インド洋の真珠"
+  },
+  "excursionPage": {
+    "details": "エクスカーション詳細",
+    "price": "お一人様あたりの料金",
+    "whatsIncluded": "料金に含まれるもの",
+    "planCustomTour": "カスタムツアーを計画する",
+    "excursionInfo": "エクスカーション情報",
+    "pickupTime": "お迎え時間",
+    "contactUs": "詳細についてはお問い合わせください",
+    "needHelp": "お困りですか？",
+    "speakToSpecialist": "スペシャリストに相談する",
+    "moreExcursions": "他のエクスカーション",
+    "viewAll": "すべて見る",
+    "categories": {
+      "Heritage": "世界遺産",
+      "Religious": "宗教施設",
+      "City": "都市",
+      "Nature": "自然",
+      "Wildlife": "野生動物",
+      "Cultural": "文化体験",
+      "Beach": "ビーチ"
+    }
+  },
+  "seasonal": {
+    "label": "季節のツアー",
+    "heading": "ベストシーズンのツアー"
+  },
+  "specialOffer": {
+    "label": "スペシャルオファー",
+    "heading": "あなたへの特別プラン"
+  },
+  "tailorMade": {
+    "label": "オーダーメイド",
+    "heading": "自分だけの体験を",
+    "desc": "あなたの理想の旅を教えてください。私たちが実現します。"
+  },
+  "testimonials": {
+    "label": "お客様の声",
+    "heading": "ゲストからのメッセージ"
+  },
+  "gallery": {
+    "label": "ギャラリー",
+    "heading": "スリランカの瞬間"
+  }
+}

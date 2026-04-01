@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  --font-accent: var(--font-thea);
+
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-heading);
+
+  --padding: 10vmin;
+  --color-background: #d0cbc7;
+
+ 
+  --font-size-large: 40px;
+  --font-size-medium: 18px;
+  --font-size-normal: 14px;
+}
+
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  min-width: 100%;
+  font-family: var(--font-poppins), sans-serif;
+  background-color: var(--color-background);
+  font-weight: 400;
+  font-size: var(--font-size-normal);
+  overflow-x: hidden;
+}
+.text-stroke-custom {
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgb(236, 156, 8);
+  -webkit-text-fill-color: white; 
+  
+}
+
+.font-thea {
+  font-family: var(--font-thea);
+}
+
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ground-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax {
+  position: absolute;
+  inset: 0;
+  bottom: -100px;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  transform-origin: top center;
+}
+/* Hide Google Translate top banner */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+/* Prevent page from moving down */
+body {
+  top: 0px !important;
+}
+
+/* Hide Google logo */
+.goog-logo-link {
+  display: none !important;
+}
+
+/* Remove Google gadget text */
+.goog-te-gadget {
+  font-size: 0px !important;
+}
+
+/* Style dropdown */
+.goog-te-combo {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}

@@ -1,0 +1,398 @@
+{
+  "nav": {
+    "home": "首页",
+    "tours": "多日游",
+    "destinations": "目的地",
+    "excursions": "短途游",
+    "vehicles": "车队介绍",
+    "tailorMade": "私人定制",
+    "contact": "联系我们",
+    "about": "关于我们",
+    "whatsapp": "WhatsApp"
+  },
+  "hero": {
+    "tagline": "高端旅行体验",
+    "brand": "斯里兰卡顶级司机兼导游",
+    "subtitle": "探索印度洋上的明珠",
+    "cta": "探索行程",
+    "ctaContact": "联系我们"
+  },
+  "tours": {
+    "sectionLabel": "推荐行程",
+    "tagline": "私人司机导游陪同 · 斯里兰卡全境",
+    "heading": "精品旅游包团",
+    "season": "（11月至4月）",
+    "seasonDesc": "访问斯里兰卡南海岸的最佳时期是11月至次年5月中旬。斯里兰卡是全年皆宜的旅游目的地！",
+    "viewAll": "查看所有行程",
+    "viewDetails": "查看详情 →",
+    "from": "起价",
+    "days": "天",
+    "day": "天",
+    "maxPeople": "最多 {count} 人",
+    "perPerson": "/ 人",
+    "duration": "行程时长",
+    "priceFrom": "参考起价",
+    "maxGroup": "最高人数",
+    "minAge": "最低年龄",
+    "pax": "人",
+    "overview": "行程概览",
+    "itinerary": "详细行程表",
+    "included": "费用包含",
+    "notIncluded": "费用不含",
+    "similarTours": "您可能还会喜欢",
+    "similarDesc": "我们为您推荐的相似行程",
+    "bookThis": "预订此行程",
+    "sending": "正在发送请求...",
+    "sent": "✓ 请求已发送",
+    "error": "错误 – 请重试",
+    "reserveYour": "预订您的旅程",
+    "noPayment": "🔒 目前无需支付费用",
+    "freeCancellation": "免费取消",
+    "fastResponse": "极速响应",
+    "contactDirectly": "或者直接联系我们：",
+    "exploreTour": "探索行程",
+    "planPrivate": "规划私人一日游",
+    "luxuryDayTrips": "豪华单日往返",
+    "oneDayPackages": "一日游套餐",
+    "upToGuests": "最多可容纳 {count} 位宾客"
+  },
+  
+  "vehicles": {
+    "whatsNew": "最新动态",
+    "heading": "斯里兰卡顶尖租车车队",
+    "desc": "我们提供最优秀的多语种司机，服务于",
+    "viewAll": "查看所有车型",
+    "viewDetails": "查看详情",
+    "rentalInSL": "斯里兰卡租车服务",
+    "overview": "概览",
+    "features": "核心配置",
+    "passengers": "乘客人数",
+    "transmission": "变速箱",
+    "fuel": "燃料类型",
+    "rating": "评分",
+    "driverTitle": "资深司机",
+    "experience": "从业经验",
+    "included": "费用包含",
+    "excluded": "费用不含",
+    "parkingFees": "停车费与过路费",
+    "entryTickets": "景点门票",
+    "startsFrom": "起价",
+    "day": "天",
+    "minBooking": "起租天数",
+    "mileage": "里程限制",
+    "disclaimer": "* 无隐藏费用。直接支付给司机。",
+    "auto": "自动挡",
+    "petrol": "汽油"
+  }
+,
+  "about": {
+    "title": "关于 Sri Lanka Tours Driver",
+    "label": "关于我们",
+    "heading": "我们协助您",
+    "headingHighlight": "规划",
+    "headingEnd": "您的完美旅程",
+    "desc1": "全年灿烂的阳光、金色的沙滩、古老的城市、野性的萨法里和热情的当地人——斯里兰卡为您提供难忘的旅行体验。我们是总部位于科伦坡的持证导游团队。",
+    "desc2": "凭借十余年的丰富经验，我们精心打造私人定制旅程，带您深入探索斯里兰卡的真实魅力。",
+    "checklist": {
+      "item1": "政府持证专业导游",
+      "item2": "私人独立团——无拼团，不与陌生人同行",
+      "item3": "24/7 全天候客户支持",
+      "item4": "价格透明，全包定价"
+    },
+    "cta": "联系我们"
+  },
+  "stats": {
+    "experience": "年行业经验",
+    "travelers": "满意的游客",
+    "support": "全天候支持",
+    "certified": "持证与认证"
+  },
+  "whyUs": {
+    "label": "为何选择我们",
+    "heading": "我们让一切流程变得简单",
+    "travelConfidence": "携手专业",
+    "confidence": "放心旅行",
+    "features": {
+      "agent": {
+        "title": "顶级旅行代理",
+        "desc": "斯里兰卡领先的豪华旅游运营商，提供高端定制体验。"
+      },
+      "places": {
+        "title": "风景如画",
+        "desc": "全年皆有的金色沙滩、古迹巡礼和热带天堂风光。"
+      },
+      "tailor": {
+        "title": "私人定制",
+        "desc": "完全根据您的舒适度和偏好量身打造的独立行程。"
+      },
+      "transport": {
+        "title": "私人交通",
+        "desc": "配备现代化、舒适的车辆以及专业的双语司机。"
+      },
+      "price": {
+        "title": "最佳价格保证",
+        "desc": "优质的服务体验，不辜负您的每一分旅行投入。"
+      },
+      "booking": {
+        "title": "尊享 VIP 快速预订",
+        "desc": "优先响应——24/7 礼宾支持。"
+      },
+      "licensed": {
+        "title": "持证导游",
+        "desc": "所有导游均为政府持证专业人员。"
+      },
+      "rated": {
+        "title": "五星级评价服务",
+        "desc": "在 TripAdvisor 上因卓越的热情待客而屡获好评。"
+      },
+      "private": {
+        "title": "私密与个性化",
+        "desc": "每一段旅程均为您专属打造——无大巴拼团。"
+      },
+      "passionate": {
+        "title": "热爱斯里兰卡",
+        "desc": "我们是热爱这片土地的当地人，渴望展示这里最美的一面。"
+      },
+      "pata": {
+        "title": "PATA 与旅游局认证单位",
+        "desc": "斯里兰卡旅游局及亚太旅游协会 (PATA) 正式会员。"
+      },
+      "transparent": {
+        "title": "透明定价",
+        "desc": "无隐藏费用。清晰的前期报价，让您旅行无忧。"
+      }
+    }
+  },
+  "destinations": {
+    "label": "热门目的地",
+    "heading": "斯里兰卡必游目的地",
+    "explore": "探索"
+  },
+  "contact": {
+    "title": "联系我们",
+    "noWait": "即刻启程",
+    "cta": "随时咨询！",
+    "name": "全名",
+    "namePlaceholder": "您的全名",
+    "email": "电子邮箱",
+    "emailPlaceholder": "your.email@example.com",
+    "whatsapp": "WhatsApp 号码",
+    "date": "旅行日期",
+    "time": "接送时间",
+    "notes": "特别要求 / 备注",
+    "notesPlaceholder": "备注详情...",
+    "submit": "提交申请",
+    "nameRequired": "请填写您的姓名和电子邮箱。"
+  },
+  "trustBar": {
+    "accredited": "官方认证与认可",
+    "trustedBy": "旅游权威机构推荐",
+    "stayConnected": "保持联系",
+    "followUs": "关注我们",
+    "available247": "24/7 全天候服务",
+    "planDream": "打造您的梦幻之旅",
+    "planDesc": "我们的团队已准备好为您定制完美的行程。",
+    "callUs": "拨打电话",
+    "emailUs": "发送邮件",
+    "whatsappDesc": "回复极速保证",
+    "tagline": "⚡ WhatsApp 快速响应 • 个性化规划 • 最佳价格保证"
+  },
+  "footer": {
+    "brand": "斯里兰卡顶级旅游司机",
+    "desc": "提供斯里兰卡全境豪华私人团。舒适出行，尊享品质。",
+    "quickLinks": "快速链接",
+    "gallery": "图片展示",
+    "about": "关于我们",
+    "tours": "多日游",
+    "contact": "联系我们",
+    "newsletter": "获取独家优惠",
+    "emailPlaceholder": "您的电子邮箱",
+    "subscribe": "立即订阅",
+    "copyright": "斯里兰卡旅游司机 — 版权所有",
+    "subscribed": "订阅成功！"
+  },
+  "rates": {
+    "title": "旅游套餐资费表",
+    "subtitle": "自机场 (CMB) 出发的固定费率",
+    "headers": {
+      "destination": "目的地",
+      "car": "轿车 (USD)",
+      "van": "面包车 (USD)",
+      "bus": "中巴/巴士 (USD)",
+      "duration": "预计用时",
+      "distance": "距离"
+    },
+    "units": {
+      "km": "公里"
+    },
+    "destinations": {
+      "airport": "机场 (CMB)",
+      "aluthgama": "阿鲁特格默",
+      "anuradhapura": "阿努拉德普勒",
+      "arugam-bay": "阿鲁甘湾",
+      "beruwala": "贝鲁沃勒",
+      "colombo": "科伦坡",
+      "dambulla": "丹布勒",
+      "ella": "埃勒",
+      "galle": "加勒",
+      "hikkaduwa": "希ッカ杜沃",
+      "kalutara": "卡卢特勒",
+      "kandy": "康提",
+      "mirissa": "米瑞莎",
+      "negombo": "尼甘布",
+      "nuwara-eliya": "努沃勒埃利耶",
+      "pasikuda": "帕西库达",
+      "sigiriya-habarana": "锡吉里耶 (哈伯勒内)",
+      "trincomalee": "亭可马里",
+      "udawalawa": "乌达瓦拉维"
+    }
+  },
+  "booking": {
+    "fullName": "全名",
+    "namePlaceholder": "您的全名",
+    "required": "*",
+    "email": "电子邮箱",
+    "emailPlaceholder": "your.email@example.com",
+    "whatsapp": "WhatsApp 号码",
+    "date": "旅行日期",
+    "time": "接送时间",
+    "notes": "特别要求 / 备注",
+    "notesPlaceholder": "备注详情...",
+    "bookTour": "预订行程",
+    "sending": "发送中...",
+    "sent": "✓ 申请已发送",
+    "error": "错误 – 请重试",
+    "whatsappOpened": "WhatsApp 已打开，请在应用内确认预订。",
+    "noPayment": "🔒 目前无需支付",
+    "freeCancellation": "免费取消",
+    "fastResponse": "极速响应",
+    "contactDirectly": "或直接联系我们：",
+    "from": "起价",
+    "reserveYour": "预订行程",
+    "perPerson": "/ 人"
+  },
+  "loader": {
+    "tagline": "探索天堂岛 🌴",
+    "loading": "冒险即将开启..."
+  },
+  "languageSwitcher": {
+    "label": "选择语言"
+  },
+  "destinationPage": {
+    "travelGuide": "旅行指南",
+    "subtitle": "探索印度洋明珠上最美丽的秘境。",
+    "pearl": "印度洋上的明珠",
+    "planYourVisit": "规划访问",
+    "contactUs": "获取详情",
+    "needHelp": "需要规划帮助？",
+    "speakToSpecialist": "咨询专家",
+    "planTourHere": "由此规划",
+    "moreDestinations": "更多目的地",
+    "viewAll": "查看全部",
+    "bestTime": "最佳时期",
+    "categories": {
+      "Heritage": "文化遗产",
+      "Religious": "宗教圣地",
+      "City": "都市",
+      "Nature": "自然",
+      "Wildlife": "野生动物"
+    },
+    "destinations": {
+      "old-parliament-building": {
+        "title": "旧国会大厦",
+        "category": "文化遗产",
+        "description": "建于1930年的新巴洛克风格建筑，曾作为立法机构所在地长达53年。"
+      },
+      "jami-ul-alfar-mosque": {
+        "title": "红色清真寺",
+        "category": "宗教圣地",
+        "description": "以红白相间的条纹砖外墙闻名，是佩塔区的地标。"
+      },
+      "colombo-city": {
+        "title": "科伦坡市区",
+        "category": "都市",
+        "description": "斯里兰卡的商业首都，融合了殖民遗产与现代建筑。"
+      },
+      "gangaramaya-temple": {
+        "title": "冈嘎拉马寺庙",
+        "category": "宗教圣地",
+        "description": "科伦坡最古老的佛教寺庙之一，也是文化教育中心。"
+      },
+      "galle-face-green": {
+        "title": "加勒费斯绿地",
+        "category": "自然",
+        "description": "紧邻大海的城市公园，以日落美景和路边美食闻名。"
+      },
+      "kelaniya-raja-maha-viharaya": {
+        "title": "凯拉尼亚皇家大寺",
+        "category": "宗教圣地",
+        "description": "历史悠久的佛教寺庙，被视为最神圣的宗教场所之一。"
+      },
+      "yala-national-park": {
+        "title": "雅拉国家公园",
+        "category": "野生动物",
+        "description": "以极高的花豹观测密度而闻名于世。"
+      },
+      "st-marys-church-negombo": {
+        "title": "尼甘布圣玛丽教堂",
+        "category": "宗教圣地",
+        "description": "斯里兰卡最大的天主教堂之一，以其精美的壁画著称。"
+      }
+    }
+  },
+  "excursions": {
+    "title": "短途游项目",
+    "label": "短途游",
+    "explore": "探索",
+    "subtitle": "在印度洋明珠全境发现最美丽的体验。",
+    "searchPlaceholder": "搜索项目...",
+    "allCategories": "全部类型",
+    "sortLabel": "排序",
+    "sortAZ": "名称 (A - Z)",
+    "sortZA": "名称 (Z - A)",
+    "footerTagline": "印度洋上的明珠"
+  },
+  "excursionPage": {
+    "details": "项目详情",
+    "price": "每人费用",
+    "whatsIncluded": "费用包含",
+    "planCustomTour": "私人定制行程",
+    "excursionInfo": "基本信息",
+    "pickupTime": "接送时间",
+    "contactUs": "获取详情",
+    "needHelp": "需要帮助？",
+    "speakToSpecialist": "咨询专家",
+    "moreExcursions": "更多项目",
+    "viewAll": "查看全部",
+    "categories": {
+      "Heritage": "文化遗产",
+      "Religious": "宗教圣地",
+      "City": "城市观光",
+      "Nature": "自然风光",
+      "Wildlife": "野生动物",
+      "Cultural": "文化体验",
+      "Beach": "海滨度假"
+    }
+  },
+  "seasonal": {
+    "label": "季节性行程",
+    "heading": "当前最佳季节推荐"
+  },
+  "specialOffer": {
+    "label": "限时优惠",
+    "heading": "专属您的特惠"
+  },
+  "tailorMade": {
+    "label": "定制团",
+    "heading": "量身打造体验",
+    "desc": "告诉我们您的梦想行程，我们将为您实现。"
+  },
+  "testimonials": {
+    "label": "客户评价",
+    "heading": "宾客心声"
+  },
+  "gallery": {
+    "label": "相册",
+    "heading": "精彩瞬间"
+  }
+}

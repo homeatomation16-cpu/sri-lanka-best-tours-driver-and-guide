@@ -1,0 +1,320 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "tours": "الجولات",
+    "destinations": "الوجهات",
+    "excursions": "الرحلات القصيرة",
+    "vehicles": "المركبات",
+    "tailorMade": "جولات مخصصة",
+    "contact": "اتصل بنا",
+    "about": "من نحن",
+    "whatsapp": "واتساب"
+  },
+  "hero": {
+    "tagline": "تجربة فاخرة",
+    "brand": "أفضل سائق ودليل سياحي في سريلانكا",
+    "subtitle": "اكتشف لؤلؤة المحيط الهندي",
+    "cta": "استكشف الجولات",
+    "ctaContact": "تواصل معنا"
+  },
+  "tours": {
+    "sectionLabel": "موصى به",
+    "tagline": "جولة خاصة مع سائق ومرشد · سريلانكا",
+    "heading": "باقات الجولات المميزة",
+    "season": "(نوفمبر إلى أبريل)",
+    "seasonDesc": "أفضل وقت لزيارة الساحل الجنوبي لسريلانكا هو من نوفمبر إلى منتصف مايو، حيث الطقس المثالي والبحار الهادئة. سريلانكا وجهة سياحية طوال العام!",
+    "viewAll": "عرض جميع الجولات",
+    "viewDetails": "عرض التفاصيل ←",
+    "from": "من",
+    "days": "أيام",
+    "day": "يوم",
+    "maxPeople": "أقصى {count} أشخاص",
+    "perPerson": "/ شخص",
+    "duration": "المدة",
+    "priceFrom": "السعر من",
+    "maxGroup": "أقصى مجموعة",
+    "minAge": "الحد الأدنى للعمر",
+    "pax": "راكب",
+    "overview": "نظرة عامة على الجولة",
+    "itinerary": "البرنامج التفصيلي",
+    "included": "ما هو مشمول",
+    "notIncluded": "غير مشمول",
+    "similarTours": "قد يعجبك أيضاً",
+    "similarDesc": "جولات مماثلة نوصي بها",
+    "bookThis": "احجز هذه الجولة",
+    "sending": "جارٍ إرسال الطلب...",
+    "sent": "✓ تم إرسال الطلب",
+    "error": "خطأ – حاول مجدداً",
+    "reserveYour": "احجز جولتك",
+    "noPayment": "🔒 لا يلزم الدفع الآن",
+    "freeCancellation": "إلغاء مجاني",
+    "fastResponse": "رد سريع",
+    "contactDirectly": "أو تواصل معنا مباشرة:",
+    "exploreTour": "استكشف الجولة",
+    "planPrivate": "خطط لجولة خاصة ليوم واحد",
+    "luxuryDayTrips": "رحلات يومية فاخرة",
+    "oneDayPackages": "باقات الجولة لليوم الواحد",
+    "upToGuests": "حتى {count} ضيوف"
+  },
+  
+  "vehicles": {
+    "whatsNew": "الجديد",
+    "heading": "أفضل أسطول لتأجير السيارات في سريلانكا",
+    "desc": "نحن نقدم أفضل السائقين الذين يتحدثون",
+    "viewAll": "عرض جميع المركبات",
+    "viewDetails": "عرض التفاصيل",
+    "rentalInSL": "تأجير في سريلانكا",
+    "overview": "نظرة عامة",
+    "features": "الميزات الرئيسية",
+    "passengers": "ركاب",
+    "transmission": "ناقل الحركة",
+    "fuel": "وقود",
+    "rating": "تقييم",
+    "driverTitle": "سائق خبير",
+    "experience": "خبرة",
+    "included": "ما يشمله السعر",
+    "excluded": "ما لا يشمله السعر",
+    "parkingFees": "رسوم المواقف والطرق",
+    "entryTickets": "تذاكر الدخول",
+    "startsFrom": "يبدأ من",
+    "day": "يوم",
+    "minBooking": "أدنى حجز",
+    "mileage": "حد الكيلومترات",
+    "disclaimer": "* لا توجد تكاليف خفية. الدفع المباشر للسائق.",
+    "auto": "أوتوماتيك",
+    "petrol": "بنزين"
+  }
+,
+  "about": {
+    "title": "عن Sri Lanka Tours Driver",
+    "label": "من نحن",
+    "heading": "نساعدك في",
+    "headingHighlight": "تخطيط",
+    "headingEnd": "رحلتك",
+    "desc1": "شمس مشرقة طوال العام، شواطئ ذهبية، مدن عريقة، رحلات سفاري، ناس رائعون في جنة استوائية — تقدم سريلانكا تجربة سفر لا تُنسى. نحن فريق مرشدين سياحيين مرخصين مقرنا كولومبو، سريلانكا.",
+    "desc2": "بخبرة تزيد على عشر سنوات، نصمم رحلات خاصة ومخصصة تربطك بقلب سريلانكا الحقيقي.",
+    "checklist": {
+      "item1": "مرشدون محترفون مرخصون حكومياً",
+      "item2": "جولات خاصة — لا مجموعات مشتركة",
+      "item3": "متاحون على مدار الساعة لمساعدتك",
+      "item4": "أسعار شفافة وشاملة"
+    },
+    "cta": "تواصل معنا"
+  },
+  "stats": {
+    "experience": "سنوات خبرة",
+    "travelers": "مسافرون سعداء",
+    "support": "دعم متاح",
+    "certified": "مرخص ومعتمد"
+  },
+  "whyUs": {
+    "label": "لماذا تختارنا",
+    "heading": "نجعل العملية بأكملها سهلة",
+    "travelConfidence": "سافر",
+    "confidence": "بثقة",
+    "features": {
+      "agent": { "title": "أفضل وكيل سفر", "desc": "مشغل سياحي فاخر رائد يقدم تجارب سفر متميزة." },
+      "places": { "title": "أماكن جميلة", "desc": "شواطئ ذهبية ومدن عريقة ورحلات سفاري." },
+      "tailor": { "title": "جولات مخصصة", "desc": "جولات خاصة مخصصة بالكامل وفق راحتك." },
+      "transport": { "title": "نقل خاص", "desc": "مركبات حديثة ومريحة مع سائقين محترفين." },
+      "price": { "title": "ضمان أفضل سعر", "desc": "جودة خدمة متميزة تعادل كل دولار تستثمره." },
+      "booking": { "title": "حجز VIP سريع", "desc": "استجابة ذات أولوية عبر واتساب والبريد الإلكتروني." },
+      "licensed": { "title": "مرشدون مرخصون", "desc": "جميع مرشدينا محترفون مرخصون حكومياً." },
+      "rated": { "title": "خدمة 5 نجوم", "desc": "حظي بإشادة متواصلة على TripAdvisor." },
+      "private": { "title": "خاص ومخصص", "desc": "كل رحلة مصممة لمجموعتك — لا حافلات مشتركة." },
+      "passionate": { "title": "شغف بسريلانكا", "desc": "نحن سكان محليون نحب هذه الجزيرة." },
+      "pata": { "title": "معتمد من PATA", "desc": "أعضاء معترف بهم في هيئة سياحة سريلانكا." },
+      "transparent": { "title": "أسعار شفافة", "desc": "لا رسوم خفية. تسعير واضح مسبق." }
+    }
+  },
+  "destinations": {
+    "label": "أفضل الوجهات",
+    "heading": "الوجهات الشعبية في سريلانكا",
+    "explore": "استكشف"
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "noWait": "لا تنتظر أكثر",
+    "cta": "تواصل معنا في أي وقت!",
+    "name": "الاسم الكامل",
+    "namePlaceholder": "اسمك الكامل",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "your.email@example.com",
+    "whatsapp": "رقم واتساب",
+    "date": "تاريخ السفر",
+    "time": "وقت الاستلام",
+    "notes": "طلبات خاصة / ملاحظات",
+    "notesPlaceholder": "ملاحظات إضافية...",
+    "submit": "إرسال الرسالة",
+    "nameRequired": "يرجى تعبئة اسمك وبريدك الإلكتروني."
+  },
+  "trustBar": {
+    "accredited": "معتمد ومعترف به",
+    "trustedBy": "موثوق به من قِبل هيئات السياحة",
+    "stayConnected": "ابقَ على تواصل",
+    "followUs": "تابعنا على وسائل التواصل الاجتماعي",
+    "available247": "نحن هنا لك على مدار الساعة",
+    "planDream": "لنخطط لرحلة أحلامك",
+    "planDesc": "فريقنا مستعد لصياغة رحلتك المثالية في سريلانكا.",
+    "callUs": "اتصل بنا في أي وقت",
+    "emailUs": "راسلنا بالبريد الإلكتروني",
+    "whatsappDesc": "ردود سريعة مضمونة",
+    "tagline": "⚡ ردود سريعة عبر واتساب • تخطيط مخصص • ضمان أفضل سعر"
+  },
+  "footer": {
+    "brand": "Sri Lanka Best Tours Driver",
+    "desc": "جولات خاصة فاخرة عبر سريلانكا مع سائقين محترفين. سافر براحة، استكشف بأناقة.",
+    "quickLinks": "روابط سريعة",
+    "gallery": "معرض الصور",
+    "about": "من نحن",
+    "tours": "الجولات",
+    "contact": "التواصل",
+    "newsletter": "احصل على عروض فاخرة",
+    "emailPlaceholder": "بريدك الإلكتروني",
+    "subscribe": "اشترك",
+    "copyright": "Sri Lanka Tours Driver — جميع الحقوق محفوظة",
+    "subscribed": "تم الاشتراك بنجاح!"
+  },
+  "rates": {
+    "title": "أسعار باقات الجولات",
+    "subtitle": "أسعار ثابتة من مطار كولومبو (CMB)",
+    "headers": {
+      "destination": "الوجهة",
+      "car": "سيارة (USD)",
+      "van": "فان (USD)",
+      "bus": "حافلة (USD)",
+      "duration": "المدة التقديرية",
+      "distance": "المسافة"
+    },
+    "units": {
+      "km": "كم"
+    },
+    "destinations": {
+      "airport": "المطار (CMB)",
+      "aluthgama": "ألوتغاما",
+      "anuradhapura": "أنورادابورا",
+      "arugam-bay": "خليج أروغام",
+      "beruwala": "بيرويلا",
+      "colombo": "كولومبو",
+      "dambulla": "دامبولا",
+      "ella": "إيلا",
+      "galle": "غالي",
+      "hikkaduwa": "هيكادوا",
+      "kalutara": "كلوتارا",
+      "kandy": "كاندي",
+      "mirissa": "ميريسا",
+      "negombo": "نيغومبو",
+      "nuwara-eliya": "نوارا إليا",
+      "pasikuda": "باسيكودا",
+      "sigiriya-habarana": "سيجيريا (هابارانا)",
+      "trincomalee": "ترينكومالي",
+      "udawalawa": "أوداوالاوي"
+    }
+  },
+  "booking": {
+    "fullName": "الاسم الكامل",
+    "namePlaceholder": "اسمك الكامل",
+    "required": "*",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "your.email@example.com",
+    "whatsapp": "رقم واتساب",
+    "date": "تاريخ السفر",
+    "time": "وقت الاستلام",
+    "notes": "طلبات خاصة / ملاحظات",
+    "notesPlaceholder": "ملاحظات إضافية...",
+    "bookTour": "احجز هذه الجولة",
+    "sending": "جارٍ إرسال الطلب...",
+    "sent": "✓ تم إرسال الطلب",
+    "error": "خطأ – حاول مجدداً",
+    "whatsappOpened": "تم فتح واتساب — يرجى تأكيد حجزك هناك.",
+    "noPayment": "🔒 لا يلزم الدفع الآن",
+    "freeCancellation": "إلغاء مجاني",
+    "fastResponse": "رد سريع",
+    "contactDirectly": "أو تواصل معنا مباشرة:",
+    "from": "من",
+    "reserveYour": "احجز جولتك",
+    "perPerson": "/ شخص"
+  },
+  "loader": {
+    "tagline": "استكشف جزيرة الفردوس 🌴",
+    "loading": "جارٍ تحميل مغامرتك..."
+  },
+  "seasonal": {
+    "label": "الجولات الموسمية",
+    "heading": "أفضل جولات الموسم"
+  },
+  "specialOffer": {
+    "label": "عروض خاصة",
+    "heading": "صفقات حصرية لك"
+  },
+  "tailorMade": {
+    "label": "جولات مخصصة",
+    "heading": "تجارب مصممة خصيصاً",
+    "desc": "أخبرنا ببرنامج أحلامك وسنحققه لك."
+  },
+  "testimonials": {
+    "label": "التقييمات",
+    "heading": "ماذا يقول ضيوفنا"
+  },
+  "gallery": {
+    "label": "معرض الصور",
+    "heading": "لحظات من سريلانكا"
+  },
+  "languageSwitcher": {
+    "label": "اللغة"
+  },
+  "destinationPage": {
+    "travelGuide": "دليل السفر",
+    "subtitle": "اكتشف أجمل الأماكن في لؤلؤة المحيط الهندي.",
+    "pearl": "لؤلؤة المحيط الهندي",
+    "planYourVisit": "خطط لزيارتك",
+    "contactUs": "اتصل بنا للحصول على التفاصيل",
+    "needHelp": "هل تحتاج إلى مساعدة في التخطيط؟",
+    "speakToSpecialist": "تحدث إلى خبرائنا في سريلانكا",
+    "planTourHere": "خطط لرحلة هنا",
+    "moreDestinations": "وجهات إضافية",
+    "viewAll": "عرض الكل",
+    "bestTime": "أفضل وقت للزيارة",
+    "categories": {
+      "Heritage": "تراث", "Religious": "ديني", "City": "مدينة", "Nature": "طبيعة", "Wildlife": "حياة برية"
+    },
+    "destinations": {
+      "old-parliament-building": { "title": "مبنى البرلمان القديم", "category": "تراث", "description": "مبنى رائع على الطراز الباروكي الجديد." },
+      "jami-ul-alfar-mosque": { "title": "جامع جامع الألفار", "category": "ديني", "description": "المعروف باسم المسجد الأحمر." },
+      "colombo-city": { "title": "مدينة كولومبو", "category": "مدينة", "description": "العاصمة التجارية لسريلانكا." },
+      "gangaramaya-temple": { "title": "معبد غانغارامايا", "category": "ديني", "description": "واحد من أهم المعابد في كولومبو." },
+      "galle-face-green": { "title": "غالي فيس غرين", "category": "طبيعة", "description": "منتزه شهير على المحيط." },
+      "kelaniya-raja-maha-viharaya": { "title": "كيلانيا راجا ماها فيهارايا", "category": "ديني", "description": "معبد بوذي تاريخي." },
+      "yala-national-park": { "title": "محمية يالا الوطنية", "category": "حياة برية", "description": "تضم أعلى كثافات النمور." },
+      "st-marys-church-negombo": { "title": "كنيسة القديسة مريم", "category": "ديني", "description": "واحدة من أكبر الكاتدرائيات." }
+    }
+  },
+  "excursions": {
+    "title": "رحلاتنا",
+    "label": "الرحلات",
+    "explore": "استكشف",
+    "subtitle": "اكتشف أجمل التجارب في جميع أنحاء لؤلؤة المحيط الهندي.",
+    "searchPlaceholder": "ابحث عن الرحلات...",
+    "allCategories": "الكل",
+    "sortLabel": "ترتيب",
+    "sortAZ": "أ - ي",
+    "sortZA": "ي - أ",
+    "footerTagline": "لؤلؤة المحيط الهندي"
+  },
+  "excursionPage": {
+    "details": "تفاصيل الرحلة",
+    "price": "السعر للشخص الواحد",
+    "whatsIncluded": "ما الذي تشمله الرحلة",
+    "planCustomTour": "خطط لجولة مخصصة",
+    "excursionInfo": "معلومات الرحلة",
+    "pickupTime": "وقت الاستلام",
+    "contactUs": "تواصل معنا لمزيد من التفاصيل",
+    "needHelp": "هل تحتاج مساعدة؟",
+    "speakToSpecialist": "تحدث مع متخصصينا",
+    "moreExcursions": "المزيد من الرحلات",
+    "viewAll": "عرض الكل",
+    "categories": {
+      "Heritage": "تراث", "Religious": "ديني", "City": "مدينة", "Nature": "طبيعة", "Wildlife": "حياة برية", "Cultural": "ثقافي", "Beach": "شاطئ"
+    }
+  }
+}

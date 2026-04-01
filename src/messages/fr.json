@@ -1,0 +1,398 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "tours": "Circuits",
+    "destinations": "Destinations",
+    "excursions": "Excursions",
+    "vehicles": "Véhicules",
+    "tailorMade": "Voyages sur Mesure",
+    "contact": "Contact",
+    "about": "À Propos",
+    "whatsapp": "WhatsApp"
+  },
+  "hero": {
+    "tagline": "Expérience de Luxe",
+    "brand": "Le Meilleur Guide & Chauffeur au Sri Lanka",
+    "subtitle": "Découvrez la Perle de l'Océan Indien",
+    "cta": "Explorer les Circuits",
+    "ctaContact": "Contactez-nous"
+  },
+  "tours": {
+    "sectionLabel": "Recommandé",
+    "tagline": "Circuit Privé avec Chauffeur-Guide · Sri Lanka",
+    "heading": "Forfaits de Circuits Vedettes",
+    "season": "(Novembre à Avril)",
+    "seasonDesc": "La meilleure période pour visiter la côte sud du Sri Lanka se situe entre novembre et mi-mai, offrant un temps parfait et des mers calmes. Le Sri Lanka est une destination pour toute l'année !",
+    "viewAll": "Voir Tous les Circuits",
+    "viewDetails": "Voir Détails →",
+    "from": "À partir de",
+    "days": "Jours",
+    "day": "Jour",
+    "maxPeople": "Max {count} Personnes",
+    "perPerson": "/ personne",
+    "duration": "Durée",
+    "priceFrom": "Prix à partir de",
+    "maxGroup": "Groupe Max",
+    "minAge": "Âge Min",
+    "pax": "pers.",
+    "overview": "Aperçu du Circuit",
+    "itinerary": "Itinéraire Détaillé",
+    "included": "Ce qui est Inclus",
+    "notIncluded": "Non Inclus",
+    "similarTours": "Vous Pourriez Aussi Aimer",
+    "similarDesc": "Circuits similaires que nous recommandons",
+    "bookThis": "Réserver ce Circuit",
+    "sending": "Envoi de la demande...",
+    "sent": "✓ Demande Envoyée",
+    "error": "Erreur – Réessayez",
+    "reserveYour": "Réservez Votre Circuit",
+    "noPayment": "🔒 Aucun paiement requis maintenant",
+    "freeCancellation": "Annulation gratuite",
+    "fastResponse": "Réponse rapide",
+    "contactDirectly": "Ou contactez-nous directement :",
+    "exploreTour": "Explorer le Circuit",
+    "planPrivate": "Planifier une Excursion Privée d'un Jour",
+    "luxuryDayTrips": "Excursions de Luxe d'un Jour",
+    "oneDayPackages": "Forfaits d'un Jour",
+    "upToGuests": "Jusqu'à {count} Invités"
+  },
+  
+  "vehicles": {
+    "whatsNew": "Nouveau",
+    "heading": "La Meilleure Flotte de Véhicules à Louer au Sri Lanka",
+    "desc": "Nous fournissons les meilleurs chauffeurs multilingues pour",
+    "viewAll": "Voir tous los véhicules",
+    "viewDetails": "Voir les détails",
+    "rentalInSL": "Location au Sri Lanka",
+    "overview": "Aperçu",
+    "features": "Caractéristiques principales",
+    "passengers": "Passagers",
+    "transmission": "Transmission",
+    "fuel": "Carburant",
+    "rating": "Évaluation",
+    "driverTitle": "Chauffeur expert",
+    "experience": "Expérience",
+    "included": "Ce qui est inclus",
+    "excluded": "Exclusions",
+    "parkingFees": "Frais de parking et péages",
+    "entryTickets": "Billets d'entrée",
+    "startsFrom": "À partir de",
+    "day": "jour",
+    "minBooking": "Réservation min.",
+    "mileage": "Limite de kilométrage",
+    "disclaimer": "* Pas de frais cachés. Paiement direct au chauffeur.",
+    "auto": "Automatique",
+    "petrol": "Essence"
+  }
+,
+  "about": {
+    "title": "À propos de Sri Lanka Tours Driver",
+    "label": "À Propos",
+    "heading": "Nous Vous Aidons à",
+    "headingHighlight": "Planifier",
+    "headingEnd": "Votre Voyage",
+    "desc1": "Un soleil souriant toute l'année, des plages dorées, des cités anciennes, des safaris et des gens charmants dans un paradis tropical — le Sri Lanka offre une expérience de voyage inoubliable. Nous sommes une équipe certifiée basée à Colombo.",
+    "desc2": "Avec plus d'une décennie d'expérience, nous créons des voyages privés et personnalisés qui vous connectent au cœur réel du Sri Lanka.",
+    "checklist": {
+      "item1": "Guides professionnels certifiés par l'État",
+      "item2": "Circuits privés — pas de groupes partagés",
+      "item3": "Disponible 24h/24 et 7j/7 pour vous assister",
+      "item4": "Tarification transparente et tout compris"
+    },
+    "cta": "Contactez-nous"
+  },
+  "stats": {
+    "experience": "Années d'Expérience",
+    "travelers": "Voyageurs Heureux",
+    "support": "Support Disponible",
+    "certified": "Licencié & Certifié"
+  },
+  "whyUs": {
+    "label": "Pourquoi Nous Choisir",
+    "heading": "Nous Rendons Tout le Processus Facile",
+    "travelConfidence": "Voyagez en toute",
+    "confidence": "Confiance",
+    "features": {
+      "agent": {
+        "title": "Meilleur Agent de Voyage",
+        "desc": "Un voyagiste de luxe de premier plan offrant des expériences de voyage premium à travers le Sri Lanka."
+      },
+      "places": {
+        "title": "Lieux Magnifiques",
+        "desc": "Plages dorées, cités anciennes, safaris et paysages tropicaux toute l'année."
+      },
+      "tailor": {
+        "title": "Voyages sur Mesure",
+        "desc": "Circuits privés entièrement personnalisés selon votre confort et vos préférences."
+      },
+      "transport": {
+        "title": "Transport Privé",
+        "desc": "Véhicules modernes et confortables avec chauffeurs multilingues professionnels."
+      },
+      "price": {
+        "title": "Garantie du Meilleur Prix",
+        "desc": "Une qualité de service premium à la hauteur de chaque dollar investi."
+      },
+      "booking": {
+        "title": "Réservation VIP Rapide",
+        "desc": "Réponse prioritaire via WhatsApp & Email — service conciergerie 24/7."
+      },
+      "licensed": {
+        "title": "Guides Certifiés",
+        "desc": "Tous nos guides sont des professionnels agréés par le gouvernement."
+      },
+      "rated": {
+        "title": "Service Classé 5 Étoiles",
+        "desc": "Régulièrement salué sur TripAdvisor pour son hospitalité exceptionnelle."
+      },
+      "private": {
+        "title": "Privé & Personnalisé",
+        "desc": "Chaque voyage est adapté à votre groupe — pas de bus partagés, pas d'inconnus."
+      },
+      "passionate": {
+        "title": "Passionnés par le Sri Lanka",
+        "desc": "Nous sommes des locaux qui aimons cette île et voulons vous la faire découvrir sous son meilleur jour."
+      },
+      "pata": {
+        "title": "Certifié PATA & Tourisme",
+        "desc": "Membres reconnus du Sri Lanka Tourism et de la Pacific Asia Travel Association."
+      },
+      "transparent": {
+        "title": "Tarification Transparente",
+        "desc": "Aucun frais caché. Des prix clairs pour voyager en toute sérénité."
+      }
+    }
+  },
+  "destinations": {
+    "label": "Top Destinations",
+    "heading": "Destinations Populaires au Sri Lanka",
+    "explore": "Explorer"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "noWait": "N'attendez plus",
+    "cta": "Contactez-nous à tout moment !",
+    "name": "Nom Complet",
+    "namePlaceholder": "Votre nom complet",
+    "email": "Adresse Email",
+    "emailPlaceholder": "votre.email@exemple.com",
+    "whatsapp": "Numéro WhatsApp",
+    "date": "Date du Voyage",
+    "time": "Heure de Prise en Charge",
+    "notes": "Demandes Spéciales / Notes",
+    "notesPlaceholder": "Besoins alimentaires, arrêts supplémentaires, nombre de personnes, etc...",
+    "submit": "Envoyer le Message",
+    "nameRequired": "Veuillez remplir votre nom et votre email."
+  },
+  "trustBar": {
+    "accredited": "Accrédité & Reconnu",
+    "trustedBy": "Approuvé par les Autorités du Tourisme",
+    "stayConnected": "Restez Connecté",
+    "followUs": "Suivez-nous sur les Réseaux Sociaux",
+    "available247": "Nous sommes là pour vous 24/7",
+    "planDream": "Planifions Votre Voyage de Rêve",
+    "planDesc": "Notre équipe est prête à concevoir votre voyage parfait au Sri Lanka.",
+    "callUs": "Appelez-nous",
+    "emailUs": "Envoyez un email",
+    "whatsappDesc": "Réponses rapides garanties",
+    "tagline": "⚡ Réponses rapides sur WhatsApp • Planification personnalisée • Garantie meilleur prix"
+  },
+  "footer": {
+    "brand": "Sri Lanka Best Tours Driver",
+    "desc": "Circuits privés de luxe à travers le Sri Lanka avec chauffeurs professionnels. Voyagez confortablement, explorez avec style.",
+    "quickLinks": "Liens Rapides",
+    "gallery": "Galerie",
+    "about": "À Propos",
+    "tours": "Circuits",
+    "contact": "Contact",
+    "newsletter": "Offres de Luxe",
+    "emailPlaceholder": "Votre email",
+    "subscribe": "S'abonner",
+    "copyright": "Sri Lanka Tours Driver — Tous droits réservés",
+    "subscribed": "Inscription réussie !"
+  },
+  "rates": {
+    "title": "Tarifs des Forfaits Touristiques",
+    "subtitle": "Tarifs Fixes depuis l'Aéroport (CMB)",
+    "headers": {
+      "destination": "Destination",
+      "car": "Voiture (USD)",
+      "van": "Van (USD)",
+      "bus": "Autobus (USD)",
+      "duration": "Durée Est.",
+      "distance": "Distance"
+    },
+    "units": {
+      "km": "km"
+    },
+    "destinations": {
+      "airport": "Aéroport (CMB)",
+      "aluthgama": "Aluthgama",
+      "anuradhapura": "Anuradhapura",
+      "arugam-bay": "Baie d'Arugam",
+      "beruwala": "Beruwala",
+      "colombo": "Colombo",
+      "dambulla": "Dambulla",
+      "ella": "Ella",
+      "galle": "Galle",
+      "hikkaduwa": "Hikkaduwa",
+      "kalutara": "Kalutara",
+      "kandy": "Kandy",
+      "mirissa": "Mirissa",
+      "negombo": "Negombo",
+      "nuwara-eliya": "Nuwara Eliya",
+      "pasikuda": "Pasikuda",
+      "sigiriya-habarana": "Sigiriya (Habarana)",
+      "trincomalee": "Trincomalee",
+      "udawalawa": "Udawalawa"
+    }
+  },
+  "booking": {
+    "fullName": "Nom Complet",
+    "namePlaceholder": "Votre nom",
+    "required": "*",
+    "email": "Adresse Email",
+    "emailPlaceholder": "votre.email@exemple.com",
+    "whatsapp": "Numéro WhatsApp",
+    "date": "Date du Voyage",
+    "time": "Heure de Prise en Charge",
+    "notes": "Demandes Spéciales / Notes",
+    "notesPlaceholder": "Régime, arrêts, nombre de personnes...",
+    "bookTour": "Réserver ce Circuit",
+    "sending": "Envoi de la demande...",
+    "sent": "✓ Demande Envoyée",
+    "error": "Erreur – Réessayez",
+    "whatsappOpened": "WhatsApp est ouvert — veuillez y confirmer votre réservation.",
+    "noPayment": "🔒 Aucun paiement requis maintenant",
+    "freeCancellation": "Annulation gratuite",
+    "fastResponse": "Réponse rapide",
+    "contactDirectly": "Ou contactez-nous directement :",
+    "from": "de",
+    "reserveYour": "Réservez Votre Circuit",
+    "perPerson": "/ personne"
+  },
+  "loader": {
+    "tagline": "Explorez l'Île Paradis 🌴",
+    "loading": "Chargement de votre aventure..."
+  },
+  "languageSwitcher": {
+    "label": "Langue"
+  },
+  "destinationPage": {
+    "travelGuide": "Guide de Voyage",
+    "subtitle": "Découvrez les plus beaux endroits à travers la perle de l'Océan Indien.",
+    "pearl": "Perle de l'Océan Indien",
+    "planYourVisit": "Planifiez Votre Visite",
+    "contactUs": "Contactez-nous pour les détails",
+    "needHelp": "Besoin d'aide ?",
+    "speakToSpecialist": "Parlez à nos spécialistes",
+    "planTourHere": "Planifier un Circuit Ici",
+    "moreDestinations": "Plus de Destinations",
+    "viewAll": "Voir tout",
+    "bestTime": "Meilleur moment",
+    "categories": {
+      "Heritage": "Patrimoine",
+      "Religious": "Religieux",
+      "City": "Ville",
+      "Nature": "Nature",
+      "Wildlife": "Vie Sauvage"
+    },
+    "destinations": {
+      "old-parliament-building": {
+        "title": "Ancien Parlement",
+        "category": "Patrimoine",
+        "description": "Achevé en 1930, c'est une superbe structure néo-baroque qui a accueilli la législature du Sri Lanka pendant 53 ans. C'est aujourd'hui le secrétariat présidentiel."
+      },
+      "jami-ul-alfar-mosque": {
+        "title": "Mosquée Jami Ul-Alfar",
+        "category": "Religieux",
+        "description": "Connue sous le nom de Mosquée Rouge, elle est célèbre pour sa façade de briques rayées rouges et blanches dans le quartier de Pettah."
+      },
+      "colombo-city": {
+        "title": "Ville de Colombo",
+        "category": "Ville",
+        "description": "La capitale commerciale du Sri Lanka, mêlant héritage colonial, gratte-ciel modernes et vie nocturne animée."
+      },
+      "gangaramaya-temple": {
+        "title": "Temple Gangaramaya",
+        "category": "Religieux",
+        "description": "L'un des plus anciens temples de Colombo, servant aujourd'hui de centre culturel et éducatif."
+      },
+      "galle-face-green": {
+        "title": "Galle Face Green",
+        "category": "Nature",
+        "description": "Un parc populaire en bord de mer, connu pour ses couchers de soleil et ses stands de street food."
+      },
+      "kelaniya-raja-maha-viharaya": {
+        "title": "Kelaniya Raja Maha Viharaya",
+        "category": "Religieux",
+        "description": "Un temple bouddhiste historique considéré comme l'un des sites religieux les plus sacrés du pays."
+      },
+      "yala-national-park": {
+        "title": "Parc National de Yala",
+        "category": "Vie Sauvage",
+        "description": "Célèbre pour avoir l'une des plus fortes densités de léopards au monde, ainsi que des éléphants et des crocodiles."
+      },
+      "st-marys-church-negombo": {
+        "title": "Église Ste-Marie de Negombo",
+        "category": "Religieux",
+        "description": "L'une des plus grandes cathédrales du Sri Lanka, connue pour ses magnifiques peintures au plafond."
+      }
+    }
+  },
+  "excursions": {
+    "title": "Nos Escapades",
+    "label": "Excursions",
+    "explore": "Explorer",
+    "subtitle": "Découvrez les plus belles expériences à travers la perle de l'Océan Indien.",
+    "searchPlaceholder": "Rechercher une excursion...",
+    "allCategories": "Toutes",
+    "sortLabel": "Trier",
+    "sortAZ": "A - Z",
+    "sortZA": "Z - A",
+    "footerTagline": "Perle de l'Océan Indien"
+  },
+  "excursionPage": {
+    "details": "Détails de l'Excursion",
+    "price": "Prix par personne",
+    "whatsIncluded": "Ce qui est inclus",
+    "planCustomTour": "Planifier un Voyage sur Mesure",
+    "excursionInfo": "Informations sur l'Excursion",
+    "pickupTime": "Heure de Prise en Charge",
+    "contactUs": "Contactez-nous pour plus de détails",
+    "needHelp": "Besoin d'aide ?",
+    "speakToSpecialist": "Parler à un Spécialiste",
+    "moreExcursions": "Plus d'Excursions",
+    "viewAll": "Voir Tout",
+    "categories": {
+      "Heritage": "Patrimoine",
+      "Religious": "Religieux",
+      "City": "Ville",
+      "Nature": "Nature",
+      "Wildlife": "Vie Sauvage",
+      "Cultural": "Culturel",
+      "Beach": "Plage"
+    }
+  },
+  "seasonal": {
+    "label": "Voyages de Saison",
+    "heading": "Meilleurs Circuits de Saison"
+  },
+  "specialOffer": {
+    "label": "Offres Spéciales",
+    "heading": "Offres Exclusives pour Vous"
+  },
+  "tailorMade": {
+    "label": "Sur Mesure",
+    "heading": "Expériences Personnalisées",
+    "desc": "Dites-nous l'itinéraire de vos rêves et nous le réaliserons."
+  },
+  "testimonials": {
+    "label": "Avis",
+    "heading": "Ce Que Disent Nos Clients"
+  },
+  "gallery": {
+    "label": "Galerie",
+    "heading": "Moments du Sri Lanka"
+  }
+}
