@@ -1,4 +1,4 @@
-import BookingBox from "../components/BookingBox";
+import BookingBox from "@/components/BookingBox";
 
 export default function Booking() {
   return (
