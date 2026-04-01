@@ -388,14 +388,39 @@
   },
   "tailorMade": {
   "label": "Tailor Made Tours",
-  "heading": "Your Journey,",
-  "desc": "Perfectly Crafted",
-  "tags": ["14 Days Average", "100% Private", "Fully Guided"],
-  "yearsExpert": "Years Expert",
-  "subtext1": "Discover Sri Lanka your way — journeys designed entirely around you.",
-  "subtext2": "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with premium access.",
-  "buttonPrimary": "Design My Journey",
-  "buttonSecondary": "Talk to a specialist →"
+  "heading": "Design Your Perfect",
+  "desc": "Personalize every detail of your Sri Lankan adventure. Our experts will craft a unique itinerary just for you.",
+  "stepStyle": "Travel Style",
+  "stepActivities": "Activities",
+  "stepDetails": "Trip Details",
+  "stepContact": "Contact Info",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "phName": "Full Name",
+  "phEmail": "Email Address",
+  "btnSubmit": "Send My Request",
+  "btnSending": "Sending code...",
+  "whyChooseUs": "Why Choose Us?",
+  "styles": {
+    "relaxed": "Relaxed",
+    "moderate": "Moderate",
+    "active": "Active",
+    "luxury": "Luxury"
+  },
+  "activities": {
+    "nature": "Wildlife & Safari",
+    "culture": "Cultural Heritage",
+    "beach": "Beach Relaxing",
+    "trekking": "Trekking",
+    "activity": "Activities",
+    "boat": "Boat Trips",
+    "train": "Train Rides",
+    "factory": "Factory Visits",
+    "watersports": "Water Sports",
+    "diving": "Diving",
+    "whales": "Whale Watching"
+  }
+
 },
   "testimonials": {
     "label": "Reviews",

@@ -8,7 +8,7 @@ import {
   FaWhatsapp, FaPhone, FaEnvelope 
 } from "react-icons/fa";
 
-// ඔයාගේ අලුත්ම Contact data එක import කරගන්න
+// Contact data import
 import { contact } from "@/data/contact";
 
 const partners = [
@@ -22,7 +22,6 @@ const partners = [
 export default function TrustBar() {
   const t = useTranslations("trustBar");
 
-  // Social Links ඔයාගේ contact file එකෙන් ගනී
   const socialLinks = [
     { href: contact.social.facebook, icon: FaFacebook, label: "Facebook", hoverBg: "hover:bg-blue-600", iconColor: "text-blue-600 group-hover:text-white" },
     { href: contact.social.instagram, icon: FaInstagram, label: "Instagram", hoverBg: "hover:bg-pink-500", iconColor: "text-pink-500 group-hover:text-white" },
@@ -30,7 +29,6 @@ export default function TrustBar() {
     { href: contact.social.tripadvisor, icon: FaTripadvisor, label: "TripAdvisor", hoverBg: "hover:bg-green-600", iconColor: "text-green-500 group-hover:text-white" },
   ];
 
-  // Contact Items ඔයාගේ contact file එකෙන් ගනී
   const contactItems = [
     { 
       href: `tel:${contact.phone}`, 
@@ -59,11 +57,9 @@ export default function TrustBar() {
     <>
       {/* SECTION 1 — Trust & Social */}
       <section className="relative bg-white overflow-hidden">
-        {/* Gradient Top Border */}
-        <div className="h-1.5 w-full bg-linear-to-r from-orange-400 via-pink-500 to-amber-400" />
+        <div className="h-1.5 w-full bg-linear-to-rrom-orange-400 via-pink-500 to-amber-400" />
 
         <div className="max-w-7xl mx-auto px-6 py-20">
-          {/* Title Area */}
           <div className="text-center mb-16">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 mb-4">
               {t("accredited")}
@@ -74,7 +70,6 @@ export default function TrustBar() {
             <div className="mt-6 mx-auto w-20 h-1 rounded-full bg-linear-to-r from-orange-500 to-pink-500" />
           </div>
 
-          {/* Partners Grid */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-20">
             {partners.map((p, i) => (
               <Link
@@ -101,7 +96,6 @@ export default function TrustBar() {
             <div className="flex-1 h-px bg-zinc-100" />
           </div>
 
-          {/* Social Icons */}
           <div className="flex flex-wrap items-center justify-center gap-4">
             {socialLinks.map(({ href, icon: Icon, label, hoverBg, iconColor }) => (
               <Link
@@ -121,12 +115,11 @@ export default function TrustBar() {
         </div>
       </section>
 
-      {/* SECTION 2 — Big Contact CTA */}
+      {/* SECTION 2 — Contact CTA (FIXED OVERFLOW) */}
       <section
         id="contact"
         className="relative py-24 px-6 bg-linear-to-br from-orange-600 via-amber-600 to-yellow-500 text-white overflow-hidden"
       >
-        {/* Modern Blur Background Orbs */}
         <div className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full bg-white/10 blur-[100px]" />
         <div className="pointer-events-none absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-white/10 blur-[100px]" />
 
@@ -148,13 +141,22 @@ export default function TrustBar() {
                 href={href}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
-                className="group bg-white/10 backdrop-blur-2xl border border-white/20 p-10 rounded-[40px] flex flex-col items-center gap-4 hover:bg-white hover:text-zinc-900 transition-all duration-500 shadow-2xl hover:-translate-y-3"
+                className="group bg-white/10 backdrop-blur-2xl border border-white/20 p-8 md:p-10 rounded-[40px] flex flex-col items-center gap-4 hover:bg-white hover:text-zinc-900 transition-all duration-500 shadow-2xl hover:-translate-y-3 w-full overflow-hidden"
               >
-                <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-all duration-500">
-                  <Icon size={28} />
+                <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-all duration-500 shrink-0">
+                  <Icon size={26} />
                 </div>
-                <span className="text-xl font-bold tracking-tight">{label}</span>
-                <span className="text-[10px] font-black uppercase tracking-widest opacity-60 group-hover:opacity-40">{subLabel}</span>
+                
+                {/* Email Overflow Fix Area */}
+                <div className="w-full px-2 flex flex-col items-center justify-center min-h-15">
+                  <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-tight break-all text-center leading-tight">
+                    {label}
+                  </span>
+                </div>
+
+                <span className="text-[10px] font-black uppercase tracking-widest opacity-60 group-hover:opacity-40">
+                  {subLabel}
+                </span>
               </a>
             ))}
           </div>
