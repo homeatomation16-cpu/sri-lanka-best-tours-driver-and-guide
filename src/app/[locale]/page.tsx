@@ -1,4 +1,5 @@
 // src/app/[locale]/page.tsx
+
 import HeroVideo from "@/components/HeroVideo";
 import Destinations from "@/components/Destinations";
 import SeasonalTours from "@/components/SeasonalTours";
@@ -11,7 +12,13 @@ import Gallery from "@/components/Gallery";
 import VehiclesSection from "@/components/Vehicle";
 import Tours from "@/components/Tours";
 
-export default function HomePage() {
+export default function HomePage({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const { locale } = params;
+
   return (
     <div className="relative bg-white">
       {/* HERO */}
@@ -21,10 +28,10 @@ export default function HomePage() {
       </div>
 
       {/* SECTIONS */}
-      <Tours />
-      <SeasonalTours />
-      <OneDayTours />
-      <VehiclesSection />
+      <Tours locale={locale} />
+      <SeasonalTours locale={locale} />
+      <OneDayTours locale={locale} />
+      <VehiclesSection locale={locale} />
       <WhyUs />
       <Destinations />
       <Testimonials />
