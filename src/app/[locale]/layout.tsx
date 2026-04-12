@@ -1,5 +1,4 @@
 
-// src/app/[locale]/layout.tsx
 
 import {
   Poppins,
@@ -108,6 +107,11 @@ export async function generateMetadata({
 
     metadataBase: new URL("https://www.srilankabesttourdriverandguide.com"),
 
+    /* ✅ Google Verification */
+    verification: {
+      google: "google62a812899a7c013c",
+    },
+
     alternates: {
       canonical: `https://www.srilankabesttourdriverandguide.com/${locale}`,
       languages: {
@@ -164,7 +168,7 @@ export default async function LocaleLayout({
     >
       <body className="antialiased bg-white text-black font-sans">
 
-        {/* JSON-LD Structured Data */}
+        {/* ✅ JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -173,7 +177,7 @@ export default async function LocaleLayout({
               "@type": "TravelAgency",
               name: "Sri Lanka Best Tour Driver and Guide",
               url: "https://www.srilankabesttourdriverandguide.com",
-              telephone: "+947XXXXXXXX",
+              telephone: "+947XXXXXXXX", // 🔥 replace with your real number
               areaServed: "Sri Lanka",
               serviceType: "Private Tours & Driver Hire",
             }),
