@@ -1,3 +1,4 @@
+
 // src/app/[locale]/layout.tsx
 
 import {
@@ -59,7 +60,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-/* ── Metadata ── */
+/* ── SEO Metadata ── */
 export async function generateMetadata({
   params,
 }: {
@@ -68,22 +69,74 @@ export async function generateMetadata({
   const { locale } = await params;
 
   const titles: Record<string, string> = {
-    en: "Sri Lanka Tours Driver | Luxury & Adventure Tours",
-    fr: "Sri Lanka Tours Driver | Circuits de Luxe et d'Aventure",
-    de: "Sri Lanka Tours Driver | Luxus- und Abenteuerreisen",
-    es: "Sri Lanka Tours Driver | Tours de Lujo y Aventura",
-    it: "Sri Lanka Tours Driver | Tour di Lusso e Avventura",
-    hi: "Sri Lanka Tours Driver | लक्जरी और रोमांच टूर",
-    zh: "Sri Lanka Tours Driver | 奢华与冒险之旅",
-    ru: "Sri Lanka Tours Driver | Туры класса люкс и приключений",
-    ja: "Sri Lanka Tours Driver | ラグジュアリー＆アドベンチャーツアー",
-    si: "Sri Lanka Tours Driver | සුඛෝපභෝගී සහ සංචාර",
+    en: "Sri Lanka Private Driver Hire | Tours & Chauffeur Service",
+    fr: "Chauffeur Privé Sri Lanka | Circuits et Services",
+    de: "Privater Fahrer Sri Lanka | Touren & Chauffeurservice",
+    es: "Conductor Privado Sri Lanka | Tours y Servicios",
+    it: "Autista Privato Sri Lanka | Tour e Servizi",
+    hi: "Sri Lanka Private Driver | टूर और सेवा",
+    zh: "斯里兰卡私人司机 | 旅游服务",
+    ru: "Частный водитель Шри-Ланка | Туры",
+    ja: "スリランカ専属ドライバー | ツアー",
+    si: "ශ්‍රී ලංකාවේ පුද්ගලික රියදුරු සේවාව",
+  };
+
+  const descriptions: Record<string, string> = {
+    en: "Hire a private driver in Sri Lanka. Affordable tours, airport transfers, and custom itineraries for UK & European travelers.",
+    fr: "Louez un chauffeur privé au Sri Lanka. Circuits abordables et transferts aéroport.",
+    de: "Mieten Sie einen privaten Fahrer in Sri Lanka. Touren und Transfers.",
+    es: "Alquile un conductor privado en Sri Lanka. Tours y traslados.",
+    it: "Noleggia un autista privato in Sri Lanka. Tour e trasferimenti.",
+    hi: "Sri Lanka में निजी ड्राइवर किराए पर लें।",
+    zh: "在斯里兰卡雇佣私人司机。",
+    ru: "Нанять частного водителя в Шри-Ланке.",
+    ja: "スリランカで専属ドライバーを雇う。",
+    si: "ශ්‍රී ලංකාවේ පුද්ගලික රියදුරෙකු කුලියට ගන්න.",
   };
 
   return {
     title: titles[locale] ?? titles.en,
-    description:
-      "Luxury private tours across Sri Lanka with professional guides and chauffeurs.",
+    description: descriptions[locale] ?? descriptions.en,
+
+    keywords: [
+      "Sri Lanka private driver",
+      "hire driver Sri Lanka",
+      "Sri Lanka tour packages",
+      "chauffeur Sri Lanka",
+      "Sri Lanka airport transfer",
+    ],
+
+    metadataBase: new URL("https://www.srilankabesttourdriverandguide.com"),
+
+    alternates: {
+      canonical: `https://www.srilankabesttourdriverandguide.com/${locale}`,
+      languages: {
+        en: "https://www.srilankabesttourdriverandguide.com/en",
+        fr: "https://www.srilankabesttourdriverandguide.com/fr",
+        de: "https://www.srilankabesttourdriverandguide.com/de",
+      },
+    },
+
+    openGraph: {
+      title: titles[locale] ?? titles.en,
+      description: descriptions[locale] ?? descriptions.en,
+      url: `https://www.srilankabesttourdriverandguide.com/${locale}`,
+      siteName: "Sri Lanka Tour Driver",
+      images: [
+        {
+          url: "/og-image.jpg",
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale,
+      type: "website",
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -97,32 +150,47 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  /* Validate locale */
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
 
-  /* Load translation messages */
   const messages = await getMessages();
-
-  const dir = "ltr";
 
   return (
     <html
       lang={locale}
-      dir={dir}
+      dir="ltr"
       className={`${poppins.variable} ${playfair.variable} ${sinhala.variable} ${libre.variable} ${thea.variable}`}
     >
       <body className="antialiased bg-white text-black font-sans">
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "TravelAgency",
+              name: "Sri Lanka Best Tour Driver and Guide",
+              url: "https://www.srilankabesttourdriverandguide.com",
+              telephone: "+947XXXXXXXX",
+              areaServed: "Sri Lanka",
+              serviceType: "Private Tours & Driver Hire",
+            }),
+          }}
+        />
+
         <NextIntlClientProvider messages={messages}>
           <header className="bg-white sticky top-0 z-50 shadow-md">
             <Navbar />
           </header>
+
           <PageTransition>{children}</PageTransition>
+
           <TrustBar />
           <Footer />
           <LanguageFloatingButton />
-           <FloatingCurrency />
+          <FloatingCurrency />
         </NextIntlClientProvider>
       </body>
     </html>

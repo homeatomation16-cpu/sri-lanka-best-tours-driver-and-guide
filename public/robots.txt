@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Block sensitive areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /login/
+
+# Allow important pages
+Allow: /tours/
+Allow: /vehicles/
+Allow: /destinations/
+Allow: /excursions/
+
+# Sitemap
+Sitemap: https://www.srilankabesttourdriverandguide.com/sitemap.xml
