@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import Select, { StylesConfig } from "react-select";
 import { Repeat, X, Banknote, Search } from "lucide-react";
+import { RiExchangeDollarLine } from "react-icons/ri";
 
 // 🌍 ලෝකයේ ප්‍රධාන මුදල් ඒකක ලැයිස්තුව (ISO Codes)
 // ඔබට අවශ්‍ය ඕනෑම රටක් මෙතැනට එක් කළ හැක
@@ -237,7 +238,7 @@ export default function FloatingCurrency() {
         onClick={() => setOpen(!open)}
         className="fixed bottom-24 right-6 z-50 w-14 h-14 bg-linear-to-br from-[#B5541A] to-[#8a3f12] text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 border-2 border-white/20 group"
       >
-        {open ? <X className="w-6 h-6" /> : <Banknote className="w-6 h-6 group-hover:rotate-12 transition-transform" />}
+        {open ? <X className="w-6 h-6" /> : <RiExchangeDollarLine className="w-6 h-6 group-hover:rotate-12 transition-transform" />}
       </button>
 
       {/* Converter Panel */}

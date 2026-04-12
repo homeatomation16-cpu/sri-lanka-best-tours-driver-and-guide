@@ -74,7 +74,7 @@ export default function Navbar() {
         </Link>
 
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {menu.map((item) => (
             <Link
               key={item.name}
