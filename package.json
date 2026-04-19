@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.4",
     "@react-icons/all-files": "^4.1.0",
     "@supabase/supabase-js": "^2.95.3",
     "@vitalets/google-translate-api": "^9.2.1",

@@ -1,5 +1,4 @@
-
-
+// src/app/[locale]/layout.tsx
 import {
   Poppins,
   Playfair_Display,
@@ -11,6 +10,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { GoogleTagManager } from '@next/third-parties/google';
 
 import "../globals.css";
 import PageTransition from "../../components/PageTransition";
@@ -96,7 +96,6 @@ export async function generateMetadata({
   return {
     title: titles[locale] ?? titles.en,
     description: descriptions[locale] ?? descriptions.en,
-
     keywords: [
       "Sri Lanka private driver",
       "hire driver Sri Lanka",
@@ -104,14 +103,10 @@ export async function generateMetadata({
       "chauffeur Sri Lanka",
       "Sri Lanka airport transfer",
     ],
-
     metadataBase: new URL("https://www.srilankabesttourdriverandguide.com"),
-
-    /* ✅ Google Verification */
     verification: {
       google: "google62a812899a7c013c",
     },
-
     alternates: {
       canonical: `https://www.srilankabesttourdriverandguide.com/${locale}`,
       languages: {
@@ -120,7 +115,6 @@ export async function generateMetadata({
         de: "https://www.srilankabesttourdriverandguide.com/de",
       },
     },
-
     openGraph: {
       title: titles[locale] ?? titles.en,
       description: descriptions[locale] ?? descriptions.en,
@@ -136,7 +130,6 @@ export async function generateMetadata({
       locale,
       type: "website",
     },
-
     robots: {
       index: true,
       follow: true,
@@ -167,6 +160,9 @@ export default async function LocaleLayout({
       className={`${poppins.variable} ${playfair.variable} ${sinhala.variable} ${libre.variable} ${thea.variable}`}
     >
       <body className="antialiased bg-white text-black font-sans">
+        
+        {/* ✅ Google Tag Manager injected optimally */}
+        <GoogleTagManager gtmId="GTM-WZFP43TS" />
 
         {/* ✅ JSON-LD Structured Data */}
         <script
@@ -177,7 +173,7 @@ export default async function LocaleLayout({
               "@type": "TravelAgency",
               name: "Sri Lanka Best Tour Driver and Guide",
               url: "https://www.srilankabesttourdriverandguide.com",
-              telephone: "$contact.phone", // 🔥 replace with your real number
+              telephone: "+94704685300", 
               areaServed: "Sri Lanka",
               serviceType: "Private Tours & Driver Hire",
             }),
