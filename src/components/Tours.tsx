@@ -5,12 +5,10 @@ import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 
 export default async function ToursSection({ locale }: { locale: string }) {
-  // 'tours' namespace එකෙන් පරිවර්තන ලබා ගැනීම
   const t = await getTranslations({ locale, namespace: "tours" });
 
   await connectDB();
 
-  // නිශ්චිත ID මගින් Down South Tours පමණක් සෙවීම
   const downSouthTours = await Tour.find({
     tourId: { 
       $in: ["05-days-down-south", "08-days-down-south", "10-days-down-south"] 
@@ -43,7 +41,6 @@ export default async function ToursSection({ locale }: { locale: string }) {
         {/* Tours Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {downSouthTours.map((tour: any) => {
-            // අදාළ භාෂාවට අදාළ දත්ත ලබා ගැනීම (Fallback to English)
             const data = tour.translations?.[locale] || tour.translations?.["en"];
             
             return (
@@ -58,6 +55,7 @@ export default async function ToursSection({ locale }: { locale: string }) {
                     src={tour.image} 
                     alt={data?.title || "Tour Image"} 
                     fill 
+                    quality={60} // ✅ Added to reduce file size
                     className="object-cover group-hover:scale-110 transition-transform duration-700" 
                     sizes="(max-width: 768px) 100vw, 33vw" 
                   />
@@ -79,13 +77,15 @@ export default async function ToursSection({ locale }: { locale: string }) {
                   
                   <div className="flex justify-between items-center mt-auto pt-6 border-t border-zinc-50">
                     <div className="flex flex-col">
-                       <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">{t("duration")}</span>
+                       {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
+                       <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">{t("duration")}</span>
                        <span className="text-sm font-bold text-zinc-700">
                           {tour.duration} {tour.duration > 1 ? t("days") : t("day")}
                        </span>
                     </div>
                     <div className="flex flex-col text-right">
-                       <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Availability</span>
+                       {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
+                       <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Availability</span>
                        <span className="text-sm font-bold text-zinc-700">
                           {t("maxPeople", { count: tour.maxPeople || 10 })}
                        </span>
@@ -93,9 +93,10 @@ export default async function ToursSection({ locale }: { locale: string }) {
                   </div>
 
                   <div className="mt-8">
-                    <button className="w-full py-4 bg-zinc-900 text-white rounded-2xl font-bold text-sm group-hover:bg-orange-600 transition-all duration-300 shadow-lg shadow-zinc-900/10 group-hover:shadow-orange-500/20">
+                    {/* ✅ Changed <button> to <div> since it's already inside a <Link> */}
+                    <div className="w-full text-center py-4 bg-zinc-900 text-white rounded-2xl font-bold text-sm group-hover:bg-orange-600 transition-all duration-300 shadow-lg shadow-zinc-900/10 group-hover:shadow-orange-500/20">
                       {t("viewDetails")}
-                    </button>
+                    </div>
                   </div>
                 </div>
               </Link>
