@@ -6,11 +6,9 @@ import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 
 export default async function OneDayTours({ locale }: { locale: string }) {
-  // 'tours' namespace එක භාවිතා කරමු
   const t = await getTranslations({ locale, namespace: "tours" });
 
   await connectDB();
-  // දින 1 ඒවා විතරක් filter කිරීම
   const oneDayTours = await Tour.find({ duration: 1, status: "active" }).lean();
 
   return (
@@ -45,6 +43,7 @@ export default async function OneDayTours({ locale }: { locale: string }) {
                     src={tour.image} 
                     alt={data?.title} 
                     fill 
+                    quality={60} // ✅ Added to shrink image payload
                     className="object-cover transition-transform duration-700 group-hover:scale-110" 
                     sizes="(max-width:768px) 100vw, 33vw" 
                   />
@@ -72,9 +71,10 @@ export default async function OneDayTours({ locale }: { locale: string }) {
                   </div>
 
                   <Link href={`/${locale}/tours/${tour.tourId}`}>
-                    <button className="w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-widest text-white bg-zinc-900 transition-all hover:bg-orange-600 shadow-lg shadow-zinc-900/20 flex items-center justify-center gap-2">
+                    {/* ✅ Changed button to div to prevent HTML/Accessibility errors */}
+                    <div className="w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-widest text-white bg-zinc-900 transition-all hover:bg-orange-600 shadow-lg shadow-zinc-900/20 flex items-center justify-center gap-2">
                       {t("exploreTour")} <ArrowRight size={16} />
-                    </button>
+                    </div>
                   </Link>
                 </div>
               </div>

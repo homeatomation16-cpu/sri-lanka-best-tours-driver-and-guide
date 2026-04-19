@@ -5,13 +5,11 @@ import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 
 export default async function SeasonalTours({ locale }: { locale: string }) {
-  // 'seasonal' සහ 'tours' namespaces දෙකම ලබා ගනිමු
   const t = await getTranslations({ locale, namespace: "seasonal" });
   const tCommon = await getTranslations({ locale, namespace: "tours" });
 
   await connectDB();
 
-  // East Coast tours පමණක් database එකෙන් ලබා ගැනීම
   const eastCoastTours = await Tour.find({
     tourId: { 
       $in: ["05-days-east-coast", "08-days-east-coast", "10-days-east-coast"] 
@@ -56,6 +54,7 @@ export default async function SeasonalTours({ locale }: { locale: string }) {
                     src={tour.image} 
                     alt={data?.title || "Tour"} 
                     fill 
+                    quality={60} // ✅ Added to shrink image payload
                     className="object-cover group-hover:scale-105 transition-transform duration-1000" 
                     sizes="(max-width: 768px) 100vw, 33vw" 
                   />
@@ -77,7 +76,8 @@ export default async function SeasonalTours({ locale }: { locale: string }) {
                   
                   <div className="flex justify-between items-center mt-auto pt-8 border-t border-stone-50">
                     <div className="space-y-1">
-                       <span className="block text-[10px] uppercase font-black text-stone-300 tracking-[0.15em]">
+                       {/* ✅ Changed text-stone-300 to text-stone-500 for Color Contrast */}
+                       <span className="block text-[10px] uppercase font-black text-stone-500 tracking-[0.15em]">
                          {tCommon("duration")}
                        </span>
                        <span className="text-sm font-bold text-stone-600">
@@ -85,7 +85,8 @@ export default async function SeasonalTours({ locale }: { locale: string }) {
                        </span>
                     </div>
                     <div className="text-right space-y-1">
-                       <span className="block text-[10px] uppercase font-black text-stone-300 tracking-[0.15em]">
+                       {/* ✅ Changed text-stone-300 to text-stone-500 for Color Contrast */}
+                       <span className="block text-[10px] uppercase font-black text-stone-500 tracking-[0.15em]">
                          Capacity
                        </span>
                        <span className="text-sm font-bold text-stone-600">
