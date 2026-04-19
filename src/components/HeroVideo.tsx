@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Loader from "./Loader";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
@@ -19,7 +18,6 @@ export default function HeroVideo() {
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
   const [scrollY, setScrollY] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [inView, setInView] = useState(true);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -54,7 +52,6 @@ export default function HeroVideo() {
     timeoutRef.current = setTimeout(() => {
       setCurrent((c) => (c + 1) % SLIDES.length);
       setProgress(0);
-      setLoading(true);
     }, SLIDE_DURATION);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -70,7 +67,6 @@ export default function HeroVideo() {
         muted
         playsInline
         preload="auto"
-        onLoadedData={() => setLoading(false)}
         style={{
           position: "absolute", inset: 0, width: "100%", height: "100%",
           objectFit: "cover", transform: `scale(1.1) translateY(${scrollY * 0.15}px)`,
@@ -78,8 +74,6 @@ export default function HeroVideo() {
       >
         <source src={slide.src} type="video/mp4" />
       </video>
-
-      {loading && inView && <Loader />}
 
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.7))" }} />
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle, transparent 45%, rgba(0,0,0,0.65))" }} />

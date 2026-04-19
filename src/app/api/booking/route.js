@@ -1,11 +1,9 @@
-// src/app/api/booking/route.js
-
 import nodemailer from "nodemailer";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import { NextResponse } from "next/server";
 
-// ── Transporter (env variables use කරනවා) ──
+// 🔹 MAIL TRANSPORT
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "smtp.gmail.com",
   port: Number(process.env.SMTP_PORT) || 465,
@@ -16,23 +14,35 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// ── POST: Create booking + send email ──
+// 🔹 CREATE BOOKING
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { name, email, phone, date, time, notes, itemName, bookingType, message } = body;
 
-    // Basic validation
+    const {
+      name,
+      email,
+      phone,
+      date,
+      time,
+      notes,
+      itemName,
+      bookingType,
+      message,
+    } = body;
+
+    // ✅ VALIDATION
     if (!name || !email) {
       return NextResponse.json(
-        { success: false, error: "Name and email are required." },
+        { error: "Name and email required" },
         { status: 400 }
       );
     }
 
-    // 1. Save to DB
     await connectDB();
-    const newBooking = await Booking.create({
+
+    // ✅ SAVE DB FIRST
+    const booking = await Booking.create({
       name,
       email,
       phone,
@@ -44,101 +54,74 @@ export async function POST(req) {
       status: "pending",
     });
 
-    // 2. Send email notification
     const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
 
-    await transporter.sendMail({
-      from: `"Sri Lanka Best Tours" <${process.env.SMTP_USER}>`,
-      to: adminEmail,
-      replyTo: email,
-      subject: `🌴 New Booking: ${bookingType ?? "Tour"} — ${itemName ?? ""}`,
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head><meta charset="UTF-8" /></head>
-        <body style="margin:0;padding:0;background:#FAFAF8;font-family:'Helvetica Neue',Arial,sans-serif;">
-          <div style="max-width:520px;margin:40px auto;background:#fff;border-radius:20px;overflow:hidden;border:1px solid rgba(0,0,0,0.07);">
+    // 🔥 EMAIL TRY BLOCK (important)
+    try {
+      // 📩 ADMIN EMAIL
+      await transporter.sendMail({
+        from: `"Tours Booking" <${process.env.SMTP_USER}>`,
+        to: adminEmail,
+        replyTo: email,
+        subject: `New Booking - ${itemName || "Tour"}`,
+        html: `
+          <h2>New Booking</h2>
+          <p><b>Name:</b> ${name}</p>
+          <p><b>Email:</b> ${email}</p>
+          <p><b>Phone:</b> ${phone || "-"}</p>
+          <p><b>Date:</b> ${date || "-"}</p>
+          <p><b>Item:</b> ${itemName || "-"}</p>
+          <p><b>Message:</b> ${message || notes || "-"}</p>
+        `,
+      });
 
-            <!-- Header -->
-            <div style="background:#1A1714;padding:32px 40px;">
-              <h1 style="margin:0;color:#F4A96B;font-size:13px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;">
-                Sri Lanka Tours Driver
-              </h1>
-              <p style="margin:8px 0 0;color:rgba(255,255,255,0.5);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">
-                New Booking Alert
-              </p>
-            </div>
+      // 📩 CUSTOMER CONFIRMATION EMAIL (🔥 NEW)
+      await transporter.sendMail({
+        from: `"Sri Lanka Tours" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: "Booking Received ✅",
+        html: `
+          <h2>Hello ${name},</h2>
+          <p>Your booking request has been received.</p>
+          <p>We will contact you soon.</p>
+          <br/>
+          <p>Thank you!</p>
+        `,
+      });
 
-            <!-- Body -->
-            <div style="padding:36px 40px;">
-              <table style="width:100%;border-collapse:collapse;">
-                ${[
-                  ["Customer",    name],
-                  ["Email",       `<a href="mailto:${email}" style="color:#B5541A;">${email}</a>`],
-                  ["Phone",       phone || "—"],
-                  ["Booking Type",bookingType || "—"],
-                  ["Tour / Vehicle", itemName || "—"],
-                  ["Travel Date", date || "—"],
-                  ["Pickup Time", time || "—"],
-                ].map(([label, value]) => `
-                  <tr>
-                    <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#bbb;width:38%;">
-                      ${label}
-                    </td>
-                    <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:13px;color:#1A1714;">
-                      ${value}
-                    </td>
-                  </tr>
-                `).join("")}
-              </table>
+    } catch (mailError) {
+      console.error("Email failed:", mailError);
+      // ❗ email fail උනාට booking save වෙනවා
+    }
 
-              ${(message || notes) ? `
-              <div style="margin-top:24px;padding:16px 20px;background:#FEF2E8;border-radius:12px;border-left:3px solid #B5541A;">
-                <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B5541A;">Notes</p>
-                <p style="margin:0;font-size:13px;color:#4A4540;line-height:1.6;font-style:italic;">
-                  "${message || notes}"
-                </p>
-              </div>` : ""}
-
-              <div style="margin-top:28px;">
-                <a href="mailto:${email}?subject=Re: Your Booking — ${itemName ?? ""}"
-                  style="display:inline-block;padding:13px 28px;background:#1A1714;color:#fff;border-radius:12px;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">
-                  Reply to Customer →
-                </a>
-              </div>
-            </div>
-
-            <!-- Footer -->
-            <div style="background:#F5F0EA;padding:20px 40px;text-align:center;">
-              <p style="margin:0;color:#aaa;font-size:11px;">
-                © ${new Date().getFullYear()} Sri Lanka Tours Driver · Booking ID: ${newBooking._id}
-              </p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `,
-    });
-
-    return NextResponse.json({ success: true, id: newBooking._id }, { status: 201 });
+    return NextResponse.json(
+      { success: true, id: booking._id },
+      { status: 201 }
+    );
 
   } catch (error) {
     console.error("Booking API error:", error);
     return NextResponse.json(
-      { success: false, error: "Server error. Please try again." },
+      { error: "Server error" },
       { status: 500 }
     );
   }
 }
 
-// ── GET: Admin dashboard data fetch ──
+// 🔹 GET BOOKINGS
 export async function GET() {
   try {
     await connectDB();
-    const bookings = await Booking.find({}).sort({ createdAt: -1 });
+
+    const bookings = await Booking.find()
+      .sort({ createdAt: -1 });
+
     return NextResponse.json(bookings);
+
   } catch (error) {
-    console.error("GET bookings error:", error);
-    return NextResponse.json({ success: false }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch" },
+      { status: 500 }
+    );
   }
 }

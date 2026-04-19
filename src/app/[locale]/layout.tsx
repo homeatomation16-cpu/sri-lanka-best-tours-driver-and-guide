@@ -177,7 +177,7 @@ export default async function LocaleLayout({
               "@type": "TravelAgency",
               name: "Sri Lanka Best Tour Driver and Guide",
               url: "https://www.srilankabesttourdriverandguide.com",
-              telephone: "+947XXXXXXXX", // 🔥 replace with your real number
+              telephone: "$contact.phone", // 🔥 replace with your real number
               areaServed: "Sri Lanka",
               serviceType: "Private Tours & Driver Hire",
             }),
