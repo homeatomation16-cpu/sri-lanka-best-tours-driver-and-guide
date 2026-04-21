@@ -173,7 +173,7 @@ export default async function LocaleLayout({
               "@type": "TravelAgency",
               name: "Sri Lanka Best Tour Driver and Guide",
               url: "https://www.srilankabesttourdriverandguide.com",
-              telephone: "+94704685300", 
+              telephone: "$contact.phone", 
               areaServed: "Sri Lanka",
               serviceType: "Private Tours & Driver Hire",
             }),

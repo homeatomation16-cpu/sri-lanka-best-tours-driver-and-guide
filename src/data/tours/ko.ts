@@ -1,383 +1,2096 @@
 export const TOURS = [
-
-/* =====================================================
-   일일 투어 (1 DAY TOURS)
-===================================================== */
-
-{
-  id: "galle-one-day-tour",
-  title: "갈레 일일 투어",
-  image: "/tours/galle-one-day-tour.jpg",
-  price: 80,
-  duration: 1,
-  maxPeople: 20,
-  minAge: 16,
-  tourType: "프라이빗 일일 투어",
-  overview: "스리랑카를 방문하여 'Sri Lanka Tours Driver'와 함께 갈레 일일 투어를 예약하세요. 영어를 구사하는 숙련된 전문 운전기사와 함께 갈레와 남부 해안으로 편안하고 잊지 못할 여행을 떠나보세요.",
-  vehicleInfo: ["1 - 3명 → 승용차", "4 - 10명 → KDH 밴", "11 - 20명 → 미니 버스"],
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "왕복 픽업 및 드롭 서비스", "연료 및 주차비"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "추가 식음료"],
-  itinerary: [{
-    days: [1],
-    title: "1일차 - 콜롬보/네곰보에서 갈레로 이동",
-    image: "/tours/galle.jpg",
-    description: "아름다운 남부 해안 도로를 따라 드라이브하며 그림 같은 풍경을 감상하세요.",
-    activities: ["벤토타 해변 정차", "마두강 보트 사파리 (선택 사항)", "바다거북 보호소 방문", "갈레 더치 포트", "갈레 등대", "쇼핑 및 휴식"],
-    overnight: "콜롬보 또는 네곰보로 귀환",
-  }],
-},
-
-{
-  id: "kandy-one-day-tour",
-  title: "캔디 일일 투어",
-  image: "/tours/kandy-one-day-tour.jpg",
-  price: 130,
-  duration: 1,
-  maxPeople: 20,
-  minAge: 16,
-  tourType: "프라이빗 일일 투어",
-  overview: "스리랑카의 문화 수도인 캔디로 향하는 편안하고 잊지 못할 여행을 'Sri Lanka Tours Driver'와 함께하세요. 숙련된 기사가 최고의 서비스를 제공합니다.",
-  vehicleInfo: ["1 - 3명 → 승용차", "4 - 10명 → KDH 밴", "11 - 20명 → 미니 버스"],
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "왕복 픽업 및 드롭 서비스", "연료 및 주차비"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "추가 식음료"],
-  itinerary: [{
-    days: [1],
-    title: "1일차 - 콜롬보/네곰보에서 캔디로 이동",
-    image: "/tours/kandy.jpg",
-    description: "캔디로 향하는 동안 스리랑카의 문화와 자연의 아름다움을 만끽하세요.",
-    activities: ["핀나왈라 코끼리 고아원 (선택 사항)", "마와넬라 향신료 정원 방문", "차 공장 방문 및 홍차 시음", "캔디 호수 산책", "불교 성지 불치사 참배", "전통 문화 댄스 공연 (선택 사항)"],
-    overnight: "콜롬보 또는 네곰보로 귀환",
-  }],
-},
-
-{
-  id: "sigiriya-one-day-tour",
-  title: "시기리야 일일 투어",
-  image: "/tours/sigiriya-one-day-tour.jpg",
-  price: 130,
-  duration: 1,
-  maxPeople: 20,
-  minAge: 16,
-  tourType: "프라이빗 일일 투어",
-  overview: "세계적으로 유명한 시기리야 고대 요새와 주변 역사 유적지를 탐방하는 특별한 투어로 잊지 못할 경험을 선사합니다.",
-  vehicleInfo: ["1 - 3명 → 승용차", "4 - 10명 → KDH 밴", "11 - 20명 → 미니 버스"],
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "왕복 픽업 및 드롭 서비스", "연료 및 주차비"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "추가 식음료"],
-  itinerary: [{
-    days: [1],
-    title: "1일차 - 콜롬보/네곰보에서 시기리야로 이동",
-    image: "/tours/sigiriya.jpg",
-    description: "시기리야로 향하는 길에 아름다운 자연과 문화를 경험하세요.",
-    activities: ["핀나왈라 코끼리 고아원 (선택 사항)", "담불라 동굴 사원", "시기리야 고대 요새 등반", "현지 마을 투어 및 전통 점심 식사 (선택 사항)", "피두랑갈라 바위 등반 (선택 사항)"],
-    overnight: "콜롬보 또는 네곰보로 귀환",
-  }],
-},
-
-{
-  id: "Udawalawa-Safari-one-day-tour",
-  title: "우다왈라와 사파리 일일 투어",
-  image: "/tours/udawalawa-safari-one-day-tour.jpg",
-  price: 130,
-  duration: 1,
-  maxPeople: 20,
-  minAge: 16,
-  tourType: "프라이빗 일일 투어",
-  overview: "스리랑카 최고의 야생동물 사파리 명소 중 하나인 우다왈라와 국립공원으로 안전하고 아름다운 여행을 떠나보세요.",
-  vehicleInfo: ["1 - 3명 → 승용차", "4 - 10명 → KDH 밴", "11 - 20명 → 미니 버스"],
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "왕복 픽업 및 드롭 서비스", "연료 및 주차비"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "추가 식음료"],
-  itinerary: [{
-    days: [1],
-    title: "1일차 - 콜롬보/네곰보에서 우다왈라와로 이동",
+  /* =====================================================
+     1 DAY TOURS (일일 투어)
+  ===================================================== */
+  {
+    id: "galle-one-day-tour",
+    title: "갈레 일일 투어",
+    image: "/tours/galle-one-day-tour.jpg",
+    price: 80,
+    duration: 1,
+    maxPeople: 20,
+    minAge: 16,
+    tourType: "프라이빗 일일 투어",
+    overview:
+      "스리랑카를 방문하여 'Sri Lanka Tours Driver'와 함께 갈레 일일 투어를 예약하세요. 영어를 구사하는 숙련된 전문 운전기사와 함께 갈레와 남부 해안으로 편안하고 잊지 못할 여행을 떠나보세요.",
+    vehicleInfo: [
+      "1 - 3명 → 승용차",
+      "4 - 10명 → KDH 밴",
+      "11 - 20명 → 미니 버스"
+    ],
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "왕복 픽업 및 드롭 서비스",
+      "연료 및 주차비"
+    ],
+    excluded: [
+      "고객 숙박 및 식사",
+      "입장권 및 액티비티 비용",
+      "추가 식음료"
+    ],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 콜롬보/네곰보에서 갈레로 이동",
+        image: "/tours/galle.jpg",
+        description:
+          "아름다운 남부 해안 도로를 따라 드라이브하며 그림 같은 풍경을 감상하세요.",
+        activities: [
+          "벤토타 해변 정차",
+          "마두강 보트 사파리 (선택 사항)",
+          "바다거북 보호소 방문",
+          "갈레 더치 포트",
+          "갈레 등대",
+          "쇼핑 및 휴식"
+        ],
+        overnight: "콜롬보 또는 네곰보로 귀환"
+      }
+    ]
+  },
+  {
+    id: "kandy-one-day-tour",
+    title: "캔디 일일 투어",
+    image: "/tours/kandy-one-day-tour.jpg",
+    price: 130,
+    duration: 1,
+    maxPeople: 20,
+    minAge: 16,
+    tourType: "프라이빗 일일 투어",
+    overview:
+      "스리랑카의 문화 수도인 캔디로 향하는 편안하고 잊지 못할 여행을 'Sri Lanka Tours Driver'와 함께하세요. 숙련된 기사가 최고의 서비스를 제공합니다.",
+    vehicleInfo: [
+      "1 - 3명 → 승용차",
+      "4 - 10명 → KDH 밴",
+      "11 - 20명 → 미니 버스"
+    ],
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "왕복 픽업 및 드롭 서비스",
+      "연료 및 주차비"
+    ],
+    excluded: [
+      "고객 숙박 및 식사",
+      "입장권 및 액티비티 비용",
+      "추가 식음료"
+    ],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 콜롬보/네곰보에서 캔디로 이동",
+        image: "/tours/kandy.jpg",
+        description:
+          "캔디로 향하는 동안 스리랑카의 문화와 자연의 아름다움을 만끽하세요.",
+        activities: [
+          "핀나왈라 코끼리 고아원 (선택 사항)",
+          "마와넬라 향신료 정원 방문",
+          "차 공장 방문 및 홍차 시음",
+          "캔디 호수 산책",
+          "불교 성지 불치사 참배",
+          "전통 문화 댄스 공연 (선택 사항)"
+        ],
+        overnight: "콜롬보 또는 네곰보로 귀환"
+      }
+    ]
+  },
+  {
+    id: "sigiriya-one-day-tour",
+    title: "시기리야 일일 투어",
+    image: "/tours/sigiriya-one-day-tour.jpg",
+    price: 130,
+    duration: 1,
+    maxPeople: 20,
+    minAge: 16,
+    tourType: "프라이빗 일일 투어",
+    overview:
+      "세계적으로 유명한 시기리야 고대 요새와 주변 역사 유적지를 탐방하는 특별한 투어로 잊지 못할 경험을 선사합니다.",
+    vehicleInfo: [
+      "1 - 3명 → 승용차",
+      "4 - 10명 → KDH 밴",
+      "11 - 20명 → 미니 버스"
+    ],
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "왕복 픽업 및 드롭 서비스",
+      "연료 및 주차비"
+    ],
+    excluded: [
+      "고객 숙박 및 식사",
+      "입장권 및 액티비티 비용",
+      "추가 식음료"
+    ],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 콜롬보/네곰보에서 시기리야로 이동",
+        image: "/tours/sigiriya.jpg",
+        description:
+          "시기리야로 향하는 길에 아름다운 자연과 문화를 경험하세요.",
+        activities: [
+          "핀나왈라 코끼리 고아원 (선택 사항)",
+          "담불라 동굴 사원",
+          "시기리야 고대 요새 등반",
+          "현지 마을 투어 및 전통 점심 식사 (선택 사항)",
+          "피두랑갈라 바위 등반 (선택 사항)"
+        ],
+        overnight: "콜롬보 또는 네곰보로 귀환"
+      }
+    ]
+  },
+  {
+    id: "Udawalawa-Safari-one-day-tour",
+    title: "우다왈라와 사파리 일일 투어",
     image: "/tours/udawalawa-safari-one-day-tour.jpg",
-    description: "야생의 매력을 느낄 수 있는 스릴 넘치는 특별한 여행입니다.",
-    activities: ["우다왈라와 코끼리 환승소 (수유 시간 관람)", "우다왈라와 국립공원 지프 사파리", "보석의 도시 라트나푸라 경유"],
-    overnight: "콜롬보 또는 네곰보로 귀환",
-  }],
-},
+    price: 130,
+    duration: 1,
+    maxPeople: 20,
+    minAge: 16,
+    tourType: "프라이빗 일일 투어",
+    overview:
+      "스리랑카 최고의 야생동물 사파리 명소 중 하나인 우다왈라와 국립공원으로 안전하고 아름다운 여행을 떠나보세요.",
+    vehicleInfo: [
+      "1 - 3명 → 승용차",
+      "4 - 10명 → KDH 밴",
+      "11 - 20명 → 미니 버스"
+    ],
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "왕복 픽업 및 드롭 서비스",
+      "연료 및 주차비"
+    ],
+    excluded: [
+      "고객 숙박 및 식사",
+      "입장권 및 액티비티 비용",
+      "추가 식음료"
+    ],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 콜롬보/네곰보에서 우다왈라와로 이동",
+        image: "/tours/udawalawa-safari-one-day-tour.jpg",
+        description:
+          "야생의 매력을 느낄 수 있는 스릴 넘치는 특별한 여행입니다.",
+        activities: [
+          "우다왈라와 코끼리 환승소 (수유 시간 관람)",
+          "우다왈라와 국립공원 지프 사파리",
+          "보석의 도시 라트나푸라 경유"
+        ],
+        overnight: "콜롬보 또는 네곰보로 귀환"
+      }
+    ]
+  },
 
-/* =====================================================
-   5일 투어 (05 DAYS TOURS)
-===================================================== */
+  /* =====================================================
+     05 DAYS TOURS (5일 투어)
+  ===================================================== */
+  {
+    id: "05-days-down-south",
+    region: "south",
+    hotelsIncluded: false,
+    title: "남부 5일 투어",
+    duration: 5,
+    maxPeople: 10,
+    minAge: 16,
+    price: 283.5,
+    image: "/tours/05-days-down-south-tour.jpg",
+    overview:
+      "이 5일 투어는 하바라나, 폴론나루와, 캔디, 누와라엘리야, 엘라, 그리고 미리사 또는 히카두와를 포함합니다. 문화, 야생동물 사파리, 고산 열차 여행, 그리고 아름다운 남부 해변을 경험해 보세요.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "24시간 긴급 지원 서비스",
+      "현지 유심카드 (무료 데이터)",
+      "생수 제공",
+      "고속도로 통행료"
+    ],
+    excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 공항/콜롬보에서 하바라나로 이동",
+        image: "/tours/habarana.jpg",
+        activities: [
+          "공항 또는 호텔 픽업",
+          "히리와둔나 마을 투어 및 쿠킹 클래스",
+          "에코 파크 사파리 또는 피두랑갈라 일몰 감상"
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 하바라나에서 캔디로 이동",
+        image: "/tours/sigiriya.jpg",
+        activities: [
+          "시기리야 고대 요새",
+          "폴론나루와 고대 왕국",
+          "담불라 동굴 사원",
+          "마탈레 힌두 사원",
+          "캔디 호수 산책",
+          "캔디 문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디에서 엘라로 이동",
+        image: "/tours/ella.jpg",
+        activities: [
+          "차 공장 방문",
+          "람보다 폭포",
+          "누와라엘리야 시내 관광",
+          "나누오야에서 엘라까지 기차 여행",
+          "리틀 아담스 피크"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 엘라에서 미리사/히카두와로 이동",
+        image: "/tours/yala.jpg",
+        activities: [
+          "나인 아치 브릿지",
+          "라바나 폭포",
+          "코끼리 환승소",
+          "우다왈라와 국립공원 사파리"
+        ],
+        overnight: "미리사 또는 히카두와 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 해변에서 콜롬보/공항으로 이동",
+        image: "/tours/colombo.jpg",
+        activities: [
+          "고래 관찰 (시즌 한정)",
+          "갈레 더치 포트",
+          "바다거북 보호소",
+          "마두강 보트 사파리",
+          "콜롬보 시내 관광"
+        ],
+        drop: "공항 또는 콜롬보 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "05-days-down-south-hotels",
+    region: "south",
+    hotelsIncluded: true,
+    title: "남부 5일 투어 (호텔 포함)",
+    duration: 5,
+    maxPeople: 2,
+    minAge: 16,
+    price: 382.5,
+    image: "/tours/05-days-down-south-tour-with-hotels.jpg",
+    overview:
+      "이 패키지에는 조식이 포함된 엄선된 호텔 숙박, 전용 차량, 전문 운전기사 겸 가이드가 포함되어 있습니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "24시간 긴급 지원 서비스",
+      "유심카드 및 생수",
+      "고속도로 통행료"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "기차표", "중식 및 석식"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 공항/콜롬보에서 하바라나로 이동",
+        image: "/tours/habarana.jpg",
+        activities: [
+          "공항 또는 호텔 픽업",
+          "히리와둔나 마을 투어",
+          "에코 파크 사파리"
+        ],
+        overnight: "Go Go Green - 하바라나 (수영장 포함)"
+      },
+      {
+        days: [2],
+        title: "2일차 - 하바라나에서 캔디로 이동",
+        image: "/tours/sigiriya.jpg",
+        activities: [
+          "시기리야 요새",
+          "폴론나루와",
+          "담불라 동굴 사원",
+          "불치사"
+        ],
+        overnight: "Jack Tree Lodge - 캔디"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디에서 엘라로 이동",
+        image: "/tours/ella.jpg",
+        activities: [
+          "차 공장 방문",
+          "람보다 폭포",
+          "누와라엘리야 시내 관광",
+          "나누오야에서 엘라까지 블루 트레인 탑승",
+          "리틀 아담스 피크"
+        ],
+        overnight: "Sunray Homestay - 엘라"
+      },
+      {
+        days: [4],
+        title: "4일차 - 엘라에서 미리사/히카두와로 이동",
+        image: "/tours/mirissa.jpg",
+        activities: [
+          "나인 아치 브릿지",
+          "라바나 폭포",
+          "코끼리 환승소",
+          "우다왈라와 사파리"
+        ],
+        overnight: "N34 - 미리사 또는 Finlanka Hotel - 히카두와"
+      },
+      {
+        days: [5],
+        title: "5일차 - 콜롬보/공항으로 이동",
+        image: "/tours/colombo.jpg",
+        options: [
+          {
+            title: "옵션 1 - 미리사 출발",
+            activities: [
+              "고래 관찰",
+              "코코넛 트리 힐",
+              "바다거북 보호소",
+              "콜롬보 투어"
+            ]
+          },
+          {
+            title: "옵션 2 - 히카두와 출발",
+            activities: [
+              "갈레 포트",
+              "일본 평화의 탑",
+              "히카두와 해변",
+              "마두강 사파리",
+              "콜롬보 투어"
+            ]
+          }
+        ],
+        drop: "공항 또는 콜롬보 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "05-days-east-coast",
+    region: "east",
+    hotelsIncluded: false,
+    title: "동부 해안 5일 투어",
+    duration: 5,
+    maxPeople: 10,
+    minAge: 16,
+    price: 340.0,
+    image: "/tours/05-days-east-coast-tour.jpg",
+    overview:
+      "이 투어는 캔디, 하바라나, 폴론나루와, 파시쿠다, 트링코말리, 네곰보를 포함합니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "유심카드 및 생수",
+      "고속도로 통행료"
+    ],
+    excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 콜롬보/네곰보에서 캔디로 이동",
+        image: "/tours/kandy.jpg",
+        activities: [
+          "공항 픽업",
+          "핀나왈라 코끼리 고아원",
+          "캔디 호수 산책",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 캔디에서 하바라나로 이동",
+        image: "/tours/habarana.jpg",
+        activities: [
+          "마탈레 힌두 사원",
+          "담불라 동굴 사원",
+          "마을 투어 및 점심 식사",
+          "사파리 또는 피두랑갈라 일몰"
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 하바라나에서 파시쿠다로 이동",
+        image: "/tours/pasikuda.jpg",
+        activities: [
+          "시기리야 고대 요새",
+          "폴론나루와 고대 왕국",
+          "파시쿠다 해변 (칼쿠다)"
+        ],
+        overnight: "파시쿠다 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 파시쿠다에서 트링코말리로 이동",
+        image: "/tours/trincomalee.jpg",
+        activities: [
+          "마블 비치",
+          "코네스와람 사원",
+          "프레드릭 요새",
+          "피전 아일랜드 (비둘기 섬)",
+          "닐라벨리 해변"
+        ],
+        overnight: "트링코말리 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 트링코말리에서 네곰보/콜롬보로 이동",
+        image: "/tours/negombo.jpg",
+        activities: ["네곰보 석호 투어 또는 콜롬보 시내 관광"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "05-days-east-coast-hotels",
+    region: "east",
+    hotelsIncluded: true,
+    title: "동부 해안 5일 투어 (호텔 포함)",
+    duration: 5,
+    maxPeople: 2,
+    minAge: 16,
+    price: 400.0,
+    image: "/tours/05-days-east-coast-tour-with-hotels.jpg",
+    overview:
+      "조식이 포함된 엄선된 호텔 숙박이 포함된 완벽한 5일 동부 해안 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "24시간 긴급 지원 서비스",
+      "유심카드 및 생수",
+      "고속도로 통행료"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "중식 및 석식"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        activities: ["불치사", "문화 댄스 공연", "핀나왈라 코끼리 고아원"],
+        overnight: "Jack Tree Lodge - 캔디"
+      },
+      {
+        days: [2],
+        title: "2일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        activities: ["담불라 동굴 사원", "마을 투어", "에코 파크 사파리"],
+        overnight: "Go Go Green - 하바라나"
+      },
+      {
+        days: [3],
+        title: "3일차 - 파시쿠다",
+        image: "/tours/pasikuda.jpg",
+        activities: ["시기리야 요새", "폴론나루와", "해변 휴식"],
+        overnight: "파시쿠다 내 엄선된 호텔"
+      },
+      {
+        days: [4],
+        title: "4일차 - 트링코말리",
+        image: "/tours/trincomalee.jpg",
+        activities: [
+          "피전 아일랜드 스노클링",
+          "코네스와람 사원",
+          "마블 비치"
+        ],
+        overnight: "트링코말리 내 엄선된 호텔"
+      },
+      {
+        days: [5],
+        title: "5일차 - 출발",
+        image: "/tours/negombo.jpg",
+        drop: "공항 또는 네곰보/콜롬보 호텔로 이동 및 종료"
+      }
+    ]
+  },
 
-{ id: "05-days-down-south", region: "south", hotelsIncluded: false, title: "남부 5일 투어", duration: 5, maxPeople: 10, minAge: 16, price: 283.5, image: "/tours/05-days-down-south-tour.jpg",
-  overview: "이 5일 투어는 하바라나, 폴론나루와, 캔디, 누와라엘리야, 엘라, 그리고 미리사 또는 히카두와를 포함합니다. 문화, 야생동물 사파리, 고산 열차 여행, 그리고 아름다운 남부 해변을 경험해 보세요.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료 및 주차비", "24시간 긴급 지원 서비스", "현지 유심카드 (무료 데이터)", "생수 제공", "고속도로 통행료"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 공항/콜롬보에서 하바라나로 이동", image: "/tours/habarana.jpg", activities: ["공항 또는 호텔 픽업", "히리와둔나 마을 투어 및 쿠킹 클래스", "에코 파크 사파리 또는 피두랑갈라 일몰 감상"], overnight: "하바라나 숙박" },
-    { days: [2], title: "2일차 - 하바라나에서 캔디로 이동", image: "/tours/sigiriya.jpg", activities: ["시기리야 고대 요새", "폴론나루와 고대 왕국", "담불라 동굴 사원", "마탈레 힌두 사원", "캔디 호수 산책", "캔디 문화 댄스 공연", "불치사"], overnight: "캔디 숙박" },
-    { days: [3], title: "3일차 - 캔디에서 엘라로 이동", image: "/tours/ella.jpg", activities: ["차 공장 방문", "람보다 폭포", "누와라엘리야 시내 관광", "나누오야에서 엘라까지 기차 여행", "리틀 아담스 피크"], overnight: "엘라 숙박" },
-    { days: [4], title: "4일차 - 엘라에서 미리사/히카두와로 이동", image: "/tours/yala.jpg", activities: ["나인 아치 브릿지", "라바나 폭포", "코끼리 환승소", "우다왈라와 국립공원 사파리"], overnight: "미리사 또는 히카두와 숙박" },
-    { days: [5], title: "5일차 - 해변에서 콜롬보/공항으로 이동", image: "/tours/colombo.jpg", activities: ["고래 관찰 (시즌 한정)", "갈레 더치 포트", "바다거북 보호소", "마두강 보트 사파리", "콜롬보 시내 관광"], drop: "공항 또는 콜롬보 호텔로 이동 및 종료" },
-  ],
-},
+  /* =====================================================
+     08 DAYS TOURS (8일 투어)
+  ===================================================== */
+  {
+    id: "08-days-down-south",
+    region: "south",
+    hotelsIncluded: false,
+    title: "남부 8일 투어",
+    duration: 8,
+    maxPeople: 10,
+    minAge: 16,
+    price: 335.0,
+    image: "/tours/08-days-down-south-tour.jpg",
+    overview:
+      "이 8일 투어는 네곰보, 하바라나, 폴론나루와, 캔디, 누와라엘리야, 엘라, 얄라, 미리사, 히카두와, 콜롬보를 포함합니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "현지 유심카드 (무료 데이터)",
+      "생수"
+    ],
+    excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 후 네곰보 도착.",
+        activities: ["네곰보 어시장", "더치 포트", "석호 투어"],
+        overnight: "네곰보 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 및 자연 탐방.",
+        activities: [
+          "핀나왈라 코끼리 고아원",
+          "스리랑카 현지식 점심이 포함된 마을 투어",
+          "에코 파크 사파리 또는 피두랑갈라 일몰"
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "역사적인 명소를 방문하며 문화의 수도로 이동.",
+        activities: [
+          "시기리야 고대 요새",
+          "폴론나루와 고대 왕국",
+          "담불라 동굴 사원",
+          "불치사",
+          "캔디 문화 댄스 공연"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "세계에서 가장 아름다운 기차 여행 경험.",
+        activities: [
+          "차 공장 방문",
+          "람보다 폭포",
+          "나누오야에서 엘라까지 기차 여행",
+          "리틀 아담스 피크"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 경로 선택",
+        image: "/tours/yala.jpg",
+        description: "얄라 또는 미리사 중 원하는 경로 선택.",
+        options: [
+          {
+            title: "옵션 1 - 엘라에서 얄라로 이동",
+            activities: [
+              "나인 아치 브릿지",
+              "라바나 폭포",
+              "부두루와갈라 바위 사원"
+            ],
+            overnight: "얄라 숙박"
+          },
+          {
+            title: "옵션 2 - 엘라에서 미리사로 이동",
+            activities: ["나인 아치 브릿지", "우다왈라와 국립공원 사파리"],
+            overnight: "미리사 숙박"
+          }
+        ]
+      },
+      {
+        days: [6],
+        title: "6일차 - 선택한 경로 진행",
+        image: "/tours/mirissa.jpg",
+        description: "야생동물 사파리 또는 고래 관찰 진행.",
+        options: [
+          {
+            title: "옵션 1 - 얄라에서 미리사로 이동",
+            activities: ["얄라 국립공원 오전 사파리", "고얌보카 해변"],
+            overnight: "미리사 숙박"
+          },
+          {
+            title: "옵션 2 - 미리사에서 히카두와로 이동",
+            activities: ["고래 관찰", "갈레 더치 포트"],
+            overnight: "히카두와 숙박"
+          }
+        ]
+      },
+      {
+        days: [7],
+        title: "7일차 - 히카두와",
+        image: "/tours/hikkaduwa.jpg",
+        description: "남부 해변에서 보내는 완벽한 하루.",
+        activities: ["히카두와 해변 휴식", "스노클링", "서핑"],
+        overnight: "히카두와 숙박"
+      },
+      {
+        days: [8],
+        title: "8일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "투어의 마지막 날.",
+        activities: ["마두강 보트 사파리", "콜롬보 시내 관광"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "08-days-down-south-hotels",
+    region: "south",
+    hotelsIncluded: true,
+    title: "남부 8일 투어 (호텔 포함)",
+    duration: 8,
+    maxPeople: 2,
+    minAge: 16,
+    price: 475.0,
+    image: "/tours/08-days-down-south-tour-with-hotels.jpg",
+    overview:
+      "조식이 포함된 엄선된 호텔 숙박이 포함된 완벽한 8일 남부 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "유심카드 및 생수",
+      "고속도로 통행료"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 후 네곰보 도착.",
+        activities: ["네곰보 어시장", "네곰보 석호 투어", "더치 포트"],
+        overnight: "New Queen's Palace - 네곰보"
+      },
+      {
+        days: [2],
+        title: "2일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "야생동물 및 시골 마을 체험.",
+        activities: ["마을 투어", "에코 파크 또는 미네리야 사파리"],
+        overnight: "Go Go Green - 하바라나"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "문화의 수도로 이동.",
+        activities: [
+          "담불라 동굴 사원",
+          "향신료 정원",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "Jack Tree Lodge - 캔디"
+      },
+      {
+        days: [4],
+        title: "4일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "고산 열차 여행.",
+        activities: [
+          "나누오야에서 엘라까지 기차 탑승",
+          "차 공장",
+          "리틀 아담스 피크"
+        ],
+        overnight: "Sunray Homestay - 엘라"
+      },
+      {
+        days: [5],
+        title: "5일차 - 얄라",
+        image: "/tours/yala.jpg",
+        description: "정글로의 진입.",
+        activities: ["나인 아치 브릿지", "라바나 폭포", "얄라 국립공원 사파리"],
+        overnight: "Boutique Villa - 얄라"
+      },
+      {
+        days: [6],
+        title: "6일차 - 미리사",
+        image: "/tours/mirissa.jpg",
+        description: "남부 해변에서의 휴식.",
+        activities: ["미리사 해변 휴식", "코코넛 트리 힐"],
+        overnight: "N34 - 미리사"
+      },
+      {
+        days: [7],
+        title: "7일차 - 히카두와",
+        image: "/tours/hikkaduwa.jpg",
+        description: "해양 생물 및 역사적 명소.",
+        activities: ["고래 관찰", "갈레 포트", "히카두와 스노클링"],
+        overnight: "Finlanka Hotel - 히카두와"
+      },
+      {
+        days: [8],
+        title: "8일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "마지막 날 콜롬보 관광.",
+        activities: ["콜롬보 시내 관광", "강가라마야 사원"],
+        drop: "공항으로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "08-days-east-coast",
+    region: "east",
+    hotelsIncluded: false,
+    title: "동부 해안 8일 투어",
+    duration: 8,
+    maxPeople: 10,
+    minAge: 16,
+    price: 510.0,
+    image: "/tours/08-days-east-coast-tour.jpg",
+    overview:
+      "동부 해안, 문화 및 고산 지대를 탐험하는 8일간의 여행입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 및 환영.",
+        activities: ["네곰보 어시장", "더치 포트", "석호 투어"],
+        overnight: "네곰보 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "고산 지대에서의 짜릿한 경험.",
+        activities: [
+          "키툴갈라 래프팅",
+          "라바나 폭포",
+          "리틀 아담스 피크",
+          "나인 아치 브릿지"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "아름다운 기차 여행과 문화 도시.",
+        activities: [
+          "엘라에서 나누오야까지 기차 여행",
+          "누와라엘리야 시내 관광",
+          "람보다 폭포 및 차 공장",
+          "캔디 호수 산책",
+          "불치사"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 진입.",
+        activities: [
+          "마탈레 힌두 사원",
+          "담불라 동굴 사원",
+          "마을 투어",
+          "에코 파크 사파리 또는 피두랑갈라 일몰"
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 파시쿠다",
+        image: "/tours/pasikuda.jpg",
+        description: "동부 해안으로 이동.",
+        activities: [
+          "시기리야 고대 요새 등반",
+          "폴론나루와 고대 왕국",
+          "파시쿠다 해변 휴식"
+        ],
+        overnight: "파시쿠다 숙박"
+      },
+      {
+        days: [6],
+        title: "6일차 - 트링코말리",
+        image: "/tours/trincomalee.jpg",
+        description: "아름다운 해변 추가 탐험.",
+        activities: ["수상 스포츠 및 해변 휴식", "영국군 묘지", "우푸벨리 해변"],
+        overnight: "트링코말리 숙박"
+      },
+      {
+        days: [7],
+        title: "7일차 - 트링코말리 탐험",
+        image: "/tours/trincomalee.jpg",
+        description: "섬과 사원 방문.",
+        activities: [
+          "마블 비치 및 코네스와람 사원",
+          "프레드릭 요새",
+          "피전 아일랜드 스노클링",
+          "닐라벨리 해변"
+        ],
+        overnight: "트링코말리 숙박"
+      },
+      {
+        days: [8],
+        title: "8일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "귀국을 위한 출발.",
+        activities: ["콜롬보 시내 관광 (비행 시간에 따라 다름)"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "08-days-east-coast-hotels",
+    region: "east",
+    hotelsIncluded: true,
+    title: "동부 해안 8일 투어 (호텔 포함)",
+    duration: 8,
+    maxPeople: 2,
+    minAge: 16,
+    price: 630.0,
+    image: "/tours/08-days-east-coast-tour-with-hotels.jpg",
+    overview:
+      "조식이 포함된 호텔 숙박이 제공되는 8일 동부 해안 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 및 환영.",
+        activities: ["네곰보 어시장", "네곰보 석호 투어"],
+        overnight: "New Queen's Palace - 네곰보"
+      },
+      {
+        days: [2],
+        title: "2일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "고산 지대에서의 짜릿한 경험.",
+        activities: [
+          "키툴갈라 래프팅",
+          "라바나 폭포",
+          "리틀 아담스 피크",
+          "나인 아치 브릿지"
+        ],
+        overnight: "Sunray Homestay - 엘라"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "아름다운 기차 여행.",
+        activities: [
+          "엘라에서 나누오야까지 기차 탑승",
+          "누와라엘리야 시내 관광",
+          "불치사"
+        ],
+        overnight: "Jack Tree Lodge - 캔디"
+      },
+      {
+        days: [4],
+        title: "4일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 진입.",
+        activities: [
+          "담불라 동굴 사원",
+          "마을 투어",
+          "에코 파크 사파리 또는 피두랑갈라"
+        ],
+        overnight: "Go Go Green - 하바라나"
+      },
+      {
+        days: [5],
+        title: "5일차 - 파시쿠다",
+        image: "/tours/pasikuda.jpg",
+        description: "동부 해안으로 이동.",
+        activities: [
+          "시기리야 고대 요새 등반",
+          "폴론나루와 고대 왕국",
+          "파시쿠다 해변 휴식"
+        ],
+        overnight: "파시쿠다 내 엄선된 호텔"
+      },
+      {
+        days: [6],
+        title: "6일차 - 트링코말리",
+        image: "/tours/trincomalee.jpg",
+        description: "아름다운 해변 추가 탐험.",
+        activities: ["수상 스포츠", "영국군 묘지", "우푸벨리 해변"],
+        overnight: "트링코말리 내 엄선된 호텔"
+      },
+      {
+        days: [7],
+        title: "7일차 - 트링코말리 탐험",
+        image: "/tours/trincomalee.jpg",
+        description: "섬과 사원 방문.",
+        activities: [
+          "마블 비치 및 코네스와람 사원",
+          "프레드릭 요새",
+          "피전 아일랜드 스노클링"
+        ],
+        overnight: "트링코말리 내 엄선된 호텔"
+      },
+      {
+        days: [8],
+        title: "8일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "귀국을 위한 출발.",
+        activities: ["콜롬보 시내 관광"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
 
-{ id: "05-days-down-south-hotels", region: "south", hotelsIncluded: true, title: "남부 5일 투어 (호텔 포함)", duration: 5, maxPeople: 2, minAge: 16, price: 382.5, image: "/tours/05-days-down-south-tour-with-hotels.jpg",
-  overview: "이 패키지에는 조식이 포함된 엄선된 호텔 숙박, 전용 차량, 전문 운전기사 겸 가이드가 포함되어 있습니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료 및 주차비", "24시간 긴급 지원 서비스", "유심카드 및 생수", "고속도로 통행료"],
-  excluded: ["입장권 및 액티비티 비용", "기차표", "중식 및 석식"],
-  itinerary: [
-    { days: [1], title: "1일차 - 공항/콜롬보에서 하바라나로 이동", image: "/tours/habarana.jpg", activities: ["공항 또는 호텔 픽업", "히리와둔나 마을 투어", "에코 파크 사파리"], overnight: "Go Go Green - 하바라나 (수영장 포함)" },
-    { days: [2], title: "2일차 - 하바라나에서 캔디로 이동", image: "/tours/sigiriya.jpg", activities: ["시기리야 요새", "폴론나루와", "담불라 동굴 사원", "불치사"], overnight: "Jack Tree Lodge - 캔디" },
-    { days: [3], title: "3일차 - 캔디에서 엘라로 이동", image: "/tours/ella.jpg", activities: ["차 공장 방문", "람보다 폭포", "누와라엘리야 시내 관광", "나누오야에서 엘라까지 블루 트레인 탑승", "리틀 아담스 피크"], overnight: "Sunray Homestay - 엘라" },
-    { days: [4], title: "4일차 - 엘라에서 미리사/히카두와로 이동", image: "/tours/mirissa.jpg", activities: ["나인 아치 브릿지", "라바나 폭포", "코끼리 환승소", "우다왈라와 사파리"], overnight: "N34 - 미리사 또는 Finlanka Hotel - 히카두와" },
-    { days: [5], title: "5일차 - 콜롬보/공항으로 이동", image: "/tours/colombo.jpg", options: [{ title: "옵션 1 - 미리사 출발", activities: ["고래 관찰", "코코넛 트리 힐", "바다거북 보호소", "콜롬보 투어"] }, { title: "옵션 2 - 히카두와 출발", activities: ["갈레 포트", "일본 평화의 탑", "히카두와 해변", "마두강 사파리", "콜롬보 투어"] }], drop: "공항 또는 콜롬보 호텔로 이동 및 종료" },
-  ],
-},
+  /* =====================================================
+     10 DAYS TOURS (10일 투어)
+  ===================================================== */
+  {
+    id: "10-days-down-south",
+    region: "south",
+    hotelsIncluded: false,
+    title: "남부 10일 투어",
+    duration: 10,
+    maxPeople: 2,
+    minAge: 16,
+    price: 400.0,
+    image: "/tours/10-days-down-south-tour.jpg",
+    overview:
+      "문화, 고산지대, 야생동물 및 해변을 모두 아우르는 10일간의 포괄적인 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "유심카드 및 생수",
+      "고속도로 통행료"
+    ],
+    excluded: ["고객 숙박", "입장권 및 액티비티 비용", "식음료", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 공항에서 하바라나로 이동",
+        image: "/tours/habarana.jpg",
+        description: "공항 픽업 후 하바라나로 이동.",
+        activities: ["네곰보 어시장", "피두랑갈라 일몰 감상"],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 시기리야 및 폴론나루와",
+        image: "/tours/sigiriya.jpg",
+        description: "문화 체험.",
+        activities: [
+          "시기리야 요새 등반 (오전 7시)",
+          "폴론나루와 자전거 투어",
+          "히리와둔나 마을 투어 및 쿠킹 클래스"
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "역사적인 사원 탐방.",
+        activities: [
+          "담불라 동굴 사원",
+          "날란다 게디게",
+          "마탈레 힌두 사원",
+          "캔디 댄스 공연",
+          "불치사"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "아름다운 차밭을 지나는 여정.",
+        activities: [
+          "람보다 폭포",
+          "차 공장 및 다원 방문",
+          "누와라엘리야 시내 관광"
+        ],
+        overnight: "누와라엘리야 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 호튼 플레인스 및 엘라",
+        image: "/tours/ella.jpg",
+        description: "이른 아침 고산지대로.",
+        activities: [
+          "호튼 플레인스 국립공원 (오전 5시)",
+          "나누오야에서 엘라까지 기차 여행",
+          "나인 아치 브릿지"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [6],
+        title: "6일차 - 엘라 탐험",
+        image: "/tours/ella.jpg",
+        description: "등산 및 모험적인 경험.",
+        activities: [
+          "리틀 아담스 피크",
+          "라바나 동굴",
+          "엘라 록 등반",
+          "비밀의 폭포 (Secret Waterfall)"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [7],
+        title: "7일차 - 얄라",
+        image: "/tours/yala.jpg",
+        description: "야생동물 보호구역으로 이동.",
+        activities: [
+          "라바나 폭포",
+          "부두루와갈라 바위 사원",
+          "얄라 국립공원 사파리"
+        ],
+        overnight: "얄라 숙박"
+      },
+      {
+        days: [8],
+        title: "8일차 - 미리사",
+        image: "/tours/mirissa.jpg",
+        description: "남부 해변 투어.",
+        activities: ["미리사 해변", "웰리가마 해변", "우나와투나 해변"],
+        overnight: "미리사 숙박"
+      },
+      {
+        days: [9],
+        title: "9일차 - 미리사",
+        image: "/tours/mirissa.jpg",
+        description: "해양 생물 관찰.",
+        activities: ["고래 및 돌고래 관찰", "해변 휴식 및 수상 스포츠"],
+        overnight: "미리사 숙박"
+      },
+      {
+        days: [10],
+        title: "10일차 - 콜롬보 및 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "투어의 마지막 날.",
+        activities: [
+          "갈레 더치 포트 탐험",
+          "바다거북 보호소",
+          "콜롬보 시내 관광",
+          "강가라마야 사원",
+          "독립 광장"
+        ],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "10-days-down-south-hotels",
+    region: "south",
+    hotelsIncluded: true,
+    title: "남부 10일 투어 (호텔 포함)",
+    duration: 10,
+    maxPeople: 2,
+    minAge: 16,
+    price: 580.0,
+    image: "/tours/10-days-down-south-tour-with-hotels.jpg",
+    overview: "호텔 숙박이 포함된 10일 완벽 패키지입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        activities: ["네곰보 어시장", "피두랑갈라 일몰"],
+        overnight: "Go Go Green – 하바라나"
+      },
+      {
+        days: [2],
+        title: "2일차 - 시기리야 및 폴론나루와",
+        image: "/tours/sigiriya.jpg",
+        activities: [
+          "시기리야 요새 등반",
+          "폴론나루와 자전거 투어",
+          "마을 투어"
+        ],
+        overnight: "Go Go Green – 하바라나"
+      },
+      {
+        days: [3],
+        title: "3일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        activities: [
+          "담불라 동굴 사원",
+          "마탈레 힌두 사원",
+          "댄스 공연",
+          "불치사"
+        ],
+        overnight: "Jack Tree Lodge – 캔디"
+      },
+      {
+        days: [4],
+        title: "4일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        activities: ["람보다 폭포", "차 공장", "누와라엘리야 투어"],
+        overnight: "Lu Chalet – 누와라엘리야"
+      },
+      {
+        days: [5],
+        title: "5일차 - 엘라",
+        image: "/tours/ella.jpg",
+        activities: [
+          "호튼 플레인스 국립공원",
+          "나누오야에서 엘라 기차 여행",
+          "나인 아치 브릿지"
+        ],
+        overnight: "Ella River Front – 엘라"
+      },
+      {
+        days: [6],
+        title: "6일차 - 엘라 탐험",
+        image: "/tours/ella.jpg",
+        activities: ["리틀 아담스 피크", "라바나 동굴", "엘라 록 등반"],
+        overnight: "Ella River Front – 엘라"
+      },
+      {
+        days: [7],
+        title: "7일차 - 얄라",
+        image: "/tours/yala.jpg",
+        activities: ["라바나 폭포", "부두루와갈라 사원", "얄라 국립공원 사파리"],
+        overnight: "Boutique Villa – 얄라"
+      },
+      {
+        days: [8],
+        title: "8일차 - 미리사",
+        image: "/tours/mirissa.jpg",
+        activities: ["미리사 해변", "웰리가마 해변", "우나와투나 해변"],
+        overnight: "N34 – 미리사"
+      },
+      {
+        days: [9],
+        title: "9일차 - 미리사",
+        image: "/tours/mirissa.jpg",
+        activities: ["고래 관찰", "해변 휴식"],
+        overnight: "N34 – 미리사"
+      },
+      {
+        days: [10],
+        title: "10일차 - 출발",
+        image: "/tours/colombo.jpg",
+        activities: ["갈레 더치 포트", "콜롬보 시내 관광", "강가라마야 사원"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "10-days-east-coast",
+    region: "east",
+    hotelsIncluded: false,
+    title: "동부 해안 10일 투어",
+    duration: 10,
+    maxPeople: 10,
+    minAge: 16,
+    price: 640.0,
+    image: "/tours/10-days-east-coast-tour.jpg",
+    overview:
+      "동부 해안, 문화 유산, 고산 지대 및 야생동물을 탐험하는 10일 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 및 환영.",
+        activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"],
+        overnight: "네곰보 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "고산 지대에서의 짜릿한 경험.",
+        activities: [
+          "키툴갈라 래프팅",
+          "라바나 폭포",
+          "리틀 아담스 피크",
+          "나인 아치 브릿지"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "아름다운 기차 여행.",
+        activities: [
+          "엘라에서 나누오야까지 기차 여행",
+          "누와라엘리야 시내 관광",
+          "그레고리 호수",
+          "차밭 및 시타 암만 사원"
+        ],
+        overnight: "누와라엘리야 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "문화의 수도로 이동.",
+        activities: [
+          "호튼 플레인스",
+          "람보다 폭포 및 차 공장",
+          "캔디 호수 산책",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 진입.",
+        activities: [
+          "마탈레 힌두 사원",
+          "담불라 동굴 사원",
+          "마을 투어",
+          "에코 파크 사파리 또는 피두랑갈라"
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [6],
+        title: "6일차 - 파시쿠다",
+        image: "/tours/pasikuda.jpg",
+        description: "동부 해안으로 이동.",
+        activities: [
+          "시기리야 고대 요새",
+          "폴론나루와 고대 왕국",
+          "파시쿠다 해변 휴식"
+        ],
+        overnight: "파시쿠다 숙박"
+      },
+      {
+        days: [7],
+        title: "7일차 - 바티칼로아",
+        image: "/tours/batticaloa.jpg",
+        description: "역사적인 명소 및 해변.",
+        activities: [
+          "해변 휴식 및 수상 스포츠",
+          "바티칼로아 요새 및 등대",
+          "칼라디 다리"
+        ],
+        overnight: "파시쿠다 숙박"
+      },
+      {
+        days: [8],
+        title: "8일차 - 트링코말리",
+        image: "/tours/trincomalee.jpg",
+        description: "아름다운 해변 추가 탐험.",
+        activities: [
+          "마블 비치",
+          "영국군 묘지",
+          "우푸벨리 해변",
+          "프레드릭 요새"
+        ],
+        overnight: "트링코말리 숙박"
+      },
+      {
+        days: [9],
+        title: "9일차 - 트링코말리 탐험",
+        image: "/tours/trincomalee.jpg",
+        description: "섬과 사원 방문.",
+        activities: [
+          "피전 아일랜드 스노클링",
+          "닐라벨리 해변",
+          "코네스와람 사원"
+        ],
+        overnight: "트링코말리 숙박"
+      },
+      {
+        days: [10],
+        title: "10일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "귀국을 위한 출발.",
+        activities: ["콜롬보 시내 관광"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "10-days-east-coast-hotels",
+    region: "east",
+    hotelsIncluded: true,
+    title: "동부 해안 10일 투어 (호텔 포함)",
+    duration: 10,
+    maxPeople: 2,
+    minAge: 16,
+    price: 790.0,
+    image: "/tours/10-days-east-coast-tour-with-hotels.jpg",
+    overview:
+      "조식이 포함된 호텔 숙박이 제공되는 10일 동부 해안 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"],
+        overnight: "New Queen's Palace - 네곰보"
+      },
+      {
+        days: [2],
+        title: "2일차 - 엘라",
+        image: "/tours/ella.jpg",
+        activities: [
+          "키툴갈라 래프팅",
+          "라바나 폭포",
+          "리틀 아담스 피크",
+          "나인 아치 브릿지"
+        ],
+        overnight: "Sunray Homestay - 엘라"
+      },
+      {
+        days: [3],
+        title: "3일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        activities: [
+          "나누오야 기차 탑승",
+          "누와라엘리야 투어",
+          "그레고리 호수",
+          "시타 암만 사원"
+        ],
+        overnight: "Lu Chalet - 누와라엘리야"
+      },
+      {
+        days: [4],
+        title: "4일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        activities: [
+          "호튼 플레인스",
+          "람보다 폭포 및 차 공장",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "Jack Tree Lodge - 캔디"
+      },
+      {
+        days: [5],
+        title: "5일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        activities: [
+          "마탈레 힌두 사원",
+          "담불라 동굴 사원",
+          "마을 투어",
+          "에코 파크 사파리 또는 피두랑갈라"
+        ],
+        overnight: "Go Go Green - 하바라나"
+      },
+      {
+        days: [6],
+        title: "6일차 - 파시쿠다",
+        image: "/tours/pasikuda.jpg",
+        activities: ["시기리야 요새", "폴론나루와", "파시쿠다 해변"],
+        overnight: "파시쿠다 내 엄선된 호텔"
+      },
+      {
+        days: [7],
+        title: "7일차 - 바티칼로아",
+        image: "/tours/batticaloa.jpg",
+        activities: ["해변 휴식 및 수상 스포츠", "바티칼로아 요새", "칼라디 다리"],
+        overnight: "파시쿠다 내 엄선된 호텔"
+      },
+      {
+        days: [8],
+        title: "8일차 - 트링코말리",
+        image: "/tours/trincomalee.jpg",
+        activities: [
+          "마블 비치",
+          "영국군 묘지",
+          "우푸벨리 해변",
+          "프레드릭 요새"
+        ],
+        overnight: "트링코말리 내 엄선된 호텔"
+      },
+      {
+        days: [9],
+        title: "9일차 - 트링코말리 탐험",
+        image: "/tours/trincomalee.jpg",
+        activities: [
+          "피전 아일랜드 스노클링",
+          "닐라벨리 해변",
+          "코네스와람 사원"
+        ],
+        overnight: "트링코말리 내 엄선된 호텔"
+      },
+      {
+        days: [10],
+        title: "10일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        activities: ["콜롬보 시내 관광"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
 
-{ id: "05-days-east-coast", region: "east", hotelsIncluded: false, title: "동부 해안 5일 투어", duration: 5, maxPeople: 10, minAge: 16, price: 340.0, image: "/tours/05-days-east-coast-tour.jpg",
-  overview: "이 투어는 캔디, 하바라나, 폴론나루와, 파시쿠다, 트링코말리, 네곰보를 포함합니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료", "주차비", "유심카드 및 생수", "고속도로 통행료"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용"],
-  itinerary: [
-    { days: [1], title: "1일차 - 콜롬보/네곰보에서 캔디로 이동", image: "/tours/kandy.jpg", activities: ["공항 픽업", "핀나왈라 코끼리 고아원", "캔디 호수 산책", "문화 댄스 공연", "불치사"], overnight: "캔디 숙박" },
-    { days: [2], title: "2일차 - 캔디에서 하바라나로 이동", image: "/tours/habarana.jpg", activities: ["마탈레 힌두 사원", "담불라 동굴 사원", "마을 투어 및 점심 식사", "사파리 또는 피두랑갈라 일몰"], overnight: "하바라나 숙박" },
-    { days: [3], title: "3일차 - 하바라나에서 파시쿠다로 이동", image: "/tours/pasikuda.jpg", activities: ["시기리야 고대 요새", "폴론나루와 고대 왕국", "파시쿠다 해변 (칼쿠다)"], overnight: "파시쿠다 숙박" },
-    { days: [4], title: "4일차 - 파시쿠다에서 트링코말리로 이동", image: "/tours/trincomalee.jpg", activities: ["마블 비치", "코네스와람 사원", "프레드릭 요새", "피전 아일랜드 (비둘기 섬)", "닐라벨리 해변"], overnight: "트링코말리 숙박" },
-    { days: [5], title: "5일차 - 트링코말리에서 네곰보/콜롬보로 이동", image: "/tours/negombo.jpg", activities: ["네곰보 석호 투어 또는 콜롬보 시내 관광"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "05-days-east-coast-hotels", region: "east", hotelsIncluded: true, title: "동부 해안 5일 투어 (호텔 포함)", duration: 5, maxPeople: 2, minAge: 16, price: 400.0, image: "/tours/05-days-east-coast-tour-with-hotels.jpg",
-  overview: "조식이 포함된 엄선된 호텔 숙박이 포함된 완벽한 5일 동부 해안 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료 및 주차비", "24시간 긴급 지원 서비스", "유심카드 및 생수", "고속도로 통행료"],
-  excluded: ["입장권 및 액티비티 비용", "중식 및 석식"],
-  itinerary: [
-    { days: [1], title: "1일차 - 캔디", image: "/tours/kandy.jpg", activities: ["불치사", "문화 댄스 공연", "핀나왈라 코끼리 고아원"], overnight: "Jack Tree Lodge - 캔디" },
-    { days: [2], title: "2일차 - 하바라나", image: "/tours/habarana.jpg", activities: ["담불라 동굴 사원", "마을 투어", "에코 파크 사파리"], overnight: "Go Go Green - 하바라나" },
-    { days: [3], title: "3일차 - 파시쿠다", image: "/tours/pasikuda.jpg", activities: ["시기리야 요새", "폴론나루와", "해변 휴식"], overnight: "파시쿠다 내 엄선된 호텔" },
-    { days: [4], title: "4일차 - 트링코말리", image: "/tours/trincomalee.jpg", activities: ["피전 아일랜드 스노클링", "코네스와람 사원", "마블 비치"], overnight: "트링코말리 내 엄선된 호텔" },
-    { days: [5], title: "5일차 - 출발", image: "/tours/negombo.jpg", drop: "공항 또는 네곰보/콜롬보 호텔로 이동 및 종료" },
-  ],
-},
-
-/* =====================================================
-   8일 투어 (08 DAYS TOURS)
-===================================================== */
-
-{ id: "08-days-down-south", region: "south", hotelsIncluded: false, title: "남부 8일 투어", duration: 8, maxPeople: 10, minAge: 16, price: 335.0, image: "/tours/08-days-down-south-tour.jpg",
-  overview: "이 8일 투어는 네곰보, 하바라나, 폴론나루와, 캔디, 누와라엘리야, 엘라, 얄라, 미리사, 히카두와, 콜롬보를 포함합니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료", "주차비", "현지 유심카드 (무료 데이터)", "생수"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 후 네곰보 도착.", activities: ["네곰보 어시장", "더치 포트", "석호 투어"], overnight: "네곰보 숙박" },
-    { days: [2], title: "2일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 및 자연 탐방.", activities: ["핀나왈라 코끼리 고아원", "스리랑카 현지식 점심이 포함된 마을 투어", "에코 파크 사파리 또는 피두랑갈라 일몰"], overnight: "하바라나 숙박" },
-    { days: [3], title: "3일차 - 캔디", image: "/tours/kandy.jpg", description: "역사적인 명소를 방문하며 문화의 수도로 이동.", activities: ["시기리야 고대 요새", "폴론나루와 고대 왕국", "담불라 동굴 사원", "불치사", "캔디 문화 댄스 공연"], overnight: "캔디 숙박" },
-    { days: [4], title: "4일차 - 엘라", image: "/tours/ella.jpg", description: "세계에서 가장 아름다운 기차 여행 경험.", activities: ["차 공장 방문", "람보다 폭포", "나누오야에서 엘라까지 기차 여행", "리틀 아담스 피크"], overnight: "엘라 숙박" },
-    { days: [5], title: "5일차 - 경로 선택", image: "/tours/yala.jpg", description: "얄라 또는 미리사 중 원하는 경로 선택.", options: [{ title: "옵션 1 - 엘라에서 얄라로 이동", activities: ["나인 아치 브릿지", "라바나 폭포", "부두루와갈라 바위 사원"], overnight: "얄라 숙박" }, { title: "옵션 2 - 엘라에서 미리사로 이동", activities: ["나인 아치 브릿지", "우다왈라와 국립공원 사파리"], overnight: "미리사 숙박" }] },
-    { days: [6], title: "6일차 - 선택한 경로 진행", image: "/tours/mirissa.jpg", description: "야생동물 사파리 또는 고래 관찰 진행.", options: [{ title: "옵션 1 - 얄라에서 미리사로 이동", activities: ["얄라 국립공원 오전 사파리", "고얌보카 해변"], overnight: "미리사 숙박" }, { title: "옵션 2 - 미리사에서 히카두와로 이동", activities: ["고래 관찰", "갈레 더치 포트"], overnight: "히카두와 숙박" }] },
-    { days: [7], title: "7일차 - 히카두와", image: "/tours/hikkaduwa.jpg", description: "남부 해변에서 보내는 완벽한 하루.", activities: ["히카두와 해변 휴식", "스노클링", "서핑"], overnight: "히카두와 숙박" },
-    { days: [8], title: "8일차 - 출발", image: "/tours/colombo-airport.jpg", description: "투어의 마지막 날.", activities: ["마두강 보트 사파리", "콜롬보 시내 관광"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "08-days-down-south-hotels", region: "south", hotelsIncluded: true, title: "남부 8일 투어 (호텔 포함)", duration: 8, maxPeople: 2, minAge: 16, price: 475.0, image: "/tours/08-days-down-south-tour-with-hotels.jpg",
-  overview: "조식이 포함된 엄선된 호텔 숙박이 포함된 완벽한 8일 남부 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료 및 주차비", "유심카드 및 생수", "고속도로 통행료"],
-  excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 후 네곰보 도착.", activities: ["네곰보 어시장", "네곰보 석호 투어", "더치 포트"], overnight: "New Queen's Palace - 네곰보" },
-    { days: [2], title: "2일차 - 하바라나", image: "/tours/habarana.jpg", description: "야생동물 및 시골 마을 체험.", activities: ["마을 투어", "에코 파크 또는 미네리야 사파리"], overnight: "Go Go Green - 하바라나" },
-    { days: [3], title: "3일차 - 캔디", image: "/tours/kandy.jpg", description: "문화의 수도로 이동.", activities: ["담불라 동굴 사원", "향신료 정원", "문화 댄스 공연", "불치사"], overnight: "Jack Tree Lodge - 캔디" },
-    { days: [4], title: "4일차 - 엘라", image: "/tours/ella.jpg", description: "고산 열차 여행.", activities: ["나누오야에서 엘라까지 기차 탑승", "차 공장", "리틀 아담스 피크"], overnight: "Sunray Homestay - 엘라" },
-    { days: [5], title: "5일차 - 얄라", image: "/tours/yala.jpg", description: "정글로의 진입.", activities: ["나인 아치 브릿지", "라바나 폭포", "얄라 국립공원 사파리"], overnight: "Boutique Villa - 얄라" },
-    { days: [6], title: "6일차 - 미리사", image: "/tours/mirissa.jpg", description: "남부 해변에서의 휴식.", activities: ["미리사 해변 휴식", "코코넛 트리 힐"], overnight: "N34 - 미리사" },
-    { days: [7], title: "7일차 - 히카두와", image: "/tours/hikkaduwa.jpg", description: "해양 생물 및 역사적 명소.", activities: ["고래 관찰", "갈레 포트", "히카두와 스노클링"], overnight: "Finlanka Hotel - 히카두와" },
-    { days: [8], title: "8일차 - 출발", image: "/tours/colombo-airport.jpg", description: "마지막 날 콜롬보 관광.", activities: ["콜롬보 시내 관광", "강가라마야 사원"], drop: "공항으로 이동 및 종료" },
-  ],
-},
-
-{ id: "08-days-east-coast", region: "east", hotelsIncluded: false, title: "동부 해안 8일 투어", duration: 8, maxPeople: 10, minAge: 16, price: 510.0, image: "/tours/08-days-east-coast-tour.jpg",
-  overview: "동부 해안, 문화 및 고산 지대를 탐험하는 8일간의 여행입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료", "주차비", "유심카드 및 생수"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 및 환영.", activities: ["네곰보 어시장", "더치 포트", "석호 투어"], overnight: "네곰보 숙박" },
-    { days: [2], title: "2일차 - 엘라", image: "/tours/ella.jpg", description: "고산 지대에서의 짜릿한 경험.", activities: ["키툴갈라 래프팅", "라바나 폭포", "리틀 아담스 피크", "나인 아치 브릿지"], overnight: "엘라 숙박" },
-    { days: [3], title: "3일차 - 캔디", image: "/tours/kandy.jpg", description: "아름다운 기차 여행과 문화 도시.", activities: ["엘라에서 나누오야까지 기차 여행", "누와라엘리야 시내 관광", "람보다 폭포 및 차 공장", "캔디 호수 산책", "불치사"], overnight: "캔디 숙박" },
-    { days: [4], title: "4일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 진입.", activities: ["마탈레 힌두 사원", "담불라 동굴 사원", "마을 투어", "에코 파크 사파리 또는 피두랑갈라 일몰"], overnight: "하바라나 숙박" },
-    { days: [5], title: "5일차 - 파시쿠다", image: "/tours/pasikuda.jpg", description: "동부 해안으로 이동.", activities: ["시기리야 고대 요새 등반", "폴론나루와 고대 왕국", "파시쿠다 해변 휴식"], overnight: "파시쿠다 숙박" },
-    { days: [6], title: "6일차 - 트링코말리", image: "/tours/trincomalee.jpg", description: "아름다운 해변 추가 탐험.", activities: ["수상 스포츠 및 해변 휴식", "영국군 묘지", "우푸벨리 해변"], overnight: "트링코말리 숙박" },
-    { days: [7], title: "7일차 - 트링코말리 탐험", image: "/tours/trincomalee.jpg", description: "섬과 사원 방문.", activities: ["마블 비치 및 코네스와람 사원", "프레드릭 요새", "피전 아일랜드 스노클링", "닐라벨리 해변"], overnight: "트링코말리 숙박" },
-    { days: [8], title: "8일차 - 출발", image: "/tours/colombo-airport.jpg", description: "귀국을 위한 출발.", activities: ["콜롬보 시내 관광 (비행 시간에 따라 다름)"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "08-days-east-coast-hotels", region: "east", hotelsIncluded: true, title: "동부 해안 8일 투어 (호텔 포함)", duration: 8, maxPeople: 2, minAge: 16, price: 630.0, image: "/tours/08-days-east-coast-tour-with-hotels.jpg",
-  overview: "조식이 포함된 호텔 숙박이 제공되는 8일 동부 해안 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료", "주차비", "유심카드 및 생수"],
-  excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 및 환영.", activities: ["네곰보 어시장", "네곰보 석호 투어"], overnight: "New Queen's Palace - 네곰보" },
-    { days: [2], title: "2일차 - 엘라", image: "/tours/ella.jpg", description: "고산 지대에서의 짜릿한 경험.", activities: ["키툴갈라 래프팅", "라바나 폭포", "리틀 아담스 피크", "나인 아치 브릿지"], overnight: "Sunray Homestay - 엘라" },
-    { days: [3], title: "3일차 - 캔디", image: "/tours/kandy.jpg", description: "아름다운 기차 여행.", activities: ["엘라에서 나누오야까지 기차 탑승", "누와라엘리야 시내 관광", "불치사"], overnight: "Jack Tree Lodge - 캔디" },
-    { days: [4], title: "4일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 진입.", activities: ["담불라 동굴 사원", "마을 투어", "에코 파크 사파리 또는 피두랑갈라"], overnight: "Go Go Green - 하바라나" },
-    { days: [5], title: "5일차 - 파시쿠다", image: "/tours/pasikuda.jpg", description: "동부 해안으로 이동.", activities: ["시기리야 고대 요새 등반", "폴론나루와 고대 왕국", "파시쿠다 해변 휴식"], overnight: "파시쿠다 내 엄선된 호텔" },
-    { days: [6], title: "6일차 - 트링코말리", image: "/tours/trincomalee.jpg", description: "아름다운 해변 추가 탐험.", activities: ["수상 스포츠", "영국군 묘지", "우푸벨리 해변"], overnight: "트링코말리 내 엄선된 호텔" },
-    { days: [7], title: "7일차 - 트링코말리 탐험", image: "/tours/trincomalee.jpg", description: "섬과 사원 방문.", activities: ["마블 비치 및 코네스와람 사원", "프레드릭 요새", "피전 아일랜드 스노클링"], overnight: "트링코말리 내 엄선된 호텔" },
-    { days: [8], title: "8일차 - 출발", image: "/tours/colombo-airport.jpg", description: "귀국을 위한 출발.", activities: ["콜롬보 시내 관광"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-/* =====================================================
-   10일 투어 (10 DAYS TOURS)
-===================================================== */
-
-{ id: "10-days-down-south", region: "south", hotelsIncluded: false, title: "남부 10일 투어", duration: 10, maxPeople: 2, minAge: 16, price: 400.0, image: "/tours/10-days-down-south-tour.jpg",
-  overview: "문화, 고산지대, 야생동물 및 해변을 모두 아우르는 10일간의 포괄적인 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료 및 주차비", "유심카드 및 생수", "고속도로 통행료"],
-  excluded: ["고객 숙박", "입장권 및 액티비티 비용", "식음료", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 공항에서 하바라나로 이동", image: "/tours/habarana.jpg", description: "공항 픽업 후 하바라나로 이동.", activities: ["네곰보 어시장", "피두랑갈라 일몰 감상"], overnight: "하바라나 숙박" },
-    { days: [2], title: "2일차 - 시기리야 및 폴론나루와", image: "/tours/sigiriya.jpg", description: "문화 체험.", activities: ["시기리야 요새 등반 (오전 7시)", "폴론나루와 자전거 투어", "히리와둔나 마을 투어 및 쿠킹 클래스"], overnight: "하바라나 숙박" },
-    { days: [3], title: "3일차 - 캔디", image: "/tours/kandy.jpg", description: "역사적인 사원 탐방.", activities: ["담불라 동굴 사원", "날란다 게디게", "마탈레 힌두 사원", "캔디 댄스 공연", "불치사"], overnight: "캔디 숙박" },
-    { days: [4], title: "4일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", description: "아름다운 차밭을 지나는 여정.", activities: ["람보다 폭포", "차 공장 및 다원 방문", "누와라엘리야 시내 관광"], overnight: "누와라엘리야 숙박" },
-    { days: [5], title: "5일차 - 호튼 플레인스 및 엘라", image: "/tours/ella.jpg", description: "이른 아침 고산지대로.", activities: ["호튼 플레인스 국립공원 (오전 5시)", "나누오야에서 엘라까지 기차 여행", "나인 아치 브릿지"], overnight: "엘라 숙박" },
-    { days: [6], title: "6일차 - 엘라 탐험", image: "/tours/ella.jpg", description: "등산 및 모험적인 경험.", activities: ["리틀 아담스 피크", "라바나 동굴", "엘라 록 등반", "비밀의 폭포 (Secret Waterfall)"], overnight: "엘라 숙박" },
-    { days: [7], title: "7일차 - 얄라", image: "/tours/yala.jpg", description: "야생동물 보호구역으로 이동.", activities: ["라바나 폭포", "부두루와갈라 바위 사원", "얄라 국립공원 사파리"], overnight: "얄라 숙박" },
-    { days: [8], title: "8일차 - 미리사", image: "/tours/mirissa.jpg", description: "남부 해변 투어.", activities: ["미리사 해변", "웰리가마 해변", "우나와투나 해변"], overnight: "미리사 숙박" },
-    { days: [9], title: "9일차 - 미리사", image: "/tours/mirissa.jpg", description: "해양 생물 관찰.", activities: ["고래 및 돌고래 관찰", "해변 휴식 및 수상 스포츠"], overnight: "미리사 숙박" },
-    { days: [10], title: "10일차 - 콜롬보 및 출발", image: "/tours/colombo-airport.jpg", description: "투어의 마지막 날.", activities: ["갈레 더치 포트 탐험", "바다거북 보호소", "콜롬보 시내 관광", "강가라마야 사원", "독립 광장"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "10-days-down-south-hotels", region: "south", hotelsIncluded: true, title: "남부 10일 투어 (호텔 포함)", duration: 10, maxPeople: 2, minAge: 16, price: 580.0, image: "/tours/10-days-down-south-tour-with-hotels.jpg",
-  overview: "호텔 숙박이 포함된 10일 완벽 패키지입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료 및 주차비", "유심카드 및 생수"],
-  excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 하바라나", image: "/tours/habarana.jpg", activities: ["네곰보 어시장", "피두랑갈라 일몰"], overnight: "Go Go Green – 하바라나" },
-    { days: [2], title: "2일차 - 시기리야 및 폴론나루와", image: "/tours/sigiriya.jpg", activities: ["시기리야 요새 등반", "폴론나루와 자전거 투어", "마을 투어"], overnight: "Go Go Green – 하바라나" },
-    { days: [3], title: "3일차 - 캔디", image: "/tours/kandy.jpg", activities: ["담불라 동굴 사원", "마탈레 힌두 사원", "댄스 공연", "불치사"], overnight: "Jack Tree Lodge – 캔디" },
-    { days: [4], title: "4일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", activities: ["람보다 폭포", "차 공장", "누와라엘리야 투어"], overnight: "Lu Chalet – 누와라엘리야" },
-    { days: [5], title: "5일차 - 엘라", image: "/tours/ella.jpg", activities: ["호튼 플레인스 국립공원", "나누오야에서 엘라 기차 여행", "나인 아치 브릿지"], overnight: "Ella River Front – 엘라" },
-    { days: [6], title: "6일차 - 엘라 탐험", image: "/tours/ella.jpg", activities: ["리틀 아담스 피크", "라바나 동굴", "엘라 록 등반"], overnight: "Ella River Front – 엘라" },
-    { days: [7], title: "7일차 - 얄라", image: "/tours/yala.jpg", activities: ["라바나 폭포", "부두루와갈라 사원", "얄라 국립공원 사파리"], overnight: "Boutique Villa – 얄라" },
-    { days: [8], title: "8일차 - 미리사", image: "/tours/mirissa.jpg", activities: ["미리사 해변", "웰리가마 해변", "우나와투나 해변"], overnight: "N34 – 미리사" },
-    { days: [9], title: "9일차 - 미리사", image: "/tours/mirissa.jpg", activities: ["고래 관찰", "해변 휴식"], overnight: "N34 – 미리사" },
-    { days: [10], title: "10일차 - 출발", image: "/tours/colombo.jpg", activities: ["갈레 더치 포트", "콜롬보 시내 관광", "강가라마야 사원"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "10-days-east-coast", region: "east", hotelsIncluded: false, title: "동부 해안 10일 투어", duration: 10, maxPeople: 10, minAge: 16, price: 640.0, image: "/tours/10-days-east-coast-tour.jpg",
-  overview: "동부 해안, 문화 유산, 고산 지대 및 야생동물을 탐험하는 10일 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료", "주차비", "유심카드 및 생수"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 및 환영.", activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"], overnight: "네곰보 숙박" },
-    { days: [2], title: "2일차 - 엘라", image: "/tours/ella.jpg", description: "고산 지대에서의 짜릿한 경험.", activities: ["키툴갈라 래프팅", "라바나 폭포", "리틀 아담스 피크", "나인 아치 브릿지"], overnight: "엘라 숙박" },
-    { days: [3], title: "3일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", description: "아름다운 기차 여행.", activities: ["엘라에서 나누오야까지 기차 여행", "누와라엘리야 시내 관광", "그레고리 호수", "차밭 및 시타 암만 사원"], overnight: "누와라엘리야 숙박" },
-    { days: [4], title: "4일차 - 캔디", image: "/tours/kandy.jpg", description: "문화의 수도로 이동.", activities: ["호튼 플레인스", "람보다 폭포 및 차 공장", "캔디 호수 산책", "문화 댄스 공연", "불치사"], overnight: "캔디 숙박" },
-    { days: [5], title: "5일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 진입.", activities: ["마탈레 힌두 사원", "담불라 동굴 사원", "마을 투어", "에코 파크 사파리 또는 피두랑갈라"], overnight: "하바라나 숙박" },
-    { days: [6], title: "6일차 - 파시쿠다", image: "/tours/pasikuda.jpg", description: "동부 해안으로 이동.", activities: ["시기리야 고대 요새", "폴론나루와 고대 왕국", "파시쿠다 해변 휴식"], overnight: "파시쿠다 숙박" },
-    { days: [7], title: "7일차 - 바티칼로아", image: "/tours/batticaloa.jpg", description: "역사적인 명소 및 해변.", activities: ["해변 휴식 및 수상 스포츠", "바티칼로아 요새 및 등대", "칼라디 다리"], overnight: "파시쿠다 숙박" },
-    { days: [8], title: "8일차 - 트링코말리", image: "/tours/trincomalee.jpg", description: "아름다운 해변 추가 탐험.", activities: ["마블 비치", "영국군 묘지", "우푸벨리 해변", "프레드릭 요새"], overnight: "트링코말리 숙박" },
-    { days: [9], title: "9일차 - 트링코말리 탐험", image: "/tours/trincomalee.jpg", description: "섬과 사원 방문.", activities: ["피전 아일랜드 스노클링", "닐라벨리 해변", "코네스와람 사원"], overnight: "트링코말리 숙박" },
-    { days: [10], title: "10일차 - 출발", image: "/tours/colombo-airport.jpg", description: "귀국을 위한 출발.", activities: ["콜롬보 시내 관광"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "10-days-east-coast-hotels", region: "east", hotelsIncluded: true, title: "동부 해안 10일 투어 (호텔 포함)", duration: 10, maxPeople: 2, minAge: 16, price: 790.0, image: "/tours/10-days-east-coast-tour-with-hotels.jpg",
-  overview: "조식이 포함된 호텔 숙박이 제공되는 10일 동부 해안 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료", "주차비", "유심카드 및 생수"],
-  excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"], overnight: "New Queen's Palace - 네곰보" },
-    { days: [2], title: "2일차 - 엘라", image: "/tours/ella.jpg", activities: ["키툴갈라 래프팅", "라바나 폭포", "리틀 아담스 피크", "나인 아치 브릿지"], overnight: "Sunray Homestay - 엘라" },
-    { days: [3], title: "3일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", activities: ["나누오야 기차 탑승", "누와라엘리야 투어", "그레고리 호수", "시타 암만 사원"], overnight: "Lu Chalet - 누와라엘리야" },
-    { days: [4], title: "4일차 - 캔디", image: "/tours/kandy.jpg", activities: ["호튼 플레인스", "람보다 폭포 및 차 공장", "문화 댄스 공연", "불치사"], overnight: "Jack Tree Lodge - 캔디" },
-    { days: [5], title: "5일차 - 하바라나", image: "/tours/habarana.jpg", activities: ["마탈레 힌두 사원", "담불라 동굴 사원", "마을 투어", "에코 파크 사파리 또는 피두랑갈라"], overnight: "Go Go Green - 하바라나" },
-    { days: [6], title: "6일차 - 파시쿠다", image: "/tours/pasikuda.jpg", activities: ["시기리야 요새", "폴론나루와", "파시쿠다 해변"], overnight: "파시쿠다 내 엄선된 호텔" },
-    { days: [7], title: "7일차 - 바티칼로아", image: "/tours/batticaloa.jpg", activities: ["해변 휴식 및 수상 스포츠", "바티칼로아 요새", "칼라디 다리"], overnight: "파시쿠다 내 엄선된 호텔" },
-    { days: [8], title: "8일차 - 트링코말리", image: "/tours/trincomalee.jpg", activities: ["마블 비치", "영국군 묘지", "우푸벨리 해변", "프레드릭 요새"], overnight: "트링코말리 내 엄선된 호텔" },
-    { days: [9], title: "9일차 - 트링코말리 탐험", image: "/tours/trincomalee.jpg", activities: ["피전 아일랜드 스노클링", "닐라벨리 해변", "코네스와람 사원"], overnight: "트링코말리 내 엄선된 호텔" },
-    { days: [10], title: "10일차 - 출발", image: "/tours/colombo-airport.jpg", activities: ["콜롬보 시내 관광"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-/* =====================================================
-   12일 투어 (12 DAYS TOURS)
-===================================================== */
-
-{ id: "12-days-down-south", region: "south", hotelsIncluded: false, title: "남부 12일 투어", duration: 12, maxPeople: 2, minAge: 16, price: 465.0, image: "/tours/12-days-down-south-tour.jpg",
-  overview: "스리랑카의 주요 관광지를 거의 모두 아우르는 12일간의 장기 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료 및 주차비", "유심카드 및 생수"],
-  excluded: ["고객 숙박", "입장권 및 액티비티 비용", "식음료", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 및 환영.", activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"], overnight: "네곰보 숙박" },
-    { days: [2], title: "2일차 - 아누라다푸라", image: "/tours/anuradhapura.jpg", description: "최초의 왕국 방문.", activities: ["무네스와람 사원", "아누라다푸라 고대 왕국 투어"], overnight: "아누라다푸라 숙박" },
-    { days: [3], title: "3일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 진입.", options: [{ title: "옵션 1", activities: ["폴론나루와", "마을 투어", "피두랑갈라 일몰"] }, { title: "옵션 2", activities: ["미네리야/카우둘라 사파리"] }], overnight: "하바라나 숙박" },
-    { days: [4], title: "4일차 - 캔디", image: "/tours/kandy.jpg", description: "문화의 수도로 이동.", activities: ["시기리야 요새", "담불라 동굴 사원", "문화 댄스 공연", "불치사"], overnight: "캔디 숙박" },
-    { days: [5], title: "5일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", description: "아름다운 차밭을 지나는 여정.", activities: ["페라데니야 식물원", "람보다 폭포", "차 공장 방문"], overnight: "누와라엘리야 숙박" },
-    { days: [6], title: "6일차 - 누와라엘리야 탐험", image: "/tours/nuwaraeliya.jpg", description: "시원한 기후 만끽.", activities: ["학갈라 식물원", "그레고리 호수", "누와라엘리야 시내 산책"], overnight: "누와라엘리야 숙박" },
-    { days: [7], title: "7일차 - 엘라", image: "/tours/ella.jpg", description: "아름다운 기차 여행.", activities: ["호튼 플레인스", "나누오야에서 엘라까지 기차 여행", "엘라 시내 휴식"], overnight: "엘라 숙박" },
-    { days: [8], title: "8일차 - 얄라 / 우다왈라와", image: "/tours/yala.jpg", description: "야생동물 보호구역으로 이동.", options: [{ title: "옵션 1 - 얄라", activities: ["나인 아치 브릿지", "라바나 폭포", "얄라 사파리"] }, { title: "옵션 2 - 우다왈라와", activities: ["리틀 아담스 피크", "우다왈라와 사파리"] }] },
-    { days: [9], title: "9일차 - 미리사", image: "/tours/mirissa.jpg", description: "남부 해변 휴식.", activities: ["미리사 해변 휴식", "코코넛 트리 힐"], overnight: "미리사 숙박" },
-    { days: [10], title: "10일차 - 히카두와", image: "/tours/hikkaduwa.jpg", description: "해양 생물 관찰.", activities: ["고래 관찰", "갈레 포트", "히카두와 해변"], overnight: "히카두와 숙박" },
-    { days: [11], title: "11일차 - 콜롬보", image: "/tours/colombo.jpg", description: "콜롬보 시내로 이동.", activities: ["마두강 사파리", "콜롬보 시내 관광"], overnight: "콜롬보 숙박" },
-    { days: [12], title: "12일차 - 출발", image: "/tours/colombo-airport.jpg", description: "투어의 마지막 날.", activities: ["강가라마야 사원", "독립 광장"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "12-days-down-south-hotels", region: "south", hotelsIncluded: true, title: "남부 12일 투어 (호텔 포함)", duration: 12, maxPeople: 2, minAge: 16, price: 680.0, image: "/tours/12-days-down-south-tour-with-hotels.jpg",
-  overview: "이 포괄적인 12일 투어는 스리랑카의 주요 관광지를 거의 모두 다룹니다. 조식이 포함된 호텔 숙박, 전용 차량, 숙련된 가이드가 포함되어 있습니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료 및 주차비", "유심카드 및 생수", "기차표"],
-  excluded: ["입장권 및 액티비티 비용", "중식 및 석식"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 및 환영.", activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"], overnight: "New Queen's Palace - 네곰보" },
-    { days: [2], title: "2일차 - 아누라다푸라", image: "/tours/anuradhapura.jpg", description: "최초의 왕국 방문.", activities: ["무네스와람 사원", "아누라다푸라 고대 왕국 투어"], overnight: "아누라다푸라 내 엄선된 호텔" },
-    { days: [3], title: "3일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 진입.", activities: ["폴론나루와", "마을 투어", "에코 파크 사파리 또는 피두랑갈라 일몰"], overnight: "Go Go Green - 하바라나" },
-    { days: [4], title: "4일차 - 캔디", image: "/tours/kandy.jpg", description: "문화의 수도로 이동.", activities: ["시기리야 요새", "담불라 동굴 사원", "문화 댄스 공연", "불치사"], overnight: "Jack Tree Lodge - 캔디" },
-    { days: [5], title: "5일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", description: "아름다운 차밭을 지나는 여정.", activities: ["페라데니야 식물원", "람보다 폭포", "차 공장 방문"], overnight: "Lu Chalet - 누와라엘리야" },
-    { days: [6], title: "6일차 - 누와라엘리야 탐험", image: "/tours/nuwaraeliya.jpg", description: "시원한 기후 만끽.", activities: ["학갈라 식물원", "그레고리 호수", "누와라엘리야 시내 산책"], overnight: "Lu Chalet - 누와라엘리야" },
-    { days: [7], title: "7일차 - 엘라", image: "/tours/ella.jpg", description: "아름다운 기차 여행.", activities: ["호튼 플레인스", "나누오야에서 엘라까지 기차 여행", "엘라 시내 휴식"], overnight: "Ella River Front - 엘라" },
-    { days: [8], title: "8일차 - 얄라", image: "/tours/yala.jpg", description: "야생동물 보호구역으로 이동.", activities: ["나인 아치 브릿지", "라바나 폭포", "얄라 사파리"], overnight: "Boutique Villa - 얄라 (또는 우다왈라와)" },
-    { days: [9], title: "9일차 - 미리사", image: "/tours/mirissa.jpg", description: "남부 해변 휴식.", activities: ["미리사 해변 휴식", "코코넛 트리 힐", "해변에서의 저녁 식사"], overnight: "N34 - 미리사" },
-    { days: [10], title: "10일차 - 히카두와", image: "/tours/hikkaduwa.jpg", description: "해양 생물 관찰.", activities: ["고래 관찰", "갈레 포트", "히카두와 해변"], overnight: "Finlanka Hotel - 히카두와" },
-    { days: [11], title: "11일차 - 콜롬보", image: "/tours/colombo.jpg", description: "콜롬보 시내로 이동.", activities: ["마두강 사파리", "콜롬보 시내 관광 및 쇼핑"], overnight: "콜롬보 내 엄선된 호텔" },
-    { days: [12], title: "12일차 - 출발", image: "/tours/colombo-airport.jpg", description: "투어의 마지막 날.", activities: ["강가라마야 사원", "독립 광장"], drop: "공항으로 이동 및 종료" },
-  ],
-},
-
-{ id: "12-days-east-coast", region: "east", hotelsIncluded: false, title: "동부 해안 12일 투어", duration: 12, maxPeople: 10, minAge: 16, price: 760.0, image: "/tours/12-days-east-coast-tour.jpg",
-  overview: "칼피티야와 아누라다푸라가 포함된 특별한 12일 동부 해안 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "운전기사 숙박 및 식사", "연료", "주차비", "유심카드 및 생수"],
-  excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 및 환영.", activities: ["네곰보 어시장", "더치 포트", "석호 투어"], overnight: "네곰보 숙박" },
-    { days: [2], title: "2일차 - 엘라", image: "/tours/ella.jpg", description: "고산 지대에서의 짜릿한 경험.", activities: ["키툴갈라 래프팅", "라바나 폭포", "리틀 아담스 피크", "나인 아치 브릿지"], overnight: "엘라 숙박" },
-    { days: [3], title: "3일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", description: "아름다운 기차 여행.", activities: ["엘라에서 나누오야까지 기차 여행", "누와라엘리야 시내 관광", "그레고리 호수", "시타 암만 사원"], overnight: "누와라엘리야 숙박" },
-    { days: [4], title: "4일차 - 캔디", image: "/tours/kandy.jpg", description: "문화의 수도로 이동.", activities: ["호튼 플레인스", "람보다 폭포 및 차 공장", "문화 댄스 공연", "불치사"], overnight: "캔디 숙박" },
-    { days: [5], title: "5일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 진입.", activities: ["마탈레 힌두 사원", "담불라 동굴 사원", "마을 투어", "사파리 또는 피두랑갈라"], overnight: "하바라나 숙박" },
-    { days: [6], title: "6일차 - 파시쿠다", image: "/tours/pasikuda.jpg", description: "동부 해안으로 이동.", activities: ["시기리야 요새", "폴론나루와", "파시쿠다 해변"], overnight: "파시쿠다 숙박" },
-    { days: [7], title: "7일차 - 바티칼로아", image: "/tours/batticaloa.jpg", description: "역사적인 명소 및 해변.", activities: ["수상 스포츠", "바티칼로아 요새", "칼라디 다리"], overnight: "파시쿠다 숙박" },
-    { days: [8], title: "8일차 - 트링코말리", image: "/tours/trincomalee.jpg", description: "아름다운 해변 추가 탐험.", activities: ["마블 비치", "영국군 묘지", "우푸벨리 해변", "프레드릭 요새"], overnight: "트링코말리 숙박" },
-    { days: [9], title: "9일차 - 아누라다푸라", image: "/tours/anuradhapura.jpg", description: "역사 도시 및 섬 탐험.", activities: ["피전 아일랜드 스노클링", "닐라벨리 해변", "코네스와람 사원", "미힌탈레"], overnight: "아누라다푸라 숙박" },
-    { days: [10], title: "10일차 - 칼피티야", image: "/tours/kalpitiya.jpg", description: "야생동물 사파리 진행.", activities: ["아누라다푸라 고대 도시", "윌파투 국립공원 사파리"], overnight: "칼피티야 숙박" },
-    { days: [11], title: "11일차 - 칼피티야", image: "/tours/kalpitiya.jpg", description: "수상 스포츠 및 유적지.", activities: ["카이트 서핑 및 수상 스포츠", "칼피티야 더치 포트", "칼피티야 석호 투어"], overnight: "칼피티야 숙박" },
-    { days: [12], title: "12일차 - 출발", image: "/tours/colombo-airport.jpg", description: "귀국을 위한 출발.", activities: ["콜롬보 시내 관광"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
-{ id: "12-days-east-coast-hotels", region: "east", hotelsIncluded: true, title: "동부 해안 12일 투어 (호텔 포함)", duration: 12, maxPeople: 2, minAge: 16, price: 970.0, image: "/tours/12-days-east-coast-tour-with-hotels.jpg",
-  overview: "조식이 포함된 호텔 숙박이 제공되는 12일 동부 해안 투어입니다.",
-  included: ["에어컨이 완비된 전용 차량", "전문 영어 구사 운전기사", "조식 포함 호텔 숙박", "운전기사 숙박 및 식사", "연료", "주차비", "유심카드 및 생수"],
-  excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
-  itinerary: [
-    { days: [1], title: "1일차 - 네곰보", image: "/tours/negombo.jpg", description: "공항 픽업 및 환영.", activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"], overnight: "New Queen's Palace - 네곰보" },
-    { days: [2], title: "2일차 - 엘라", image: "/tours/ella.jpg", description: "고산 지대에서의 짜릿한 경험.", activities: ["키툴갈라 래프팅", "라바나 폭포", "리틀 아담스 피크", "나인 아치 브릿지"], overnight: "Sunray Homestay - 엘라" },
-    { days: [3], title: "3일차 - 누와라엘리야", image: "/tours/nuwaraeliya.jpg", description: "아름다운 기차 여행.", activities: ["엘라에서 나누오야까지 기차 탑승", "누와라엘리야 시내 관광", "그레고리 호수", "시타 암만 사원"], overnight: "Lu Chalet - 누와라엘리야" },
-    { days: [4], title: "4일차 - 캔디", image: "/tours/kandy.jpg", description: "문화의 수도로 이동.", activities: ["호튼 플레인스", "람보다 폭포 및 차 공장", "문화 댄스 공연", "불치사"], overnight: "Jack Tree Lodge - 캔디" },
-    { days: [5], title: "5일차 - 하바라나", image: "/tours/habarana.jpg", description: "문화 삼각지대 진입.", activities: ["마탈레 힌두 사원", "담불라 동굴 사원", "마을 투어", "에코 파크 사파리 또는 피두랑갈라"], overnight: "Go Go Green - 하바라나" },
-    { days: [6], title: "6일차 - 파시쿠다", image: "/tours/pasikuda.jpg", description: "동부 해안으로 이동.", activities: ["시기리야 요새", "폴론나루와", "파시쿠다 해변"], overnight: "파시쿠다 내 엄선된 호텔" },
-    { days: [7], title: "7일차 - 바티칼로아", image: "/tours/batticaloa.jpg", description: "역사적인 명소 및 해변.", activities: ["수상 스포츠", "바티칼로아 요새", "칼라디 다리"], overnight: "파시쿠다 내 엄선된 호텔" },
-    { days: [8], title: "8일차 - 트링코말리", image: "/tours/trincomalee.jpg", description: "아름다운 해변 추가 탐험.", activities: ["마블 비치", "영국군 묘지", "우푸벨리 해변", "프레드릭 요새"], overnight: "트링코말리 내 엄선된 호텔" },
-    { days: [9], title: "9일차 - 아누라다푸라", image: "/tours/anuradhapura.jpg", description: "역사 도시 및 섬 탐험.", activities: ["피전 아일랜드 스노클링", "닐라벨리 해변", "코네스와람 사원", "미힌탈레"], overnight: "아누라다푸라 내 엄선된 호텔" },
-    { days: [10], title: "10일차 - 칼피티야", image: "/tours/kalpitiya.jpg", description: "야생동물 사파리 진행.", activities: ["아누라다푸라 고대 도시", "윌파투 국립공원 사파리"], overnight: "칼피티야 내 엄선된 호텔" },
-    { days: [11], title: "11일차 - 칼피티야", image: "/tours/kalpitiya.jpg", description: "수상 스포츠 및 유적지.", activities: ["카이트 서핑 및 수상 스포츠", "칼피티야 더치 포트", "칼피티야 석호 투어"], overnight: "칼피티야 내 엄선된 호텔" },
-    { days: [12], title: "12일차 - 출발", image: "/tours/colombo-airport.jpg", description: "귀국을 위한 출발.", activities: ["콜롬보 시내 관광"], drop: "공항 또는 호텔로 이동 및 종료" },
-  ],
-},
-
+  /* =====================================================
+     12 DAYS TOURS (12일 투어)
+  ===================================================== */
+  {
+    id: "12-days-down-south",
+    region: "south",
+    hotelsIncluded: false,
+    title: "남부 12일 투어",
+    duration: 12,
+    maxPeople: 2,
+    minAge: 16,
+    price: 465.0,
+    image: "/tours/12-days-down-south-tour.jpg",
+    overview:
+      "스리랑카의 주요 관광지를 거의 모두 아우르는 12일간의 장기 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["고객 숙박", "입장권 및 액티비티 비용", "식음료", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 및 환영.",
+        activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"],
+        overnight: "네곰보 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 아누라다푸라",
+        image: "/tours/anuradhapura.jpg",
+        description: "최초의 왕국 방문.",
+        activities: ["무네스와람 사원", "아누라다푸라 고대 왕국 투어"],
+        overnight: "아누라다푸라 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 진입.",
+        options: [
+          {
+            title: "옵션 1",
+            activities: ["폴론나루와", "마을 투어", "피두랑갈라 일몰"]
+          },
+          { title: "옵션 2", activities: ["미네리야/카우둘라 사파리"] }
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "문화의 수도로 이동.",
+        activities: [
+          "시기리야 요새",
+          "담불라 동굴 사원",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "아름다운 차밭을 지나는 여정.",
+        activities: ["페라데니야 식물원", "람보다 폭포", "차 공장 방문"],
+        overnight: "누와라엘리야 숙박"
+      },
+      {
+        days: [6],
+        title: "6일차 - 누와라엘리야 탐험",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "시원한 기후 만끽.",
+        activities: [
+          "학갈라 식물원",
+          "그레고리 호수",
+          "누와라엘리야 시내 산책"
+        ],
+        overnight: "누와라엘리야 숙박"
+      },
+      {
+        days: [7],
+        title: "7일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "아름다운 기차 여행.",
+        activities: [
+          "호튼 플레인스",
+          "나누오야에서 엘라까지 기차 여행",
+          "엘라 시내 휴식"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [8],
+        title: "8일차 - 얄라 / 우다왈라와",
+        image: "/tours/yala.jpg",
+        description: "야생동물 보호구역으로 이동.",
+        options: [
+          {
+            title: "옵션 1 - 얄라",
+            activities: ["나인 아치 브릿지", "라바나 폭포", "얄라 사파리"]
+          },
+          {
+            title: "옵션 2 - 우다왈라와",
+            activities: ["리틀 아담스 피크", "우다왈라와 사파리"]
+          }
+        ]
+      },
+      {
+        days: [9],
+        title: "9일차 - 미리사",
+        image: "/tours/mirissa.jpg",
+        description: "남부 해변 휴식.",
+        activities: ["미리사 해변 휴식", "코코넛 트리 힐"],
+        overnight: "미리사 숙박"
+      },
+      {
+        days: [10],
+        title: "10일차 - 히카두와",
+        image: "/tours/hikkaduwa.jpg",
+        description: "해양 생물 관찰.",
+        activities: ["고래 관찰", "갈레 포트", "히카두와 해변"],
+        overnight: "히카두와 숙박"
+      },
+      {
+        days: [11],
+        title: "11일차 - 콜롬보",
+        image: "/tours/colombo.jpg",
+        description: "콜롬보 시내로 이동.",
+        activities: ["마두강 사파리", "콜롬보 시내 관광"],
+        overnight: "콜롬보 숙박"
+      },
+      {
+        days: [12],
+        title: "12일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "투어의 마지막 날.",
+        activities: ["강가라마야 사원", "독립 광장"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "12-days-down-south-hotels",
+    region: "south",
+    hotelsIncluded: true,
+    title: "남부 12일 투어 (호텔 포함)",
+    duration: 12,
+    maxPeople: 2,
+    minAge: 16,
+    price: 680.0,
+    image: "/tours/12-days-down-south-tour-with-hotels.jpg",
+    overview:
+      "이 포괄적인 12일 투어는 스리랑카의 주요 관광지를 거의 모두 다룹니다. 조식이 포함된 호텔 숙박, 전용 차량, 숙련된 가이드가 포함되어 있습니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료 및 주차비",
+      "유심카드 및 생수",
+      "기차표"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "중식 및 석식"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 및 환영.",
+        activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"],
+        overnight: "New Queen's Palace - 네곰보"
+      },
+      {
+        days: [2],
+        title: "2일차 - 아누라다푸라",
+        image: "/tours/anuradhapura.jpg",
+        description: "최초의 왕국 방문.",
+        activities: ["무네스와람 사원", "아누라다푸라 고대 왕국 투어"],
+        overnight: "아누라다푸라 내 엄선된 호텔"
+      },
+      {
+        days: [3],
+        title: "3일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 진입.",
+        activities: [
+          "폴론나루와",
+          "마을 투어",
+          "에코 파크 사파리 또는 피두랑갈라 일몰"
+        ],
+        overnight: "Go Go Green - 하바라나"
+      },
+      {
+        days: [4],
+        title: "4일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "문화의 수도로 이동.",
+        activities: [
+          "시기리야 요새",
+          "담불라 동굴 사원",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "Jack Tree Lodge - 캔디"
+      },
+      {
+        days: [5],
+        title: "5일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "아름다운 차밭을 지나는 여정.",
+        activities: ["페라데니야 식물원", "람보다 폭포", "차 공장 방문"],
+        overnight: "Lu Chalet - 누와라엘리야"
+      },
+      {
+        days: [6],
+        title: "6일차 - 누와라엘리야 탐험",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "시원한 기후 만끽.",
+        activities: [
+          "학갈라 식물원",
+          "그레고리 호수",
+          "누와라엘리야 시내 산책"
+        ],
+        overnight: "Lu Chalet - 누와라엘리야"
+      },
+      {
+        days: [7],
+        title: "7일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "아름다운 기차 여행.",
+        activities: [
+          "호튼 플레인스",
+          "나누오야에서 엘라까지 기차 여행",
+          "엘라 시내 휴식"
+        ],
+        overnight: "Ella River Front - 엘라"
+      },
+      {
+        days: [8],
+        title: "8일차 - 얄라",
+        image: "/tours/yala.jpg",
+        description: "야생동물 보호구역으로 이동.",
+        activities: ["나인 아치 브릿지", "라바나 폭포", "얄라 사파리"],
+        overnight: "Boutique Villa - 얄라 (또는 우다왈라와)"
+      },
+      {
+        days: [9],
+        title: "9일차 - 미리사",
+        image: "/tours/mirissa.jpg",
+        description: "남부 해변 휴식.",
+        activities: [
+          "미리사 해변 휴식",
+          "코코넛 트리 힐",
+          "해변에서의 저녁 식사"
+        ],
+        overnight: "N34 - 미리사"
+      },
+      {
+        days: [10],
+        title: "10일차 - 히카두와",
+        image: "/tours/hikkaduwa.jpg",
+        description: "해양 생물 관찰.",
+        activities: ["고래 관찰", "갈레 포트", "히카두와 해변"],
+        overnight: "Finlanka Hotel - 히카두와"
+      },
+      {
+        days: [11],
+        title: "11일차 - 콜롬보",
+        image: "/tours/colombo.jpg",
+        description: "콜롬보 시내로 이동.",
+        activities: ["마두강 사파리", "콜롬보 시내 관광 및 쇼핑"],
+        overnight: "콜롬보 내 엄선된 호텔"
+      },
+      {
+        days: [12],
+        title: "12일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "투어의 마지막 날.",
+        activities: ["강가라마야 사원", "독립 광장"],
+        drop: "공항으로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "12-days-east-coast",
+    region: "east",
+    hotelsIncluded: false,
+    title: "동부 해안 12일 투어",
+    duration: 12,
+    maxPeople: 10,
+    minAge: 16,
+    price: 760.0,
+    image: "/tours/12-days-east-coast-tour.jpg",
+    overview:
+      "칼피티야와 아누라다푸라가 포함된 특별한 12일 동부 해안 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["고객 숙박 및 식사", "입장권 및 액티비티 비용", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 및 환영.",
+        activities: ["네곰보 어시장", "더치 포트", "석호 투어"],
+        overnight: "네곰보 숙박"
+      },
+      {
+        days: [2],
+        title: "2일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "고산 지대에서의 짜릿한 경험.",
+        activities: [
+          "키툴갈라 래프팅",
+          "라바나 폭포",
+          "리틀 아담스 피크",
+          "나인 아치 브릿지"
+        ],
+        overnight: "엘라 숙박"
+      },
+      {
+        days: [3],
+        title: "3일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "아름다운 기차 여행.",
+        activities: [
+          "엘라에서 나누오야까지 기차 여행",
+          "누와라엘리야 시내 관광",
+          "그레고리 호수",
+          "시타 암만 사원"
+        ],
+        overnight: "누와라엘리야 숙박"
+      },
+      {
+        days: [4],
+        title: "4일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "문화의 수도로 이동.",
+        activities: [
+          "호튼 플레인스",
+          "람보다 폭포 및 차 공장",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "캔디 숙박"
+      },
+      {
+        days: [5],
+        title: "5일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 진입.",
+        activities: [
+          "마탈레 힌두 사원",
+          "담불라 동굴 사원",
+          "마을 투어",
+          "사파리 또는 피두랑갈라"
+        ],
+        overnight: "하바라나 숙박"
+      },
+      {
+        days: [6],
+        title: "6일차 - 파시쿠다",
+        image: "/tours/pasikuda.jpg",
+        description: "동부 해안으로 이동.",
+        activities: ["시기리야 요새", "폴론나루와", "파시쿠다 해변"],
+        overnight: "파시쿠다 숙박"
+      },
+      {
+        days: [7],
+        title: "7일차 - 바티칼로아",
+        image: "/tours/batticaloa.jpg",
+        description: "역사적인 명소 및 해변.",
+        activities: ["수상 스포츠", "바티칼로아 요새", "칼라디 다리"],
+        overnight: "파시쿠다 숙박"
+      },
+      {
+        days: [8],
+        title: "8일차 - 트링코말리",
+        image: "/tours/trincomalee.jpg",
+        description: "아름다운 해변 추가 탐험.",
+        activities: [
+          "마블 비치",
+          "영국군 묘지",
+          "우푸벨리 해변",
+          "프레드릭 요새"
+        ],
+        overnight: "트링코말리 숙박"
+      },
+      {
+        days: [9],
+        title: "9일차 - 아누라다푸라",
+        image: "/tours/anuradhapura.jpg",
+        description: "역사 도시 및 섬 탐험.",
+        activities: [
+          "피전 아일랜드 스노클링",
+          "닐라벨리 해변",
+          "코네스와람 사원",
+          "미힌탈레"
+        ],
+        overnight: "아누라다푸라 숙박"
+      },
+      {
+        days: [10],
+        title: "10일차 - 칼피티야",
+        image: "/tours/kalpitiya.jpg",
+        description: "야생동물 사파리 진행.",
+        activities: ["아누라다푸라 고대 도시", "윌파투 국립공원 사파리"],
+        overnight: "칼피티야 숙박"
+      },
+      {
+        days: [11],
+        title: "11일차 - 칼피티야",
+        image: "/tours/kalpitiya.jpg",
+        description: "수상 스포츠 및 유적지.",
+        activities: [
+          "카이트 서핑 및 수상 스포츠",
+          "칼피티야 더치 포트",
+          "칼피티야 석호 투어"
+        ],
+        overnight: "칼피티야 숙박"
+      },
+      {
+        days: [12],
+        title: "12일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "귀국을 위한 출발.",
+        activities: ["콜롬보 시내 관광"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  },
+  {
+    id: "12-days-east-coast-hotels",
+    region: "east",
+    hotelsIncluded: true,
+    title: "동부 해안 12일 투어 (호텔 포함)",
+    duration: 12,
+    maxPeople: 2,
+    minAge: 16,
+    price: 970.0,
+    image: "/tours/12-days-east-coast-tour-with-hotels.jpg",
+    overview:
+      "조식이 포함된 호텔 숙박이 제공되는 12일 동부 해안 투어입니다.",
+    included: [
+      "에어컨이 완비된 전용 차량",
+      "전문 영어 구사 운전기사",
+      "조식 포함 호텔 숙박",
+      "운전기사 숙박 및 식사",
+      "연료",
+      "주차비",
+      "유심카드 및 생수"
+    ],
+    excluded: ["입장권 및 액티비티 비용", "중식 및 석식", "기차표"],
+    itinerary: [
+      {
+        days: [1],
+        title: "1일차 - 네곰보",
+        image: "/tours/negombo.jpg",
+        description: "공항 픽업 및 환영.",
+        activities: ["네곰보 어시장", "더치 포트", "네곰보 석호 투어"],
+        overnight: "New Queen's Palace - 네곰보"
+      },
+      {
+        days: [2],
+        title: "2일차 - 엘라",
+        image: "/tours/ella.jpg",
+        description: "고산 지대에서의 짜릿한 경험.",
+        activities: [
+          "키툴갈라 래프팅",
+          "라바나 폭포",
+          "리틀 아담스 피크",
+          "나인 아치 브릿지"
+        ],
+        overnight: "Sunray Homestay - 엘라"
+      },
+      {
+        days: [3],
+        title: "3일차 - 누와라엘리야",
+        image: "/tours/nuwaraeliya.jpg",
+        description: "아름다운 기차 여행.",
+        activities: [
+          "엘라에서 나누오야까지 기차 탑승",
+          "누와라엘리야 시내 관광",
+          "그레고리 호수",
+          "시타 암만 사원"
+        ],
+        overnight: "Lu Chalet - 누와라엘리야"
+      },
+      {
+        days: [4],
+        title: "4일차 - 캔디",
+        image: "/tours/kandy.jpg",
+        description: "문화의 수도로 이동.",
+        activities: [
+          "호튼 플레인스",
+          "람보다 폭포 및 차 공장",
+          "문화 댄스 공연",
+          "불치사"
+        ],
+        overnight: "Jack Tree Lodge - 캔디"
+      },
+      {
+        days: [5],
+        title: "5일차 - 하바라나",
+        image: "/tours/habarana.jpg",
+        description: "문화 삼각지대 진입.",
+        activities: [
+          "마탈레 힌두 사원",
+          "담불라 동굴 사원",
+          "마을 투어",
+          "에코 파크 사파리 또는 피두랑갈라"
+        ],
+        overnight: "Go Go Green - 하바라나"
+      },
+      {
+        days: [6],
+        title: "6일차 - 파시쿠다",
+        image: "/tours/pasikuda.jpg",
+        description: "동부 해안으로 이동.",
+        activities: ["시기리야 요새", "폴론나루와", "파시쿠다 해변"],
+        overnight: "파시쿠다 내 엄선된 호텔"
+      },
+      {
+        days: [7],
+        title: "7일차 - 바티칼로아",
+        image: "/tours/batticaloa.jpg",
+        description: "역사적인 명소 및 해변.",
+        activities: ["수상 스포츠", "바티칼로아 요새", "칼라디 다리"],
+        overnight: "파시쿠다 내 엄선된 호텔"
+      },
+      {
+        days: [8],
+        title: "8일차 - 트링코말리",
+        image: "/tours/trincomalee.jpg",
+        description: "아름다운 해변 추가 탐험.",
+        activities: [
+          "마블 비치",
+          "영국군 묘지",
+          "우푸벨리 해변",
+          "프레드릭 요새"
+        ],
+        overnight: "트링코말리 내 엄선된 호텔"
+      },
+      {
+        days: [9],
+        title: "9일차 - 아누라다푸라",
+        image: "/tours/anuradhapura.jpg",
+        description: "역사 도시 및 섬 탐험.",
+        activities: [
+          "피전 아일랜드 스노클링",
+          "닐라벨리 해변",
+          "코네스와람 사원",
+          "미힌탈레"
+        ],
+        overnight: "아누라다푸라 내 엄선된 호텔"
+      },
+      {
+        days: [10],
+        title: "10일차 - 칼피티야",
+        image: "/tours/kalpitiya.jpg",
+        description: "야생동물 사파리 진행.",
+        activities: ["아누라다푸라 고대 도시", "윌파투 국립공원 사파리"],
+        overnight: "칼피티야 내 엄선된 호텔"
+      },
+      {
+        days: [11],
+        title: "11일차 - 칼피티야",
+        image: "/tours/kalpitiya.jpg",
+        description: "수상 스포츠 및 유적지.",
+        activities: [
+          "카이트 서핑 및 수상 스포츠",
+          "칼피티야 더치 포트",
+          "칼피티야 석호 투어"
+        ],
+        overnight: "칼피티야 내 엄선된 호텔"
+      },
+      {
+        days: [12],
+        title: "12일차 - 출발",
+        image: "/tours/colombo-airport.jpg",
+        description: "귀국을 위한 출발.",
+        activities: ["콜롬보 시내 관광"],
+        drop: "공항 또는 호텔로 이동 및 종료"
+      }
+    ]
+  }
 ];

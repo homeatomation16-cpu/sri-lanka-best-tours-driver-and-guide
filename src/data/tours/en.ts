@@ -958,17 +958,138 @@ export const TOURS = [
   image: "/tours/08-days-east-coast-tour.jpg",
 
   overview:
-    "8 days exploring East Coast beaches, culture and hill country experiences.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 8 days tour covers Negombo, Ella, Kandy, Habarana, Polonnaruwa, Pasikuda, Trincomalee.",
+
+  vehicleInfo: {
+    car: "1 - 3 Persons → Car",
+    van: "4 - 10 Persons → KDH Van",
+    minimum: "Minimum two persons are required",
+    vipNote: "$1020 for Two Persons - VIP Luxury Car (with Driver & Guiding)",
+  },
+
+  bookingOptions: [
+    "Fill out the booking form",
+    "Send an email to info@srilankabesttourdriverandguide.com",
+    "Send WhatsApp message to (+94) 760 195 005",
+  ],
+
+  included: [
+    "Air-Conditioned Private Vehicle",
+    "English Speaking Professional Driver",
+    "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
+    "Fuel",
+    "Parking Fees",
+    "24 Hours Emergency Service",
+    "Local Sim Card (Free Data)",
+    "Water Bottles",
+    "Freeway Tickets (Toll Road)",
+  ],
+
+  excluded: [
+    "Your Accommodation & Meals",
+    "Entrance & Activities Fees",
+    "Train Tickets",
+  ],
 
   itinerary: [
-    { days: [1], title: "Day 01 - Negombo", image: "/tours/negombo.jpg", activities: ["Lagoon Tour"], overnight: "Negombo" },
-    { days: [2], title: "Day 02 - Ella", image: "/tours/ella.jpg", activities: ["Rafting", "Nine Arch Bridge"], overnight: "Ella" },
-    { days: [3], title: "Day 03 - Kandy", image: "/tours/kandy.jpg", activities: ["Temple Visit"], overnight: "Kandy" },
-    { days: [4], title: "Day 04 - Habarana", image: "/tours/habarana.jpg", activities: ["Village Tour", "Safari"], overnight: "Habarana" },
-    { days: [5], title: "Day 05 - Pasikuda", image: "/tours/pasikuda.jpg", activities: ["Beach Leisure"], overnight: "Pasikuda" },
-    { days: [6], title: "Day 06 - Trincomalee", image: "/tours/trincomalee.jpg", activities: ["Water Sports"], overnight: "Trincomalee" },
-    { days: [7], title: "Day 07 - Trincomalee Exploration", image: "/tours/trincomalee.jpg", activities: ["Pigeon Island"], overnight: "Trincomalee" },
-    { days: [8], title: "Day 08 - Departure", image: "/tours/colombo-airport.jpg", activities: ["Colombo City Tour"], drop: "Airport" },
+    {
+      days: [1],
+      title: "Day 01 - Negombo",
+      image: "/tours/negombo.jpg",
+      activities: [
+        "Pickup from Airport or Hotel at Colombo/Negombo",
+        "Negombo Fish Market",
+        "Negombo Dutch Fort",
+        "Negombo Lagoon Tour",
+      ],
+      overnight: "Overnight stay at Negombo",
+    },
+    {
+      days: [2],
+      title: "Day 02 - Ella",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Kithulgala Water Rafting",
+        "Ravana Waterfall",
+        "Little Adam’s Peak",
+        "Demodara Nine Arch Bridge",
+      ],
+      overnight: "Overnight stay at Ella",
+    },
+    {
+      days: [3],
+      title: "Day 03 - Kandy",
+      image: "/tours/kandy.jpg",
+      activities: [
+        "Train Journey Ella to Nanu Oya",
+        "Nuwara Eliya City",
+        "Ramboda Falls",
+        "Glenloch Tea Factory and Tea Center",
+        "Kandy Lake",
+        "Kandy Culture Show",
+        "Temple of the Tooth Kandy",
+      ],
+      overnight: "Overnight stay at Kandy",
+    },
+    {
+      days: [4],
+      title: "Day 04 - Habarana",
+      image: "/tours/habarana.jpg",
+      activities: [
+        "Matale Hindu Temple",
+        "Dambulla Cave Temple",
+        "Dambulla Vegetable Market",
+        "Village Tour with Sri Lankan Lunch",
+        "Eco Park Safari or Pidurangala Sunset",
+      ],
+      overnight: "Overnight stay at Habarana",
+    },
+    {
+      days: [5],
+      title: "Day 05 - Pasikuda",
+      image: "/tours/pasikuda.jpg",
+      activities: [
+        "Sigiriya Rock Fortress",
+        "Polonnaruwa Ancient Kingdom",
+        "Pasikuda Beach (Kalkudah Beach)",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [6],
+      title: "Day 06 - Trincomalee",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Water Sports",
+        "Beach Leisure",
+        "British War Cemetery",
+        "Uppuveli Trincomalee",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [7],
+      title: "Day 07 - Trincomalee Exploration",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Marble Beach",
+        "Koneswaram Temple",
+        "Fort Fredrick",
+        "Pigeon Island National Park",
+        "Nilaveli Beach",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [8],
+      title: "Day 08 - Departure",
+      image: "/tours/colombo-airport.jpg",
+      activities: [
+        "Negombo Lagoon Tour or Colombo City Tour",
+      ],
+      drop: "Drop at Bandaranaike International Airport or Hotel at Negombo / Colombo",
+    },
   ],
 },
 
@@ -984,20 +1105,142 @@ export const TOURS = [
   image: "/tours/08-days-east-coast-tour-with-hotels.jpg",
 
   overview:
-    "8 days East Coast tour including selected hotel accommodations with breakfast.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they are always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 8 days tour covers Negombo, Ella, Kandy, Habarana, Polonnaruwa, Pasikuda, Trincomalee.",
+
+  vehicleInfo: {
+    car: "1 - 3 Persons → Car",
+    van: "4 - 10 Persons → KDH Van",
+    minimum: "Minimum two persons are required",
+    vipNote:
+      "$1260 for Two Persons - VIP Luxury Car (with Driver & Guiding) & Star Hotel with Breakfast",
+  },
+
+  bookingOptions: [
+    "Fill out the booking form",
+    "Send an email to info@srilankabesttourdriverandguide.com",
+    "Send WhatsApp message to (+94) 760 195 005",
+  ],
+
+  included: [
+    "Air-Conditioned Private Vehicle",
+    "English Speaking Professional Driver",
+    "Your Accommodation with Breakfast",
+    "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
+    "Fuel",
+    "Parking Fees",
+    "24 Hours Emergency Service",
+    "Local Sim Card (Free Data)",
+    "Free Water Bottles",
+    "Freeway Tickets (Toll Road)",
+  ],
+
+  excluded: [
+    "Entrance & Activities Fees",
+    "Train Ticket(s)",
+  ],
 
   itinerary: [
-    { days: [1], title: "Day 01 - Negombo", image: "/tours/negombo.jpg", overnight: "Hotel - Negombo" },
-    { days: [2], title: "Day 02 - Ella", image: "/tours/ella.jpg", overnight: "Hotel - Ella" },
-    { days: [3], title: "Day 03 - Kandy", image: "/tours/kandy.jpg", overnight: "Hotel - Kandy" },
-    { days: [4], title: "Day 04 - Habarana", image: "/tours/habarana.jpg", overnight: "Hotel - Habarana" },
-    { days: [5], title: "Day 05 - Pasikuda", image: "/tours/pasikuda.jpg", overnight: "Hotel - Pasikuda" },
-    { days: [6], title: "Day 06 - Trincomalee", image: "/tours/trincomalee.jpg", overnight: "Hotel - Trincomalee" },
-    { days: [7], title: "Day 07 - Trincomalee Exploration", image: "/tours/trincomalee.jpg", overnight: "Hotel - Trincomalee" },
-    { days: [8], title: "Day 08 - Departure", image: "/tours/colombo-airport.jpg", drop: "Airport" },
+    {
+      days: [1],
+      title: "Day 01 - Negombo",
+      image: "/tours/negombo.jpg",
+      activities: [
+        "Pickup from Airport or Hotel at Colombo/Negombo",
+        "Negombo Fish Market",
+        "Negombo Dutch Fort",
+        "Negombo Lagoon Tour",
+      ],
+      overnight: "Overnight stay at New Queen's Palace - Negombo (With Swimming Pool)",
+    },
+    {
+      days: [2],
+      title: "Day 02 - Ella",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Kithulgala Water Rafting",
+        "Ravana Waterfall",
+        "Little Adam’s Peak",
+        "Demodara Nine Arch Bridge",
+      ],
+      overnight: "Overnight stay at Sunray Homestay - Ella",
+    },
+    {
+      days: [3],
+      title: "Day 03 - Kandy",
+      image: "/tours/kandy.jpg",
+      activities: [
+        "Train Journey Ella to Nanu Oya",
+        "Nuwara Eliya City",
+        "Ramboda Falls",
+        "Glenloch Tea Factory and Tea Center",
+        "Kandy Lake",
+        "Kandy Culture Show",
+        "Temple of the Tooth Kandy",
+      ],
+      overnight: "Overnight stay at Jack Tree Lodge - Kandy",
+    },
+    {
+      days: [4],
+      title: "Day 04 - Habarana",
+      image: "/tours/habarana.jpg",
+      activities: [
+        "Matale Hindu Temple",
+        "Dambulla Cave Temple",
+        "Dambulla Vegetable Market",
+        "Village Tour with Sri Lankan Lunch",
+        "Eco Park Safari or Pidurangala Sunset",
+      ],
+      overnight: "Overnight stay at Go Go Green - Habarana (With Swimming Pool)",
+    },
+    {
+      days: [5],
+      title: "Day 05 - Pasikuda",
+      image: "/tours/pasikuda.jpg",
+      activities: [
+        "Sigiriya Rock Fortress",
+        "Polonnaruwa Ancient Kingdom",
+        "Pasikuda Beach (Kalkudah Beach)",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [6],
+      title: "Day 06 - Trincomalee",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Water Sports",
+        "Beach Leisure",
+        "British War Cemetery",
+        "Uppuveli Trincomalee",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [7],
+      title: "Day 07 - Trincomalee Exploration",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Marble Beach",
+        "Koneswaram Temple",
+        "Fort Fredrick",
+        "Pigeon Island National Park",
+        "Nilaveli Beach",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [8],
+      title: "Day 08 - Departure",
+      image: "/tours/colombo-airport.jpg",
+      activities: [
+        "Negombo Lagoon Tour or Colombo City Tour",
+      ],
+      drop: "Drop at Bandaranaike International Airport or Hotel at Negombo / Colombo",
+    },
   ],
-},
-
+}
+,
   /* =====================================================
    10 DAYS DOWN SOUTH
 ===================================================== */
@@ -1191,26 +1434,163 @@ export const TOURS = [
   image: "/tours/10-days-down-south-tour-with-hotels.jpg",
 
   overview:
-    "Same 10 days Down South tour including selected hotel accommodations with breakfast.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 10 days tour covers Negombo, Habarana, Polonnaruwa, Kandy, Nuwara Eliya, Ella, Yala, Mirissa, Hikkaduwa, Colombo.",
+
+  vehicleInfo: {
+    car: "1 - 3 Persons → Car",
+    van: "4 - 10 Persons → KDH Van",
+    minimum: "Minimum two persons are required",
+    vipNote: "$1160 for Two Persons - VIP Luxury Car (with Driver & Guiding) & Star Hotel with Breakfast",
+  },
+
+  bookingOptions: [
+    "Fill out the booking form",
+    "Send an email to info@srilankabesttourdriverandguide.com",
+    "Send WhatsApp message to (+94) 760 195 005",
+  ],
+
+  included: [
+    "Air-Conditioned Private Vehicle",
+    "English Speaking Professional Driver",
+    "Your Accommodation with Breakfast",
+    "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
+    "Fuel",
+    "Parking Fees",
+    "24 Hours Service",
+    "Local Sim Card (Free Data)",
+    "Free Train Ticket(s)",
+    "Water Bottles",
+    "Freeway Tickets (Toll Road)",
+  ],
+
+  excluded: [
+    "Entrance & Activities Fees",
+    "Food & Drinks",
+    "Train Ticket(s)",
+  ],
 
   itinerary: [
-    { days: [1], title: "Day 01 - Habarana", image: "/tours/habarana.jpg", overnight: "Go Go Green – Habarana" },
-    { days: [2], title: "Day 02 - Sigiriya & Polonnaruwa", image: "/tours/sigiriya.jpg", overnight: "Go Go Green – Habarana" },
-    { days: [3], title: "Day 03 - Kandy", image: "/tours/kandy.jpg", overnight: "Jack Tree Lodge – Kandy" },
-    { days: [4], title: "Day 04 - Nuwara Eliya", image: "/tours/nuwaraeliya.jpg", overnight: "Lu Chalet – Nuwara Eliya" },
-    { days: [5], title: "Day 05 - Ella", image: "/tours/ella.jpg", overnight: "Ella River Front – Ella" },
-    { days: [6], title: "Day 06 - Ella", image: "/tours/ella.jpg", overnight: "Ella River Front – Ella" },
-    { days: [7], title: "Day 07 - Yala", image: "/tours/yala.jpg", overnight: "Boutique Villa – Yala" },
-    { days: [8], title: "Day 08 - Mirissa", image: "/tours/mirissa.jpg", overnight: "N34 – Mirissa" },
-    { days: [9], title: "Day 09 - Mirissa", image: "/tours/mirissa.jpg", overnight: "N34 – Mirissa" },
-    { days: [10], title: "Day 10 - Departure", image: "/tours/colombo.jpg", drop: "Airport" },
+    {
+      days: [1],
+      title: "Day 01 - Arrival & Habarana",
+      image: "/tours/habarana.jpg",
+      activities: [
+        "Pick Up from Airport or Your Hotel",
+        "Negombo Fish Market",
+        "Pidurangala Sunset",
+      ],
+      overnight: "Overnight stay at Go Go Green – Habarana (with Swimming Pool)",
+    },
+    {
+      days: [2],
+      title: "Day 02 - Sigiriya & Polonnaruwa",
+      image: "/tours/sigiriya.jpg",
+      activities: [
+        "Sigiriya Rock Fortress (7am)",
+        "Polonnaruwa Ancient Kingdom by Bicycle",
+        "Hiriwadunna Village Tour with Sri Lankan Cooking Class & Sri Lankan Lunch",
+      ],
+      overnight: "Overnight stay at Go Go Green – Habarana (with Swimming Pool)",
+    },
+    {
+      days: [3],
+      title: "Day 03 - Kandy",
+      image: "/tours/kandy.jpg",
+      activities: [
+        "Dambulla Cave Temple",
+        "Nalanda Gedige Temple",
+        "Matale Hindu Temple",
+        "Kandy Cultural Show",
+        "Temple of the Tooth Kandy",
+      ],
+      overnight: "Overnight stay at Jack Tree Lodge – Kandy",
+    },
+    {
+      days: [4],
+      title: "Day 04 - Nuwara Eliya",
+      image: "/tours/nuwaraeliya.jpg",
+      activities: [
+        "Ramboda Falls",
+        "Tea Factory & Tea Plantation",
+        "Walking City Tour in Nuwara Eliya",
+      ],
+      overnight: "Overnight stay at Lu Chalet – Nuwara Eliya",
+    },
+    {
+      days: [5],
+      title: "Day 05 - Horton Plains & Ella",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Horton Plains (5am)",
+        "Train Journey Nanu Oya to Ella",
+        "Nine Arch Bridge",
+      ],
+      overnight: "Overnight stay at Ella River Front / Mountain Palace - Ella",
+    },
+    {
+      days: [6],
+      title: "Day 06 - Ella Exploration",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Little Adam’s Peak",
+        "Ravana Cave",
+        "Ella Rock",
+        "Swimming on Secret Waterfall",
+      ],
+      overnight: "Overnight stay at Ella River Front / Mountain Palace - Ella",
+    },
+    {
+      days: [7],
+      title: "Day 07 - Yala",
+      image: "/tours/yala.jpg",
+      activities: [
+        "Ravana Falls",
+        "Buduruwagala Rock Temple",
+        "Yala National Park Safari",
+      ],
+      overnight: "Overnight stay at Pahalage Boutique Villa – Yala (with Swimming Pool)",
+    },
+    {
+      days: [8],
+      title: "Day 08 - Mirissa",
+      image: "/tours/mirissa.jpg",
+      activities: [
+        "Mirissa Beach",
+        "Weligama Beach",
+        "Unawatuna Beach",
+      ],
+      overnight: "Overnight stay at N34 – Mirissa",
+    },
+    {
+      days: [9],
+      title: "Day 09 - Mirissa Leisure",
+      image: "/tours/mirissa.jpg",
+      activities: [
+        "Mirissa Whale Watching",
+        "Leisure at Beach",
+      ],
+      overnight: "Overnight stay at N34 – Mirissa",
+    },
+    {
+      days: [10],
+      title: "Day 10 - Colombo & Departure",
+      image: "/tours/colombo-airport.jpg",
+      activities: [
+        "Galle Dutch Fort & Turtle Conservation Project",
+        "Colombo City Tour",
+        "Gangarama Temple & Old Dutch Church",
+        "Independence Square & Colombo National Museum",
+        "Jami Ul Alfar Mosque",
+      ],
+      drop: "Drop at Airport or Your Hotel at Negombo",
+    },
   ],
 },
 
 /* =====================================================
    10 DAYS EAST COAST
 ===================================================== */
-
 {
   id: "10-days-east-coast",
   region: "east",
@@ -1223,22 +1603,166 @@ export const TOURS = [
   image: "/tours/10-days-east-coast-tour.jpg",
 
   overview:
-    "10 days exploring East Coast beaches, heritage sites, hill country and wildlife.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 10 days tour covers Negombo, Ella, Nuwara Eliya, Kandy, Habarana, Polonnaruwa, Pasikuda, Trincomalee.",
+
+  vehicleInfo: {
+    car: "1 - 3 Persons → Car",
+    van: "4 - 10 Persons → KDH Van",
+    minimum: "Minimum two persons are required",
+    vipNote: "$1280 for Two Persons - VIP Luxury Car (with Driver & Guiding)",
+  },
+
+  bookingOptions: [
+    "Fill out the booking form",
+    "Send an email to info@srilankatoursdriver.com",
+    "Send WhatsApp message to (+94) 769 300 334",
+  ],
+
+  included: [
+    "Air-Conditioned Private Vehicle",
+    "English Speaking Professional Driver",
+    "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
+    "Fuel",
+    "Parking Fees",
+    "24 Hours Service",
+    "Local Sim Card (Free Data)",
+    "Water Bottles",
+    "Freeway Tickets (Toll Road)",
+  ],
+
+  excluded: [
+    "Your Accommodation & Meals",
+    "Entrance & Activities Fees",
+    "Train Ticket(s)",
+  ],
 
   itinerary: [
-    { days: [1], title: "Day 01 - Negombo", image: "/tours/negombo.jpg", overnight: "Negombo" },
-    { days: [2], title: "Day 02 - Ella", image: "/tours/ella.jpg", overnight: "Ella" },
-    { days: [3], title: "Day 03 - Nuwara Eliya", image: "/tours/nuwaraeliya.jpg", overnight: "Nuwara Eliya" },
-    { days: [4], title: "Day 04 - Kandy", image: "/tours/kandy.jpg", overnight: "Kandy" },
-    { days: [5], title: "Day 05 - Habarana", image: "/tours/habarana.jpg", overnight: "Habarana" },
-    { days: [6], title: "Day 06 - Pasikuda", image: "/tours/pasikuda.jpg", overnight: "Pasikuda" },
-    { days: [7], title: "Day 07 - Batticaloa", image: "/tours/batticaloa.jpg", overnight: "Pasikuda" },
-    { days: [8], title: "Day 08 - Trincomalee", image: "/tours/trincomalee.jpg", overnight: "Trincomalee" },
-    { days: [9], title: "Day 09 - Trincomalee Exploration", image: "/tours/trincomalee.jpg", overnight: "Trincomalee" },
-    { days: [10], title: "Day 10 - Departure", image: "/tours/colombo-airport.jpg", drop: "Airport" },
+    {
+      days: [1],
+      title: "Day 01 - Negombo",
+      image: "/tours/negombo.jpg",
+      activities: [
+        "Pickup from Airport or Hotel at Colombo/Negombo",
+        "Negombo Fish Market",
+        "Negombo Dutch Fort",
+        "Negombo Lagoon Tour",
+      ],
+      overnight: "Overnight stay at Negombo",
+    },
+    {
+      days: [2],
+      title: "Day 02 - Ella",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Kithulgala Water Rafting",
+        "Ravana Waterfall",
+        "Little Adam’s Peak",
+        "Demodara Nine Arch Bridge",
+      ],
+      overnight: "Overnight stay at Ella",
+    },
+    {
+      days: [3],
+      title: "Day 03 - Nuwara Eliya",
+      image: "/tours/nuwaraeliya.jpg",
+      activities: [
+        "Train Journey Ella to Nanu Oya",
+        "Victoria Park",
+        "Walking City Tour in Nuwara Eliya",
+        "Gregory Lake",
+        "Pedro Tea Estate",
+        "Seetha Amman Kovil",
+      ],
+      overnight: "Overnight stay at Nuwara Eliya",
+    },
+    {
+      days: [4],
+      title: "Day 04 - Kandy",
+      image: "/tours/kandy.jpg",
+      activities: [
+        "Horton Plains National Park",
+        "Baker's Waterfall",
+        "Ambewela Farm",
+        "Ramboda Falls",
+        "Glenloch Tea Factory and Tea Center",
+        "Kandy Lake",
+        "Kandy Culture Show",
+        "Temple of the Tooth Kandy",
+      ],
+      overnight: "Overnight stay at Kandy",
+    },
+    {
+      days: [5],
+      title: "Day 05 - Habarana",
+      image: "/tours/habarana.jpg",
+      activities: [
+        "Matale Hindu Temple",
+        "Dambulla Cave Temple",
+        "Dambulla Vegetable Market",
+        "Hiriwadunna Village Tour with Sri Lankan Cooking Class & Sri Lankan Lunch",
+        "Wild Safari at Eco Park or Pidurangala Sunset",
+      ],
+      overnight: "Overnight stay at Habarana",
+    },
+    {
+      days: [6],
+      title: "Day 06 - Pasikuda",
+      image: "/tours/pasikuda.jpg",
+      activities: [
+        "Sigiriya Rock Fortress",
+        "Polonnaruwa Ancient Kingdom",
+        "Pasikuda Beach (Kalkudah Beach)",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [7],
+      title: "Day 07 - Batticaloa",
+      image: "/tours/batticaloa.jpg",
+      activities: [
+        "Water Sports",
+        "Beach Leisure",
+        "Batticaloa Fort",
+        "New Kallady Bridge Batticaloa",
+        "Batticaloa Lighthouse",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [8],
+      title: "Day 08 - Trincomalee",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Marble Beach",
+        "British War Cemetery",
+        "Uppuveli Trincomalee",
+        "Fort Fredrick",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [9],
+      title: "Day 09 - Trincomalee Exploration",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Pigeon Island National Park",
+        "Nilaveli Beach",
+        "Koneswaram Temple",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [10],
+      title: "Day 10 - Departure",
+      image: "/tours/colombo-airport.jpg",
+      activities: [
+        "Colombo City Tour",
+      ],
+      drop: "Drop at Bandaranaike International Airport or Hotel at Negombo / Colombo",
+    },
   ],
 },
-
 {
   id: "10-days-east-coast-hotels",
   region: "east",
@@ -1251,19 +1775,164 @@ export const TOURS = [
   image: "/tours/10-days-east-coast-tour-with-hotels.jpg",
 
   overview:
-    "10 days East Coast tour including selected hotel accommodations with breakfast.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 10 days tour covers Negombo, Ella, Nuwara Eliya, Kandy, Habarana, Polonnaruwa, Pasikuda, Trincomalee.",
+
+  vehicleInfo: {
+    car: "1 - 3 Persons → Car",
+    van: "4 - 10 Persons → KDH Van",
+    minimum: "Minimum two persons are required",
+    vipNote: "$1580 for Two Persons - VIP Luxury Car (with Driver & Guiding) & Star Hotel with Breakfast",
+  },
+
+  bookingOptions: [
+    "Fill out the booking form",
+    "Send an email to info@srilankatoursdriver.com",
+    "Send WhatsApp message to (+94) 769 300 334",
+  ],
+
+  included: [
+    "Air-Conditioned Private Vehicle",
+    "English Speaking Professional Driver",
+    "Accommodation with Breakfast",
+    "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
+    "Fuel",
+    "Parking Fees",
+    "24 Hours Emergency Service",
+    "Local Sim Card (Free Data)",
+    "Water Bottles",
+    "Freeway Tickets (Toll Road)",
+  ],
+
+  excluded: [
+    "Entrance & Activities Fees",
+    "Train Ticket(s)",
+  ],
 
   itinerary: [
-    { days: [1], title: "Negombo", image: "/tours/negombo.jpg", overnight: "Hotel - Negombo" },
-    { days: [2], title: "Ella", image: "/tours/ella.jpg", overnight: "Hotel - Ella" },
-    { days: [3], title: "Nuwara Eliya", image: "/tours/nuwaraeliya.jpg", overnight: "Hotel - Nuwara Eliya" },
-    { days: [4], title: "Kandy", image: "/tours/kandy.jpg", overnight: "Hotel - Kandy" },
-    { days: [5], title: "Habarana", image: "/tours/habarana.jpg", overnight: "Hotel - Habarana" },
-    { days: [6], title: "Pasikuda", image: "/tours/pasikuda.jpg", overnight: "Hotel - Pasikuda" },
-    { days: [7], title: "Pasikuda", image: "/tours/pasikuda.jpg", overnight: "Hotel - Pasikuda" },
-    { days: [8], title: "Trincomalee", image: "/tours/trincomalee.jpg", overnight: "Hotel - Trincomalee" },
-    { days: [9], title: "Trincomalee", image: "/tours/trincomalee.jpg", overnight: "Hotel - Trincomalee" },
-    { days: [10], title: "Departure", image: "/tours/colombo-airport.jpg", drop: "Airport" },
+    {
+      days: [1],
+      title: "Day 01 - Negombo",
+      image: "/tours/negombo.jpg",
+      activities: [
+        "Pickup from Airport or Hotel at Colombo/Negombo",
+        "Negombo Fish Market",
+        "Negombo Dutch Fort",
+        "Negombo Lagoon Tour",
+      ],
+      overnight: "Overnight stay at New Queen's Palace - Negombo (With Swimming Pool)",
+    },
+    {
+      days: [2],
+      title: "Day 02 - Ella",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Kithulgala Water Rafting",
+        "Ravana Waterfall",
+        "Little Adam’s Peak",
+        "Demodara Nine Arch Bridge",
+      ],
+      overnight: "Overnight stay at Sunray Homestay - Ella",
+    },
+    {
+      days: [3],
+      title: "Day 03 - Nuwara Eliya",
+      image: "/tours/nuwaraeliya.jpg",
+      activities: [
+        "Train Journey Ella to Nanu Oya",
+        "Victoria Park",
+        "Walking City Tour in Nuwara Eliya",
+        "Gregory Lake",
+        "Pedro Tea Estate",
+        "Seetha Amman Kovil",
+      ],
+      overnight: "Overnight stay at Lu Chalet - Nuwara Eliya",
+    },
+    {
+      days: [4],
+      title: "Day 04 - Kandy",
+      image: "/tours/kandy.jpg",
+      activities: [
+        "Horton Plains National Park",
+        "Baker's Waterfall",
+        "Ambewela Farm",
+        "Ramboda Falls",
+        "Glenloch Tea Factory and Tea Center",
+        "Kandy Lake",
+        "Kandy Culture Show",
+        "Temple of the Tooth Kandy",
+      ],
+      overnight: "Overnight stay at Jack Tree Lodge - Kandy",
+    },
+    {
+      days: [5],
+      title: "Day 05 - Habarana",
+      image: "/tours/habarana.jpg",
+      activities: [
+        "Matale Hindu Temple",
+        "Dambulla Cave Temple",
+        "Dambulla Vegetable Market",
+        "Hiriwadunna Village Tour with Sri Lankan Cooking Class & Sri Lankan Lunch",
+        "Wild Safari at Eco Park or Pidurangala Sunset",
+      ],
+      overnight: "Overnight stay at Go Go Green - Habarana (With Swimming Pool)",
+    },
+    {
+      days: [6],
+      title: "Day 06 - Pasikuda",
+      image: "/tours/pasikuda.jpg",
+      activities: [
+        "Sigiriya Rock Fortress",
+        "Polonnaruwa Ancient Kingdom",
+        "Pasikuda Beach (Kalkudah Beach)",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [7],
+      title: "Day 07 - Batticaloa",
+      image: "/tours/batticaloa.jpg",
+      activities: [
+        "Water Sports",
+        "Beach Leisure",
+        "Batticaloa Fort",
+        "New Kallady Bridge Batticaloa",
+        "Batticaloa Lighthouse",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [8],
+      title: "Day 08 - Trincomalee",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Marble Beach",
+        "British War Cemetery",
+        "Uppuveli Trincomalee",
+        "Fort Fredrick",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [9],
+      title: "Day 09 - Trincomalee Exploration",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Pigeon Island National Park",
+        "Nilaveli Beach",
+        "Koneswaram Temple",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [10],
+      title: "Day 10 - Departure",
+      image: "/tours/colombo-airport.jpg",
+      activities: [
+        "Colombo City Tour",
+      ],
+      drop: "Drop at Bandaranaike International Airport or Hotel at Negombo / Colombo",
+    },
   ],
 },
 /* =====================================================
@@ -1282,7 +1951,7 @@ export const TOURS = [
   image: "/tours/12-days-down-south-tour.jpg",
 
   overview:
-    "12 days Down South journey covering Negombo, Anuradhapura, Habarana, Polonnaruwa, Kandy, Nuwara Eliya, Ella, Yala, Mirissa, Hikkaduwa and Colombo with culture, hills, wildlife and beaches.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 12 days tour covers Negombo, Anuradhapura, Habarana, Polonnaruwa, Kandy, Nuwara Eliya, Ella, Yala, Mirissa, Hikkaduwa, Colombo.",
 
   vehicleInfo: {
     car: "1 - 3 Persons → Car",
@@ -1301,10 +1970,13 @@ export const TOURS = [
     "Air-Conditioned Private Vehicle",
     "English Speaking Professional Driver",
     "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
     "Fuel",
     "Parking Fees",
+    "24 Hours Emergency Service",
     "Local Sim Card (Free Data)",
     "Water Bottles",
+    "Freeway Tickets (Toll Road)",
   ],
 
   excluded: [
@@ -1315,31 +1987,32 @@ export const TOURS = [
   ],
 
   itinerary: [
-
     {
       days: [1],
-      title: "Day 01 - Negombo",
+      title: "Day 01 - Arrival & Negombo",
       image: "/tours/negombo.jpg",
       activities: [
-        "Pickup from Airport",
+        "Pickup from Airport to Driver Negombo",
+        "Relax at the Hotel",
         "Explore Negombo City",
+        "Agurukaramulla Temple",
         "Negombo Lagoon Tour",
+        "Dinner at Negombo Beach",
       ],
-      overnight: "Overnight stay at Negombo",
+      overnight: "Overnight stay at Mama's Boutique Hotel Negombo",
     },
-
     {
       days: [2],
       title: "Day 02 - Anuradhapura",
       image: "/tours/anuradhapura.jpg",
       activities: [
-        "Negombo Fish Market",
+        "Negombo Fish Market (6am)",
+        "Negombo Dutch Fort",
         "Sri Munneswaram Kovil",
-        "Anuradhapura Ancient Kingdom Tour",
+        "Anuradhapura Ancient Kingdom City Tour",
       ],
       overnight: "Overnight stay at Anuradhapura",
     },
-
     {
       days: [3],
       title: "Day 03 - Habarana",
@@ -1349,137 +2022,178 @@ export const TOURS = [
           title: "Option 01",
           activities: [
             "Polonnaruwa Ancient Kingdom",
-            "Village Tour with Cooking Class",
+            "Hiriwadunna Village Tour with Sri Lankan Cooking Class & Sri Lankan Lunch",
             "Pidurangala Sunset",
           ],
         },
         {
           title: "Option 02",
           activities: [
-            "Minneriya / Kaudulla / Eco Park Safari",
+            "Polonnaruwa Ancient Kingdom",
+            "Hiriwadunna Village Tour with Sri Lankan Cooking Class & Sri Lankan Lunch",
+            "Minneriya / Kaudulla / Eco Park Wild Safari",
           ],
         },
       ],
       overnight: "Overnight stay at Habarana",
     },
-
     {
       days: [4],
       title: "Day 04 - Kandy",
       image: "/tours/kandy.jpg",
       activities: [
-        "Sigiriya Rock Fortress",
+        "Sigiriya Rock Fortress (7am)",
         "Dambulla Cave Temple",
-        "Spice Garden Visit",
-        "Kandy Cultural Show",
-        "Temple of the Tooth",
+        "Dambulla Vegetable Market",
+        "Matale Hindu Temple",
+        "Ranweli Spice Garden",
+        "Kandy Cultural Show (5.30pm to 6.30pm)",
+        "Temple of the Tooth Kandy (Ceremony starts at 7pm)",
       ],
       overnight: "Overnight stay at Kandy",
     },
-
     {
       days: [5],
       title: "Day 05 - Nuwara Eliya",
       image: "/tours/nuwaraeliya.jpg",
       activities: [
         "Peradeniya Botanical Garden",
+        "Ambuluwawa Tower",
         "Ramboda Waterfall",
-        "Tea Factory Visit",
+        "Hanuman Temple",
+        "Glenloch Tea Factory & Tea Center",
       ],
       overnight: "Overnight stay at Nuwara Eliya",
     },
-
     {
       days: [6],
       title: "Day 06 - Nuwara Eliya Exploration",
       image: "/tours/nuwaraeliya.jpg",
       activities: [
+        "Moon Plains (Sandathenna)",
         "Hakgala Botanical Garden",
+        "Seetha Amman Kovil",
+        "Walking City Tour in Nuwara Eliya",
         "Gregory Lake",
-        "City Walk",
       ],
       overnight: "Overnight stay at Nuwara Eliya",
     },
-
     {
       days: [7],
       title: "Day 07 - Ella",
       image: "/tours/ella.jpg",
       activities: [
-        "Horton Plains",
-        "Train Journey to Ella",
+        "Horton Plains National Park (5am)",
+        "New Zealand Farm",
+        "Train Journey Nanu Oya to Ella (12.30Pm Or 2.30Pm)",
         "Explore Ella City",
       ],
       overnight: "Overnight stay at Ella",
     },
-
     {
       days: [8],
       title: "Day 08 - Yala / Udawalawa",
       image: "/tours/yala.jpg",
       options: [
         {
-          title: "Option 01 - Yala",
+          title: "Option 01 - Tissamaharama or Yala",
           activities: [
+            "Driver to Tissamaharama or Yala",
+            "Little Adam's Peak",
+            "Flying Ravana Mega Zipline",
             "Nine Arch Bridge",
             "Ravana Waterfall",
-            "Yala National Park Safari",
+            "Buduruwagala Temple (Optional)",
+            "Tissamaharama Ancient City & Lake",
           ],
-          overnight: "Overnight stay at Yala",
+          overnight: "Overnight stay at Tissamaharama or Yala",
         },
         {
           title: "Option 02 - Udawalawa",
           activities: [
-            "Little Adam’s Peak",
-            "Udawalawa Safari",
+            "Driver to Udawalawa",
+            "Little Adam's Peak",
+            "Flying Ravana Mega Zipline",
+            "Nine Arch Bridge",
+            "Ravana Waterfall",
+            "Buduruwagala Temple (Optional)",
+            "Udawalawe Elephant Orphanage (Optional)",
           ],
           overnight: "Overnight stay at Udawalawa",
         },
       ],
     },
-
     {
       days: [9],
       title: "Day 09 - Mirissa",
       image: "/tours/mirissa.jpg",
-      activities: [
-        "Beach Relaxation",
-        "Coconut Tree Hill",
+      options: [
+        {
+          title: "Option 01 - From Yala",
+          activities: [
+            "Driver to Mirissa",
+            "Yala National Park Morning Safari",
+            "Goyambokka Beach",
+            "Dikwella Beach",
+            "Waligama Beach",
+            "Coconut Tree Hill",
+          ],
+        },
+        {
+          title: "Option 02 - From Udawalawa",
+          activities: [
+            "Udawalawa National Park Morning Safari",
+            "Goyambokka Beach",
+            "Dikwella Beach",
+            "Waligama Beach",
+            "Coconut Tree Hill",
+          ],
+        },
       ],
       overnight: "Overnight stay at Mirissa",
     },
-
     {
       days: [10],
       title: "Day 10 - Hikkaduwa",
       image: "/tours/hikkaduwa.jpg",
       activities: [
-        "Whale Watching",
+        "Whales Watching and Dolphins Watching",
+        "Unawatuna Beach",
+        "Jungle Beach",
+        "Rumassala Japanese Peace Pagoda",
         "Galle Dutch Fort",
       ],
       overnight: "Overnight stay at Hikkaduwa",
     },
-
     {
       days: [11],
       title: "Day 11 - Colombo",
       image: "/tours/colombo.jpg",
       activities: [
+        "Surfing, Snorkeling, Swimming with Sea Turtles at Hikkaduwa Beach",
         "Madu River Safari",
-        "Colombo City Tour",
+        "Turtles Conservation Center",
+        "Bentota Water Sports",
+        "Ketchchimalai Mosque Beruwala",
       ],
       overnight: "Overnight stay at Colombo",
     },
-
     {
       days: [12],
       title: "Day 12 - Departure",
       image: "/tours/colombo-airport.jpg",
       activities: [
-        "Gangaramaya Temple",
+        "Colombo City Tour",
+        "Gangarama Temple",
+        "Old Parliament",
         "Independence Square",
+        "Colombo National Museum",
+        "Colombo Lotus Tower",
+        "Jami Ul Alfar Mosque",
+        "Galle Face Green",
+        "One Galle Face Mall",
       ],
-      drop: "Drop at Airport or Hotel",
+      drop: "Drop at Colombo, Airport or Negombo",
     },
   ],
 },
@@ -1693,21 +2407,187 @@ export const TOURS = [
   image: "/tours/12-days-east-coast-tour.jpg",
 
   overview:
-    "12 days exploring East Coast beaches, heritage sites, hill country and wildlife destinations.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 12 days tour covers Negombo, Ella, Nuwara Eliya, Kandy, Habarana, Polonnaruwa, Pasikuda, Trincomalee, Anuradhapura, Kalpitiya.",
+
+  vehicleInfo: {
+    car: "1 - 3 Persons → Car",
+    van: "4 - 10 Persons → KDH Van",
+    minimum: "Minimum two persons are required",
+  },
+
+  bookingOptions: [
+    "Fill out the booking form",
+    "Send an email to info@srilankatoursdriver.com",
+    "Send WhatsApp message to (+94) 769 300 334",
+  ],
+
+  included: [
+    "Air-Conditioned Private Vehicle",
+    "English Speaking Professional Driver",
+    "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
+    "Fuel",
+    "Parking Fees",
+    "24 Hours Service",
+    "Local Sim Card (Free Data)",
+    "Free Train Ticket(s)",
+    "Water Bottles",
+    "Freeway Tickets (Toll Road)",
+  ],
+
+  excluded: [
+    "Your Accommodation & Meals",
+    "Entrance & Activities Fees",
+    "Train Ticket(s)",
+  ],
 
   itinerary: [
-    { days: [1], title: "Negombo", image: "/tours/negombo.jpg", overnight: "Negombo" },
-    { days: [2], title: "Ella", image: "/tours/ella.jpg", overnight: "Ella" },
-    { days: [3], title: "Nuwara Eliya", image: "/tours/nuwaraeliya.jpg", overnight: "Nuwara Eliya" },
-    { days: [4], title: "Kandy", image: "/tours/kandy.jpg", overnight: "Kandy" },
-    { days: [5], title: "Habarana", image: "/tours/habarana.jpg", overnight: "Habarana" },
-    { days: [6], title: "Pasikuda", image: "/tours/pasikuda.jpg", overnight: "Pasikuda" },
-    { days: [7], title: "Batticaloa", image: "/tours/batticaloa.jpg", overnight: "Pasikuda" },
-    { days: [8], title: "Trincomalee", image: "/tours/trincomalee.jpg", overnight: "Trincomalee" },
-    { days: [9], title: "Anuradhapura", image: "/tours/anuradhapura.jpg", overnight: "Anuradhapura" },
-    { days: [10], title: "Kalpitiya", image: "/tours/kalpitiya.jpg", overnight: "Kalpitiya" },
-    { days: [11], title: "Kalpitiya", image: "/tours/kalpitiya.jpg", overnight: "Kalpitiya" },
-    { days: [12], title: "Departure", image: "/tours/colombo-airport.jpg", drop: "Airport" },
+    {
+      days: [1],
+      title: "Day 01 - Negombo",
+      image: "/tours/negombo.jpg",
+      activities: [
+        "Pickup from Airport or Hotel at Colombo/Negombo",
+        "Negombo Fish Market",
+        "Negombo Dutch Fort",
+        "Negombo Lagoon Tour",
+      ],
+      overnight: "Overnight stay at Negombo",
+    },
+    {
+      days: [2],
+      title: "Day 02 - Ella",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Kithulgala Water Rafting",
+        "Ravana Waterfall",
+        "Little Adam’s Peak",
+        "Demodara Nine Arch Bridge",
+      ],
+      overnight: "Overnight stay at Ella",
+    },
+    {
+      days: [3],
+      title: "Day 03 - Nuwara Eliya",
+      image: "/tours/nuwaraeliya.jpg",
+      activities: [
+        "Train Journey Ella to Nanu Oya",
+        "Victoria Park",
+        "Walking City Tour in Nuwara Eliya",
+        "Gregory Lake",
+        "Pedro Tea Estate",
+        "Seetha Amman Kovil",
+      ],
+      overnight: "Overnight stay at Nuwara Eliya",
+    },
+    {
+      days: [4],
+      title: "Day 04 - Kandy",
+      image: "/tours/kandy.jpg",
+      activities: [
+        "Horton Plains National Park",
+        "Baker's Waterfall",
+        "Ambewela Farm",
+        "Ramboda Falls",
+        "Glenloch Tea Factory and Tea Center",
+        "Kandy Lake",
+        "Kandy Culture Show",
+        "Temple of the Tooth Kandy",
+      ],
+      overnight: "Overnight stay at Kandy",
+    },
+    {
+      days: [5],
+      title: "Day 05 - Habarana",
+      image: "/tours/habarana.jpg",
+      activities: [
+        "Matale Hindu Temple",
+        "Dambulla Cave Temple",
+        "Dambulla Vegetable Market",
+        "Hiriwadunna Village Tour with Sri Lankan Cooking Class & Sri Lankan Lunch",
+        "Wild Safari at Eco Park or Pidurangala Sunset",
+      ],
+      overnight: "Overnight stay at Habarana",
+    },
+    {
+      days: [6],
+      title: "Day 06 - Pasikuda",
+      image: "/tours/pasikuda.jpg",
+      activities: [
+        "Sigiriya Rock Fortress",
+        "Polonnaruwa Ancient Kingdom",
+        "Pasikuda Beach (Kalkudah Beach)",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [7],
+      title: "Day 07 - Batticaloa",
+      image: "/tours/batticaloa.jpg",
+      activities: [
+        "Water Sports",
+        "Beach Leisure",
+        "Batticaloa Fort",
+        "New Kallady Bridge Batticaloa",
+        "Batticaloa Lighthouse",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [8],
+      title: "Day 08 - Trincomalee",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Marble Beach",
+        "British War Cemetery",
+        "Uppuveli Trincomalee",
+        "Fort Fredrick",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [9],
+      title: "Day 09 - Anuradhapura",
+      image: "/tours/anuradhapura.jpg",
+      activities: [
+        "Pigeon Island National Park",
+        "Nilaveli Beach",
+        "Koneswaram Temple",
+        "Mihintale",
+      ],
+      overnight: "Overnight stay at Anuradhapura",
+    },
+    {
+      days: [10],
+      title: "Day 10 - Kalpitiya",
+      image: "/tours/kalpitiya.jpg",
+      activities: [
+        "Anuradhapura Ancient Kingdom",
+        "Wilpaththu National Park Safari",
+      ],
+      overnight: "Overnight stay at Kalpitiya",
+    },
+    {
+      days: [11],
+      title: "Day 11 - Kalpitiya Exploration",
+      image: "/tours/kalpitiya.jpg",
+      activities: [
+        "Kite Surfing",
+        "Kalpitiya Dutch Fort",
+        "Kalpitiya Dutch Church",
+        "Kalpitiya Lagoon Tour",
+      ],
+      overnight: "Overnight stay at Kalpitiya",
+    },
+    {
+      days: [12],
+      title: "Day 12 - Departure",
+      image: "/tours/colombo-airport.jpg",
+      activities: [
+        "Colombo City Tour",
+      ],
+      drop: "Drop at Bandaranaike International Airport or Hotel at Negombo / Colombo",
+    },
   ],
 },
 
@@ -1727,21 +2607,186 @@ export const TOURS = [
   image: "/tours/12-days-east-coast-tour-with-hotels.jpg",
 
   overview:
-    "12 days East Coast tour including selected hotel accommodations with breakfast.",
+    "Visit Sri Lanka and book an amazing tour package with us. Sri Lanka is an amazing tropical country in the world. Our drivers are well-knowledge English speaking professional tourist drivers. They love their role in Sri Lanka tourism and they always available to explore Sri Lanka with tourists around the world. Hire a personal driver with private car for your trip and enjoy the tour in Sri Lanka. This 12 days tour covers Negombo, Ella, Nuwara Eliya, Kandy, Habarana, Polonnaruwa, Pasikuda, Trincomalee, Anuradhapura, Kalpitiya.",
+
+  vehicleInfo: {
+    car: "1 - 3 Persons → Car",
+    van: "4 - 10 Persons → KDH Van"
+  },
+
+  bookingOptions: [
+    "Fill out the booking form",
+    "Send an email to info@srilankatoursdriver.com",
+    "Send WhatsApp message to (+94) 769 300 334",
+  ],
+
+  included: [
+    "Air-Conditioned Private Vehicle",
+    "English Speaking Professional Driver",
+    "Accommodation with Breakfast",
+    "Driver's Accommodation & Meals",
+    "Health and Safety Certificate",
+    "Fuel",
+    "Parking Fees",
+    "24 Hours Service",
+    "Local Sim Card (Free Data)",
+    "Free Train Ticket(s)",
+    "Water Bottles",
+    "Freeway Tickets (Toll Road)",
+  ],
+
+  excluded: [
+    "Entrance & Activities Fees",
+    "Train Ticket(s)",
+  ],
 
   itinerary: [
-    { days: [1], title: "Negombo", image: "/tours/negombo.jpg", overnight: "Hotel - Negombo" },
-    { days: [2], title: "Ella", image: "/tours/ella.jpg", overnight: "Hotel - Ella" },
-    { days: [3], title: "Nuwara Eliya", image: "/tours/nuwaraeliya.jpg", overnight: "Hotel - Nuwara Eliya" },
-    { days: [4], title: "Kandy", image: "/tours/kandy.jpg", overnight: "Hotel - Kandy" },
-    { days: [5], title: "Habarana", image: "/tours/habarana.jpg", overnight: "Hotel - Habarana" },
-    { days: [6], title: "Pasikuda", image: "/tours/pasikuda.jpg", overnight: "Hotel - Pasikuda" },
-    { days: [7], title: "Batticaloa", image: "/tours/batticaloa.jpg", overnight: "Hotel - Pasikuda" },
-    { days: [8], title: "Trincomalee", image: "/tours/trincomalee.jpg", overnight: "Hotel - Trincomalee" },
-    { days: [9], title: "Anuradhapura", image: "/tours/anuradhapura.jpg", overnight: "Hotel - Anuradhapura" },
-    { days: [10], title: "Kalpitiya", image: "/tours/kalpitiya.jpg", overnight: "Hotel - Kalpitiya" },
-    { days: [11], title: "Kalpitiya", image: "/tours/kalpitiya.jpg", overnight: "Hotel - Kalpitiya" },
-    { days: [12], title: "Departure", image: "/tours/colombo-airport.jpg", drop: "Airport" },
+    {
+      days: [1],
+      title: "Day 01 - Negombo",
+      image: "/tours/negombo.jpg",
+      activities: [
+        "Pickup from Airport or Hotel at Colombo/Negombo",
+        "Negombo Fish Market",
+        "Negombo Dutch Fort",
+        "Negombo Lagoon Tour",
+      ],
+      overnight: "Overnight stay at New Queen's Palace - Negombo (With Swimming Pool)",
+    },
+    {
+      days: [2],
+      title: "Day 02 - Ella",
+      image: "/tours/ella.jpg",
+      activities: [
+        "Kithulgala Water Rafting",
+        "Ravana Waterfall",
+        "Little Adam’s Peak",
+        "Demodara Nine Arch Bridge",
+      ],
+      overnight: "Overnight stay at Sunray Homestay - Ella",
+    },
+    {
+      days: [3],
+      title: "Day 03 - Nuwara Eliya",
+      image: "/tours/nuwaraeliya.jpg",
+      activities: [
+        "Train Journey Ella to Nanu Oya",
+        "Victoria Park",
+        "Walking City Tour in Nuwara Eliya",
+        "Gregory Lake",
+        "Pedro Tea Estate",
+        "Seetha Amman Kovil",
+      ],
+      overnight: "Overnight stay at Lu Chalet - Nuwara Eliya",
+    },
+    {
+      days: [4],
+      title: "Day 04 - Kandy",
+      image: "/tours/kandy.jpg",
+      activities: [
+        "Horton Plains National Park",
+        "Baker's Waterfall",
+        "Ambewela Farm",
+        "Ramboda Falls",
+        "Glenloch Tea Factory and Tea Center",
+        "Kandy Lake",
+        "Kandy Culture Show",
+        "Temple of the Tooth Kandy",
+      ],
+      overnight: "Overnight stay at Jack Tree Lodge - Kandy",
+    },
+    {
+      days: [5],
+      title: "Day 05 - Habarana",
+      image: "/tours/habarana.jpg",
+      activities: [
+        "Matale Hindu Temple",
+        "Dambulla Cave Temple",
+        "Dambulla Vegetable Market",
+        "Hiriwadunna Village Tour with Sri Lankan Cooking Class & Sri Lankan Lunch",
+        "Wild Safari at Eco Park or Pidurangala Sunset",
+      ],
+      overnight: "Overnight stay at Go Go Green - Habarana (With Swimming Pool)",
+    },
+    {
+      days: [6],
+      title: "Day 06 - Pasikuda",
+      image: "/tours/pasikuda.jpg",
+      activities: [
+        "Sigiriya Rock Fortress",
+        "Polonnaruwa Ancient Kingdom",
+        "Pasikuda Beach (Kalkudah Beach)",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [7],
+      title: "Day 07 - Batticaloa",
+      image: "/tours/batticaloa.jpg",
+      activities: [
+        "Water Sports",
+        "Beach Leisure",
+        "Batticaloa Fort",
+        "New Kallady Bridge Batticaloa",
+        "Batticaloa Lighthouse",
+      ],
+      overnight: "Overnight stay at Pasikuda",
+    },
+    {
+      days: [8],
+      title: "Day 08 - Trincomalee",
+      image: "/tours/trincomalee.jpg",
+      activities: [
+        "Marble Beach",
+        "British War Cemetery",
+        "Uppuveli Trincomalee",
+        "Fort Fredrick",
+      ],
+      overnight: "Overnight stay at Trincomalee",
+    },
+    {
+      days: [9],
+      title: "Day 09 - Anuradhapura",
+      image: "/tours/anuradhapura.jpg",
+      activities: [
+        "Pigeon Island National Park",
+        "Nilaveli Beach",
+        "Koneswaram Temple",
+        "Mihintale",
+      ],
+      overnight: "Overnight stay at Anuradhapura",
+    },
+    {
+      days: [10],
+      title: "Day 10 - Kalpitiya",
+      image: "/tours/kalpitiya.jpg",
+      activities: [
+        "Anuradhapura Ancient Kingdom",
+        "Wilpaththu National Park Safari",
+      ],
+      overnight: "Overnight stay at Kalpitiya",
+    },
+    {
+      days: [11],
+      title: "Day 11 - Kalpitiya Exploration",
+      image: "/tours/kalpitiya.jpg",
+      activities: [
+        "Kite Surfing",
+        "Kalpitiya Dutch Fort",
+        "Kalpitiya Dutch Church",
+        "Kalpitiya Lagoon Tour",
+      ],
+      overnight: "Overnight stay at Kalpitiya",
+    },
+    {
+      days: [12],
+      title: "Day 12 - Departure",
+      image: "/tours/colombo-airport.jpg",
+      activities: [
+        "Colombo City Tour",
+      ],
+      drop: "Drop at Bandaranaike International Airport or Hotel at Negombo / Colombo",
+    },
   ],
 },
 ];
