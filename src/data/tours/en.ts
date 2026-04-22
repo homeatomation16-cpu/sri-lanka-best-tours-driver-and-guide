@@ -882,6 +882,21 @@ export const TOURS = [
   overview:
     "Same detailed 8 days Down South tour including selected hotel accommodations with breakfast.",
 
+    included: [
+      "Air-conditioned private vehicle",
+      "English-speaking professional driver",
+      "Hotel accommodation with breakfast",
+      "Driver's accommodation and meals",
+      "Fuel and parking fees",
+      "SIM card and drinking water",
+      "Highway toll fees",
+    ],
+    excluded: [
+      "Entrance tickets and activity fees",
+      "Lunch and dinner",
+      "Train tickets",
+    ],
+
   itinerary: [
     {
       days: [1],
