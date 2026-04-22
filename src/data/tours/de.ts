@@ -842,7 +842,20 @@ export const TOURS = [
 
     overview:
       "Diese detaillierte 8-tägige Rundreise führt Sie zu den absoluten Highlights im Süden Sri Lankas. Von der Geschichte in Habarana über die kühlen Teeberge in Ella bis hin zu den goldenen Stränden von Mirissa und Hikkaduwa – erleben Sie die Vielfalt der Insel mit dem Komfort ausgewählter Hotels inklusive Frühstück.",
-
+    included: [
+      "Klimatisiertes Privatfahrzeug",
+      "Englischsprachiger professioneller Fahrer",
+      "Hotelunterkunft mit Frühstück",
+      "Unterkunft und Verpflegung des Fahrers",
+      "Treibstoff und Parkgebühren",
+      "SIM-Karte und Trinkwasser",
+      "Mautgebühren",
+    ],
+    excluded: [
+      "Eintrittsgelder und Aktivitätsgebühren",
+      "Mittag- und Abendessen",
+      "Zugtickets",
+    ],
     itinerary: [
       {
         days: [1],

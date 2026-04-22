@@ -656,6 +656,20 @@ export const TOURS = [
     price: 475.0,
     image: "/tours/08-days-down-south-tour-with-hotels.jpg",
     overview: "同样详细的8天南部游，包含精选含早餐酒店住宿。",
+    included: [
+      "私人空调车辆",
+      "英语专业司机",
+      "含早餐的酒店住宿",
+      "司机住宿和餐饮",
+      "燃油和停车费",
+      "SIM卡和饮用水",
+      "高速公路费",
+    ],
+    excluded: [
+      "门票和活动费用",
+      "午餐和晚餐",
+      "火车票",
+    ],
     itinerary: [
       {
         days: [1],
