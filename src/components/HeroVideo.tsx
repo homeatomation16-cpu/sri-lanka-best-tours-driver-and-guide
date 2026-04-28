@@ -9,7 +9,7 @@ const SLIDE_DURATION = 8000;
 
 const SLIDES = [
   { 
-    src: "/hero/mirissa.", 
+    src: "/hero/mirissa.mp4", 
     poster: "/hero/mirissa-poster.webp", 
     title: "Mirissa Beach", 
     subtitle: "Golden sunsets & whale watching paradise" 
