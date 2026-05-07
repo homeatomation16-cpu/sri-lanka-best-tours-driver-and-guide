@@ -6,7 +6,6 @@ import { Users, Fuel, Settings, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
-// 1. Props සඳහා Interface එක (TypeScript Error එක විසඳීමට)
 interface VehiclesHomeProps {
   vehicles: any[];
   locale: string;
@@ -28,7 +27,6 @@ export default function VehiclesHomeClient({ vehicles, locale }: VehiclesHomePro
   const [currentLang, setCurrentLang] = useState(0);
   const [fade, setFade] = useState(true);
 
-  // භාෂා මාරු වෙන ඇනිමේෂන් එක
   useEffect(() => {
     const interval = setInterval(() => {
       setFade(false);
@@ -42,7 +40,7 @@ export default function VehiclesHomeClient({ vehicles, locale }: VehiclesHomePro
 
   return (
     <section className="py-16 sm:py-24 bg-linear-to-b from-white to-orange-50/30 relative overflow-hidden">
-      {/* Background Soft Orbs - Designs without Hero Images */}
+      {/* Background Soft Orbs */}
       <div className="pointer-events-none absolute top-0 right-0 w-96 h-96 bg-amber-100 rounded-full blur-3xl opacity-40 -translate-y-1/2 translate-x-1/2" />
       <div className="pointer-events-none absolute bottom-0 left-0 w-72 h-72 bg-orange-100 rounded-full blur-3xl opacity-30 translate-y-1/2 -translate-x-1/2" />
 
@@ -57,7 +55,6 @@ export default function VehiclesHomeClient({ vehicles, locale }: VehiclesHomePro
             {t("heading")}
           </h2>
           
-          {/* Animated Language Line */}
           <div className="flex items-center justify-center flex-wrap gap-2 text-xl md:text-2xl font-medium text-zinc-800 mb-8 min-h-10">
             <span className="opacity-70">We have</span>
             <span className={`transition-all duration-500 font-bold text-orange-600 border-b-2 border-orange-200 px-2 min-w-45 ${fade ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
@@ -76,7 +73,6 @@ export default function VehiclesHomeClient({ vehicles, locale }: VehiclesHomePro
         {/* --- VEHICLES GRID --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {vehicles.map((v: any) => {
-            // භාෂාව අනුව නම සහ විස්තර තෝරාගැනීම
             const data = v.translations?.[locale] || v.translations?.["en"] || v;
             
             return (
@@ -86,13 +82,14 @@ export default function VehiclesHomeClient({ vehicles, locale }: VehiclesHomePro
                 className="group bg-white rounded-[40px] shadow-xl hover:shadow-2xl transition-all duration-500 border border-zinc-100 overflow-hidden flex flex-col h-full"
               >
                 {/* Vehicle Image Container */}
-                <div className="relative h-64 w-full overflow-hidden">
+                <div className="relative h-64 w-full overflow-hidden bg-gray-100">
                   <Image 
                     src={v.image || "/placeholder.jpg"} 
                     alt={data.name} 
                     fill 
                     className="object-cover group-hover:scale-105 transition-transform duration-700" 
-                    sizes="(max-width: 768px) 100vw, 33vw" 
+                    // 🌟 Warning Fix: හෝම් පේජ් ග්‍රිඩ් එක සඳහා නිවැරදි සයිස් ලබා දීම
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
                   />
                   <div className="absolute top-6 left-6 bg-orange-600 text-white px-4 py-2 rounded-2xl font-bold shadow-lg text-sm tracking-tight">
                     {v.price}/day
@@ -108,7 +105,6 @@ export default function VehiclesHomeClient({ vehicles, locale }: VehiclesHomePro
                     {data.name}
                   </h4>
                   
-                  {/* Stats Stripe */}
                   <div className="flex justify-between items-center py-5 border-y border-zinc-50">
                     <div className="flex items-center gap-2 text-zinc-500 text-[11px] font-bold uppercase tracking-tight">
                       <Users size={14} className="text-orange-500"/> {v.passengers} pax
@@ -121,7 +117,6 @@ export default function VehiclesHomeClient({ vehicles, locale }: VehiclesHomePro
                     </div>
                   </div>
 
-                  {/* CTA Area */}
                   <div className="mt-8 flex items-center justify-between">
                     <span className="text-zinc-300 text-[9px] font-black uppercase tracking-[0.2em]">
                       Sri Lanka Best Tours

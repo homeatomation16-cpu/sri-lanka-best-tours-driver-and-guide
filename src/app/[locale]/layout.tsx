@@ -160,7 +160,7 @@ export default async function LocaleLayout({
               url: "https://www.srilankabesttourdriverandguide.com",
               image: "https://www.srilankabesttourdriverandguide.com/logo.png",
               areaServed: "Sri Lanka",
-              serviceType: "Private Tours & Chauffeur Service",
+              serviceType: "Private Tours, Chauffeur Service, Airport Taxi Transfers, English Speaking Tour Guide in Sri Lanka, Custom Itineraries",
               priceRange: "$$",
             }),
           }}

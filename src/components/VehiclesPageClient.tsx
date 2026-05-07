@@ -6,9 +6,8 @@ import { Users, ChevronRight, Fuel, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
-// 1. Props සඳහා Interface එක (TypeScript Error එක විසඳීමට මෙය ඉතා වැදගත්)
 interface VehiclesPageClientProps {
-  vehicles: any[]; // MongoDB එකෙන් එන වාහන ලැයිස්තුව
+  vehicles: any[];
   locale: string;
 }
 
@@ -29,7 +28,6 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
   const [currentLang, setCurrentLang] = useState(0);
   const [fadeState, setFadeState] = useState<"in" | "out">("in");
 
-  // Language Animation Logic
   useEffect(() => {
     const interval = setInterval(() => {
       setFadeState("out");
@@ -43,7 +41,6 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
     return () => clearInterval(interval);
   }, [languageDrivers.length]);
 
-  // MongoDB දත්ත වර්ග (Type) අනුව Group කිරීම
   const cars = vehicles.filter((v) => v.type === "Car");
   const vans = vehicles.filter((v) => v.type === "Van");
   const buses = vehicles.filter((v) => v.type === "Bus");
@@ -54,17 +51,14 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap');
         .vl-serif { font-family: 'Cormorant Garamond', serif; }
         .vl-sans  { font-family: 'Outfit', sans-serif; }
-
         @keyframes vl-fade-up {
           from { opacity: 0; transform: translateY(14px); }
           to   { opacity: 1; transform: translateY(0); }
         }
         .vl-hero-text { animation: vl-fade-up 0.7s cubic-bezier(.22,1,.36,1) 0.1s both; }
         .vl-hero-sub  { animation: vl-fade-up 0.7s cubic-bezier(.22,1,.36,1) 0.25s both; }
-
-        .vl-lang-in  { opacity: 1; transform: translateY(0);   transition: opacity 0.35s ease, transform 0.35s ease; }
+        .vl-lang-in  { opacity: 1; transform: translateY(0); transition: opacity 0.35s ease, transform 0.35s ease; }
         .vl-lang-out { opacity: 0; transform: translateY(-6px); transition: opacity 0.35s ease, transform 0.35s ease; }
-
         .vl-card {
           background: #fff;
           border-radius: 20px;
@@ -78,51 +72,27 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
         }
         .vl-card:hover .vl-card-img { transform: scale(1.06); }
         .vl-card-img { transition: transform 1s cubic-bezier(.22,1,.36,1); }
-
         .vl-price-badge {
-          position: absolute;
-          top: 16px;
-          right: 16px;
-          background: rgba(255,255,255,0.95);
-          backdrop-filter: blur(12px);
-          padding: 8px 16px;
-          border-radius: 100px;
-          font-family: 'Outfit', sans-serif;
-          font-size: 13px;
-          font-weight: 700;
-          color: #B5541A;
-          border: 1px solid rgba(255,255,255,0.8);
-          box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+          position: absolute; top: 16px; right: 16px;
+          background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+          padding: 8px 16px; border-radius: 100px;
+          font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700;
+          color: #B5541A; border: 1px solid rgba(255,255,255,0.8);
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08); z-index: 10;
         }
         .vl-type-badge {
-          position: absolute;
-          bottom: 16px;
-          left: 16px;
-          background: rgba(26,23,20,0.85);
-          backdrop-filter: blur(8px);
-          padding: 5px 14px;
-          border-radius: 100px;
-          font-family: 'Outfit', sans-serif;
-          font-size: 9px;
-          font-weight: 700;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.9);
+          position: absolute; bottom: 16px; left: 16px;
+          background: rgba(26,23,20,0.85); backdrop-filter: blur(8px);
+          padding: 5px 14px; border-radius: 100px;
+          font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700;
+          letter-spacing: 0.18em; text-transform: uppercase;
+          color: rgba(255,255,255,0.9); z-index: 10;
         }
         .vl-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          width: 100%;
-          padding: 14px 20px;
-          border-radius: 12px;
-          background: #1A1714;
-          color: #fff;
-          font-size: 13px;
-          font-weight: 600;
-          text-transform: uppercase;
-          transition: background 0.25s ease;
+          display: flex; align-items: center; justify-content: center; gap: 8px;
+          width: 100%; padding: 14px 20px; border-radius: 12px;
+          background: #1A1714; color: #fff; font-size: 13px; font-weight: 600;
+          text-transform: uppercase; transition: background 0.25s ease;
         }
         .vl-card:hover .vl-btn { background: #B5541A; }
       `}</style>
@@ -132,10 +102,10 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
         <section className="relative overflow-hidden" style={{ height: "min(60vh, 520px)", minHeight: "360px" }}>
           <Image
             src="/vehicles.jpg"
-            alt="Our Fleet"
+            alt="Sri Lanka Tour Vehicles Fleet"
             fill
-            priority
-            sizes="100vw"
+            priority // 🌟 LCP පින්තූරය බැවින් priority අත්‍යවශ්‍යයි
+            sizes="100vw" // මුළු පළලම ගන්නා නිසා 100vw
             className="object-cover"
           />
           <div className="absolute inset-0" style={{
@@ -170,51 +140,27 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
           </div>
         </section>
 
-        {/* ── INTRO SECTION ── */}
-        <section className="text-center px-6 py-14 max-w-2xl mx-auto">
-          <div className="w-10 h-0.5 bg-[#B5541A] mx-auto mb-6" />
-          <p className="vl-serif" style={{
-            fontSize: "clamp(17px, 2.5vw, 22px)",
-            fontWeight: 300,
-            fontStyle: "italic",
-            color: "#4A4540",
-            lineHeight: 1.65,
-          }}>
-            "Modern, comfortable, and meticulously maintained — travel across Sri Lanka
-            with our professional multilingual chauffeurs."
-          </p>
-        </section>
-
-        {/* ── VEHICLE GROUPS ── */}
-        <main className="max-w-7xl mx-auto px-6 pb-28 space-y-20">
-          {cars.length > 0 && (
-            <VehicleGroup label="Cars" items={cars} t={t} locale={locale} />
-          )}
-
-          {vans.length > 0 && (
-            <VehicleGroup label="Vans" items={vans} t={t} locale={locale} />
-          )}
-
-          {buses.length > 0 && (
-            <VehicleGroup label="Buses" items={buses} t={t} locale={locale} />
-          )}
+        {/* ── VEHICLE LIST ── */}
+        <main className="max-w-7xl mx-auto px-6 py-20 pb-28 space-y-24">
+          {cars.length > 0 && <VehicleGroup label="Cars" items={cars} t={t} locale={locale} />}
+          {vans.length > 0 && <VehicleGroup label="Vans" items={vans} t={t} locale={locale} />}
+          {buses.length > 0 && <VehicleGroup label="Buses" items={buses} t={t} locale={locale} />}
         </main>
       </div>
     </>
   );
 }
 
-// ── Helper Component: Vehicle Group ──
 function VehicleGroup({ label, items, t, locale }: any) {
   return (
     <div>
-      <div className="flex items-center gap-5 mb-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[#B5541A]">
+      <div className="flex items-center gap-5 mb-10 text-[10px] font-bold uppercase tracking-[0.3em] text-[#B5541A]">
         {label}
-        <div className="flex-1 h-px bg-black/5" />
-        <span className="text-zinc-300 font-medium">{items.length} Units</span>
+        <div className="flex-1 h-px bg-black/10" />
+        <span className="text-zinc-400 font-medium">{items.length} Units</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {items.map((v: any) => (
           <VehicleCard key={v.vehicleId} v={v} t={t} locale={locale} />
         ))}
@@ -223,9 +169,7 @@ function VehicleGroup({ label, items, t, locale }: any) {
   );
 }
 
-// ── Helper Component: Vehicle Card ──
 function VehicleCard({ v, t, locale }: any) {
-  // භාෂාව අනුව දත්ත ලබා ගැනීම (Translations Map එකෙන්)
   const data = v.translations?.[locale] || v.translations?.["en"] || v;
 
   return (
@@ -235,6 +179,8 @@ function VehicleCard({ v, t, locale }: any) {
           src={v.image || "/placeholder.jpg"}
           alt={data.name}
           fill
+          // 🌟 Warning Fix: Grid එක ඇතුළේ පින්තූර පෙන්වන ආකාරය අනුව sizes එක් කළා
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="vl-card-img object-cover"
         />
         <div className="absolute inset-0" style={{
@@ -243,7 +189,7 @@ function VehicleCard({ v, t, locale }: any) {
 
         <div className="vl-price-badge">
           {v.price}
-          <span style={{ fontSize: "9px", fontWeight: 400, color: "#bbb", marginLeft: "3px" }}>/ day</span>
+          <span style={{ fontSize: "9px", fontWeight: 400, color: "#999", marginLeft: "3px" }}>/ day</span>
         </div>
 
         <div className="vl-type-badge">{v.type}</div>
@@ -259,7 +205,6 @@ function VehicleCard({ v, t, locale }: any) {
           {data.name}
         </h2>
 
-        {/* Stats row */}
         <div className="flex items-center gap-4 mb-6 text-zinc-500 text-[11px] font-medium border-y border-black/5 py-4">
           <div className="flex items-center gap-1.5">
             <Users size={13} className="text-[#B5541A]" /> {v.passengers} seats
@@ -272,7 +217,6 @@ function VehicleCard({ v, t, locale }: any) {
           </div>
         </div>
 
-        {/* CTA Button */}
         <div className="vl-btn">
           {t("viewDetails")}
           <ChevronRight size={14} strokeWidth={2.5} />

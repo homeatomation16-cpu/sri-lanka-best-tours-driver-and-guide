@@ -31,7 +31,7 @@ export default function Destinations() {
   ];
 
   return (
-    <section className="py-24 px-6 bg-gradient-to-b from-white to-gray-100">
+    <section className="py-24 px-6 bg-linear-to-b from-white to-gray-100">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -52,7 +52,7 @@ export default function Destinations() {
                 className="object-cover group-hover:scale-110 transition duration-700"
                 unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
               <div className="absolute bottom-0 p-8 text-white">
                 <h3 className="text-3xl font-bold">{d.name}</h3>
                 <p className="text-white/80">{d.short}</p>

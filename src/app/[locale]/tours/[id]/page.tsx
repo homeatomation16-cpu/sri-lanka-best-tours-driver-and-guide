@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
@@ -9,8 +10,78 @@ interface Props {
   params: Promise<{ locale: string; id: string }>;
 }
 
+// 🚀 1. Dynamic Metadata ජනනය කිරීම
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, id } = await params;
+
+  // Database එකට සම්බන්ධ වී අදාළ Tour එක සෙවීම
+  await connectDB();
+  const tourRaw = await Tour.findOne({ tourId: id }).lean();
+
+  if (!tourRaw) {
+    return {
+      title: 'Tour Not Found | Sri Lanka Best Tours',
+    };
+  }
+
+  // අදාළ භාෂාවට අදාළ දත්ත තෝරාගැනීම (Fallback to English)
+  // @ts-ignore (Optional: Type checking සඳහා)
+  const translation = tourRaw.translations?.[locale] || tourRaw.translations?.["en"];
+  
+  const title = translation?.title || "Sri Lanka Tour Package";
+  
+  // Description එක අකුරු 160කට සීමා කිරීම (SEO Best Practice)
+  const description = translation?.overview 
+    ? `${translation.overview.substring(0, 155)}...` 
+    : `Explore the best of Sri Lanka with our ${title}. Book your custom tour with an expert guide.`;
+
+  // අදාළ Tour එකේ පින්තූරය (නැත්නම් default පින්තූරයක්)
+  const imageUrl = tourRaw.image || "/og-image.jpg";
+  const siteUrl = "https://www.srilankabesttourdriverandguide.com";
+
+  return {
+    title: `${title} | Sri Lanka Best Tour Driver & Guide`,
+    description: description,
+    keywords: [
+      title,
+      "Sri Lanka tour package",
+      "Private driver in Sri Lanka",
+      `${title} itinerary`,
+      "Hire a guide for Sri Lanka tour",
+      "Sri Lanka travel"
+    ],
+    alternates: {
+      // මේකෙන් Duplicate Content Error එක නැති කරනවා
+      canonical: `${siteUrl}/${locale}/tours/${id}`,
+    },
+    openGraph: {
+      title: `${title} | Sri Lanka Best Tours`,
+      description: description,
+      url: `${siteUrl}/${locale}/tours/${id}`,
+      type: "website",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Sri Lanka Best Tours`,
+      description: description,
+      images: [imageUrl],
+    },
+  };
+}
+
+// 🚀 2. ඔයාගේ ප්‍රධාන Page Component එක (මෙතැන් සිට ඔයාගේ කලින් කෝඩ් එක ඒ විදිහටම තියන්න)
 export default async function TourDetailsPage({ params }: Props) {
   const { locale, id } = await params;
+  
+  // ... ඔයාගේ කලින් තිබුණු කෝඩ් එක මෙතනින් පහළට ඒ විදිහටම තියන්න ...
 
   // 1. Database එකට සම්බන්ධ වීම
   await connectDB();

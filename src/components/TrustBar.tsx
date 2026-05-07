@@ -57,7 +57,7 @@ export default function TrustBar() {
     <>
       {/* SECTION 1 — Trust & Social */}
       <section className="relative bg-white overflow-hidden">
-        <div className="h-1.5 w-full bg-linear-to-rrom-orange-400 via-pink-500 to-amber-400" />
+        <div className="h-1.5 w-full bg-linear-to-r from-orange-400 via-pink-500 to-amber-400" />
 
         <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="text-center mb-16">
@@ -84,7 +84,8 @@ export default function TrustBar() {
                   alt={p.alt}
                   width={140}
                   height={60}
-                  className="grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all duration-500 object-contain"
+                  // 🌟 Warning එක Fix කිරීම සඳහා w-auto h-auto මෙහි එක් කර ඇත
+                  className="w-auto h-auto grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all duration-500 object-contain"
                 />
               </Link>
             ))}
@@ -115,7 +116,7 @@ export default function TrustBar() {
         </div>
       </section>
 
-      {/* SECTION 2 — Contact CTA (FIXED OVERFLOW) */}
+      {/* SECTION 2 — Contact CTA */}
       <section
         id="contact"
         className="relative py-24 px-6 bg-linear-to-br from-orange-600 via-amber-600 to-yellow-500 text-white overflow-hidden"
@@ -147,7 +148,6 @@ export default function TrustBar() {
                   <Icon size={26} />
                 </div>
                 
-                {/* Email Overflow Fix Area */}
                 <div className="w-full px-2 flex flex-col items-center justify-center min-h-15">
                   <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-tight break-all text-center leading-tight">
                     {label}

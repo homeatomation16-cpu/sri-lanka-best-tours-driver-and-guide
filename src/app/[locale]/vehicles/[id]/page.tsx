@@ -1,3 +1,4 @@
+// src/app/[locale]/vehicles/[id]/page.tsx
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import {
@@ -15,7 +16,6 @@ import Carousel from "@/components/Carousel";
 import VehicleSlider from "@/components/VehicleSlider";
 import BookingBox from "@/components/BookingBox";
 
-// 1. Static Params (Build වීමේදී සියලු වාහන පිටු සෑදීමට DB එක පාවිච්චි කරයි)
 export async function generateStaticParams() {
   await connectDB();
   const vehicles = await Vehicle.find({ status: "active" }).select("vehicleId").lean();
@@ -37,19 +37,15 @@ export default async function VehiclePage({
   const { id, locale } = await params;
   const t = await getTranslations("vehicles");
 
-  // 2. Database එකට Connect වී දත්ත ලබා ගැනීම
   await connectDB();
   const vehicleRaw = await Vehicle.findOne({ vehicleId: id }).lean();
 
   if (!vehicleRaw) return notFound();
 
-  // Serialization Fix (Next.js සඳහා දත්ත පිරිසිදු කිරීම)
   const vPlain = JSON.parse(JSON.stringify(vehicleRaw));
 
-  // 3. භාෂාවට අදාළ දත්ත තෝරාගැනීම (Translations Logic)
   const translation = vPlain.translations?.[locale] || vPlain.translations?.["en"] || {};
   
-  // දත්ත එකතු කිරීම (Merge properties)
   const v = {
     ...vPlain,
     name: translation.name || vPlain.name,
@@ -86,7 +82,15 @@ export default async function VehiclePage({
       <div className="vd-sans min-h-screen bg-[#FAFAF8]">
         {/* HERO SECTION */}
         <section className="relative h-105 md:h-125 overflow-hidden flex items-end">
-          <Image src="/vehicalcover.jpg" alt={v.name} fill priority className="object-cover" />
+          <Image 
+            src="/vehicalcover.jpg" 
+            alt={v.name} 
+            fill 
+            priority 
+            // 🌟 Fix: Hero image එක මුළු screen එකම ගන්නා නිසා
+            sizes="100vw"
+            className="object-cover" 
+          />
           <div className="absolute inset-0 z-10 bg-linear-to-b from-black/5 via-black/25 to-[#1a1714]/95" />
           <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 pb-12">
             <div className="vd-anim mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B5541A]/20 border border-[#B5541A]/40 backdrop-blur-md">
@@ -103,7 +107,9 @@ export default async function VehiclePage({
         <main className="relative z-30 max-w-7xl mx-auto px-6 md:px-12 -mt-16 pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 items-start">
             <div className="space-y-12">
-              <div className="vd-anim overflow-hidden shadow-2xl rounded-2xl bg-white aspect-video max-h-110 border border-white/60">
+              <div className="vd-anim overflow-hidden shadow-2xl rounded-2xl bg-white aspect-video max-h-110 border border-white/60 relative">
+                {/* 🌟 Note: VehicleSlider එක ඇතුළේ Image tag එකක් තිබේ නම්, 
+                    එයටද sizes="(max-width: 1024px) 100vw, 66vw" වැනි අගයක් ලබා දිය යුතුය. */}
                 <VehicleSlider images={safeGallery} />
               </div>
 
@@ -164,7 +170,6 @@ export default async function VehiclePage({
                     {v.price.replace("$", "")}
                   </span>
                 </div>
-                {/* BookingBox වෙත DB එකෙන් ගත් දත්ත පාස් කිරීම */}
                 <BookingBox vehicle={v} />
                 <p className="mt-8 text-[9px] text-gray-400 italic uppercase tracking-tighter">{t("disclaimer")}</p>
               </div>

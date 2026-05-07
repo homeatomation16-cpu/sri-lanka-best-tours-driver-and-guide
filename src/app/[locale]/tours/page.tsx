@@ -1,28 +1,59 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 
+// 🌟 1. Tours ප්‍රධාන පිටුව සඳහා SEO (Dynamic Metadata)
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ locale: string }> 
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const siteUrl = "https://www.srilankabesttourdriverandguide.com";
+
+  return {
+    title: "Our Tour Packages | Sri Lanka Best Tours",
+    description: "Explore our wide range of custom Sri Lanka tour packages. Find the perfect itinerary for your holiday with our expert chauffeur guides.",
+    keywords: [
+      "Sri Lanka tour packages",
+      "Best tours in Sri Lanka",
+      "Hire a private driver Sri Lanka",
+      "Sri Lanka round tours",
+      "Sri Lanka holiday packages"
+    ],
+    alternates: {
+      canonical: `${siteUrl}/${locale}/tours`,
+    },
+  };
+}
+
+// 🚀 2. Main Component
 export default async function ToursPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "tours" });
 
   await connectDB();
+  
   // Database එකෙන් සියලුම active tours ලබා ගැනීම
   const toursRaw = await Tour.find({ status: "active" }).lean();
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
+      
+      {/* ── Hero Section ── */}
       <div className="bg-linear-to-r from-orange-500 to-orange-600 py-20 text-white text-center">
         <h1 className="text-5xl font-bold mb-4">{t("heading")}</h1>
         <p className="text-lg opacity-90">{t("season")}</p>
       </div>
 
-      {/* Tours List */}
+      {/* ── Tours List ── */}
       <div className="max-w-6xl mx-auto px-6 py-16 space-y-8">
-        {toursRaw.map((tour: any) => {
+        
+        {/* map එකට index එක එකතු කර ඇත */}
+        {toursRaw.map((tour: any, index: number) => {
           // අදාළ භාෂාවට අදාළ දත්ත තෝරා ගැනීම (Fallback to English)
           const data = tour.translations?.[locale] || tour.translations?.["en"];
 
@@ -32,7 +63,15 @@ export default async function ToursPage({ params }: { params: Promise<{ locale: 
               className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col md:flex-row"
             >
               <div className="relative md:w-1/3 h-64 md:h-auto">
-                <Image src={tour.image} alt={data?.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image 
+                  src={tour.image} 
+                  alt={data?.title || "Tour Package"} 
+                  fill 
+                  className="object-cover" 
+                  sizes="(max-width: 768px) 100vw, 33vw"  
+                  // 🌟 3. LCP Fix: පළමු පින්තූරයට පමණක් priority ලබා දීම
+                  priority={index === 0} 
+                />
               </div>
 
               <div className="p-6 md:w-2/3 flex flex-col justify-between">
@@ -62,6 +101,7 @@ export default async function ToursPage({ params }: { params: Promise<{ locale: 
             </div>
           );
         })}
+        
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import { EXCURSIONS } from "../../../data/excursions";
 
 export default function ExcursionsPage() {
   const t = useTranslations("excursions");
-  const tCat = useTranslations("excursionPage.categories"); // Categories පරිවර්තනය සඳහා
+  const tCat = useTranslations("excursionPage.categories");
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
@@ -28,13 +28,14 @@ export default function ExcursionsPage() {
 
   return (
     <main className="min-h-screen bg-[#faf7f2] font-serif">
-      {/* HERO */}
+      
+      {/* ── HERO SECTION ── */}
       <section className="relative h-[55vh] md:h-[65vh] overflow-hidden text-center">
         <Image
           src="/excursions-cover.jpg"
-          alt="Sri Lanka Excursions"
+          alt="Sri Lanka Excursions and Day Trips"
           fill
-          priority
+          priority // 🌟 LCP Fix
           sizes="100vw"
           className="object-cover"
         />
@@ -57,7 +58,7 @@ export default function ExcursionsPage() {
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-[#faf7f2] to-transparent" />
       </section>
 
-      {/* SEARCH + FILTER + SORT */}
+      {/* ── SEARCH + FILTER + SORT ── */}
       <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl bg-white p-4 shadow">
           <input
@@ -68,70 +69,85 @@ export default function ExcursionsPage() {
             className="w-full sm:w-60 rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#d4a853]"
           />
           
-          {/* Category Filter */}
-          <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#d4a853]"
-          >
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat === "All" ? t("allCategories") : tCat(cat)}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-wrap gap-3">
+            {/* Category Filter */}
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#d4a853] bg-white"
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat === "All" ? t("allCategories") : tCat(cat)}
+                </option>
+              ))}
+            </select>
 
-          {/* Sort Dropdown */}
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#d4a853]"
-          >
-            <option value="default">{t("sortLabel")}</option>
-            <option value="az">{t("sortAZ")}</option>
-            <option value="za">{t("sortZA")}</option>
-          </select>
+            {/* Sort Dropdown */}
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#d4a853] bg-white"
+            >
+              <option value="default">{t("sortLabel")}</option>
+              <option value="az">{t("sortAZ")}</option>
+              <option value="za">{t("sortZA")}</option>
+            </select>
+          </div>
         </div>
       </section>
 
-      {/* GRID */}
+      {/* ── EXCURSIONS GRID ── */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 sm:gap-6">
           {filtered.map((item, index) => (
             <Link
               key={item.id}
               href={`/excursions/${item.id}`}
-              className="group relative overflow-hidden rounded-2xl shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl"
+              className="group relative block overflow-hidden rounded-2xl shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl bg-white"
             >
               <div className="relative h-40 w-full sm:h-48">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
+                  // 🌟 Warning Fix: Grid එකේ පින්තූර නිවැරදිව Load වීමට sizes එක් කිරීම
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-[#1a1209]/80 via-[#1a1209]/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#1a1209]/90 via-[#1a1209]/20 to-transparent" />
               </div>
+
+              {/* Number Badge */}
               <span className="absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-[#1a1209]/70 font-sans text-[10px] font-bold text-[#d4a853] backdrop-blur-sm">
                 {String(index + 1).padStart(2, "0")}
               </span>
+
+              {/* Content Overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-3">
                 <div className="mb-1.5 h-px w-5 bg-[#d4a853] transition-all duration-300 group-hover:w-10" />
-                <p className="font-sans text-xs font-semibold text-white sm:text-sm">
-                  {/* මෙතන item.title එක කෙලින්ම එන්නේ data file එකෙන් නිසා ඒක භාෂාව අනුව වෙනස් වේවි */}
+                <p className="font-sans text-xs font-semibold text-white sm:text-sm leading-tight">
                   {item.title}
                 </p>
                 <span className="mt-1 inline-flex items-center gap-1 font-sans text-[10px] font-medium uppercase tracking-widest text-[#d4a853] opacity-0 transition-all duration-300 group-hover:opacity-100">
                   {t("explore")} →
                 </span>
               </div>
+              
               <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#d4a853] transition-all duration-500 group-hover:w-full" />
             </Link>
           ))}
         </div>
+
+        {/* No Results Fallback */}
+        {filtered.length === 0 && (
+          <div className="py-20 text-center text-gray-500">
+             <p>{t("noResults") || "No excursions found matching your criteria."}</p>
+          </div>
+        )}
       </section>
 
-      {/* FOOTER TAGLINE */}
+      {/* ── FOOTER TAGLINE ── */}
       <div className="pb-14 text-center">
         <div className="mx-auto h-px w-20 bg-[#d4a853]/40" />
         <p className="mt-4 font-sans text-xs uppercase tracking-widest text-[#9e8e7e]">

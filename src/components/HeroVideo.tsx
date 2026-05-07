@@ -1,4 +1,3 @@
-// src/components/HeroVideo.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -9,19 +8,19 @@ const SLIDE_DURATION = 8000;
 
 const SLIDES = [
   { 
-    src: "/hero/mirissa.mp4", 
+    src: "https://res.cloudinary.com/dj5mylqf1/video/upload/q_auto,f_auto/v1778170580/mirissa_lmmorw.mp4", 
     poster: "/hero/mirissa-poster.webp", 
     title: "Mirissa Beach", 
     subtitle: "Golden sunsets & whale watching paradise" 
   },
   { 
-    src: "/hero/sigiriya.mp4", 
+    src: "https://res.cloudinary.com/dj5mylqf1/video/upload/q_auto,f_auto/v1778170581/sigiriya_l9qxlz.mp4", 
     poster: "/hero/sigiriya-poster.webp", 
     title: "Sigiriya Rock Fortress", 
     subtitle: "Ancient wonder of Sri Lanka" 
   },
   { 
-    src: "/hero/ella.mp4", 
+    src: "https://res.cloudinary.com/dj5mylqf1/video/upload/q_auto,f_auto/v1778170579/ella_kez34u.mp4", 
     poster: "/hero/ella-poster.webp", 
     title: "Ella Scenic Train", 
     subtitle: "World's most beautiful train ride" 
@@ -97,6 +96,7 @@ export default function HeroVideo() {
         loop={false}
         poster={slide.poster} // Critical for LCP
         preload="metadata" // Don't force download the whole thing at once
+        fetchPriority={current === 0 ? "high" : "auto"} // 🌟 LCP Fix applied here
         style={{
           position: "absolute",
           inset: 0,
@@ -128,11 +128,11 @@ export default function HeroVideo() {
           {t("cta")}
         </Link>
 
-        {/* Progress Bar */}
-        <div className="mt-10 w-32 h-1 bg-white/20 rounded-full">
+        {/* 🌟 GPU Accelerated Progress Bar Fix applied here */}
+        <div className="mt-10 w-32 h-1 bg-white/20 rounded-full overflow-hidden">
           <div 
-            className="h-full bg-linear-to-r from-orange-500 to-yellow-400 transition-all duration-100 ease-linear"
-            style={{ width: `${progress * 100}%` }} 
+            className="h-full bg-linear-to-r from-orange-500 to-yellow-400 origin-left"
+            style={{ transform: `scaleX(${progress})` }} 
           />
         </div>
       </div>
