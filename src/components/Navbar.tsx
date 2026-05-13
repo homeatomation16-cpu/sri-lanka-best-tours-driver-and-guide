@@ -12,19 +12,25 @@ import { contact } from "@/data/contact";
 
 export default function Navbar() {
   const t = useTranslations("nav");
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     let lastScroll = window.scrollY;
+
     const handleScroll = () => {
       const currentScroll = window.scrollY;
+
       setScrolled(currentScroll > 40);
       setHidden(currentScroll > lastScroll && currentScroll > 120);
+
       lastScroll = currentScroll;
     };
+
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -60,13 +66,16 @@ export default function Navbar() {
             priority
             className="rounded-full border bg-white border-amber-400/40"
           />
+
           <div className="leading-tight">
             <p className="text-amber-400 font-semibold text-sm tracking-wide">
               Sri Lanka Best Tours
             </p>
+
             <p className="text-amber-400 font-semibold text-sm tracking-wide">
               Driver & Guide
             </p>
+
             <p className="text-[10px] text-white/70 uppercase tracking-widest">
               Luxury Experience
             </p>
@@ -85,19 +94,22 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Language Switcher */}
+          {/* LANGUAGE SWITCHER */}
           <LanguageSwitcher />
 
-          {/* WhatsApp */}
+          {/* WHATSAPP BUTTON */}
           <a
-            href="${contact.whatsapp}"
-            className="bg-emerald-600 text-black px-6 py-2 rounded-full flex items-center gap-2 text-sm font-semibold"
+            href={contact.whatsappme}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-2 rounded-full flex items-center gap-2 text-sm font-semibold transition-all duration-300"
           >
-            {t("whatsapp")} <Phone size={16} />
+            {t("whatsapp")}
+            <Phone size={16} />
           </a>
         </div>
 
-        {/* MOBILE BUTTON */}
+        {/* MOBILE MENU BUTTON */}
         <button
           className="md:hidden text-white"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -128,14 +140,17 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              {/* Language Switcher in mobile */}
+              {/* MOBILE LANGUAGE SWITCHER */}
               <LanguageSwitcher />
 
+              {/* MOBILE WHATSAPP BUTTON */}
               <a
-                href="tel:+94702062697"
+                href={contact.whatsappme}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-linear-to-r from-amber-500 to-yellow-300 text-black px-8 py-3 rounded-full font-semibold"
               >
-                Call Now
+                WhatsApp Now
               </a>
             </div>
           </motion.div>
