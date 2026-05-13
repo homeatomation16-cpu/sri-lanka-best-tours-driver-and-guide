@@ -11,7 +11,7 @@ export const contact = {
 
   social: {
     facebook: "https://web.facebook.com/profile.php?id=61583918378888",
-    instagram: "https://www.instagram.com/srilankabesttourdriverandguide",
+    instagram: "https://www.instagram.com/srilanakabesttourdriver/",
     twitter: "https://twitter.com/srilankabesttourdriverandguide",
     linkedin: "https://www.linkedin.com/in/srilankabesttourdriverandguide",
     youtube: "https://www.youtube.com/@srilankabesttourdriverandguide",
