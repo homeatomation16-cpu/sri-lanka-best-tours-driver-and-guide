@@ -1,16 +1,15 @@
-import mongoose, { Schema, model, models, Document } from "mongoose";
+import mongoose, { Schema, models, Model } from "mongoose";
 
-// Booking එකේ දත්ත වලට අදාළ Interface එක
-export interface IBooking extends Document {
+export interface IBooking {
   name: string;
   email: string;
   phone: string;
   date: string;
-  time?: string;      // අලුතින් එක් කළා
+  time?: string;
   message: string;
-  notes?: string;     // අලුතින් එක් කළා
-  itemName?: string;   // උදා: Tour Name හෝ Vehicle Name
-  bookingType?: string; // උදා: "Tour" හෝ "Vehicle"
+  notes?: string;
+  itemName?: string;
+  bookingType?: string;
   status: "pending" | "confirmed" | "cancelled";
   createdAt: Date;
 }
@@ -18,21 +17,26 @@ export interface IBooking extends Document {
 const BookingSchema = new Schema<IBooking>({
   name: { type: String, required: true },
   email: { type: String, required: true },
-  phone: { type: String },
-  date: { type: String },
-  time: { type: String },
-  message: { type: String },
-  notes: { type: String },
-  itemName: { type: String },
-  bookingType: { type: String },
-  status: { 
-    type: String, 
-    enum: ["pending", "confirmed", "cancelled"], 
-    default: "pending" 
+  phone: String,
+  date: String,
+  time: String,
+  message: String,
+  notes: String,
+  itemName: String,
+  bookingType: String,
+  status: {
+    type: String,
+    enum: ["pending", "confirmed", "cancelled"],
+    default: "pending",
   },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-// Model එක export කිරීම
-const Booking = models.Booking || model<IBooking>("Booking", BookingSchema);
+const Booking: Model<IBooking> =
+  (models.Booking as Model<IBooking>) ??
+  mongoose.model<IBooking>("Booking", BookingSchema);
+
 export default Booking;

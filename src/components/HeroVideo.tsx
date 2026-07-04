@@ -142,8 +142,7 @@ export default function HeroVideo() {
         playsInline
         loop={false}
         poster={slide.poster} // Cloudinary-generated poster — critical for LCP
-        preload="metadata" // Keep as metadata: poster handles LCP, no need to eagerly buffer the payload
-        fetchPriority={current === 0 ? "high" : "auto"} // LCP fix: only prioritize the first slide
+        preload="metadata" // Keep as metadata: poster handles LCP, no need to eagerly buffer the payload          // @ts-expect-error fetchPriority is supported by browsers but may not exist in the current TS lib        fetchPriority={current === 0 ? "high" : "auto"} // LCP fix: only prioritize the first slide
         style={{
           position: "absolute",
           inset: 0,
@@ -165,11 +164,7 @@ export default function HeroVideo() {
         <h1 className="text-5xl md:text-8xl font-bold leading-tight">{slide.title}</h1>
         <p className="mt-4 text-lg md:text-xl opacity-90">{slide.subtitle}</p>
 
-        <Link
-          href="/tours"
-          aria-label={t("cta")} // Accessibility fix
-          className="mt-8 px-8 py-4 rounded-full bg-linear-to-r from-orange-600 to-amber-500 font-bold transition-transform hover:scale-105 inline-block w-fit"
-        >
+        <Link href="/tours" aria-label={t("cta")} className="mt-8 inline-block w-fit px-8 py-4 rounded-full bg-linear-to-r from-orange-600 to-amber-500 font-bold transition-transform hover:scale-105">
           {t("cta")}
         </Link>
 
