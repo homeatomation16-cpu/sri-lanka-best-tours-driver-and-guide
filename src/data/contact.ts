@@ -15,6 +15,6 @@ export const contact = {
     twitter: "https://twitter.com/srilankabesttourdriverandguide",
     linkedin: "https://www.linkedin.com/in/srilankabesttourdriverandguide",
     youtube: "https://www.youtube.com/@srilankabesttourdriverandguide",
-    tripadvisor: "https://www.tripadvisor.com/Profile/srilankabesttourdriverandguide",
+    tripadvisor: "https://www.tripadvisor.com/Sri_Lanka_Best_Tours_Driver_and_Guide-Colombo_Western",
   },
 };

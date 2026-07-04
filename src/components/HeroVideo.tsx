@@ -6,24 +6,71 @@ import { useTranslations } from "next-intl";
 
 const SLIDE_DURATION = 8000;
 
+// Shared Cloudinary transformation strings — kept as constants so all three
+// slides stay in sync if you tune quality/width later.
+const VIDEO_TRANSFORM = "w_1920,c_limit,q_auto:good,f_auto,vc_auto";
+const POSTER_TRANSFORM = "so_auto,f_auto,q_auto,w_1920";
+
 const SLIDES = [
-  { 
-    src: "https://res.cloudinary.com/dj5mylqf1/video/upload/q_auto,f_auto/v1778170580/mirissa_lmmorw.mp4", 
-    poster: "/hero/mirissa-poster.webp", 
-    title: "Mirissa Beach", 
-    subtitle: "Golden sunsets & whale watching paradise" 
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783181658/286459_large_idzt2a.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783181658/286459_large_idzt2a.jpg`,
+    title: "Mirissa Beach",
+    subtitle: "Golden sunsets & whale watching paradise",
   },
-  { 
-    src: "https://res.cloudinary.com/dj5mylqf1/video/upload/q_auto,f_auto/v1778170581/sigiriya_l9qxlz.mp4", 
-    poster: "/hero/sigiriya-poster.webp", 
-    title: "Sigiriya Rock Fortress", 
-    subtitle: "Ancient wonder of Sri Lanka" 
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783182985/191283-889685028_medium_rwgv8o.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783182985/191283-889685028_medium_rwgv8o.jpg`,
+    title: "Sigiriya Rock Fortress",
+    subtitle: "Ancient wonder of Sri Lanka",
   },
-  { 
-    src: "https://res.cloudinary.com/dj5mylqf1/video/upload/q_auto,f_auto/v1778170579/ella_kez34u.mp4", 
-    poster: "/hero/ella-poster.webp", 
-    title: "Ella Scenic Train", 
-    subtitle: "World's most beautiful train ride" 
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1778170579/ella_kez34u.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1778170579/ella_kez34u.jpg`,
+    title: "Ella Scenic Train",
+    subtitle: "World's most beautiful train ride",
+  },
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783185896/Ocean_Beach_Waves._Free_Stock_Video_-_Pixabay_p1hnsn.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783185896/Ocean_Beach_Waves._Free_Stock_Video_-_Pixabay_p1hnsn.jpg`,
+    title: "Coastal Waves", // TODO: confirm/adjust title
+    subtitle: "Endless ocean views along the shoreline",
+  },
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783185801/Sri_Lanka_Ceylon_18_Bends._Free_Stock_Video_-_Pixabay_wftxyr.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783185801/Sri_Lanka_Ceylon_18_Bends._Free_Stock_Video_-_Pixabay_wftxyr.jpg`,
+    title: "The Eighteen Bends", // TODO: confirm/adjust title
+    subtitle: "Winding mountain roads through tea country",
+  },
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783185656/Tower_Landmark_Sunrise._Free_Stock_Video_-_Pixabay_x7bisu.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783185656/Tower_Landmark_Sunrise._Free_Stock_Video_-_Pixabay_x7bisu.jpg`,
+    title: "Sunrise Over the City", // TODO: confirm/adjust title
+    subtitle: "Iconic landmarks lit by first light",
+  },
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783185415/Sri_Lanka_Videos__Download_66_Free_4K_HD_Stock_Footage_Clips_-_Pixabay_rhnxs3.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783185415/Sri_Lanka_Videos__Download_66_Free_4K_HD_Stock_Footage_Clips_-_Pixabay_rhnxs3.jpg`,
+    title: "Island Highlights", // TODO: confirm/adjust title
+    subtitle: "A glimpse of Sri Lanka's natural beauty",
+  },
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783185215/Bridge_Old_Bridge_River._Free_Stock_Video_-_Pixabay_kswiko.mp4`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783185215/Bridge_Old_Bridge_River._Free_Stock_Video_-_Pixabay_kswiko.jpg`,
+    title: "Historic River Bridge", // TODO: confirm/adjust title
+    subtitle: "Timeless crossings over Sri Lanka's rivers",
+  },
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783184326/242272_m0xkut.mov`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783184326/242272_m0xkut.jpg`,
+    title: "Elipents in Sri Lanka", // TODO: confirm/adjust title
+    subtitle: "Discover the island's natural wonders",
+  },
+  {
+    src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783184040/211328_gj1fd0.mov`,
+    poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783184040/211328_gj1fd0.jpg`,
+    title: "Scenic Sri Lanka", // TODO: confirm/adjust title
+    subtitle: "Discover the island's hidden beauty",
   },
 ];
 
@@ -47,7 +94,7 @@ export default function HeroVideo() {
           entry.isIntersecting ? videoRef.current.play() : videoRef.current.pause();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -94,9 +141,9 @@ export default function HeroVideo() {
         muted
         playsInline
         loop={false}
-        poster={slide.poster} // Critical for LCP
-        preload="metadata" // Don't force download the whole thing at once
-        fetchPriority={current === 0 ? "high" : "auto"} // 🌟 LCP Fix applied here
+        poster={slide.poster} // Cloudinary-generated poster — critical for LCP
+        preload="metadata" // Keep as metadata: poster handles LCP, no need to eagerly buffer the payload
+        fetchPriority={current === 0 ? "high" : "auto"} // LCP fix: only prioritize the first slide
         style={{
           position: "absolute",
           inset: 0,
@@ -113,27 +160,22 @@ export default function HeroVideo() {
 
       {/* Overlay & Content */}
       <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/70" />
-      
+
       <div className="relative z-10 flex h-full flex-col justify-center px-6 md:px-20 text-white max-w-4xl">
-        <h1 className="text-5xl md:text-8xl font-bold leading-tight">
-          {slide.title}
-        </h1>
+        <h1 className="text-5xl md:text-8xl font-bold leading-tight">{slide.title}</h1>
         <p className="mt-4 text-lg md:text-xl opacity-90">{slide.subtitle}</p>
-        
-        <Link 
-            href="/tours" 
-            aria-label={t("cta")} // Accessibility fix
-            className="mt-8 px-8 py-4 rounded-full bg-linear-to-r from-orange-600 to-amber-500 font-bold transition-transform hover:scale-105 inline-block w-fit"
+
+        <Link
+          href="/tours"
+          aria-label={t("cta")} // Accessibility fix
+          className="mt-8 px-8 py-4 rounded-full bg-linear-to-r from-orange-600 to-amber-500 font-bold transition-transform hover:scale-105 inline-block w-fit"
         >
           {t("cta")}
         </Link>
 
-        {/* 🌟 GPU Accelerated Progress Bar Fix applied here */}
+        {/* GPU Accelerated Progress Bar */}
         <div className="mt-10 w-32 h-1 bg-white/20 rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-linear-to-r from-orange-500 to-yellow-400 origin-left"
-            style={{ transform: `scaleX(${progress})` }} 
-          />
+          <div className="h-full bg-linear-to-r from-orange-500 to-yellow-400 origin-left" style={{ transform: `scaleX(${progress})` }} />
         </div>
       </div>
     </section>
