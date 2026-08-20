@@ -33,6 +33,8 @@
     "duration": "Durée",
     "priceFrom": "Prix à partir de",
     "maxGroup": "Groupe Max",
+    "pricePerPerson": "Prix par personne",
+    "minimumPeople": "Minimum {count} personnes",
     "minAge": "Âge Min",
     "pax": "pers.",
     "overview": "Aperçu du Circuit",
@@ -268,7 +270,12 @@
     "contactDirectly": "Ou contactez-nous directement :",
     "from": "de",
     "reserveYour": "Réservez Votre Circuit",
-    "perPerson": "/ personne"
+    "perPerson": "/ personne",
+    "people": "Nombre de personnes",
+    "minimumPeople": "Minimum {count} personnes",
+    "minimumPeopleError": "Au moins {count} personnes sont requises.",
+    "pricePerPerson": "Prix par personne",
+    "estimatedTotal": "Total estimé"
   },
   "loader": {
     "tagline": "Explorez l'Île Paradis 🌴",
@@ -383,11 +390,7 @@
     "phEmail": "Adresse Email",
     "btnSubmit": "Envoyer ma Demande",
     "btnSending": "Envoi du code...",
-    "tags": [
-      "14 jours moy.",
-      "100% Privé",
-      "Guides Experts"
-    ],
+    "tags": ["14 jours moy.", "100% Privé", "Guides Experts"],
     "styles": {
       "relaxed": "Détendu",
       "moderate": "Modéré",

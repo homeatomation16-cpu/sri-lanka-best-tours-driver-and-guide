@@ -33,6 +33,8 @@
     "duration": "Duração",
     "priceFrom": "Preço desde",
     "maxGroup": "Grupo Máx.",
+    "pricePerPerson": "Preço por pessoa",
+    "minimumPeople": "Mínimo de {count} pessoas",
     "minAge": "Idade Mín.",
     "pax": "pax",
     "overview": "Visão Geral do Tour",
@@ -268,7 +270,12 @@
     "contactDirectly": "Ou contate-nos diretamente:",
     "from": "desde",
     "reserveYour": "Reserve o seu Tour",
-    "perPerson": "/ pessoa"
+    "perPerson": "/ pessoa",
+    "people": "Número de pessoas",
+    "minimumPeople": "Mínimo de {count} pessoas",
+    "minimumPeopleError": "São necessárias pelo menos {count} pessoas.",
+    "pricePerPerson": "Preço por pessoa",
+    "estimatedTotal": "Total estimado"
   },
   "loader": {
     "tagline": "Explore a Ilha Paraíso 🌴",
@@ -383,11 +390,7 @@
     "phEmail": "Endereço de E-mail",
     "btnSubmit": "Enviar Meu Pedido",
     "btnSending": "Enviando código...",
-    "tags": [
-      "Média de 14 dias",
-      "100% Privado",
-      "Guias Especialistas"
-    ],
+    "tags": ["Média de 14 dias", "100% Privado", "Guias Especialistas"],
     "styles": {
       "relaxed": "Relaxado",
       "moderate": "Moderado",

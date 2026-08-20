@@ -33,6 +33,8 @@
     "duration": "기간",
     "priceFrom": "최저 가격",
     "maxGroup": "최대 인원",
+    "pricePerPerson": "1인당 가격",
+    "minimumPeople": "최소 {count}명",
     "minAge": "최소 연령",
     "pax": "명",
     "overview": "투어 개요",
@@ -268,7 +270,12 @@
     "contactDirectly": "또는 직접 연락하기:",
     "from": "최저",
     "reserveYour": "투어 예약",
-    "perPerson": "/ 1인당"
+    "perPerson": "/ 1인당",
+    "people": "인원 수",
+    "minimumPeople": "최소 {count}명",
+    "minimumPeopleError": "최소 {count}명이 필요합니다.",
+    "pricePerPerson": "1인당 가격",
+    "estimatedTotal": "예상 총액"
   },
   "loader": {
     "tagline": "낙원의 섬을 탐험하세요 🌴",
@@ -383,11 +390,7 @@
     "phEmail": "이메일 주소",
     "btnSubmit": "맞춤 일정 요청하기",
     "btnSending": "코드 전송 중...",
-    "tags": [
-      "평균 14일",
-      "100% 단독 투어",
-      "전문 가이드 동행"
-    ],
+    "tags": ["평균 14일", "100% 단독 투어", "전문 가이드 동행"],
     "styles": {
       "relaxed": "편안한",
       "moderate": "보통",

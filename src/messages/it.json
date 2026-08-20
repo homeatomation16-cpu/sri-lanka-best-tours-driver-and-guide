@@ -33,6 +33,8 @@
     "duration": "Durata",
     "priceFrom": "Prezzo da",
     "maxGroup": "Gruppo Max",
+    "pricePerPerson": "Prezzo per persona",
+    "minimumPeople": "Minimo {count} persone",
     "minAge": "Età Min",
     "pax": "pers.",
     "overview": "Panoramica del Tour",
@@ -268,7 +270,12 @@
     "contactDirectly": "O contattaci direttamente:",
     "from": "da",
     "reserveYour": "Prenota il tuo Tour",
-    "perPerson": "/ persona"
+    "perPerson": "/ persona",
+    "people": "Numero di persone",
+    "minimumPeople": "Minimo {count} persone",
+    "minimumPeopleError": "Sono richieste almeno {count} persone.",
+    "pricePerPerson": "Prezzo per persona",
+    "estimatedTotal": "Totale stimato"
   },
   "loader": {
     "tagline": "Esplora l'Isola del Paradiso 🌴",
@@ -383,11 +390,7 @@
     "phEmail": "Indirizzo Email",
     "btnSubmit": "Invia la mia Richiesta",
     "btnSending": "Invio codice...",
-    "tags": [
-      "Media 14 giorni",
-      "100% Privato",
-      "Guide Esperte"
-    ],
+    "tags": ["Media 14 giorni", "100% Privato", "Guide Esperte"],
     "styles": {
       "relaxed": "Rilassato",
       "moderate": "Moderato",

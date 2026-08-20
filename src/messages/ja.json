@@ -33,6 +33,8 @@
     "duration": "期間",
     "priceFrom": "最低料金",
     "maxGroup": "最大人数",
+    "pricePerPerson": "1名あたりの料金",
+    "minimumPeople": "最低{count}名",
     "minAge": "対象年齢",
     "pax": "名",
     "overview": "ツアー概要",
@@ -268,7 +270,12 @@
     "contactDirectly": "または直接連絡する：",
     "from": "から",
     "reserveYour": "ツアーを予約する",
-    "perPerson": "/ 名あたり"
+    "perPerson": "/ 名あたり",
+    "people": "人数",
+    "minimumPeople": "最低{count}名",
+    "minimumPeopleError": "最低{count}名が必要です。",
+    "pricePerPerson": "1名あたりの料金",
+    "estimatedTotal": "見積合計"
   },
   "loader": {
     "tagline": "楽園の島を探索しましょう 🌴",
@@ -383,11 +390,7 @@
     "phEmail": "メールアドレス",
     "btnSubmit": "リクエストを送信",
     "btnSending": "コード送信中...",
-    "tags": [
-      "平均14日間",
-      "100%プライベート",
-      "専属ガイド付き"
-    ],
+    "tags": ["平均14日間", "100%プライベート", "専属ガイド付き"],
     "styles": {
       "relaxed": "リラックス",
       "moderate": "標準的",

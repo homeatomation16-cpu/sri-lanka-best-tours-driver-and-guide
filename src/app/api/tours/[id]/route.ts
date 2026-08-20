@@ -41,6 +41,9 @@ export async function PUT(
       {
         $set: {
           price: Number(body.price),
+          pricePerPerson: Number(body.pricePerPerson ?? body.price),
+          additionalPersonPrice: Number(body.additionalPersonPrice ?? body.pricePerPerson ?? body.price),
+          minimumPeople: 2,
           duration: Number(body.duration),
           image: body.image,
           tourType: body.tourType,

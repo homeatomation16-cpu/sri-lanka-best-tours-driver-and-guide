@@ -6,10 +6,14 @@ import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
 import { Edit2, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
 import { contact } from "@/data/contact";
+import { calculateTourTotal, MINIMUM_TOUR_PEOPLE } from "@/utils/tourPricing";
 
 interface Tour {
   title: string;
   price?: number;
+  pricePerPerson?: number;
+  additionalPersonPrice?: number;
+  maxPeople?: number;
 }
 
 interface BookingFormProps {
@@ -26,12 +30,14 @@ export default function BookingForm({ tour }: BookingFormProps) {
     date: "",
     time: "",
     notes: "",
+    people: String(MINIMUM_TOUR_PEOPLE),
   });
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [showOtpField, setShowOtpField] = useState(false);
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(0);
+  const pricing = calculateTourTotal(tour, Number(form.people));
 
   // Resend Timer Logic
   useEffect(() => {
@@ -81,6 +87,11 @@ export default function BookingForm({ tour }: BookingFormProps) {
       return;
     }
 
+    if (Number(form.people) < MINIMUM_TOUR_PEOPLE) {
+      alert(t("minimumPeopleError", { count: MINIMUM_TOUR_PEOPLE }));
+      return;
+    }
+
     setStatus("sending");
     try {
       // OTP Verification
@@ -100,15 +111,23 @@ export default function BookingForm({ tour }: BookingFormProps) {
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, itemName: tour.title, bookingType: "Tour" }),
+        body: JSON.stringify({
+          ...form,
+          people: pricing.people,
+          pricePerPerson: pricing.pricePerPerson,
+          additionalPersonPrice: pricing.additionalPersonPrice,
+          totalPrice: pricing.total,
+          itemName: tour.title,
+          bookingType: "Tour",
+        }),
       });
 
       const data = await res.json();
       if (!data.success) throw new Error();
 
       // Final WhatsApp Redirection
-      const message = `Booking Request (Verified ✅)\n\nTour: ${tour.title}\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nDate: ${form.date} ${form.time}\nNotes: ${form.notes}`;
-      
+      const message = `Booking Request (Verified ✅)\n\nTour: ${tour.title}\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nDate: ${form.date} ${form.time}\nPeople: ${pricing.people}\nPrice per person: $${pricing.pricePerPerson.toFixed(2)}\nTotal: $${pricing.total.toFixed(2)}\nNotes: ${form.notes}`;
+
       // 'whatsappme' variable එක නිවැරදිව භාවිතා කිරීම
       window.open(`${contact.whatsappme}?text=${encodeURIComponent(message)}`, "_blank");
       setStatus("sent");
@@ -147,6 +166,21 @@ export default function BookingForm({ tour }: BookingFormProps) {
               <input className={`${inputClass} scheme-dark`} type="date" value={form.date} onChange={(e) => handleChange("date", e.target.value)} />
               <input className={`${inputClass} scheme-dark`} type="time" value={form.time} onChange={(e) => handleChange("time", e.target.value)} />
             </div>
+            <div>
+              <label className={labelClass}>{t("people")}</label>
+              <input className={inputClass} type="number" min={MINIMUM_TOUR_PEOPLE} max={tour.maxPeople || 20} value={form.people} onChange={(e) => handleChange("people", e.target.value)} />
+              <p className="text-[11px] text-stone-500 mt-2">{t("minimumPeople", { count: MINIMUM_TOUR_PEOPLE })}</p>
+            </div>
+            <div className="border border-orange-500/20 bg-orange-500/10 rounded-lg p-4 text-sm text-stone-300 space-y-2">
+              <div className="flex justify-between">
+                <span>{t("pricePerPerson")}</span>
+                <strong>${pricing.pricePerPerson.toFixed(2)}</strong>
+              </div>
+              <div className="flex justify-between text-white">
+                <span>{t("estimatedTotal")}</span>
+                <strong>${pricing.total.toFixed(2)}</strong>
+              </div>
+            </div>
             <button
               onClick={handleSendOtp}
               disabled={status === "sending"}
@@ -161,9 +195,15 @@ export default function BookingForm({ tour }: BookingFormProps) {
             <div className="bg-orange-500/10 border border-orange-500/20 p-4 rounded-lg flex items-start gap-3">
               <AlertCircle className="text-orange-500 shrink-0" size={18} />
               <div className="flex-1">
-                <p className="text-xs text-stone-300">Code sent to <span className="text-white font-bold">{form.email}</span></p>
-                <button 
-                  onClick={() => { setShowOtpField(false); setOtp(""); setStatus("idle"); }} 
+                <p className="text-xs text-stone-300">
+                  Code sent to <span className="text-white font-bold">{form.email}</span>
+                </p>
+                <button
+                  onClick={() => {
+                    setShowOtpField(false);
+                    setOtp("");
+                    setStatus("idle");
+                  }}
                   className="text-[10px] text-orange-500 font-bold uppercase mt-1 flex items-center gap-1 hover:underline"
                 >
                   <Edit2 size={10} /> Edit Details
@@ -173,12 +213,12 @@ export default function BookingForm({ tour }: BookingFormProps) {
 
             <div>
               <label className={labelClass}>Verification Code</label>
-              <input 
-                className={`${inputClass} text-center text-2xl tracking-[8px] font-bold border-orange-500/50`} 
-                maxLength={6} 
+              <input
+                className={`${inputClass} text-center text-2xl tracking-[8px] font-bold border-orange-500/50`}
+                maxLength={6}
                 placeholder="••••••"
-                value={otp} 
-                onChange={(e) => setOtp(e.target.value)} 
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
               />
             </div>
 
@@ -192,12 +232,11 @@ export default function BookingForm({ tour }: BookingFormProps) {
 
             <div className="text-center">
               {timer > 0 ? (
-                <p className="text-[10px] text-stone-500">Resend code available in <span className="text-orange-500 font-bold">{timer}s</span></p>
+                <p className="text-[10px] text-stone-500">
+                  Resend code available in <span className="text-orange-500 font-bold">{timer}s</span>
+                </p>
               ) : (
-                <button 
-                  onClick={handleSendOtp} 
-                  className="text-[10px] text-orange-500 font-bold uppercase flex items-center gap-1 mx-auto hover:text-orange-400 transition-colors"
-                >
+                <button onClick={handleSendOtp} className="text-[10px] text-orange-500 font-bold uppercase flex items-center gap-1 mx-auto hover:text-orange-400 transition-colors">
                   <RefreshCw size={12} className={status === "sending" ? "animate-spin" : ""} /> Resend New OTP
                 </button>
               )}
@@ -207,8 +246,12 @@ export default function BookingForm({ tour }: BookingFormProps) {
 
         {/* Footer Info */}
         <div className="pt-4 border-t border-white/5 flex flex-wrap justify-center gap-4 text-[10px] text-stone-500 uppercase font-bold tracking-tighter">
-          <span className="flex items-center gap-1"><CheckCircle size={10} /> No Prepayment</span>
-          <span className="flex items-center gap-1"><CheckCircle size={10} /> Fast Response</span>
+          <span className="flex items-center gap-1">
+            <CheckCircle size={10} /> No Prepayment
+          </span>
+          <span className="flex items-center gap-1">
+            <CheckCircle size={10} /> Fast Response
+          </span>
         </div>
       </div>
     </div>

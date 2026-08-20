@@ -10,30 +10,21 @@ export default async function ToursSection({ locale }: { locale: string }) {
   await connectDB();
 
   const downSouthTours = await Tour.find({
-    tourId: { 
-      $in: ["05-days-down-south", "08-days-down-south", "10-days-down-south"] 
-    }
+    tourId: {
+      $in: ["05-days-down-south", "08-days-down-south", "10-days-down-south"],
+    },
   }).lean();
 
   return (
     <section className="py-20 bg-linear-to-b from-white to-orange-50">
       <div className="max-w-7xl mx-auto px-6">
-        
         {/* Header Section */}
         <div className="text-center mb-14">
-          <p className="text-orange-500 font-bold uppercase tracking-widest text-sm mb-3">
-            {t("sectionLabel")}
-          </p>
-          <h2 className="font-poppins text-4xl md:text-5xl font-bold text-zinc-900 mb-4">
-            {t("heading")}
-          </h2>
+          <p className="text-orange-500 font-bold uppercase tracking-widest text-sm mb-3">{t("sectionLabel")}</p>
+          <h2 className="font-poppins text-4xl md:text-5xl font-bold text-zinc-900 mb-4">{t("heading")}</h2>
           <div className="flex flex-col items-center">
-            <h3 className="text-2xl font-bold text-orange-500 mb-4">
-               {t("season")}
-            </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              {t("seasonDesc")}
-            </p>
+            <h3 className="text-2xl font-bold text-orange-500 mb-4">{t("season")}</h3>
+            <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">{t("seasonDesc")}</p>
             <div className="mt-6 h-1.5 w-20 bg-orange-500 rounded-full" />
           </div>
         </div>
@@ -42,7 +33,7 @@ export default async function ToursSection({ locale }: { locale: string }) {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {downSouthTours.map((tour: any) => {
             const data = tour.translations?.[locale] || tour.translations?.["en"];
-            
+
             return (
               <Link
                 key={tour.tourId}
@@ -51,44 +42,36 @@ export default async function ToursSection({ locale }: { locale: string }) {
               >
                 {/* Image Container */}
                 <div className="relative h-72 w-full overflow-hidden">
-                  <Image 
-                    src={tour.image} 
-                    alt={data?.title || "Tour Image"} 
-                    fill 
+                  <Image
+                    src={tour.image}
+                    alt={data?.title || "Tour Image"}
+                    fill
                     quality={60} // ✅ Added to reduce file size
-                    className="object-cover group-hover:scale-110 transition-transform duration-700" 
-                    sizes="(max-width: 768px) 100vw, 33vw" 
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg">
-                    <p className="text-xs font-bold text-zinc-500 uppercase tracking-tighter mb-0.5">
-                      {t("from")}
-                    </p>
-                    <p className="text-xl font-black text-orange-600 leading-none">
-                      ${tour.price}
-                    </p>
+                    <p className="text-xs font-bold text-zinc-500 uppercase tracking-tighter mb-0.5">{t("pricePerPerson")}</p>
+                    <p className="text-xl font-black text-orange-600 leading-none">${tour.price}</p>
                   </div>
                 </div>
 
                 {/* Content Container */}
                 <div className="p-8 flex flex-col grow">
-                  <h3 className="text-2xl font-bold text-zinc-900 group-hover:text-orange-600 transition-colors line-clamp-2 mb-4">
-                    {data?.title}
-                  </h3>
-                  
+                  <h3 className="text-2xl font-bold text-zinc-900 group-hover:text-orange-600 transition-colors line-clamp-2 mb-4">{data?.title}</h3>
+
                   <div className="flex justify-between items-center mt-auto pt-6 border-t border-zinc-50">
                     <div className="flex flex-col">
-                       {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
-                       <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">{t("duration")}</span>
-                       <span className="text-sm font-bold text-zinc-700">
-                          {tour.duration} {tour.duration > 1 ? t("days") : t("day")}
-                       </span>
+                      {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
+                      <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">{t("duration")}</span>
+                      <span className="text-sm font-bold text-zinc-700">
+                        {tour.duration} {tour.duration > 1 ? t("days") : t("day")}
+                      </span>
                     </div>
                     <div className="flex flex-col text-right">
-                       {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
-                       <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Availability</span>
-                       <span className="text-sm font-bold text-zinc-700">
-                          {t("maxPeople", { count: tour.maxPeople || 10 })}
-                       </span>
+                      {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
+                      <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Availability</span>
+                      <span className="text-sm font-bold text-zinc-700">{t("maxPeople", { count: tour.maxPeople || 10 })}</span>
                     </div>
                   </div>
 

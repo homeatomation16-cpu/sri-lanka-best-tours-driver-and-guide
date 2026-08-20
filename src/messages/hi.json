@@ -33,6 +33,8 @@
     "duration": "अवधि",
     "priceFrom": "न्यूनतम मूल्य",
     "maxGroup": "अधिकतम समूह",
+    "pricePerPerson": "प्रति व्यक्ति कीमत",
+    "minimumPeople": "न्यूनतम {count} लोग",
     "minAge": "न्यूनतम आयु",
     "pax": "व्यक्ति",
     "overview": "टूर अवलोकन",
@@ -268,7 +270,12 @@
     "contactDirectly": "या सीधे संपर्क करें:",
     "from": "से",
     "reserveYour": "अपना टूर बुक करें",
-    "perPerson": "/ व्यक्ति"
+    "perPerson": "/ व्यक्ति",
+    "people": "लोगों की संख्या",
+    "minimumPeople": "न्यूनतम {count} लोग",
+    "minimumPeopleError": "कम से कम {count} लोग आवश्यक हैं।",
+    "pricePerPerson": "प्रति व्यक्ति कीमत",
+    "estimatedTotal": "अनुमानित कुल"
   },
   "loader": {
     "tagline": "स्वर्ग द्वीप का अन्वेषण करें 🌴",
@@ -297,11 +304,7 @@
     "phEmail": "ईमेल पता",
     "btnSubmit": "मेरा अनुरोध भेजें",
     "btnSending": "कोड भेजा जा रहा है...",
-    "tags": [
-      "औसत 14 दिन",
-      "100% निजी",
-      "पूर्ण निर्देशित"
-    ],
+    "tags": ["औसत 14 दिन", "100% निजी", "पूर्ण निर्देशित"],
     "styles": {
       "relaxed": "आरामदायक",
       "moderate": "मध्यम",

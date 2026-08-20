@@ -3,6 +3,9 @@ import mongoose, { Schema, model, models } from "mongoose";
 const TourSchema = new Schema({
   tourId: { type: String, required: true, unique: true },
   price: { type: Number, required: true },
+  pricePerPerson: { type: Number },
+  additionalPersonPrice: { type: Number },
+  minimumPeople: { type: Number, default: 2 },
   image: { type: String },
   duration: { type: Number },
   tourType: { type: String },

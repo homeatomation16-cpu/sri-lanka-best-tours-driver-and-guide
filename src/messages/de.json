@@ -33,6 +33,8 @@
     "duration": "Dauer",
     "priceFrom": "Preis ab",
     "maxGroup": "Max. Gruppe",
+    "pricePerPerson": "Preis pro Person",
+    "minimumPeople": "Mindestens {count} Personen",
     "minAge": "Mindestalter",
     "pax": "Pers.",
     "overview": "Tour-Übersicht",
@@ -268,7 +270,12 @@
     "contactDirectly": "Oder direkt kontaktieren:",
     "from": "ab",
     "reserveYour": "Ihre Tour reservieren",
-    "perPerson": "/ Person"
+    "perPerson": "/ Person",
+    "people": "Anzahl der Personen",
+    "minimumPeople": "Mindestens {count} Personen",
+    "minimumPeopleError": "Mindestens {count} Personen sind erforderlich.",
+    "pricePerPerson": "Preis pro Person",
+    "estimatedTotal": "Geschätzter Gesamtpreis"
   },
   "loader": {
     "tagline": "Entdecken Sie das Inselparadies 🌴",
@@ -383,11 +390,7 @@
     "phEmail": "E-Mail-Adresse",
     "btnSubmit": "Meine Anfrage senden",
     "btnSending": "Code wird gesendet...",
-    "tags": [
-      "Ø 14 Tage",
-      "100% Privat",
-      "Professionelle Guides"
-    ],
+    "tags": ["Ø 14 Tage", "100% Privat", "Professionelle Guides"],
     "styles": {
       "relaxed": "Entspannt",
       "moderate": "Mittel",

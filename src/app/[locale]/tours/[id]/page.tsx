@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
-import BookingForm from '@/components/BookingForm';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import { getTranslations } from "next-intl/server";
+import BookingForm from "@/components/BookingForm";
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 
@@ -20,20 +20,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!tourRaw) {
     return {
-      title: 'Tour Not Found | Sri Lanka Best Tours',
+      title: "Tour Not Found | Sri Lanka Best Tours",
     };
   }
 
   // අදාළ භාෂාවට අදාළ දත්ත තෝරාගැනීම (Fallback to English)
   // @ts-ignore (Optional: Type checking සඳහා)
   const translation = tourRaw.translations?.[locale] || tourRaw.translations?.["en"];
-  
+
   const title = translation?.title || "Sri Lanka Tour Package";
-  
+
   // Description එක අකුරු 160කට සීමා කිරීම (SEO Best Practice)
-  const description = translation?.overview 
-    ? `${translation.overview.substring(0, 155)}...` 
-    : `Explore the best of Sri Lanka with our ${title}. Book your custom tour with an expert guide.`;
+  const description = translation?.overview ? `${translation.overview.substring(0, 155)}...` : `Explore the best of Sri Lanka with our ${title}. Book your custom tour with an expert guide.`;
 
   // අදාළ Tour එකේ පින්තූරය (නැත්නම් default පින්තූරයක්)
   const imageUrl = tourRaw.image || "/og-image.jpg";
@@ -42,14 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${title} | Sri Lanka Best Tour Driver & Guide`,
     description: description,
-    keywords: [
-      title,
-      "Sri Lanka tour package",
-      "Private driver in Sri Lanka",
-      `${title} itinerary`,
-      "Hire a guide for Sri Lanka tour",
-      "Sri Lanka travel"
-    ],
+    keywords: [title, "Sri Lanka tour package", "Private driver in Sri Lanka", `${title} itinerary`, "Hire a guide for Sri Lanka tour", "Sri Lanka travel"],
     alternates: {
       // මේකෙන් Duplicate Content Error එක නැති කරනවා
       canonical: `${siteUrl}/${locale}/tours/${id}`,
@@ -80,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // 🚀 2. ඔයාගේ ප්‍රධාන Page Component එක (මෙතැන් සිට ඔයාගේ කලින් කෝඩ් එක ඒ විදිහටම තියන්න)
 export default async function TourDetailsPage({ params }: Props) {
   const { locale, id } = await params;
-  
+
   // ... ඔයාගේ කලින් තිබුණු කෝඩ් එක මෙතනින් පහළට ඒ විදිහටම තියන්න ...
 
   // 1. Database එකට සම්බන්ධ වීම
@@ -88,7 +79,7 @@ export default async function TourDetailsPage({ params }: Props) {
 
   // 2. tourId එක මගින් දත්ත සෙවීම
   const tourRaw = await Tour.findOne({ tourId: id }).lean();
-  
+
   if (!tourRaw) notFound();
 
   // 3. Serialization Fix: ObjectId වැනි සංකීර්ණ දත්ත සරල Plain Objects බවට පත් කිරීම
@@ -97,9 +88,9 @@ export default async function TourDetailsPage({ params }: Props) {
 
   // 4. අදාළ භාෂාවට අදාළ දත්ත තෝරාගැනීම (Fallback to English)
   const translation = tourPlain.translations?.[locale] || tourPlain.translations?.["en"];
-  
+
   // භාෂා ගොනු (messages JSON) වලින් පරිවර්තන ලබාගැනීම
-  const t = await getTranslations({ locale, namespace: 'tours' });
+  const t = await getTranslations({ locale, namespace: "tours" });
 
   // 5. අවසාන දත්ත Object එක සකස් කිරීම
   const tour = {
@@ -111,19 +102,10 @@ export default async function TourDetailsPage({ params }: Props) {
 
   return (
     <div className="bg-stone-50 min-h-screen text-stone-800 font-sans">
-
       {/* ── Hero Section ── */}
       <section className="relative h-[90vh] min-h-150 overflow-hidden">
         {tour.image ? (
-          <Image
-            src={tour.image}
-            alt={tour.title}
-            fill
-            className="object-cover brightness-[0.85]"
-            priority
-            quality={90}
-            sizes="100vw"
-          />
+          <Image src={tour.image} alt={tour.title} fill className="object-cover brightness-[0.85]" priority quality={90} sizes="100vw" />
         ) : (
           <div className="absolute inset-0 bg-stone-800" />
         )}
@@ -133,13 +115,9 @@ export default async function TourDetailsPage({ params }: Props) {
           <div className="px-16 pb-10 max-lg:px-10 max-sm:px-6">
             <div className="flex items-center gap-3 mb-4">
               <span className="block w-8 h-px bg-amber-400" />
-              <h1 className="text-[10px] font-medium tracking-[0.3em] uppercase text-amber-300">
-                 {t('tagline')}
-              </h1>
+              <h1 className="text-[10px] font-medium tracking-[0.3em] uppercase text-amber-300">{t("tagline")}</h1>
             </div>
-            <h1 className="font-serif text-4xl lg:text-7xl font-semibold text-white leading-tight max-w-4xl tracking-tight max-sm:text-3xl">
-              {tour.title}
-            </h1>
+            <h1 className="font-serif text-4xl lg:text-7xl font-semibold text-white leading-tight max-w-4xl tracking-tight max-sm:text-3xl">{tour.title}</h1>
           </div>
 
           {/* Stats Bar */}
@@ -147,10 +125,11 @@ export default async function TourDetailsPage({ params }: Props) {
             <div className="max-w-7xl mx-auto px-16 max-lg:px-10 max-sm:px-6">
               <div className="flex flex-wrap divide-x divide-white/20">
                 {[
-                  { label: t('duration'), value: `${tour.duration} ${tour.duration === 1 ? t('day') : t('days')}` },
-                  { label: t('priceFrom'), value: tour.price ? `$${tour.price}` : '—' },
-                  { label: t('maxGroup'), value: tour.maxPeople ? `${tour.maxPeople} ${t('pax')}` : `10 ${t('pax')}` },
-                  { label: t('minAge'), value: tour.minAge ? `${tour.minAge}+` : '12+' },
+                  { label: t("duration"), value: `${tour.duration} ${tour.duration === 1 ? t("day") : t("days")}` },
+                  { label: t("pricePerPerson"), value: tour.price ? `$${tour.price}` : "—" },
+                  { label: t("minimumPeople", { count: 2 }), value: `2 ${t("pax")}` },
+                  { label: t("maxGroup"), value: tour.maxPeople ? `${tour.maxPeople} ${t("pax")}` : `10 ${t("pax")}` },
+                  { label: t("minAge"), value: tour.minAge ? `${tour.minAge}+` : "12+" },
                 ].map((item, i) => (
                   <div key={i} className="px-8 py-5 max-sm:px-5 max-sm:py-3">
                     <p className="text-[9px] uppercase tracking-[0.2em] text-white/50 mb-1">{item.label}</p>
@@ -166,19 +145,13 @@ export default async function TourDetailsPage({ params }: Props) {
       {/* ── Main Content ── */}
       <div className="max-w-7xl mx-auto px-12 py-20 max-lg:px-8 max-sm:px-5 max-sm:py-12">
         <div className="grid lg:grid-cols-[1fr_380px] gap-16">
-
           {/* Left Column */}
           <div className="space-y-16">
-
             {/* Overview */}
             {tour.overview && (
               <section>
-                <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-orange-600 mb-6">
-                  {t('overview')}
-                </p>
-                <p className="text-lg leading-relaxed text-stone-600 font-light">
-                  {tour.overview}
-                </p>
+                <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-orange-600 mb-6">{t("overview")}</p>
+                <p className="text-lg leading-relaxed text-stone-600 font-light">{tour.overview}</p>
               </section>
             )}
 
@@ -186,7 +159,7 @@ export default async function TourDetailsPage({ params }: Props) {
             <section className="grid md:grid-cols-2 gap-8">
               <div className="bg-white border border-stone-100 p-8 rounded-3xl shadow-sm">
                 <h3 className="text-xl font-bold mb-6 text-stone-900 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> {t('included')}
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> {t("included")}
                 </h3>
                 <ul className="space-y-3">
                   {tour.included?.map((item: string, i: number) => (
@@ -199,7 +172,7 @@ export default async function TourDetailsPage({ params }: Props) {
 
               <div className="bg-white border border-stone-100 p-8 rounded-3xl shadow-sm">
                 <h3 className="text-xl font-bold mb-6 text-stone-900 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t('notIncluded')}
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t("notIncluded")}
                 </h3>
                 <ul className="space-y-3">
                   {tour.excluded?.map((item: string, i: number) => (
@@ -215,8 +188,10 @@ export default async function TourDetailsPage({ params }: Props) {
             {itinerary.length > 0 && (
               <section>
                 <div className="flex items-baseline gap-4 mb-12">
-                  <h2 className="font-serif text-4xl font-semibold text-stone-900">{t('itinerary')}</h2>
-                  <span className="text-stone-400 text-sm">({itinerary.length} {t('days')})</span>
+                  <h2 className="font-serif text-4xl font-semibold text-stone-900">{t("itinerary")}</h2>
+                  <span className="text-stone-400 text-sm">
+                    ({itinerary.length} {t("days")})
+                  </span>
                 </div>
 
                 <div className="space-y-10 border-l-2 border-stone-100 ml-4 pl-8">
@@ -224,42 +199,36 @@ export default async function TourDetailsPage({ params }: Props) {
                     <div key={index} className="relative group">
                       {/* Timeline dot */}
                       <div className="absolute -left-10.25 top-0 w-5 h-5 rounded-full bg-white border-4 border-orange-500 group-hover:scale-125 transition-transform" />
-                      
-                      <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-100 group-hover:shadow-xl transition-all">
-                         <div className="grid md:grid-cols-[250px_1fr]">
-                            <div className="relative h-48 md:h-full min-h-48">
-                               <Image 
-                                  src={day.image || '/placeholder-tour.jpg'} 
-                                  alt={`Day ${index + 1}`} 
-                                  fill 
-                                  className="object-cover"
-                                  sizes="(max-width: 768px) 100vw, 250px"
-                               />
-                            </div>
-                            <div className="p-8">
-                               <span className="text-xs font-black uppercase tracking-widest text-orange-500 mb-2 block">
-                                 {t('day')} {index + 1}
-                               </span>
-                               <h3 className="text-xl font-bold text-stone-900 mb-4">{day.title}</h3>
-                               <p className="text-stone-500 text-sm leading-relaxed mb-6 italic">{day.description}</p>
-                               
-                               {day.activities && (
-                                 <div className="flex flex-wrap gap-2">
-                                   {day.activities.map((act: string, ai: number) => (
-                                     <span key={ai} className="bg-stone-50 text-stone-600 px-3 py-1.5 rounded-lg text-[11px] font-medium border border-stone-100">
-                                       + {act}
-                                     </span>
-                                   ))}
-                                 </div>
-                                )}
 
-                                {day.overnight && (
-                                  <div className="mt-6 pt-4 border-t border-stone-50 flex items-center gap-2 text-emerald-700 font-bold text-xs">
-                                    <span>🌙</span> {day.overnight}
-                                  </div>
-                                )}
-                            </div>
-                         </div>
+                      <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-100 group-hover:shadow-xl transition-all">
+                        <div className="grid md:grid-cols-[250px_1fr]">
+                          <div className="relative h-48 md:h-full min-h-48">
+                            <Image src={day.image || "/placeholder-tour.jpg"} alt={`Day ${index + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 250px" />
+                          </div>
+                          <div className="p-8">
+                            <span className="text-xs font-black uppercase tracking-widest text-orange-500 mb-2 block">
+                              {t("day")} {index + 1}
+                            </span>
+                            <h3 className="text-xl font-bold text-stone-900 mb-4">{day.title}</h3>
+                            <p className="text-stone-500 text-sm leading-relaxed mb-6 italic">{day.description}</p>
+
+                            {day.activities && (
+                              <div className="flex flex-wrap gap-2">
+                                {day.activities.map((act: string, ai: number) => (
+                                  <span key={ai} className="bg-stone-50 text-stone-600 px-3 py-1.5 rounded-lg text-[11px] font-medium border border-stone-100">
+                                    + {act}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+
+                            {day.overnight && (
+                              <div className="mt-6 pt-4 border-t border-stone-50 flex items-center gap-2 text-emerald-700 font-bold text-xs">
+                                <span>🌙</span> {day.overnight}
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -275,7 +244,6 @@ export default async function TourDetailsPage({ params }: Props) {
               <BookingForm tour={tour} />
             </div>
           </aside>
-
         </div>
       </div>
     </div>

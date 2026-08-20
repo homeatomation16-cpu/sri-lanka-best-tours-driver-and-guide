@@ -23,6 +23,9 @@ export async function POST(req: Request) {
     const newTour = await Tour.create({
       ...body,
       price: Number(body.price),
+      pricePerPerson: Number(body.pricePerPerson ?? body.price),
+      additionalPersonPrice: Number(body.additionalPersonPrice ?? body.pricePerPerson ?? body.price),
+      minimumPeople: 2,
       duration: Number(body.duration),
     });
 

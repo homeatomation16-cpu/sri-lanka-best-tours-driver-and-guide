@@ -33,6 +33,8 @@
     "duration": "Duration",
     "priceFrom": "Price From",
     "maxGroup": "Max Group",
+    "pricePerPerson": "Price per person",
+    "minimumPeople": "Minimum {count} people",
     "minAge": "Min Age",
     "pax": "pax",
     "overview": "Tour Overview",
@@ -268,7 +270,12 @@
     "contactDirectly": "Or contact us directly:",
     "from": "from",
     "reserveYour": "Reserve Your Tour",
-    "perPerson": "/ person"
+    "perPerson": "/ person",
+    "people": "Number of people",
+    "minimumPeople": "Minimum {count} people",
+    "minimumPeopleError": "At least {count} people are required.",
+    "pricePerPerson": "Price per person",
+    "estimatedTotal": "Estimated total"
   },
   "loader": {
     "tagline": "Explore Paradise Island 🌴",
@@ -373,11 +380,7 @@
     "subtext2": "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with exclusive access.",
     "buttonPrimary": "Design My Journey",
     "buttonSecondary": "Talk to a specialist →",
-    "tags": [
-      "Avg. 14 Days",
-      "100% Private",
-      "Fully Guided"
-    ],
+    "tags": ["Avg. 14 Days", "100% Private", "Fully Guided"],
     "step1": "Travel Preferences",
     "step2": "Holiday Activities",
     "step3": "Accommodation & Dining",

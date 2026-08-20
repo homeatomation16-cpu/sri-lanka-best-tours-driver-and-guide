@@ -10,6 +10,10 @@ export interface IBooking {
   notes?: string;
   itemName?: string;
   bookingType?: string;
+  people: number;
+  pricePerPerson?: number;
+  additionalPersonPrice?: number;
+  totalPrice?: number;
   status: "pending" | "confirmed" | "cancelled";
   createdAt: Date;
 }
@@ -24,6 +28,10 @@ const BookingSchema = new Schema<IBooking>({
   notes: String,
   itemName: String,
   bookingType: String,
+  people: { type: Number, required: true, min: 2 },
+  pricePerPerson: Number,
+  additionalPersonPrice: Number,
+  totalPrice: Number,
   status: {
     type: String,
     enum: ["pending", "confirmed", "cancelled"],

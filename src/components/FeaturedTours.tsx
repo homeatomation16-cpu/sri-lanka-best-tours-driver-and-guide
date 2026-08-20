@@ -38,11 +38,7 @@ export default function FeaturedTours() {
     return TOURS.filter((tour) => {
       const duration = String(tour.duration).toLowerCase();
 
-      return (
-        duration === "1" ||
-        duration.includes("1 day") ||
-        duration.includes("full day")
-      );
+      return duration === "1" || duration.includes("1 day") || duration.includes("full day");
     });
   }, []);
 
@@ -53,43 +49,25 @@ export default function FeaturedTours() {
 
       <div className="relative max-w-7xl mx-auto">
         {/* HEADER */}
-        <motion.div
-          variants={reveal}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="mb-14 lg:mb-20"
-        >
+        <motion.div variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-14 lg:mb-20">
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px w-10 bg-orange-500" />
-            <span className="text-orange-500 text-xs font-semibold tracking-[0.25em] uppercase">
-              {t("luxuryDayTrips")}
-            </span>
+            <span className="text-orange-500 text-xs font-semibold tracking-[0.25em] uppercase">{t("luxuryDayTrips")}</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight tracking-tight max-w-lg">
-              {t("oneDayPackages")}{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-500 to-amber-500">
-                Luxury Tours
-              </span>
+              {t("oneDayPackages")} <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-500 to-amber-500">Luxury Tours</span>
             </h2>
 
             <p className="text-gray-400 text-sm sm:text-base max-w-xs leading-relaxed lg:text-right">
-              Curated private journeys designed around your schedule. No
-              compromises, no crowds — just you and the destination.
+              Curated private journeys designed around your schedule. No compromises, no crowds — just you and the destination.
             </p>
           </div>
         </motion.div>
 
         {/* GRID */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-        >
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {oneDayTours.map((tour, i) => (
             <motion.div
               key={tour.id}
@@ -109,21 +87,17 @@ export default function FeaturedTours() {
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
 
                 <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm">
-                  <span className="text-gray-500 text-xs font-semibold font-mono">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span className="text-gray-500 text-xs font-semibold font-mono">{String(i + 1).padStart(2, "0")}</span>
                 </div>
 
                 <div className="absolute bottom-4 left-4 bg-white text-orange-600 px-4 py-1.5 rounded-full text-sm font-bold shadow-md">
-                  {t("from")} ${tour.price}
+                  {t("pricePerPerson")} ${tour.price}
                 </div>
               </div>
 
               {/* CONTENT */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug group-hover:text-orange-500 transition-colors duration-300">
-                  {tour.title}
-                </h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug group-hover:text-orange-500 transition-colors duration-300">{tour.title}</h3>
 
                 <div className="flex items-center gap-5 text-sm text-gray-400 mb-6">
                   <span className="flex items-center gap-1.5">
@@ -139,13 +113,8 @@ export default function FeaturedTours() {
 
                 <div className="h-px bg-gray-100 mb-6" />
 
-                <Link
-                  href={`/tours/${tour.id}`}
-                  className="group/btn flex items-center justify-between w-full"
-                >
-                  <span className="text-sm font-semibold text-orange-500 group-hover/btn:text-orange-600 transition-colors">
-                    {t("exploreTour")}
-                  </span>
+                <Link href={`/tours/${tour.id}`} className="group/btn flex items-center justify-between w-full">
+                  <span className="text-sm font-semibold text-orange-500 group-hover/btn:text-orange-600 transition-colors">{t("exploreTour")}</span>
 
                   <div className="w-8 h-8 rounded-full border border-orange-200 flex items-center justify-center group-hover/btn:bg-orange-500 group-hover/btn:border-orange-500 transition-all duration-300">
                     <ArrowUpRight className="w-4 h-4 text-orange-400 group-hover/btn:text-white transition-colors duration-300" />
@@ -164,9 +133,7 @@ export default function FeaturedTours() {
           viewport={{ once: true }}
           className="mt-16 sm:mt-20 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-8"
         >
-          <p className="text-gray-400 text-xs sm:text-sm max-w-sm text-center sm:text-left leading-relaxed">
-            Every tour can be tailored to your itinerary, group size, and pace.
-          </p>
+          <p className="text-gray-400 text-xs sm:text-sm max-w-sm text-center sm:text-left leading-relaxed">Every tour can be tailored to your itinerary, group size, and pace.</p>
 
           <Link
             href="/contact"
