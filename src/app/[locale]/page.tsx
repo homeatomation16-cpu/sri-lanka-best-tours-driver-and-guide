@@ -11,6 +11,8 @@ import Testimonials from "@/components/Testimonials";
 import Gallery from "@/components/Gallery";
 import VehiclesSection from "@/components/VehiclesSection";
 import Tours from "@/components/Tours";
+import { getSiteContent } from "@/lib/siteContent";
+import { pick } from "@/lib/autoTranslate";
 
 // A sleek loading skeleton to show while MongoDB fetches data
 function SectionLoader() {
@@ -31,11 +33,27 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
 
+  // Hero + gallery are editable in Admin → Website Content (text auto-translated).
+  const [heroData, galleryData] = await Promise.all([getSiteContent("hero"), getSiteContent("gallery")]);
+
+  const heroSlides = (heroData?.items || [])
+    .filter((i: any) => i.enabled !== false && i.src)
+    .map((i: any) => ({ type: i.type, src: i.src, poster: i.poster, title: pick(i.title, locale), subtitle: pick(i.subtitle, locale) }));
+
+  const galleryItems = galleryData
+    ? (galleryData.items || [])
+        .filter((i: any) => i.enabled !== false && i.src)
+        .map((i: any) => ({ src: i.src, alt: pick(i.alt, locale), caption: pick(i.caption, locale) }))
+    : undefined;
+  const galleryHeading = galleryData?.heading
+    ? { label: pick(galleryData.heading.label, locale), title: pick(galleryData.heading.title, locale) }
+    : undefined;
+
   return (
     <div className="relative bg-white">
       {/* HERO - Loads instantly, never blocked by database */}
       <div className="relative">
-        <HeroVideo />
+        <HeroVideo slides={heroSlides.length ? heroSlides : undefined} />
         <div className="pointer-events-none absolute bottom-0 left-0 w-full h-40 bg-linear-to-t from-white/90 via-white/40 to-transparent shadow-xl" />
       </div>
 
@@ -62,7 +80,7 @@ export default async function HomePage({
       <Testimonials />
       <SpecialOffer />
       <TailorMade />
-      <Gallery />
+      <Gallery items={galleryItems} heading={galleryHeading} />
     </div>
   );
 }

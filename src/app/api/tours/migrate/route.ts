@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/adminAuth";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
@@ -21,6 +22,9 @@ import { TOURS as ta } from "@/data/tours/ta";
 const allLangs: any = { en, si, ru, fr, de, it, es, ja, zh, ar, hi, ko, pt, ta };
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     await connectDB();
 

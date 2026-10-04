@@ -29,6 +29,7 @@ const initialForm = {
 
 export default function TailorMadePage() {
   const t = useTranslations("tailorMade");
+  const tTours = useTranslations("tours");
   
   const [form, setForm] = useState(initialForm);
   const [estimatedDays, setEstimatedDays] = useState(0);
@@ -260,7 +261,7 @@ export default function TailorMadePage() {
              <div className="space-y-5">
                 <div className="flex justify-between border-b border-white/10 pb-3">
                   <span className="text-stone-400 text-xs">Duration</span>
-                  <span className="font-bold">{estimatedDays > 0 ? `${estimatedDays} ${t("tours.days")}` : "—"}</span>
+                  <span className="font-bold">{estimatedDays > 0 ? `${estimatedDays} ${tTours("days")}` : "—"}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-3">
                   <span className="text-stone-400 text-xs">Vehicle</span>

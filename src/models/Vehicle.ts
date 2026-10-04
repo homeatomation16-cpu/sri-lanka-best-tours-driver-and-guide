@@ -13,7 +13,7 @@ export interface IVehicle extends Document {
   vehicleId: string;
   name: string;
   type?: string;
-  price?: number; // ✅ FIX
+  price?: number;
   passengers?: number;
   fuel?: string;
   transmission?: string;
@@ -22,55 +22,56 @@ export interface IVehicle extends Document {
   driver?: {
     name?: string;
     phone?: string;
-  }; // ✅ FIX
+  };
 
-  translations?: Record<string, VehicleTranslation>; // ✅ simpler than Map
+  translations?: Record<string, VehicleTranslation>;
 
   status: "active" | "inactive";
   createdAt: Date;
 }
 
 // 🔹 Schema
-const VehicleSchema = new Schema<IVehicle>({
-  vehicleId: { type: String, required: true, unique: true, index: true },
-  name: { type: String, required: true },
+const VehicleSchema = new Schema<IVehicle>(
+  {
+    // unique: true already creates the index, so no extra index() needed
+    vehicleId: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
 
-  type: { type: String },
-  price: { type: Number }, // ✅ FIX
-  passengers: { type: Number },
-  fuel: { type: String },
-  transmission: { type: String },
+    type: { type: String },
+    price: { type: Number },
+    passengers: { type: Number },
+    fuel: { type: String },
+    transmission: { type: String },
 
-  image: { type: String },
-  gallery: [{ type: String }],
+    image: { type: String },
+    gallery: [{ type: String }],
 
-  driver: {
-    name: String,
-    phone: String,
+    driver: {
+      name: String,
+      phone: String,
+    },
+
+    translations: {
+      type: Object,
+      default: {},
+    },
+
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active",
+    },
+
+    createdAt: { type: Date, default: Date.now },
   },
-
-  translations: {
-    type: Object, // ✅ easier
-    default: {},
+  {
+    timestamps: true, // createdAt + updatedAt auto
   },
-
-  status: {
-    type: String,
-    enum: ["active", "inactive"],
-    default: "active",
-  },
-
-  createdAt: { type: Date, default: Date.now },
-}, {
-  timestamps: true, // 🔥 createdAt + updatedAt auto
-});
+);
 
 // 🔥 Indexes (performance boost)
-VehicleSchema.index({ vehicleId: 1 });
 VehicleSchema.index({ status: 1 });
 
-const Vehicle =
-  (models.Vehicle as Model<IVehicle>) ||
-  mongoose.model<IVehicle>("Vehicle", VehicleSchema);
+const Vehicle = (models.Vehicle as Model<IVehicle>) || mongoose.model<IVehicle>("Vehicle", VehicleSchema);
 
 export default Vehicle;

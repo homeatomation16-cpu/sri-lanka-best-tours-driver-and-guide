@@ -11,7 +11,7 @@ const SLIDE_DURATION = 8000;
 const VIDEO_TRANSFORM = "w_1920,c_limit,q_auto:good,f_auto,vc_auto";
 const POSTER_TRANSFORM = "so_auto,f_auto,q_auto,w_1920";
 
-const SLIDES = [
+const DEFAULT_SLIDES = [
   {
     src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783181658/286459_large_idzt2a.mp4`,
     poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783181658/286459_large_idzt2a.jpg`,
@@ -74,8 +74,31 @@ const SLIDES = [
   },
 ];
 
-export default function HeroVideo() {
+export type HeroSlideInput = {
+  type?: "video" | "image";
+  src: string;
+  poster?: string;
+  title: string;
+  subtitle: string;
+};
+
+type Slide = { type: "video" | "image"; src: string; poster?: string; title: string; subtitle: string };
+
+/** Slides saved from the admin panel -> optimised Cloudinary URLs (same transforms as the built-in slides). */
+function toSlide(s: HeroSlideInput): Slide {
+  const type = s.type === "image" ? "image" : "video";
+  let src = s.src;
+  let poster = s.poster;
+  if (type === "video" && /\/video\/upload\/v\d+\//.test(src)) {
+    poster = poster || src.replace(/\/video\/upload\/(v\d+\/)/, `/video/upload/${POSTER_TRANSFORM}/$1`).replace(/\.(mp4|mov|webm|m4v)(\?.*)?$/i, ".jpg");
+    src = src.replace(/\/video\/upload\/(v\d+\/)/, `/video/upload/${VIDEO_TRANSFORM}/$1`);
+  }
+  return { type, src, poster, title: s.title, subtitle: s.subtitle };
+}
+
+export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   const t = useTranslations("hero");
+  const SLIDES: Slide[] = slides && slides.length ? slides.map(toSlide) : DEFAULT_SLIDES.map((d) => ({ ...d, type: "video" as const }));
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
   const [scrollY, setScrollY] = useState(0);
@@ -130,32 +153,42 @@ export default function HeroVideo() {
     };
   }, [current, inView]);
 
-  const slide = SLIDES[current];
+  const slide = SLIDES[current % SLIDES.length];
 
   return (
     <section ref={sectionRef} className="relative h-screen overflow-hidden bg-black">
-      <video
-        ref={videoRef}
-        key={slide.src}
-        autoPlay
-        muted
-        playsInline
-        loop={false}
-        poster={slide.poster} // Cloudinary-generated poster — critical for LCP
-        preload="metadata" // Keep as metadata: poster handles LCP, no need to eagerly buffer the payload          // @ts-expect-error fetchPriority is supported by browsers but may not exist in the current TS lib        fetchPriority={current === 0 ? "high" : "auto"} // LCP fix: only prioritize the first slide
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          // Use transform3d for hardware acceleration
-          transform: `scale(1.1) translate3d(0, ${scrollY * 0.15}px, 0)`,
-          willChange: "transform", // Hints browser to optimize
-        }}
-      >
-        <source src={slide.src} type="video/mp4" />
-      </video>
+      {slide.type === "image" ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={slide.src}
+          src={slide.src}
+          alt={slide.title}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: `scale(1.1) translate3d(0, ${scrollY * 0.15}px, 0)`, willChange: "transform" }}
+        />
+      ) : (
+        <video
+          ref={videoRef}
+          key={slide.src}
+          autoPlay
+          muted
+          playsInline
+          loop={false}
+          poster={slide.poster} // Cloudinary-generated poster — critical for LCP
+          preload="metadata" // Keep as metadata: poster handles LCP, no need to eagerly buffer the payload          // @ts-expect-error fetchPriority is supported by browsers but may not exist in the current TS lib        fetchPriority={current === 0 ? "high" : "auto"} // LCP fix: only prioritize the first slide
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            // Use transform3d for hardware acceleration
+            transform: `scale(1.1) translate3d(0, ${scrollY * 0.15}px, 0)`,
+            willChange: "transform", // Hints browser to optimize
+          }}
+        >
+          <source src={slide.src} type="video/mp4" />
+        </video>
+      )}
 
       {/* Overlay & Content */}
       <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/70" />

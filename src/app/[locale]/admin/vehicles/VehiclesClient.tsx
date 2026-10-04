@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Plus, Edit, Trash2, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, Loader2, Eye, EyeOff } from "lucide-react";
+import ImageUploader from "@/components/admin/ImageUploader";
+import { useToast } from "@/components/admin/Toast";
 
 const LANGS = ["en","si","ru","fr","de","it","es","ja","zh","ar","hi","ko","pt","ta"];
 
 export default function VehiclesClient() {
+  const toast = useToast();
 
   const [vehicles, setVehicles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +23,13 @@ export default function VehiclesClient() {
     name: "",
     price: "",
     passengers: "",
+    type: "",
+    fuel: "",
+    transmission: "",
     image: "",
+    gallery: [] as string[],
+    driver: { name: "", phone: "" },
+    status: "active",
     translations: {}
   });
 
@@ -29,7 +38,7 @@ export default function VehiclesClient() {
     setLoading(true);
     const res = await fetch("/api/vehicles");
     const data = await res.json();
-    setVehicles(data);
+    setVehicles(Array.isArray(data) ? data : []);
     setLoading(false);
   };
 
@@ -46,7 +55,13 @@ export default function VehiclesClient() {
       name: v.name,
       price: v.price,
       passengers: v.passengers,
-      image: v.image,
+      type: v.type || "",
+      fuel: v.fuel || "",
+      transmission: v.transmission || "",
+      image: v.image || "",
+      gallery: v.gallery || [],
+      driver: { name: v.driver?.name || "", phone: v.driver?.phone || "" },
+      status: v.status || "active",
       translations: v.translations || {}
     });
 
@@ -57,7 +72,8 @@ export default function VehiclesClient() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete vehicle?")) return;
 
-    await fetch(`/api/vehicles/${id}`, { method: "DELETE" });
+    const r = await fetch(`/api/vehicles/${id}`, { method: "DELETE" });
+    toast(r.ok ? "Vehicle deleted" : "Delete failed", r.ok ? "success" : "error");
     fetchVehicles();
   };
 
@@ -97,10 +113,12 @@ export default function VehiclesClient() {
     setSaving(false);
 
     if (!res.ok) {
-      alert("Error saving vehicle");
+      const j = await res.json().catch(() => ({}));
+      toast(j.error || "Error saving vehicle", "error");
       return;
     }
 
+    toast(editingId ? "Vehicle updated" : "Vehicle created");
     closeModal();
     fetchVehicles();
   };
@@ -114,13 +132,32 @@ export default function VehiclesClient() {
       name: "",
       price: "",
       passengers: "",
+      type: "",
+      fuel: "",
+      transmission: "",
       image: "",
+      gallery: [],
+      driver: { name: "", phone: "" },
+      status: "active",
       translations: {}
     });
   };
 
+  const toggleStatus = async (v: any) => {
+    const status = v.status === "inactive" ? "active" : "inactive";
+    const res = await fetch(`/api/vehicles/${v._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...v, status }),
+    });
+    if (res.ok) {
+      toast(status === "active" ? "Vehicle is now live" : "Vehicle hidden");
+      setVehicles((p) => p.map((x) => (x._id === v._id ? { ...x, status } : x)));
+    } else toast("Update failed", "error");
+  };
+
   return (
-    <div className="p-8 bg-[#09090b] min-h-screen text-zinc-200">
+    <div className="p-4 md:p-8 bg-[#09090b] min-h-screen text-zinc-200">
 
       {/* HEADER */}
       <div className="flex justify-between mb-8">
@@ -143,7 +180,7 @@ export default function VehiclesClient() {
         <div className="grid md:grid-cols-3 gap-6">
           {vehicles.map(v => (
             <div key={v._id}
-              className="bg-zinc-900 p-5 rounded-2xl hover:scale-[1.02] transition">
+              className={`bg-zinc-900 p-5 rounded-2xl border border-zinc-800 ${v.status === "inactive" ? "opacity-60" : ""}`}>
 
               {v.image && (
                 <img
@@ -161,6 +198,10 @@ export default function VehiclesClient() {
               </p>
 
               <div className="flex gap-3 mt-4">
+                <button title={v.status === "inactive" ? "Show on website" : "Hide from website"} onClick={() => toggleStatus(v)}>
+                  {v.status === "inactive" ? <EyeOff size={18}/> : <Eye size={18}/>}
+                </button>
+
                 <button onClick={() => handleEdit(v)}>
                   <Edit size={18}/>
                 </button>
@@ -177,7 +218,7 @@ export default function VehiclesClient() {
 
       {/* MODAL */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/90 flex justify-center items-start p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-[100] bg-black/90 flex justify-center items-start p-4 overflow-y-auto">
 
           <form
             onSubmit={handleSubmit}
@@ -219,20 +260,25 @@ export default function VehiclesClient() {
               className="w-full p-3 bg-zinc-800 rounded-xl"
             />
 
-            {/* IMAGE */}
-            <input
-              placeholder="Image URL"
-              value={formData.image}
-              onChange={e => setFormData({...formData, image: e.target.value})}
-              className="w-full p-3 bg-zinc-800 rounded-xl"
-            />
+            <div className="grid grid-cols-3 gap-3">
+              <input placeholder="Type (Van, Car…)" value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})} className="p-3 bg-zinc-800 rounded-xl" />
+              <input placeholder="Fuel" value={formData.fuel} onChange={e => setFormData({...formData, fuel: e.target.value})} className="p-3 bg-zinc-800 rounded-xl" />
+              <input placeholder="Transmission" value={formData.transmission} onChange={e => setFormData({...formData, transmission: e.target.value})} className="p-3 bg-zinc-800 rounded-xl" />
+            </div>
 
-            {formData.image && (
-              <img
-                src={formData.image}
-                className="w-full h-40 object-cover rounded-xl"
-              />
-            )}
+            <div className="grid grid-cols-2 gap-3">
+              <input placeholder="Driver name" value={formData.driver?.name || ""} onChange={e => setFormData({...formData, driver: {...formData.driver, name: e.target.value}})} className="p-3 bg-zinc-800 rounded-xl" />
+              <input placeholder="Driver phone" value={formData.driver?.phone || ""} onChange={e => setFormData({...formData, driver: {...formData.driver, phone: e.target.value}})} className="p-3 bg-zinc-800 rounded-xl" />
+            </div>
+
+            <select value={formData.status} onChange={e => setFormData({...formData, status: e.target.value})} className="w-full p-3 bg-zinc-800 rounded-xl">
+              <option value="active">Live on website</option>
+              <option value="inactive">Hidden</option>
+            </select>
+
+            {/* IMAGES */}
+            <ImageUploader label="Main image" value={formData.image} folder="vehicles" onChange={(v: string) => setFormData({...formData, image: v})} onError={(m) => toast(m, "error")} />
+            <ImageUploader label="Gallery" multiple value={formData.gallery} folder="vehicles" onChange={(v: string[]) => setFormData({...formData, gallery: v})} onError={(m) => toast(m, "error")} />
 
             {/* LANG SWITCH */}
             <div className="flex gap-2 overflow-x-auto">

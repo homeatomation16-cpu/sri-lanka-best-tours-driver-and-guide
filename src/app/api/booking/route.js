@@ -3,6 +3,7 @@ import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import { NextResponse } from "next/server";
 import { MINIMUM_TOUR_PEOPLE } from "@/utils/tourPricing";
+import { requireAdmin, esc } from "@/lib/adminAuth";
 
 // 🔹 MAIL TRANSPORT
 const transporter = nodemailer.createTransport({
@@ -57,18 +58,18 @@ export async function POST(req) {
         from: `"Tours Booking" <${process.env.SMTP_USER}>`,
         to: adminEmail,
         replyTo: email,
-        subject: `New Booking - ${itemName || "Tour"}`,
+        subject: `New Booking - ${String(itemName || "Tour").replace(/[\r\n]/g, " ")}`,
         html: `
           <h2>New Booking</h2>
-          <p><b>Name:</b> ${name}</p>
-          <p><b>Email:</b> ${email}</p>
-          <p><b>Phone:</b> ${phone || "-"}</p>
-          <p><b>Date:</b> ${date || "-"}</p>
-          <p><b>Item:</b> ${itemName || "-"}</p>
-          <p><b>People:</b> ${people}</p>
-          <p><b>Price per person:</b> $${pricePerPerson || "-"}</p>
-          <p><b>Total price:</b> $${totalPrice || "-"}</p>
-          <p><b>Message:</b> ${message || notes || "-"}</p>
+          <p><b>Name:</b> ${esc(name)}</p>
+          <p><b>Email:</b> ${esc(email)}</p>
+          <p><b>Phone:</b> ${esc(phone || "-")}</p>
+          <p><b>Date:</b> ${esc(date || "-")}</p>
+          <p><b>Item:</b> ${esc(itemName || "-")}</p>
+          <p><b>People:</b> ${esc(people)}</p>
+          <p><b>Price per person:</b> $${esc(pricePerPerson || "-")}</p>
+          <p><b>Total price:</b> $${esc(totalPrice || "-")}</p>
+          <p><b>Message:</b> ${esc(message || notes || "-")}</p>
         `,
       });
 
@@ -78,7 +79,7 @@ export async function POST(req) {
         to: email,
         subject: "Booking Received ✅",
         html: `
-          <h2>Hello ${name},</h2>
+          <h2>Hello ${esc(name)},</h2>
           <p>Your booking request has been received.</p>
           <p>We will contact you soon.</p>
           <br/>
@@ -99,6 +100,8 @@ export async function POST(req) {
 
 // 🔹 GET BOOKINGS
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
   try {
     await connectDB();
 

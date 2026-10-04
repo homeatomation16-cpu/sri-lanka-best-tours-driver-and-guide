@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/adminAuth";
 import connectDB from "@/lib/mongodb";
 import Vehicle from "@/models/Vehicle";
 import { NextResponse } from "next/server";
@@ -18,6 +19,9 @@ export async function GET() {
 
 // 🔹 CREATE VEHICLE
 export async function POST(req: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     await connectDB();
 

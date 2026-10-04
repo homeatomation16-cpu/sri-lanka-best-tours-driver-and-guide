@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
+import { getSiteContent } from "@/lib/siteContent";
+import { pick } from "@/lib/autoTranslate";
 
 export default async function TailorMade() {
   // translations namespace එක tailorMade ලෙස ගනිමු
@@ -8,7 +10,21 @@ export default async function TailorMade() {
 
   // Tags ටික translations වලින් ලබා ගැනීමට (JSON එකේ arrays ලෙස තිබිය යුතුය)
   // උදා: "tags": ["14 Days Average", "100% Private", "Fully Guided"]
-  const tags = t.raw("tags") || ["14 Days Average", "100% Private", "Fully Guided"];
+  const defaultTags = t.raw("tags") || ["14 Days Average", "100% Private", "Fully Guided"];
+
+  // Text/photo saved in Admin → Website Content (auto-translated). Falls back to the translation files.
+  const locale = await getLocale();
+  const c = await getSiteContent("tailorMade");
+  const txt = (field: string, fallback: string) => pick(c?.[field], locale) || fallback;
+  const tags: string[] = c?.tags?.length ? c.tags.map((x: any) => pick(x, locale)).filter(Boolean) : defaultTags;
+  const image: string = c?.image || "/tailor-made-sri-lanka.jpg";
+  const label = txt("label", t("label"));
+  const heading = txt("heading", t("heading"));
+  const desc = txt("desc", t("desc"));
+  const subtext1 = txt("subtext1", t("subtext1") || "Discover Sri Lanka your way — journeys designed entirely around you.");
+  const subtext2 = txt("subtext2", t("subtext2") || "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with premium access.");
+  const buttonPrimary = txt("buttonPrimary", t("buttonPrimary") || "Design My Journey");
+  const buttonSecondary = txt("buttonSecondary", t("buttonSecondary") || "Talk to a specialist →");
 
   return (
     <section className="relative py-28 md:py-36 bg-amber-50 overflow-hidden">
@@ -33,7 +49,7 @@ export default async function TailorMade() {
 
             <div className="relative w-full h-100 border border-amber-300 rounded-3xl overflow-hidden group shadow-2xl shadow-amber-900/10">
               <Image
-                src="/tailor-made-sri-lanka.jpg"
+                src={image}
                 alt="Tailor Made Tours Sri Lanka"
                 fill
                 priority
@@ -44,7 +60,7 @@ export default async function TailorMade() {
               <div className="absolute inset-0 bg-linear-to-t from-stone-900/75 via-stone-900/15 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                 <p className="text-amber-400 text-xs font-semibold uppercase tracking-[0.3em] mb-3">
-                  {t("label")}
+                  {label}
                 </p>
                 <h3 className="text-white font-serif text-4xl md:text-5xl font-semibold leading-[1.1] mb-5">
                   Sri Lanka
@@ -76,25 +92,25 @@ export default async function TailorMade() {
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-10 bg-amber-500" />
               <span className="text-amber-600 text-xs font-bold uppercase tracking-[0.25em]">
-                {t("label")}
+                {label}
               </span>
             </div>
 
             <h2 className="font-serif text-5xl md:text-6xl xl:text-7xl font-semibold text-stone-900 leading-[1.05] mb-8">
-              {t("heading")}
+              {heading}
               <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-600 to-orange-500">
-                {t("desc")}
+                {desc}
               </span>
             </h2>
 
             <div className="w-full h-px bg-linear-to-r from-amber-300/80 via-orange-200/60 to-transparent mb-8" />
 
             <p className="text-stone-600 text-lg leading-[1.8] mb-5">
-              {t("subtext1") || "Discover Sri Lanka your way — journeys designed entirely around you."}
+              {subtext1}
             </p>
             <p className="text-stone-600 text-lg leading-[1.8] mb-10">
-              {t("subtext2") || "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with premium access."}
+              {subtext2}
             </p>
 
             <div className="flex flex-wrap items-center gap-5">
@@ -102,13 +118,13 @@ export default async function TailorMade() {
                 href="/tailor-made-tours"
                 className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-bold text-base shadow-lg hover:-translate-y-0.5 transition-all duration-300 bg-linear-to-r from-amber-500 to-orange-500"
               >
-                {t("buttonPrimary") || "Design My Journey"}
+                {buttonPrimary}
               </Link>
               <Link
                 href="/contact"
                 className="text-stone-500 hover:text-stone-800 text-base font-medium transition-colors duration-200"
               >
-                {t("buttonSecondary") || "Talk to a specialist →"}
+                {buttonSecondary}
               </Link>
             </div>
           </div>

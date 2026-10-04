@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/adminAuth";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Vehicle, { IVehicle } from "@/models/Vehicle";
@@ -25,6 +26,9 @@ const allLangs: Record<string, any[]> = {
 };
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     await connectDB();
 

@@ -22,6 +22,7 @@ import Footer from "../../components/Footer";
 import TrustBar from "../../components/TrustBar";
 import LanguageFloatingButton from "@/components/LanguageFloatingButton";
 import FloatingCurrency from "@/components/FloatingCurrency";
+import PageTracker from "@/components/PageTracker";
 
 /* =========================================================
    1. SITE CONFIG
@@ -563,6 +564,9 @@ export default async function LocaleLayout({
           ================================================= */}
 
           <FloatingCurrency />
+
+          {/* anonymous visitor analytics (see Admin → Analytics) */}
+          <PageTracker />
         </NextIntlClientProvider>
       </body>
     </html>

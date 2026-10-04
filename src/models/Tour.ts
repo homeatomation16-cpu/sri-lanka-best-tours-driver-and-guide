@@ -1,35 +1,29 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import mongoose, { Schema, models } from "mongoose";
 
-const TourSchema = new Schema({
-  tourId: { type: String, required: true, unique: true },
-  price: { type: Number, required: true },
-  pricePerPerson: { type: Number },
-  additionalPersonPrice: { type: Number },
-  minimumPeople: { type: Number, default: 2 },
-  image: { type: String },
-  duration: { type: Number },
-  tourType: { type: String },
-  translations: {
-    type: Map,
-    of: new Schema({
-      title: String,
-      overview: String,
-      itinerary: Array,
-      included: Array,
-      excluded: Array,
-      vehicleInfo: Array,
-    }, { _id: false })
+const TourSchema = new Schema(
+  {
+    tourId: { type: String, required: true, unique: true, trim: true },
+    price: { type: Number, required: true },
+    pricePerPerson: { type: Number },
+    additionalPersonPrice: { type: Number },
+    minimumPeople: { type: Number, default: 2 },
+    maxPeople: { type: Number },
+    minAge: { type: Number },
+    image: { type: String },
+    gallery: [{ type: String }],
+    duration: { type: Number },
+    tourType: { type: String },
+    featured: { type: Boolean, default: false },
+    translations: { type: Map, of: Schema.Types.Mixed },
+    status: { type: String, enum: ["active", "inactive"], default: "active" },
   },
-  status: { type: String, default: "active" },
-  createdAt: { type: Date, default: Date.now },
-}, { 
-  strict: false // මෙන්න මේ පේළිය අන්තිමට එකතු කරන්න. එතකොට path errors එන්නේ නැහැ.
-});
+  {
+    strict: false,
+    timestamps: true,
+  }
+);
 
-// Next.js Hot Reload වලදී එන Schema errors වැලැක්වීමට මෙය අත්‍යවශ්‍යයි
-if (models.Tour) {
-  delete (mongoose as any).models.Tour;
-}
+TourSchema.index({ status: 1 });
 
-const Tour = mongoose.model("Tour", TourSchema);
+const Tour: any = models.Tour ?? mongoose.model("Tour", TourSchema);
 export default Tour;

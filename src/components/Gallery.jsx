@@ -5,11 +5,12 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { TOUR_GALLERIES } from "../data/gallery";
 
-export default function Gallery() {
+export default function Gallery({ items, heading }) {
   const sliderRef = useRef(null);
 
   // 🔥 Combine ALL gallery arrays into one single array
-  const images = Object.values(TOUR_GALLERIES).flat();
+  // Admin-saved items win; if the admin never saved anything we show the built-in photos.
+  const images = Array.isArray(items) ? items : Object.values(TOUR_GALLERIES).flat();
 
   useEffect(() => {
     const el = sliderRef.current;
@@ -49,6 +50,8 @@ export default function Gallery() {
     };
   }, []);
 
+  if (images.length === 0) return null;
+
   return (
     <section className="py-28 bg-linear-to-brom-white to-gray-50">
       <div className="  x-overflow-hidden mx-auto px-6">
@@ -56,11 +59,11 @@ export default function Gallery() {
         {/* HEADER */}
         <div className="text-center mb-16">
           <p className="text-orange-500 tracking-widest mb-3">
-            GALLERY
+            {heading?.label || "GALLERY"}
           </p>
 
           <h2 className="text-4xl lg:text-6xl font-bold">
-            Travel Moments
+            {heading?.title || "Travel Moments"}
           </h2>
         </div>
 
