@@ -1,199 +1,110 @@
-"use client";
-
+// About us, laid out like the live site: photo hero, story with checklist, stat tiles, six reasons.
+import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  ArrowUpRight, Phone, Mail, Star, Shield, Users,
-  Award, Heart, CheckCircle,
-} from "lucide-react";
-import { motion, Variants } from "framer-motion"; // Variants මෙහිදී එක් කර ඇත
-import { useTranslations } from "next-intl";
-import { contact } from "@/data/contact";
+import { getTranslations } from "next-intl/server";
+import { ArrowUpRight, Award, CheckCircle2, Heart, Shield, Star, Users } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { pageAlternates } from "@/lib/seo";
+import { ListingHero } from "@/components/site/ListingPage";
 
-// 1. Animation Variants වලට 'Variants' type එක ලබා දීමෙන් Error එක විසඳේ
-const reveal: Variants = {
-  hidden: { opacity: 0, y: 36 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.8, 
-      ease: [0.16, 1, 0.3, 1] // දැන් මෙය නිවැරදිව හඳුනා ගනී
-    } 
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
+  return { title: t("title"), description: t("desc1"), alternates: pageAlternates(locale, "/about") };
+}
 
-const stagger: Variants = { 
-  hidden: {}, 
-  show: { transition: { staggerChildren: 0.1 } } 
-};
+const REASONS = [
+  { key: "licensed", icon: Shield },
+  { key: "rated", icon: Star },
+  { key: "private", icon: Users },
+  { key: "passionate", icon: Heart },
+  { key: "pata", icon: Award },
+  { key: "transparent", icon: CheckCircle2 },
+] as const;
 
-export default function AboutPage() {
-  const t = useTranslations("about");
-  const tStats = useTranslations("stats");
-  const tWhy = useTranslations("whyUs");
+const STATS = [
+  { value: "10+", key: "experience" },
+  { value: "5000+", key: "travelers" },
+  { value: "24/7", key: "support" },
+  { value: "100%", key: "certified" },
+] as const;
 
-  const STATS = [
-    { value: "10+", label: tStats("experience") },
-    { value: "5000+", label: tStats("travelers") },
-    { value: "24/7", label: tStats("support") },
-    { value: "100%", label: tStats("certified") },
-  ];
-
-  const REASONS = [
-    { icon: Shield, title: tWhy("features.licensed.title"), desc: tWhy("features.licensed.desc") },
-    { icon: Star, title: tWhy("features.rated.title"), desc: tWhy("features.rated.desc") },
-    { icon: Users, title: tWhy("features.private.title"), desc: tWhy("features.private.desc") },
-    { icon: Heart, title: tWhy("features.passionate.title"), desc: tWhy("features.passionate.desc") },
-    { icon: Award, title: tWhy("features.pata.title"), desc: tWhy("features.pata.desc") },
-    { icon: CheckCircle, title: tWhy("features.transparent.title"), desc: tWhy("features.transparent.desc") },
-  ];
-
-  const CHECKLIST = [
-    t("checklist.item1"),
-    t("checklist.item2"),
-    t("checklist.item3"),
-    t("checklist.item4"),
-  ];
-
-  const PARTNERS = [
-    { name: "Sri Lanka Tourism", short: "SLT" },
-    { name: "TripAdvisor", short: "TRIP" },
-    { name: "Tourism Board", short: "SLTDA" },
-    { name: "PATA", short: "PATA" },
-    { name: "SKAL", short: "SKAL" },
-  ];
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
 
   return (
-    <main className="bg-white overflow-hidden">
-      {/* HERO */}
-      <section className="relative bg-linear-to-r from-orange-600 to-amber-500 py-20 px-6 overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.1]"
-          style={{
-            backgroundImage: "repeating-linear-gradient(-45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)",
-            backgroundSize: "16px 16px",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl lg:text-6xl font-bold text-white tracking-tight"
-          >
-            {t("title")}
-          </motion.h1>
-        </div>
-      </section>
+    <main className="bg-white">
+      <ListingHero image="/aboutcover.jpg" eyebrow={t("label")} title={t("title")} subtitle={t("desc1")} />
 
-      {/* MAIN CONTENT */}
-      <section className="relative py-24 lg:py-32 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          
-          {/* Left: Image Side */}
-          <motion.div variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true }} className="relative">
-            <div className="relative rounded-[2.5rem] overflow-hidden aspect-4/5 shadow-2xl">
-              <Image 
-                src="/aboutcover.jpg" 
-                alt="Exploring Sri Lanka" 
-                fill 
-                className="object-cover" 
-              />
-              <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl">
-                <p className="text-orange-600 font-serif italic text-2xl">Create your</p>
-                <p className="text-orange-700 font-black text-4xl uppercase tracking-tighter">Memories</p>
-              </div>
+      {/* STORY */}
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20">
+          <div className="relative">
+            <div className="relative aspect-4/5 overflow-hidden rounded-[2.5rem] shadow-xl">
+              <Image src="/aboutcover.jpg" alt={t("title")} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
-          </motion.div>
+            <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-white/90 p-6 shadow-lg backdrop-blur sm:inset-x-8 sm:bottom-8">
+              <p className="font-playfair text-xl italic text-emerald-800">{t("heading")}</p>
+              <p className="text-2xl font-semibold uppercase tracking-tight text-amber-600 sm:text-3xl">{t("headingHighlight")}</p>
+            </div>
+          </div>
 
-          {/* Right: Text Side */}
-          <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <motion.div variants={reveal} className="flex items-center gap-3 mb-6">
-              <div className="h-0.5 w-10 bg-orange-500" />
-              <span className="text-orange-500 text-xs font-bold tracking-[0.3em] uppercase">{t("label")}</span>
-            </motion.div>
-
-            <motion.h2 variants={reveal} className="text-4xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-8">
-              {t("heading")}{" "}
-              <span className="text-orange-500 underline decoration-amber-300 underline-offset-8">
-                {t("headingHighlight")}
-              </span>
-            </motion.h2>
-
-            <motion.div variants={reveal} className="space-y-6 text-gray-600 text-lg leading-relaxed mb-10">
+          <div>
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-0.5 w-10 bg-amber-500" aria-hidden />
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-600">{t("label")}</span>
+            </div>
+            <h2 className="mb-8 font-playfair text-4xl leading-[1.1] text-slate-900 lg:text-5xl">
+              {t("heading")} <span className="text-emerald-700 underline decoration-amber-400 decoration-2 underline-offset-8">{t("headingHighlight")}</span> {t("headingEnd")}
+            </h2>
+            <div className="mb-10 space-y-5 text-lg leading-relaxed text-slate-600">
               <p>{t("desc1")}</p>
               <p>{t("desc2")}</p>
-            </motion.div>
-
-            <motion.div variants={stagger} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-              {CHECKLIST.map((item) => (
-                <motion.div key={item} variants={reveal} className="flex items-center gap-3">
-                  <div className="bg-orange-100 p-1 rounded-full">
-                    <CheckCircle className="w-4 h-4 text-orange-600" />
-                  </div>
-                  <span className="text-sm font-semibold text-gray-700">{item}</span>
-                </motion.div>
+            </div>
+            <ul className="mb-12 grid gap-4 sm:grid-cols-2">
+              {(["item1", "item2", "item3", "item4"] as const).map((k) => (
+                <li key={k} className="flex items-center gap-3">
+                  <span className="rounded-full bg-emerald-50 p-1">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" aria-hidden />
+                  </span>
+                  <span className="text-sm font-semibold text-slate-800">{t(`checklist.${k}`)}</span>
+                </li>
               ))}
-            </motion.div>
-
-            <motion.div variants={reveal}>
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gray-900 text-white font-bold transition-all hover:bg-orange-600 shadow-xl"
-              >
-                {t("cta")}
-                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </Link>
-            </motion.div>
-          </motion.div>
+            </ul>
+            <Link href="/contact" className="group inline-flex items-center gap-3 rounded-full bg-emerald-900 px-9 py-4 font-semibold text-white shadow-lg transition-colors hover:bg-amber-500 hover:text-emerald-950">
+              {t("cta")}
+              <ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:-scale-x-100" />
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* STATS */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {STATS.map(({ value, label }) => (
-            <motion.div key={label} variants={reveal} className="bg-white border border-gray-100 p-10 rounded-4xl text-center shadow-sm">
-              <h3 className="text-5xl font-black text-gray-900 mb-2">{value}</h3>
-              <p className="text-[10px] font-bold text-orange-500 uppercase tracking-[0.2em]">{label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* WHY CHOOSE US */}
-      <section className="bg-gray-50 py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {REASONS.map(({ icon: Icon, title, desc }) => (
-              <motion.div key={title} variants={reveal} className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all group">
-                <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-orange-500 transition-colors">
-                  <Icon className="w-7 h-7 text-orange-600 group-hover:text-white" />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">{title}</h4>
-                <p className="text-gray-500 leading-relaxed text-sm">{desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CONTACT CTA */}
-      <section className="py-32 px-6">
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="max-w-7xl mx-auto bg-orange-600 rounded-[3rem] p-12 lg:p-20 text-center relative overflow-hidden">
-          <div className="relative z-10 text-white">
-            <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight">Ready to plan your dream getaway?</h2>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a href="tel:+94769300334" className="flex items-center gap-3 px-8 py-4 bg-white text-orange-600 rounded-full font-bold shadow-lg">
-                <Phone size={20} /> ${contact.phone}
-              </a>
-              <a href="${contact.email}" className="flex items-center gap-3 px-8 py-4 bg-orange-700 text-white rounded-full font-bold">
-                <Mail size={20} /> Email Us
-              </a>
+      <section className="pb-16 sm:pb-24">
+        <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-5 px-6 lg:grid-cols-4">
+          {STATS.map((s) => (
+            <div key={s.key} className="flex min-w-0 flex-col-reverse rounded-4xl border border-amber-100 bg-amber-50/60 px-3 py-6 text-center sm:p-10">
+              <dt className="mt-2 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-amber-700 sm:tracking-[0.2em]">{t(`stats.${s.key}`)}</dt>
+              <dd className="font-playfair text-3xl text-slate-900 sm:text-5xl">{s.value}</dd>
             </div>
-          </div>
-        </motion.div>
+          ))}
+        </dl>
+      </section>
+
+      {/* REASONS */}
+      <section className="bg-[#f5efe3] py-16 sm:py-24">
+        <ul className="mx-auto grid max-w-7xl gap-6 px-6 md:grid-cols-2 lg:grid-cols-3">
+          {REASONS.map(({ key, icon: Icon }) => (
+            <li key={key} className="group rounded-[2.5rem] bg-white p-9 shadow-sm transition-shadow hover:shadow-xl">
+              <span className="mb-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 transition-colors group-hover:bg-emerald-800">
+                <Icon className="h-7 w-7 text-emerald-600 transition-colors group-hover:text-amber-400" aria-hidden />
+              </span>
+              <h3 className="mb-3 text-xl font-semibold text-slate-900">{t(`reasons.${key}.title`)}</h3>
+              <p className="text-sm leading-relaxed text-slate-600">{t(`reasons.${key}.desc`)}</p>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );

@@ -3,8 +3,8 @@
 :root {
   --font-accent: var(--font-thea);
 
-  --font-sans: var(--font-body);
-  --font-serif: var(--font-heading);
+  --font-sans: var(--font-poppins);
+  --font-serif: var(--font-playfair);
 
   --padding: 10vmin;
   --color-background: #d0cbc7;
@@ -25,8 +25,28 @@ body {
   background-color: var(--color-background);
   font-weight: 400;
   font-size: var(--font-size-normal);
-  overflow-x: hidden;
+  overflow-x: clip; /* clip, not hidden: hidden on html+body turns body into a scroll container and breaks position:sticky */
 }
+/* The ambient landscape fills the viewport without adding page height. */
+.site-world {
+  position: relative;
+  isolation: isolate;
+}
+
+.world-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.world-landscape {
+  position: absolute;
+  /* Match SiteMotion's maximum y (45px) and x (18px) travel. */
+  inset: -45px -18px;
+}
+
 .text-stroke-custom {
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: rgb(236, 156, 8);
@@ -104,3 +124,1490 @@ body {
   border: 1px solid #ddd;
   font-size: 14px;
 }
+
+.hero-section {
+  min-height: clamp(620px, 88svh, 920px);
+}
+
+.hero-edge-fade {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 76px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0%) 0%,
+    rgb(255 255 255 / 8%) 18%,
+    rgb(255 255 255 / 35%) 44%,
+    rgb(255 255 255 / 80%) 76%,
+    #fff 100%
+  );
+}
+
+.hero-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(255 255 255 / 50%);
+  border-radius: 50%;
+  background: rgb(15 23 42 / 35%);
+  color: white;
+  cursor: pointer;
+}
+
+.hero-control:hover { background: rgb(255 255 255 / 20%); }
+
+:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: 8px;
+  padding: 12px 20px;
+  background: white;
+  color: #0f172a;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+.home-section-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  max-width: 100%;
+  border: 1px solid #b86525;
+  border-radius: 999px;
+  padding: 13px 25px;
+  background: #b86525;
+  color: white;
+  box-shadow: 0 6px 18px -10px #9a4d20;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  transition: background-color 180ms, color 180ms;
+}
+
+.home-section-link:hover {
+  background: #123e36;
+  border-color: #123e36;
+  color: white;
+}
+
+.home-section-link svg { flex-shrink: 0; }
+
+
+/* Scenery and compact spacing connect the homepage sections. */
+.home-section-spacing {
+  padding-block: clamp(40px, 4.5vw, 64px);
+}
+
+.featured-tours-section::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto auto;
+  z-index: -1;
+  width: min(65%, 800px);
+  height: 420px;
+  background: url("/hero/mirissa-poster.webp") center / cover;
+  opacity: 0.16;
+  mask-image: linear-gradient(to left, black, transparent), linear-gradient(to bottom, black, transparent);
+  mask-composite: intersect;
+  pointer-events: none;
+}
+
+.seasonal-section {
+  background: #e7f2f0;
+}
+
+.seasonal-scenery {
+  opacity: 1;
+}
+
+.seasonal-tour-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.day-tour-frame,
+.seasonal-card-frame {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  animation: card-float 7s ease-in-out infinite;
+}
+
+.day-tour-frame:nth-child(2n),
+.seasonal-card-frame:nth-child(2n) { animation-delay: 0.6s; }
+.day-tour-frame:nth-child(3n),
+.seasonal-card-frame:nth-child(3n) { animation-delay: 1.2s; }
+
+.day-tours-section {
+  background: #f8f4eb;
+}
+
+.day-tours-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 100% 0%, transparent 45%, #cfac7240 45.2%, transparent 45.5%),
+    radial-gradient(ellipse at 100% 0%, transparent 50%, #cfac7230 50.2%, transparent 50.5%),
+    radial-gradient(ellipse at 100% 0%, transparent 55%, #cfac7220 55.2%, transparent 55.5%);
+  pointer-events: none;
+}
+
+.day-tour-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+@media (min-width: 640px) {
+  .day-tour-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .day-tour-grid--1 { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .day-tour-grid--3,
+  .day-tour-grid--5,
+  .day-tour-grid--6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .day-tour-grid--5 > :first-child { grid-column: span 2; }
+}
+
+.why-us-section {
+  display: grid;
+  align-items: center;
+  min-height: 92svh;
+  padding-block: clamp(72px, 7vw, 112px);
+  background: linear-gradient(180deg, #5c786b, #123e36 120px, #123e36 calc(100% - 80px), #edf4ef);
+}
+
+.why-us-photo {
+  box-shadow: 12px 12px 0 -4px #d4a74e;
+}
+
+.why-us-feature {
+  transition: background-color 220ms, border-color 220ms;
+}
+
+.why-us-feature:hover {
+  background: rgb(9 46 41 / 95%);
+  border-color: rgb(251 191 36 / 55%);
+}
+
+.travel-card,
+.seasonal-photo-card,
+.package-story-card {
+  position: relative;
+  min-width: 0;
+  transform-style: preserve-3d;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms ease, border-color 250ms ease;
+  box-shadow: 0 18px 40px -28px rgb(15 23 42 / 50%);
+}
+
+.travel-card::before,
+.seasonal-photo-card::before,
+.package-story-card::before {
+  content: "";
+  position: absolute;
+  inset: 8% 8% auto auto;
+  width: 42%;
+  height: 30%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgb(255 255 255 / 32%), transparent 68%);
+  filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateZ(40px);
+  transition: opacity 300ms ease;
+}
+
+.travel-card-image {
+  transition: transform 650ms cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .travel-card:not(.day-tour-card):hover,
+  .seasonal-photo-card:hover,
+  .package-story-card:hover {
+    transform: rotateX(5deg) rotateY(-8deg) translateY(-8px);
+    box-shadow: 0 30px 60px -25px rgb(15 23 42 / 50%);
+  }
+
+  .travel-card:not(.day-tour-card):hover::before,
+  .seasonal-photo-card:hover::before,
+  .package-story-card:hover::before {
+    opacity: 1;
+  }
+
+  .travel-card:not(.day-tour-card):hover .travel-card-image,
+  .seasonal-photo-card:hover .travel-card-image,
+  .package-story-card:hover .travel-card-image { transform: scale(1.06); }
+}
+
+@keyframes card-float {
+  0%,
+  100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .travel-reveal {
+      animation: travel-section-enter linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+
+@keyframes travel-section-enter {
+  from { opacity: 0.65; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.vehicle-home-scenery {
+  opacity: 0.6;
+}
+
+
+.scroll-scene {
+  --scene-background-y: 0px;
+  --scene-card-y: 0px;
+  --scene-rotation: 0deg;
+}
+
+.scene-background {
+  inset: -64px 0;
+  transform: translate3d(0, var(--scene-background-y), 0);
+}
+
+.scene-depth-card {
+  min-width: 0;
+  transform: perspective(1200px) translate3d(0, var(--scene-card-y), 0) rotateX(var(--scene-rotation));
+  transform-origin: center;
+}
+
+.seasonal-heading {
+  padding-inline: 0;
+  padding-block: 0;
+  margin-bottom: 32px;
+  background: transparent;
+  border: 0;
+}
+
+.seasonal-photo-card {
+  min-height: 440px;
+  box-shadow: 0 22px 45px -20px rgb(7 35 39 / 55%);
+}
+
+.seasonal-card-shade {
+  background: linear-gradient(to top, #051318 0%, rgb(5 19 24 / 92%) 22%, rgb(5 19 24 / 55%) 55%, transparent 85%);
+}
+
+.seasonal-photo-card:hover .travel-card-image {
+  transform: scale(1.045);
+}
+
+.why-us-scenery::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(18 62 54 / 35%), rgb(18 62 54 / 14%) 45%, rgb(18 62 54 / 40%));
+}
+
+.why-us-story {
+  background: rgb(9 46 41 / 88%);
+  border: 1px solid rgb(255 255 255 / 20%);
+  backdrop-filter: blur(8px);
+}
+
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .seasonal-depth-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+@media (min-width: 1024px) {
+  .seasonal-card-frame:nth-child(2n) { margin-top: 16px; }
+  .seasonal-card-frame:nth-child(3n) { margin-top: 0; }
+  .day-tour-frame:nth-child(2n) { margin-top: 18px; }
+  .day-tour-frame:nth-child(3n) { margin-top: -8px; }
+  .seasonal-section { padding-bottom: 72px; }
+  .seasonal-depth-card:first-child .seasonal-photo-card { min-height: 500px; }
+  .seasonal-depth-card:nth-child(2) { margin-top: 68px; }
+  .seasonal-depth-card:nth-child(2) .seasonal-photo-card { min-height: 400px; }
+  .seasonal-depth-card:nth-child(3) { margin-top: 24px; }
+  .seasonal-depth-card:nth-child(3) .seasonal-photo-card { min-height: 530px; }
+  .seasonal-depth-card:nth-child(2n),
+  .day-tour-grid > .scene-depth-card:nth-child(2n) {
+    transform: perspective(1200px) translate3d(0, calc(var(--scene-card-y) * -0.7), 0) rotateX(calc(var(--scene-rotation) * -0.7));
+  }
+}
+
+@media (max-width: 639px) {
+  .scene-depth-card {
+    transform: perspective(1200px) translate3d(0, calc(var(--scene-card-y) * 0.4), 0) rotateX(calc(var(--scene-rotation) * 0.4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-scene .scene-background,
+  .scroll-scene .scene-depth-card { transform: none !important; }
+}
+
+
+.experience-section {
+  background: #f9f7f2;
+  border-bottom: 1px solid #e6e6dd;
+}
+
+.experience-rail {
+  display: flex;
+  gap: 16px;
+  min-height: 440px;
+}
+
+.experience-panel {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #102d35;
+  transition: flex 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.experience-panel.is-active {
+  flex: 2.25;
+  border-radius: 16px;
+}
+
+.experience-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  cursor: pointer;
+  color: white;
+  text-align: start;
+}
+
+.experience-image { transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.experience-panel.is-active .experience-image { transform: scale(1.035); }
+
+.experience-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(5 23 28 / 85%), transparent 70%);
+}
+
+.experience-label {
+  position: absolute;
+  inset-inline-start: 24px;
+  bottom: 30px;
+  font-size: clamp(24px, 2.5vw, 38px);
+  line-height: 1.15;
+  transition: bottom 500ms;
+}
+
+.experience-panel.is-active .experience-label { bottom: 94px; }
+
+.experience-link {
+  position: absolute;
+  inset-inline: 24px;
+  bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgb(255 255 255 / 35%);
+  padding-top: 16px;
+  color: white;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms;
+}
+
+.experience-panel.is-active .experience-link { opacity: 1; pointer-events: auto; }
+.experience-select:focus-visible { outline-offset: -6px; }
+
+.bespoke-section {
+  background: #eef3ed;
+}
+
+.bespoke-composition {
+  position: relative;
+  perspective: 1200px;
+  isolation: isolate;
+  min-height: 520px;
+  padding-bottom: 60px;
+}
+
+.bespoke-composition [data-card-depth] {
+  transform: translateY(var(--card-y, 0px)) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+  transform-origin: center;
+}
+
+.bespoke-card-back {
+  position: absolute;
+  width: 80%;
+  height: 420px;
+  border: 1px solid rgb(18 62 54 / 15%);
+  border-radius: 16px;
+  pointer-events: none;
+  box-shadow: 0 24px 40px -28px rgb(18 62 54 / 40%);
+}
+
+.bespoke-card-back-far {
+  top: -24px;
+  inset-inline-start: 28px;
+  background: #cfddd4;
+  z-index: -2;
+}
+
+.bespoke-card-back-near {
+  top: -12px;
+  inset-inline-start: 14px;
+  background: #e0e8de;
+  z-index: -1;
+}
+
+.bespoke-main-photo {
+  position: relative;
+  width: 80%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 30px 50px -28px rgb(18 62 54 / 55%);
+}
+
+.bespoke-detail-photo {
+  position: absolute;
+  inset-inline-end: 0;
+  bottom: 40px;
+  width: 48%;
+  height: 250px;
+  overflow: hidden;
+  border: 8px solid #eef3ed;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px -25px #123e36;
+}
+
+.bespoke-photo-caption {
+  position: absolute;
+  bottom: 6px;
+  inset-inline: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bespoke-photo-caption span {
+  border: 1px solid #b5c8bb;
+  border-radius: 99px;
+  padding: 7px 12px;
+  font-size: 12px;
+  color: #123e36;
+}
+
+.package-story-frame { min-width: 0; }
+.package-story-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 22px;
+}
+
+.package-story-card {
+  position: relative;
+  min-height: 310px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #102d35;
+  color: white;
+}
+
+.package-story-frame:first-child { grid-row: span 2; }
+.package-story-card { display: block; height: 100%; }
+.package-story-card:hover .travel-card-image { transform: scale(1.04); }
+
+.package-story-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(4 20 24 / 96%), rgb(4 20 24 / 40%) 45%, transparent 80%);
+}
+
+.package-duration {
+  position: absolute;
+  top: 20px;
+  inset-inline-start: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 99px;
+  padding: 8px 13px;
+  background: rgb(255 255 255 / 92%);
+  color: #123e36;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.package-story-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: inherit;
+  height: 100%;
+  padding: 80px 26px 26px;
+}
+
+.package-story-frame:first-child .package-story-copy { min-height: 642px; }
+.package-story-action { display: inline-flex; align-items: center; gap: 12px; }
+.package-story-action svg { flex-shrink: 0; transition: transform 220ms; }
+.package-story-card:hover .package-story-action svg { transform: translate(3px, -3px); }
+
+.hero-display { text-wrap: balance; }
+.hero-slide-selector { max-width: 100%; }
+.hero-slide-step {
+  position: relative;
+  width: 24px;
+  min-width: 12px;
+  height: 28px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.hero-slide-step::before,
+.hero-slide-step span {
+  position: absolute;
+  inset: 12px 0;
+  border-radius: 99px;
+  background: rgb(255 255 255 / 45%);
+}
+.hero-slide-step::before { content: ""; }
+.hero-slide-step span { background: #fbbf24; transform-origin: left; }
+.hero-slide-step[aria-current="true"]::before { background: white; }
+
+@media (max-width: 767px) {
+  .experience-rail {
+    min-height: 380px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px 4px 18px;
+  }
+  .experience-panel,
+  .experience-panel.is-active { flex: 0 0 78%; min-height: 360px; border-radius: 16px; scroll-snap-align: start; }
+  .package-story-grid { grid-template-columns: 1fr; }
+  .package-story-frame:first-child { grid-row: auto; }
+  .package-story-frame:first-child .package-story-copy { min-height: 400px; }
+  .bespoke-composition { min-height: 430px; }
+  .bespoke-main-photo { height: 340px; }
+  .bespoke-card-back { height: 340px; }
+  .bespoke-detail-photo { height: 190px; bottom: 52px; }
+  .bespoke-photo-caption { bottom: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-panel,
+  .experience-image,
+  .experience-label,
+  .experience-link { transition: none; }
+}
+
+/* Cinematic stages use bounded camera travel; masks stay on static plates. */
+.cinematic-root { overflow-x: clip; }
+.cine-scene {
+  --ink: #0f2a2e;
+  --accent: #b86525;
+  position: relative;
+  isolation: isolate;
+  height: 125svh;
+  overflow: clip;
+}
+.cine-stage {
+  position: sticky;
+  top: 80px;
+  height: calc(100svh - 80px);
+  overflow: hidden;
+  perspective: 1200px;
+}
+.cine-plate { position: absolute; inset: 0; overflow: hidden; }
+.cine-photo { position: absolute; inset: -8% 0; transform-origin: center; }
+[data-layer] { will-change: transform; }
+:dir(rtl) .cine-scene { --copy-direction: 270deg; }
+.cine-ascent { background: linear-gradient(180deg, #e4edf3, #e8eef0 35%, #f9f7f2); }
+.cine-plate-ascent {
+  mask-image: linear-gradient(180deg, transparent, #000 8%, #000 72%, transparent);
+}
+.cine-plate-ascent::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--copy-direction, 90deg), rgb(249 247 242 / 88%), rgb(249 247 242 / 72%) 32%, transparent 80%);
+}
+.cine-ascent .cine-photo img { object-position: 50% 60%; }
+.cine-skytext {
+  position: absolute;
+  inset: 3% 0 auto;
+  z-index: 2;
+  width: min(800px, 100% - 48px);
+  margin-inline: auto;
+  text-align: center;
+  pointer-events: none;
+}
+.cine-skytext p {
+  margin: 0;
+  color: #29494b;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  line-height: 1.5;
+  text-wrap: balance;
+  text-shadow: 0 1px 16px rgb(255 255 255 / 80%);
+}
+.cine-mega {
+  position: absolute;
+  inset: 12% 0 auto;
+  margin: 0;
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(4rem, min(20vw, 29svh, calc(140vw / var(--len, 6))), 20rem);
+  font-weight: 700;
+  line-height: .85;
+  letter-spacing: -.045em;
+  color: rgb(255 255 255 / 65%);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.cine-mist, .cine-cloud { position: absolute; pointer-events: none; }
+.cine-mist {
+  inset: 58% -10% auto;
+  height: 30%;
+  filter: blur(24px);
+  background: radial-gradient(ellipse at 35% 60%, #f9f7f2, transparent 70%);
+  opacity: .2;
+}
+.cine-mist-b { top: 70%; }
+.cine-compose {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+  width: min(1280px, 100% - 48px);
+  margin-inline: auto;
+  padding-block: 120px 56px;
+}
+.cine-copy { max-width: 34rem; }
+.cine-ascent .cine-copy { text-shadow: 0 0 22px rgb(249 247 242 / 90%); }
+.cine-eyebrow { margin-bottom: 16px; color: var(--accent); font-weight: 600; font-size: .9rem; }
+.cine-title {
+  margin: 0 0 20px;
+  color: var(--ink);
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(2.2rem, min(4.2vw, 6.8svh), 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+.cine-text { max-width: 31rem; color: #3f4f52; font-size: 1.05rem; line-height: 1.75; }
+.cine-cta {
+  display: inline-flex;
+  margin-top: 24px;
+  padding: 14px 26px;
+  border-radius: 99px;
+  background: var(--ink);
+  color: white;
+  font-weight: 600;
+  transition: background-color 200ms;
+}
+.cine-cta:hover { background: var(--accent); }
+.cine-cta:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.cine-frame {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 5 / 4;
+  margin: 32px 0 0;
+  justify-self: end;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 32px 60px -32px rgb(15 42 46 / 50%);
+}
+.cine-frame-inner { position: absolute; inset: 0; }
+.cine-frame-ascent img { object-position: 50% 58%; }
+.cine-descent { background: linear-gradient(180deg, #eef3f2, #d9a25c 30%, #5a3418 60%); }
+/* Golden-hour look: the dusk photo is warmed from violet to amber and lifted a little */
+.cine-plate-descent .cine-photo img { filter: sepia(0.6) saturate(1.55) hue-rotate(-12deg) brightness(1.12) contrast(1.02); }
+.cine-plate-descent { mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); }
+.cine-plate-descent::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 45% at 70% 42%, rgb(255 196 92 / 38%), transparent 70%),
+    linear-gradient(var(--copy-direction, 90deg), rgb(70 36 12 / 55%), rgb(70 36 12 / 12%) 60%, transparent),
+    linear-gradient(180deg, rgb(255 170 70 / 18%), transparent 45%, rgb(90 52 24 / 55%));
+}
+.cine-descent .cine-stage::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 32%;
+  z-index: 2;
+  background: linear-gradient(180deg, transparent, rgb(90 52 24 / 40%) 40%, rgb(90 52 24 / 85%) 75%, #5a3418);
+  pointer-events: none;
+}
+.cine-mega-low { top: auto; bottom: 12%; color: rgb(255 255 255 / 14%); }
+.cine-cloud { top: -10%; bottom: -10%; width: 65%; filter: blur(24px); }
+.cine-cloud-l { left: -25%; background: radial-gradient(ellipse, rgb(238 243 242 / 45%), transparent 70%); transform: translateX(-62vw); }
+.cine-cloud-r { right: -25%; background: radial-gradient(ellipse, rgb(238 243 242 / 45%), transparent 70%); transform: translateX(62vw); }
+.cine-cloud-c { inset: 0; width: auto; background: linear-gradient(180deg, #eef3f2, transparent 35%); opacity: 0; }
+.cine-compose-descent { grid-template-columns: 1fr; padding-top: 64px; }
+.cine-copy-light { text-shadow: 0 2px 20px rgb(0 0 0 / 20%); }
+.cine-copy-light .cine-title { color: white; }
+.cine-copy-light .cine-text { color: rgb(255 255 255 / 90%); }
+.cine-copy-light .cine-eyebrow { color: #f4cc99; }
+.cine-cta-light { background: white; color: var(--ink); }
+.cine-cta-light:hover { color: white; }
+.why-us-scenery {
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, rgb(0 0 0 / 25%), #000 72px, #000 calc(100% - 96px), transparent);
+}
+.cine-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; }
+.cine-word > span { display: inline-block; }
+:lang(ta) .cine-mega, :lang(si) .cine-mega { font-size: min(13vw, 20svh); line-height: 1.1; }
+:lang(ta) .cine-title, :lang(si) .cine-title { font-size: clamp(1.7rem, 3.1vw, 3.1rem); line-height: 1.3; }
+@media (min-width: 600px) and (max-height: 780px) {
+  .cine-compose { padding-block: 88px 40px; }
+  .cine-title { font-size: clamp(2rem, 4vw, 3.4rem); }
+  .cine-text { font-size: .98rem; line-height: 1.6; }
+}
+@media (min-width: 600px) and (max-width: 1024px) {
+  .cine-compose { gap: 24px; grid-template-columns: 1.1fr .9fr; }
+  .cine-frame { aspect-ratio: 4 / 5; }
+  .cine-title { font-size: clamp(2rem, 4.4vw, 3rem); }
+  .cine-text { font-size: .95rem; }
+}
+@media (max-width: 599px) {
+  .cine-scene { height: auto; }
+  .cine-stage { position: relative; top: auto; height: auto; padding-block: 40px; }
+  .cine-compose { position: relative; grid-template-columns: 1fr; gap: 32px; padding-block: 16px 0; }
+  .cine-copy { grid-row: 2; }
+  .cine-frame { grid-row: 1; width: 80%; margin: 0 auto; justify-self: center; }
+  .cine-skytext { position: relative; inset: auto; padding-bottom: 20px; }
+  .cine-skytext p { font-size: 1rem; }
+  .cine-mega { top: 24%; font-size: min(23vw, calc(150vw / var(--len, 6))); }
+  .cine-title { font-size: clamp(2rem, 8.8vw, 2.6rem); }
+  .cine-text { font-size: 1rem; }
+  .cine-plate-ascent { mask-image: linear-gradient(180deg, transparent, #000 8%, #000 38%, transparent 78%); }
+  .cine-ascent .cine-photo img { object-position: 60% 30%; }
+  .cine-compose-descent .cine-copy { grid-row: auto; }
+  .cine-descent .cine-stage { padding-block: 72px; }
+  .cine-mega-low { top: auto; bottom: 12%; }
+  :lang(ta) .cine-title, :lang(si) .cine-title { font-size: 1.9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cine-scene { height: auto; }
+  .cine-stage { position: relative; top: auto; }
+  [data-layer] { will-change: auto; }
+}
+/* Overlapping cloud banks soften the coast-to-highlands boundary. */
+.cine-bridge {
+  position: relative;
+  z-index: 2;
+  height: clamp(64px, 12svh, 120px);
+  overflow: visible;
+  background: linear-gradient(180deg, #fff, #edf3f6 35%, #e4edf3);
+  pointer-events: none;
+}
+.cine-billow {
+  position: absolute;
+  inset: -65% 0 -40%;
+  filter: blur(9px);
+  pointer-events: none;
+}
+.cine-billow-far {
+  background:
+    radial-gradient(ellipse at 8% 50%, #edf3f6 0 16%, transparent 34%),
+    radial-gradient(ellipse at 42% 48%, #f7f9fa 0 18%, transparent 38%),
+    radial-gradient(ellipse at 85% 58%, #edf3f6 0 20%, transparent 40%);
+}
+.cine-billow-mid {
+  inset-block: -50% -35%;
+  background:
+    radial-gradient(ellipse at 20% 52%, #fff 0 15%, rgb(255 255 255 / 75%) 24%, transparent 42%),
+    radial-gradient(ellipse at 63% 45%, #fff 0 16%, rgb(255 255 255 / 70%) 26%, transparent 43%),
+    radial-gradient(ellipse at 98% 48%, #fff 0 18%, transparent 38%);
+}
+.cine-billow-near {
+  inset-block: -15% -55%;
+  filter: blur(14px);
+  background:
+    radial-gradient(ellipse at 4% 40%, #f8fafb 0 20%, transparent 44%),
+    radial-gradient(ellipse at 48% 40%, #f8fafb 0 19%, transparent 42%),
+    radial-gradient(ellipse at 86% 42%, #edf3f6 0 22%, transparent 46%);
+}
+
+/* Cloud bank: starts inside the hero (video shows through a haze that thins
+   into the highlands sky colour), so there is no flat seam at the hero edge,
+   and its base dissolves into the pale-blue sky at the top of the Ascent photo. */
+.cine-bridge {
+  --overlap: clamp(56px, 8svh, 84px);
+  margin-top: calc(-1 * var(--overlap));
+  height: calc(clamp(64px, 12svh, 120px) + var(--overlap));
+  background: linear-gradient(180deg,
+    rgb(228 237 243 / 0%) 0,
+    rgb(228 237 243 / 30%) calc(var(--overlap) * .45),
+    rgb(228 237 243 / 80%) calc(var(--overlap) * .8),
+    #e4edf3 var(--overlap));
+  /* 3D camera: layers tilt around their base; sides are clipped so moving
+     layers never widen the page, the top/bottom stay open for the overlap */
+  perspective: 900px;
+  perspective-origin: 50% 0%;
+  overflow: clip visible;
+}
+.cine-bridge .cine-billow {
+  filter: blur(.6px) saturate(.9);
+  background: none;
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+  /* soft on all four sides, so a layer's box edge never shows while it moves */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 4%, #000 26%, #000 64%, transparent 100%),
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-composite: source-in, source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 4%, #000 26%, #000 64%, transparent 100%),
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  mask-composite: intersect;
+}
+.cine-bridge .cine-billow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/images/cloud-bank-natural.webp') center 38% / cover no-repeat;
+}
+/* base: the solid bank sitting across the seam */
+.cine-bridge .cine-billow-mid {
+  inset: auto -12% -70px;
+  height: clamp(220px, 21vw, 360px);
+  opacity: .95;
+}
+/* separate cloud pieces — each crops a different part of the bank, with a
+   soft oval mask so it reads as its own cloud rather than a cut rectangle */
+.cine-puff {
+  position: absolute;
+  left: var(--l);
+  bottom: var(--b);
+  width: var(--w);
+  aspect-ratio: 2 / 1;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+  -webkit-mask-image: radial-gradient(closest-side, #000 50%, rgb(0 0 0 / 60%) 72%, transparent);
+  mask-image: radial-gradient(closest-side, #000 50%, rgb(0 0 0 / 60%) 72%, transparent);
+}
+.cine-puff::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/images/cloud-bank-natural.webp') var(--bp) / var(--bs, 360%) auto no-repeat;
+  transform: scaleX(var(--flip, 1));
+  animation: cine-puff-idle var(--dur, 20s) ease-in-out var(--delay, 0s) infinite;
+}
+/* idle sway — uses `translate`, separate from the scroll-driven `transform` */
+@keyframes cine-puff-idle {
+  0%, 100% { translate: 0 0; }
+  50% { translate: var(--dx, 16px) var(--dy, 4px); }
+}
+.cine-bridge .cine-billow::before { animation: cine-bank-idle 16s ease-in-out infinite; }
+@keyframes cine-bank-idle {
+  0%, 100% { translate: -8px 0; }
+  50% { translate: 8px 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cine-puff::before, .cine-bridge .cine-billow::before { animation: none; }
+}
+.cine-puff-far { --bs: 420%; filter: blur(1.5px) saturate(.85); }
+.cine-puff-mid { --bs: 360%; filter: blur(.5px) saturate(.9); }
+.cine-puff-near { --bs: 320%; filter: blur(3px); z-index: 1; }
+@media (max-width: 599px) {
+  .cine-puff { width: calc(var(--w) * 1.6); }
+  .cine-puff-near { display: none; }
+}
+/* the hero no longer needs its own white fade — the bridge haze takes over */
+.cinematic-root .hero-edge-fade { display: none; }
+/* lead-in line sits below the cloud base, in clear sky */
+.cine-ascent .cine-skytext { inset-block-start: clamp(64px, 11%, 110px); }
+
+/* =====================================================================
+   HOMEPAGE JOURNEY — shared depth + colour seams for the regular sections
+   (motion values come from CinematicScroll as custom properties)
+   ===================================================================== */
+
+/* Registered, NON-inheriting properties: a card's lift never leaks into its
+   descendants, and the resting value is always "in place". */
+@property --rise-y  { syntax: "<length>";     inherits: false; initial-value: 0px; }
+@property --float-y { syntax: "<length>";     inherits: false; initial-value: 0px; }
+@property --rise-rx { syntax: "<angle>";      inherits: false; initial-value: 0deg; }
+@property --rise-o  { syntax: "<number>";     inherits: false; initial-value: 1; }
+@property --py      { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+@property --px      { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+
+/* Independent translate/rotate/scale compose WITH existing `transform`
+   (hover zooms, card-float), instead of overwriting them. */
+[data-rise3d]:not([data-rise3d="self"]) { perspective: 1400px; perspective-origin: 50% 0%; }
+[data-rise3d]:not([data-rise3d="self"]) > *,
+[data-rise3d="self"] {
+  translate: var(--reveal-x) calc(var(--rise-y) + var(--float-y) + var(--reveal-y));
+  rotate: x var(--rise-rx);
+  opacity: var(--rise-o);
+  transform-origin: 50% 100%;
+}
+.cine-image-plane {
+  position: absolute;
+  inset: 0;
+  translate: 0 var(--py);
+  scale: calc(1.12 * var(--reveal-zoom, 1)); /* reveal zooms photos 1.1 -> 1 */
+  pointer-events: none;
+}
+[data-parallax] { translate: 0 var(--px); scale: 1.22; }
+
+/* ---------- colour seams: each section starts in the colour above it ---------- */
+.experience-section { border-bottom: 0; }
+/* Explorer + Tours read as one continuous cream space */
+.featured-tours-section { background: linear-gradient(180deg, #f9f7f2, #f3f6f2 75%, #e9f1ed) !important; }
+/* East coast: white -> turquoise aerial (masked, no hard photo edge) -> sage */
+.seasonal-section { padding-top: clamp(32px, 3vw, 48px); background: linear-gradient(180deg, #e9f1ed, #e3eee8 55%, #eef3ed); }
+.seasonal-scenery {
+  overflow: hidden;
+  opacity: .22;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 74%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 74%, transparent 100%);
+}
+.bespoke-section { background: linear-gradient(180deg, #eef3ed 0%, #eef3ed 55%, #f8f4eb 100%); }
+.day-tours-section { background: linear-gradient(180deg, #f8f4eb 0%, #f8f4eb 70%, #eef3f2 100%); }
+/* Why Us green dissolves into the testimonials mint */
+.why-us-section::after {
+  content: ""; position: absolute; inset: auto 0 0; height: 180px; z-index: -5; pointer-events: none;
+  background: linear-gradient(180deg, rgba(237,244,239,0) 0%, rgba(237,244,239,.55) 55%, #edf4ef 100%);
+}
+.testimonials-section { background: linear-gradient(180deg, #edf4ef 0%, #edf4ef 72%, #fff3db 100%) !important; }
+/* the light-to-dark turn happens in the offer's lower padding, as a dusk, so the
+   gallery title never sits on a mid-tone */
+.offer-section { background: linear-gradient(180deg, #fff3db 0%, #fff3db 58%, #f3d9b0 74%, #4b4a45 90%, #102d35 100%) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-drift-layer], [data-parallax] { scale: 1; translate: none; }
+}
+
+/* photo attribution (CC BY / BY-SA requirement) — sits on the gallery's dark teal */
+.photo-credits { background: #102d35; color: rgba(255,255,255,.6); font-size: .75rem; padding: 0 16px 20px; text-align: center; }
+.photo-credits summary { cursor: pointer; display: inline-block; padding: 6px 10px; }
+.photo-credits summary:focus-visible { outline: 2px solid #fcd34d; outline-offset: 2px; }
+.photo-credits ul { list-style: none; margin: 8px auto 0; padding: 0; max-width: 900px; columns: 2 260px; text-align: start; }
+.photo-credits li { break-inside: avoid; padding: 2px 0; }
+.photo-credits a { color: rgba(255,255,255,.8); text-decoration: underline; text-underline-offset: 2px; }
+
+/* One camera language across the homepage, with stable section boundaries. */
+.cinematic-root {
+  --journey-forest: #123e36;
+  --journey-ocean: #102d35;
+  --journey-sand: #f8f4eb;
+  --journey-gold: #b86525;
+}
+.cinematic-root :is(.home-section-spacing, .featured-tours-section) {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+.cinematic-root :is(.home-section-spacing, .featured-tours-section) > :not([aria-hidden="true"]) {
+  position: relative;
+  z-index: 1;
+  translate: var(--reveal-x, 0px) calc(var(--camera-y, 0px) + var(--rise-y, 0px) + var(--float-y, 0px) + var(--reveal-y, 0px));
+  rotate: x var(--rise-rx, 0deg);
+  transform-origin: 50% 50%;
+}
+.cinematic-root :is(.day-tour-frame, .seasonal-card-frame) {
+  animation: none;
+}
+.cinematic-root [data-parallax] { scale: 1.18; }
+.seasonal-scenery img { filter: saturate(.7); }
+.cinematic-root .experience-select { overflow: hidden; }
+.cinematic-root :is(.seasonal-scenery, .why-us-scenery) {
+  z-index: 0;
+  pointer-events: none;
+}
+.cinematic-root .why-us-scenery img { object-position: center 45%; }
+.cinematic-root .gallery-section {
+  perspective: 1800px;
+  background: linear-gradient(180deg, #102d35, #123e36);
+}
+.cinematic-root .photo-credits { background: #123e36; }
+/* Keep the last dark section readable as its background meets the mint below. */
+.cinematic-root .why-us-section::after { display: none; }
+.cinematic-root .testimonials-section {
+  background: linear-gradient(180deg, #edf4ef, #edf4ef 78%, #fff3db) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-root :is(.home-section-spacing, .featured-tours-section) > :not([aria-hidden="true"]) {
+    translate: none;
+    rotate: none;
+    scale: 1;
+  }
+  .cinematic-root [data-drift-layer],
+  .cinematic-root [data-parallax] { scale: 1; }
+}
+
+/* Coast -> Why Us as a change of light, not of place: the Descent sunset's
+   water sinks into indigo, Why Us opens on the same indigo with the last
+   afterglow on the horizon, and the cards become frosted glass. */
+.cinematic-root .why-us-section {
+  background: linear-gradient(180deg,
+    #5a3418, #3a2210 40%, #2a180b calc(100% - 320px),
+    #6b4a2c calc(100% - 200px), #c9b79c calc(100% - 90px), #edf4ef);
+}
+.cinematic-root .why-us-scenery { -webkit-mask-image: none; mask-image: none; }
+.cinematic-root .why-us-scenery::after { display: none; }
+.why-us-glow {
+  /* night after the Descent sunset: only a low, faint violet glow — nothing
+     bright near the top edge, so the seam with the coast stays invisible */
+  background:
+    radial-gradient(ellipse 55% 35% at 12% 92%, rgb(230 160 70 / 16%), transparent 70%),
+    radial-gradient(ellipse 45% 30% at 90% 60%, rgb(240 180 90 / 10%), transparent 70%);
+}
+.cinematic-root .why-us-story {
+  background: rgb(255 255 255 / 7%);
+  border-color: rgb(255 255 255 / 16%);
+  backdrop-filter: blur(14px);
+}
+.cinematic-root .why-us-feature {
+  background: rgb(255 255 255 / 6%);
+  border-color: rgb(255 255 255 / 14%);
+  backdrop-filter: blur(12px);
+}
+.cinematic-root .why-us-feature:hover {
+  background: rgb(255 255 255 / 11%);
+  border-color: rgb(251 191 36 / 55%);
+}
+
+/* =====================================================================
+   HOMEPAGE UPGRADE — everything BELOW the hero
+   (the hero and its classes are not touched by anything in this block)
+   ===================================================================== */
+
+/* ---------- smooth anchor scrolling (the reduced-motion rule above turns it off) ---------- */
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+/* ---------- reveal on scroll (driven by components/home/ScrollEffects.tsx) ---------- */
+@property --reveal-x    { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --reveal-y    { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --reveal-zoom { syntax: "<number>"; inherits: true;  initial-value: 1; }
+@property --deco-y      { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+:root { --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+/* cards lift with a soft shadow and slight scale on hover */
+.lift-card { transition: transform 350ms var(--ease-out-soft), box-shadow 350ms ease; }
+@media (hover: hover) {
+  .lift-card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 26px 50px -24px rgb(15 42 46 / 38%);
+  }
+}
+
+/* hidden state: faded, 56px lower (or 64px to the side), photos zoomed to 1.1 */
+.reveal {
+  opacity: 0;
+  --reveal-y: 56px;
+  --reveal-zoom: 1.1;
+  translate: var(--reveal-x) var(--reveal-y);
+  transition:
+    opacity 700ms ease,
+    --reveal-x 900ms var(--ease-out-soft),
+    --reveal-y 900ms var(--ease-out-soft),
+    --reveal-zoom 1200ms var(--ease-out-soft),
+    transform 350ms var(--ease-out-soft),
+    box-shadow 350ms ease;
+}
+.reveal[data-reveal-dir="left"]  { --reveal-x: -64px; --reveal-y: 0px; }
+.reveal[data-reveal-dir="right"] { --reveal-x: 64px;  --reveal-y: 0px; }
+.reveal[data-reveal-dir="zoom"]  { --reveal-y: 24px; }
+/* shown: cards in one row arrive 120 ms apart; reversing starts immediately */
+.reveal.is-in {
+  opacity: 1;
+  --reveal-x: 0px;
+  --reveal-y: 0px;
+  --reveal-zoom: 1;
+  transition-delay:
+    calc(var(--reveal-i, 0) * 120ms), calc(var(--reveal-i, 0) * 120ms),
+    calc(var(--reveal-i, 0) * 120ms), calc(var(--reveal-i, 0) * 120ms), 0ms, 0ms;
+}
+/* grid cards / text blocks / section children already compose these vars
+   into their own translate (see [data-rise3d] and .cinematic-root rules) */
+.cinematic-root :is([data-rise3d]:not([data-rise3d="self"]) > *, [data-rise3d="self"]).reveal {
+  translate: var(--reveal-x) calc(var(--rise-y) + var(--float-y) + var(--reveal-y));
+}
+.cinematic-root :is(.home-section-spacing, .featured-tours-section) > .reveal:not([aria-hidden="true"]) {
+  translate: var(--reveal-x) calc(var(--camera-y, 0px) + var(--rise-y, 0px) + var(--float-y, 0px) + var(--reveal-y));
+}
+/* plain photos inside new cards follow the same zoom */
+.reveal-img { position: absolute; inset: 0; scale: var(--reveal-zoom, 1); }
+
+/* ---------- decorative parallax shapes ---------- */
+.deco-shapes { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.deco-shapes > span { position: absolute; translate: 0 var(--deco-y); will-change: translate; }
+.deco-blob { border-radius: 50%; filter: blur(48px); }
+.deco-ring { border-radius: 50%; border: 1.5px solid; }
+.deco-dot  { border-radius: 50%; }
+.deco-a { width: 420px; height: 420px; top: -8%; inset-inline-start: -140px; }
+.deco-b { width: 220px; height: 220px; top: 18%; inset-inline-end: 6%; }
+.deco-c { width: 360px; height: 360px; bottom: -14%; inset-inline-end: -120px; }
+.deco-d { width: 14px; height: 14px; bottom: 22%; inset-inline-start: 12%; }
+.deco-light .deco-a { background: rgb(212 167 78 / 16%); }
+.deco-light .deco-b { border-color: rgb(18 62 54 / 12%); }
+.deco-light .deco-c { background: rgb(184 101 37 / 10%); }
+.deco-light .deco-d { background: rgb(212 167 78 / 55%); }
+.deco-dark  .deco-a { background: rgb(212 167 78 / 10%); }
+.deco-dark  .deco-b { border-color: rgb(255 255 255 / 10%); }
+.deco-dark  .deco-c { background: rgb(120 180 170 / 10%); }
+.deco-dark  .deco-d { background: rgb(252 211 77 / 60%); }
+
+/* ---------- scroll progress bar + back to top ---------- */
+.scroll-progress { position: fixed; inset: 0 0 auto; z-index: 70; height: 3px; pointer-events: none; }
+.scroll-progress-bar {
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, #d4a74e, #b86525);
+}
+:dir(rtl) .scroll-progress-bar { transform-origin: right; }
+.back-to-top {
+  position: fixed;
+  inset-inline-end: 28px;
+  bottom: 168px;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0f2a2e;
+  color: white;
+  box-shadow: 0 14px 30px -12px rgb(0 0 0 / 45%);
+  opacity: 0;
+  translate: 0 16px;
+  pointer-events: none;
+  transition: opacity 250ms, translate 250ms, background-color 200ms;
+}
+.back-to-top.is-visible { opacity: 1; translate: 0 0; pointer-events: auto; }
+.back-to-top:hover { background: #b86525; }
+.back-to-top:focus-visible { outline: 3px solid #fcd34d; outline-offset: 3px; }
+
+/* ---------- Experiences: icon cards ---------- */
+.activity-section { background: #f9f7f2; }
+.activity-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.activity-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 26px 24px 22px;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid rgb(15 42 46 / 8%);
+  box-shadow: 0 16px 36px -28px rgb(15 42 46 / 40%);
+}
+.activity-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff3db, #f6dfb5);
+  color: #b86525;
+  transition: transform 350ms var(--ease-out-soft);
+}
+.activity-card:hover .activity-icon { transform: rotate(-6deg) scale(1.06); }
+.activity-more { margin-top: auto; padding-top: 16px; display: inline-flex; align-items: center; gap: 6px; font-size: .9rem; font-weight: 600; color: #123e36; }
+.activity-card:focus-visible { outline: 3px solid #b86525; outline-offset: 3px; }
+
+/* ---------- Top destinations ---------- */
+.destinations-home { background: #f9f7f2; }
+.dest-grid { display: grid; gap: 22px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dest-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 18px 40px -30px rgb(15 42 46 / 45%);
+}
+.dest-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.dest-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgb(4 20 24 / 55%), transparent 55%); }
+.dest-place {
+  position: absolute;
+  inset-inline-start: 16px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: rgb(255 255 255 / 90%);
+  color: #123e36;
+  font-size: 12px;
+  font-weight: 600;
+}
+.dest-body { display: flex; flex: 1; flex-direction: column; padding: 22px 22px 24px; }
+.dest-more {
+  align-self: flex-start;
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 99px;
+  background: #0f2a2e;
+  color: white;
+  font-size: .9rem;
+  font-weight: 600;
+  transition: background-color 200ms;
+}
+.dest-more:hover { background: #b86525; }
+.dest-more:focus-visible { outline: 3px solid #b86525; outline-offset: 3px; }
+
+/* ---------- Featured packages: highlights + Book Now ---------- */
+.package-story-frame { position: relative; }
+.package-highlights { margin-top: 12px; display: grid; gap: 6px; font-size: .88rem; color: rgb(255 255 255 / 88%); }
+.package-highlights li { display: flex; align-items: flex-start; gap: 8px; }
+.package-highlights svg { flex-shrink: 0; margin-top: 3px; color: #fcd34d; }
+.package-book {
+  position: absolute;
+  top: 18px;
+  inset-inline-end: 18px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 99px;
+  background: #fbbf24;
+  color: #0f2a2e;
+  font-size: .9rem;
+  font-weight: 700;
+  box-shadow: 0 12px 24px -12px rgb(0 0 0 / 50%);
+  transition: background-color 200ms, transform 200ms;
+}
+.package-book:hover { background: white; transform: translateY(-2px); }
+.package-book:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+
+/* ---------- Stats ---------- */
+.stats-section { background: linear-gradient(180deg, #ffffff, #eef3f2); }
+.stats-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.stat-card {
+  padding: 30px 24px;
+  border-radius: 20px;
+  background: white;
+  text-align: center;
+  border: 1px solid rgb(15 42 46 / 8%);
+  box-shadow: 0 16px 36px -28px rgb(15 42 46 / 40%);
+}
+.stat-number { font-size: clamp(2.6rem, 5vw, 3.6rem); line-height: 1; color: #0f2a2e; font-variant-numeric: tabular-nums; }
+.stat-suffix { color: #b86525; }
+.stat-label { margin-top: 10px; color: #475569; font-weight: 500; }
+
+/* ---------- Gallery: masonry + lightbox ---------- */
+.masonry { columns: 4 200px; column-gap: 14px; }
+.masonry-item { break-inside: avoid; margin: 0 0 14px; border-radius: 16px; }
+.masonry-button { display: block; width: 100%; border-radius: 16px; overflow: hidden; cursor: zoom-in; }
+.masonry-button:focus-visible { outline: 3px solid #fcd34d; outline-offset: 3px; }
+.masonry-photo { position: relative; display: block; overflow: hidden; }
+.ratio-tall { aspect-ratio: 4 / 5; }
+.ratio-wide { aspect-ratio: 16 / 10; }
+.ratio-square { aspect-ratio: 1; }
+.masonry-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgb(0 0 0 / 45%), transparent 50%); }
+.masonry-zoom {
+  position: absolute;
+  top: 14px;
+  inset-inline-end: 14px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 22%);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 250ms;
+}
+.masonry-button:hover .masonry-zoom, .masonry-button:focus-visible .masonry-zoom { opacity: 1; }
+.masonry-caption { position: absolute; inset-inline: 16px; bottom: 14px; font-size: .9rem; text-align: start; }
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 64px 16px;
+  background: rgb(6 18 22 / 92%);
+  animation: lightbox-in 220ms ease;
+}
+@keyframes lightbox-in { from { opacity: 0; } }
+.lightbox-figure { width: min(1100px, 100%); }
+.lightbox-photo { position: relative; height: min(78svh, 760px); }
+.lightbox-caption { display: flex; justify-content: space-between; gap: 16px; margin-top: 14px; color: white; font-size: .95rem; }
+.lightbox-btn {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 14%);
+  color: white;
+  transition: background-color 200ms;
+}
+.lightbox-btn:hover { background: rgb(255 255 255 / 28%); }
+.lightbox-btn:focus-visible { outline: 3px solid #fcd34d; outline-offset: 2px; }
+.lightbox-close { top: 16px; inset-inline-end: 16px; }
+.lightbox-prev { left: 16px; top: 50%; translate: 0 -50%; }
+.lightbox-next { right: 16px; top: 50%; translate: 0 -50%; }
+
+/* ---------- Testimonials slider ---------- */
+.review-track {
+  position: relative; /* slider maths uses offsets relative to the track */
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 12px 4px 20px;
+}
+.review-card {
+  flex: 0 0 min(380px, 85%);
+  scroll-snap-align: start;
+  padding: 28px;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid rgb(18 62 54 / 10%);
+}
+.review-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; }
+.review-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  color: #0f2a2e;
+  border: 1px solid rgb(15 42 46 / 14%);
+  transition: background-color 200ms, color 200ms;
+}
+.review-arrow:hover { background: #0f2a2e; color: white; }
+.review-dots { display: flex; gap: 8px; }
+.review-dot { width: 10px; height: 10px; border-radius: 99px; background: rgb(15 42 46 / 20%); transition: width 250ms, background-color 250ms; }
+.review-dot.is-active { width: 28px; background: #b86525; }
+:is(.review-arrow, .review-dot):focus-visible { outline: 3px solid #b86525; outline-offset: 3px; }
+
+/* ---------- Contact / booking form ---------- */
+.contact-home { background: linear-gradient(180deg, #123e36, #0f3530); }
+.contact-line { display: inline-flex; align-items: center; gap: 12px; transition: color 200ms; }
+.contact-line:hover { color: #fcd34d; }
+.contact-card {
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: 24px;
+  background: rgb(255 255 255 / 7%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 55%);
+}
+.contact-label { display: block; margin-bottom: 8px; font-size: .9rem; font-weight: 600; color: rgb(255 255 255 / 85%); }
+.contact-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgb(255 255 255 / 92%);
+  color: #0f172a;
+  border: 2px solid transparent;
+  transition: border-color 200ms, box-shadow 200ms;
+}
+.contact-input::placeholder { color: #94a3b8; }
+.contact-input:focus { outline: none; border-color: #fcd34d; box-shadow: 0 0 0 4px rgb(252 211 77 / 25%); }
+.contact-input.has-error { border-color: #f87171; }
+.contact-error { margin-top: 6px; font-size: .85rem; color: #fecaca; }
+.contact-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: 99px;
+  background: #fbbf24;
+  color: #0f2a2e;
+  font-weight: 700;
+  transition: background-color 200ms, transform 200ms;
+}
+.contact-submit:hover:not(:disabled) { background: white; transform: translateY(-2px); }
+.contact-submit:disabled { opacity: .7; cursor: progress; }
+.contact-submit:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1024px) {
+  .dest-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .dest-grid { grid-template-columns: 1fr; }
+  .masonry { columns: 2; column-gap: 10px; }
+  .back-to-top { inset-inline-end: 20px; bottom: 160px; width: 44px; height: 44px; }
+  .reveal[data-reveal-dir="left"]  { --reveal-x: -32px; }
+  .reveal[data-reveal-dir="right"] { --reveal-x: 32px; }
+}
+
+/* ---------- reduced motion: everything visible, nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; --reveal-x: 0px; --reveal-y: 0px; --reveal-zoom: 1; }
+  .deco-shapes > span { translate: none; }
+  .lift-card:hover { transform: none; }
+}
+
+/* Homepage illustrated map: soft edges that melt into the section background (no box) */
+.sri-lanka-map-fade {
+  /* oval (soft corners, top and bottom) + side fade: no straight edge of the picture is left */
+  -webkit-mask-image: radial-gradient(ellipse 72% 60% at 52% 50%, #000 70%, transparent 100%), linear-gradient(to right, transparent, #000 13%, #000 87%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 94%, transparent);
+  -webkit-mask-composite: source-in, source-in;
+  mask-image: radial-gradient(ellipse 72% 60% at 52% 50%, #000 70%, transparent 100%), linear-gradient(to right, transparent, #000 13%, #000 87%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 94%, transparent);
+  mask-composite: intersect;
+}
+
+/* ---------- site-wide scroll reveal (src/components/ScrollReveal.tsx) ---------- */
+.sr-ready .sr-item {
+  opacity: 0;
+  transform: translate3d(0, 42px, 0);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1) var(--sr-delay, 0ms), transform .8s cubic-bezier(.16,1,.3,1) var(--sr-delay, 0ms);
+  will-change: opacity, transform;
+}
+.sr-ready .sr-item.sr-from-top { transform: translate3d(0, -42px, 0); }
+.sr-ready .sr-item.sr-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .sr-ready .sr-item { opacity: 1; transform: none; transition: none; } }

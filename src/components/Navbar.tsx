@@ -3,33 +3,29 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
-import Link from "next/link";
+import AccountMenu from "@/components/account/AccountMenu";
+import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { contact } from "@/data/contact";
+import ThemeToggle from "@/components/ThemeToggle";
+import { useContact } from "@/components/ContactProvider";
 
 export default function Navbar() {
+  const contact = useContact();
   const t = useTranslations("nav");
+  const tHome = useTranslations("home");
+  const pathname = usePathname();
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    let lastScroll = window.scrollY;
+    const handleScroll = () => setScrolled(window.scrollY > 40);
 
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-
-      setScrolled(currentScroll > 40);
-      setHidden(currentScroll > lastScroll && currentScroll > 120);
-
-      lastScroll = currentScroll;
-    };
-
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -39,123 +35,139 @@ export default function Navbar() {
     { name: t("tours"), link: "/tours" },
     { name: t("destinations"), link: "/destinations" },
     { name: t("excursions"), link: "/excursions" },
-    { name: t("vehicles"), link: "/vehicles" },
     { name: t("tailorMade"), link: "/tailor-made-tours" },
+    { name: t("about"), link: "/about" },
     { name: t("contact"), link: "/contact" },
   ];
 
+  const isActive = (link: string) => (link === "/" ? pathname === "/" : pathname.startsWith(link));
+
+  // Transparent over the hero; solid white once the page scrolls (or the mobile menu is open).
+  const solid = scrolled || mobileOpen;
+  const textColor = solid ? "text-slate-800" : "text-white";
+
   return (
-    <motion.nav
-      initial={{ y: 0 }}
-      animate={{ y: hidden ? -120 : 0 }}
-      transition={{ duration: 0.35 }}
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-black/60 backdrop-blur-xl border-b border-white/10 shadow-lg"
-          : "bg-transparent"
+    <nav
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        solid ? "bg-white shadow-md" : "bg-linear-to-b from-black/40 to-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="flex h-16 w-full items-center gap-2 px-3 sm:gap-3 sm:px-6 lg:px-8 xl:h-20 2xl:px-10">
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" aria-label={t("home")} className="flex min-w-0 shrink items-center gap-2 sm:gap-2.5">
           <Image
             src="/logo.png"
-            alt="Sri Lanka Tours"
-            width={80}
-            height={80}
+            alt=""
+            width={48}
+            height={48}
             priority
-            className="rounded-full border bg-white border-amber-400/40"
+            className="h-9 w-9 shrink-0 rounded-full border-2 border-[#0f2a4a] bg-white object-contain p-0.5 shadow-sm sm:h-12 sm:w-12"
           />
-
-          <div className="leading-tight">
-            <p className="text-amber-400 font-semibold text-sm tracking-wide">
-              Sri Lanka Best Tours
-            </p>
-
-            <p className="text-amber-400 font-semibold text-sm tracking-wide">
-              Driver & Guide
-            </p>
-
-            <p className="text-[10px] text-white/70 uppercase tracking-widest">
-              Luxury Experience
-            </p>
-          </div>
+          <span className="flex flex-col whitespace-nowrap font-bold leading-none" style={{ fontFamily: '"Poppins", sans-serif' }}>
+            <span className={`text-base tracking-[0.08em] sm:text-2xl ${solid ? "text-[#0f2a4a]" : "text-white"}`}>SRI LANKA</span>
+            <span className={`mt-1 text-[0.7rem] tracking-[0.16em] sm:text-base ${solid ? "text-teal-600" : "text-[#48d4b0]"}`}>TOURS DRIVER</span>
+          </span>
         </Link>
 
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-6">
-          {menu.map((item) => (
-            <Link
-              key={item.name}
-              href={item.link}
-              className="text-white text-sm hover:text-amber-400 transition-colors"
-            >
-              {item.name}
-            </Link>
-          ))}
+        <ul className="hidden min-w-0 flex-1 items-center justify-center xl:flex 2xl:gap-0.5">
+          {menu.map((item) => {
+            const active = isActive(item.link);
+            return (
+              <li key={item.link}>
+                <Link
+                  href={item.link}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative flex min-h-11 items-center whitespace-nowrap rounded-full px-1.5 text-[0.78rem] font-medium transition-colors 2xl:px-2.5 2xl:text-[0.88rem] ${
+                    solid ? "text-slate-700 hover:text-slate-950" : "text-white/90 hover:text-white"
+                  } ${active ? "after:absolute after:inset-x-2 after:bottom-0.5 after:h-0.5 after:rounded-full after:bg-amber-500 2xl:after:inset-x-3" : ""}`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
 
-          {/* LANGUAGE SWITCHER */}
-          <LanguageSwitcher />
+        {/* RIGHT SIDE ACTIONS */}
+        <div className="ms-auto flex shrink-0 items-center gap-0 sm:gap-1 2xl:gap-2">
+          {/* LanguageSwitcher has white text built in; darken it on the white bar */}
+          <div className={solid ? "[&>div>button]:text-slate-800! [&>div>button:hover]:bg-slate-100!" : ""}>
+            <LanguageSwitcher />
+          </div>
 
-          {/* WHATSAPP BUTTON */}
           <a
-            href={contact.whatsappme}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-2 rounded-full flex items-center gap-2 text-sm font-semibold transition-all duration-300"
+            href={`tel:${contact.phone}`}
+            aria-label={contact.phone}
+            className={`hidden h-11 w-11 items-center justify-center rounded-full transition-colors lg:inline-flex ${textColor} ${solid ? "hover:bg-slate-100" : "hover:bg-white/10"}`}
           >
-            {t("whatsapp")}
             <Phone size={16} />
           </a>
-        </div>
 
-        {/* MOBILE MENU BUTTON */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+          <ThemeToggle className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors ${textColor} ${solid ? "hover:bg-slate-100" : "hover:bg-white/10"}`} />
+
+          <AccountMenu className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors ${textColor} ${solid ? "hover:bg-slate-100" : "hover:bg-white/10"}`} />
+
+          <Link
+            href="/booking"
+            className="hidden items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-sm font-medium text-slate-950 shadow-[0_8px_24px_-10px_rgb(201_154_59/0.8)] transition-all duration-300 hover:bg-amber-400 sm:inline-flex"
+          >
+            {tHome("bookNow")}
+          </Link>
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            type="button"
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full xl:hidden ${textColor}`}
+            aria-label={mobileOpen ? t("closeNavigation") : t("openNavigation")}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10"
+            id="mobile-navigation"
+            className="max-h-[80svh] overflow-y-auto border-t border-slate-200 bg-white xl:hidden"
           >
-            <div className="flex flex-col items-center gap-8 py-10 text-lg">
+            <div className="flex flex-col items-center gap-6 py-8 text-lg">
               {menu.map((item) => (
                 <Link
-                  key={item.name}
+                  key={item.link}
                   href={item.link}
                   onClick={() => setMobileOpen(false)}
-                  className="text-white/90 hover:text-amber-400 transition"
+                  aria-current={isActive(item.link) ? "page" : undefined}
+                  className={`transition-colors hover:text-amber-600 ${isActive(item.link) ? "font-semibold text-amber-600" : "text-slate-700"}`}
                 >
                   {item.name}
                 </Link>
               ))}
 
-              {/* MOBILE LANGUAGE SWITCHER */}
-              <LanguageSwitcher />
-
-              {/* MOBILE WHATSAPP BUTTON */}
-              <a
-                href={contact.whatsappme}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-linear-to-r from-amber-500 to-yellow-300 text-black px-8 py-3 rounded-full font-semibold"
+              <Link
+                href="/booking"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-full bg-amber-500 px-8 py-3 font-semibold text-slate-950 hover:bg-amber-400"
               >
-                WhatsApp Now
+                {tHome("bookNow")}
+              </Link>
+
+              <a href={contact.whatsappme} target="_blank" rel="noopener noreferrer" className="font-medium text-emerald-600">
+                {t("whatsapp")}
               </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }

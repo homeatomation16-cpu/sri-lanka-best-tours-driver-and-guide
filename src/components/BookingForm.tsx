@@ -5,39 +5,75 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useTranslations } from "next-intl";
 import { Edit2, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
-import { contact } from "@/data/contact";
-import { calculateTourTotal, MINIMUM_TOUR_PEOPLE } from "@/utils/tourPricing";
+import { useRouter } from "@/i18n/navigation";
+import { useContact } from "@/components/ContactProvider";
+import { getGroupPrice, getMaximumPeople } from "@/utils/tourPricing";
 
 interface Tour {
   title: string;
+  tourId?: string;
+  duration?: number;
   price?: number;
   pricePerPerson?: number;
   additionalPersonPrice?: number;
   maxPeople?: number;
+  groupPrices?: { persons: number; price: number; vehicle?: string }[];
 }
 
 interface BookingFormProps {
   tour: Tour;
+  /** Other lengths of the same tour (same category, with a price list), as on the live site. */
+  lengths?: { tourId: string; days: number }[];
+  /** Stick to the top while scrolling (off when something is shown below the form). */
+  sticky?: boolean;
 }
 
-export default function BookingForm({ tour }: BookingFormProps) {
+const MAX_CHILD_AGE = 17;
+const MAX_CHILD_AGES = 10;
+
+/** Last day of the trip: start date + (days - 1), as yyyy-mm-dd. */
+function tripEndDate(start: string, days?: number) {
+  if (!start || !days) return "";
+  const date = new Date(`${start}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return "";
+  date.setUTCDate(date.getUTCDate() + Math.max(0, days - 1));
+  return date.toISOString().slice(0, 10);
+}
+
+export default function BookingForm({ tour, lengths = [], sticky = true }: BookingFormProps) {
+  const contact = useContact();
   const t = useTranslations("booking");
+  const tTours = useTranslations("tours");
+  const router = useRouter();
 
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
+    country: "",
     date: "",
-    time: "",
+    endDate: "",
+    adults: "2",
+    children: "0",
+    pickupLocation: "",
     notes: "",
-    people: String(MINIMUM_TOUR_PEOPLE),
   });
+  const [childrenAges, setChildrenAges] = useState<string[]>([]);
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [showOtpField, setShowOtpField] = useState(false);
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(0);
-  const pricing = calculateTourTotal(tour, Number(form.people));
+
+  // Price estimate: the whole-group price for adults + children (live-site price list)
+  const count = (value: string) => Math.max(0, Math.floor(Number(value) || 0));
+  const adults = count(form.adults);
+  const children = count(form.children);
+  const persons = adults + children;
+  const priced = Boolean(tour.groupPrices?.length);
+  const maxPersons = getMaximumPeople(tour);
+  const priceRow = priced && persons >= 1 && persons <= maxPersons ? getGroupPrice(tour, persons) : undefined;
+  const days = tour.duration || 1;
 
   // Resend Timer Logic
   useEffect(() => {
@@ -48,14 +84,40 @@ export default function BookingForm({ tour }: BookingFormProps) {
     return () => clearInterval(interval);
   }, [timer]);
 
-  const handleChange = (key: string, value: string) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
+  const handleChange = (key: keyof typeof form, value: string) => {
+    setForm((prev) => {
+      const next = { ...prev, [key]: value };
+      // Fill the end date from the start date and the tour's length
+      if (key === "date" && tour.duration) next.endDate = tripEndDate(value, tour.duration);
+      return next;
+    });
+  };
+
+  const setChildAge = (index: number, value: string) => {
+    setChildrenAges((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
   };
 
   // OTP යැවීම සහ Resend කිරීමේ පොදු Function එක
   const handleSendOtp = async () => {
     if (!form.name || !form.email) {
       alert("Please enter your name and email first.");
+      return;
+    }
+    if (!form.date) {
+      alert(`${t("startDate")} *`);
+      return;
+    }
+    if (adults < 1) {
+      alert(t("minimumPeopleError", { count: 1 }));
+      return;
+    }
+    const agesNeeded = Math.min(children, MAX_CHILD_AGES);
+    if (childrenAges.slice(0, agesNeeded).filter((age) => age !== "" && age !== undefined).length < agesNeeded) {
+      alert(`${t("childrenAges")} *`);
       return;
     }
 
@@ -87,11 +149,6 @@ export default function BookingForm({ tour }: BookingFormProps) {
       return;
     }
 
-    if (Number(form.people) < MINIMUM_TOUR_PEOPLE) {
-      alert(t("minimumPeopleError", { count: MINIMUM_TOUR_PEOPLE }));
-      return;
-    }
-
     setStatus("sending");
     try {
       // OTP Verification
@@ -107,16 +164,29 @@ export default function BookingForm({ tour }: BookingFormProps) {
         return;
       }
 
+      const ages = childrenAges.slice(0, Math.min(children, MAX_CHILD_AGES)).map(Number);
+      const pricePerPerson = priceRow ? Math.round((priceRow.price / persons) * 100) / 100 : undefined;
+
       // Booking Submission
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...form,
-          people: pricing.people,
-          pricePerPerson: pricing.pricePerPerson,
-          additionalPersonPrice: pricing.additionalPersonPrice,
-          totalPrice: pricing.total,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          country: form.country,
+          date: form.date,
+          endDate: form.endDate,
+          adults,
+          children,
+          childrenAges: ages,
+          pickupLocation: form.pickupLocation,
+          notes: form.notes,
+          people: persons,
+          pricePerPerson,
+          totalPrice: priceRow?.price,
+          vehicle: priceRow?.vehicle,
           itemName: tour.title,
           bookingType: "Tour",
         }),
@@ -126,10 +196,24 @@ export default function BookingForm({ tour }: BookingFormProps) {
       if (!data.success) throw new Error();
 
       // Final WhatsApp Redirection
-      const message = `Booking Request (Verified ✅)\n\nTour: ${tour.title}\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nDate: ${form.date} ${form.time}\nPeople: ${pricing.people}\nPrice per person: $${pricing.pricePerPerson.toFixed(2)}\nTotal: $${pricing.total.toFixed(2)}\nNotes: ${form.notes}`;
+      const lines = [
+        "Booking Request (Verified ✅)",
+        "",
+        `Tour: ${tour.title}`,
+        `Name: ${form.name}`,
+        `Email: ${form.email}`,
+        `Phone: ${form.phone}`,
+        `Country: ${form.country}`,
+        `Dates: ${form.date}${form.endDate ? ` – ${form.endDate}` : ""}`,
+        `Adults: ${adults}`,
+        `Children: ${children}${ages.length ? ` (ages ${ages.join(", ")})` : ""}`,
+        priceRow ? `Estimated price: $${priceRow.price} (${priceRow.vehicle ?? ""})` : "Price: on request",
+        `Pickup: ${form.pickupLocation}`,
+        `Message: ${form.notes}`,
+      ];
 
       // 'whatsappme' variable එක නිවැරදිව භාවිතා කිරීම
-      window.open(`${contact.whatsappme}?text=${encodeURIComponent(message)}`, "_blank");
+      window.open(`${contact.whatsappme}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -140,7 +224,7 @@ export default function BookingForm({ tour }: BookingFormProps) {
   const labelClass = "block text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2";
 
   return (
-    <div className="bg-stone-900 border border-stone-800 rounded-xl overflow-hidden sticky top-8 shadow-2xl">
+    <div className={`bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-2xl ${sticky ? "sticky top-8" : ""}`}>
       <div className="bg-orange-700 p-7 text-white">
         <h3 className="text-xl font-bold font-serif">{tour.title}</h3>
         <p className="text-xs opacity-80 uppercase tracking-tighter mt-1">{t("reserveYour")}</p>
@@ -150,37 +234,112 @@ export default function BookingForm({ tour }: BookingFormProps) {
         {!showOtpField ? (
           // STEP 1: Details Entry
           <>
+            {lengths.length > 1 && tour.tourId && (
+              <div>
+                <label className={labelClass} htmlFor="tourLength">{t("tourLength")}</label>
+                <select
+                  id="tourLength"
+                  className={`${inputClass} scheme-dark`}
+                  value={tour.tourId}
+                  onChange={(e) => router.push(`/tours/${e.target.value}#book`)}
+                >
+                  {lengths.map((option) => (
+                    <option key={option.tourId} value={option.tourId} className="bg-stone-900">
+                      {t("daysOption", { days: option.days })}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div>
               <label className={labelClass}>{t("fullName")} *</label>
-              <input className={inputClass} value={form.name} onChange={(e) => handleChange("name", e.target.value)} placeholder="Your Name" />
+              <input className={inputClass} value={form.name} onChange={(e) => handleChange("name", e.target.value)} placeholder={t("namePlaceholder")} autoComplete="name" />
             </div>
             <div>
               <label className={labelClass}>{t("email")} *</label>
-              <input className={inputClass} type="email" value={form.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="yourname@email.com" />
+              <input className={inputClass} type="email" value={form.email} onChange={(e) => handleChange("email", e.target.value)} placeholder={t("emailPlaceholder")} autoComplete="email" />
             </div>
             <div>
               <label className={labelClass}>{t("whatsapp")}</label>
               <PhoneInput defaultCountry="LK" value={form.phone} onChange={(v) => handleChange("phone", v || "")} className="phone-input-dark text-white" />
             </div>
+            <div>
+              <label className={labelClass}>{t("country")}</label>
+              <input className={inputClass} value={form.country} onChange={(e) => handleChange("country", e.target.value)} autoComplete="country-name" />
+            </div>
             <div className="grid grid-cols-2 gap-4">
-              <input className={`${inputClass} scheme-dark`} type="date" value={form.date} onChange={(e) => handleChange("date", e.target.value)} />
-              <input className={`${inputClass} scheme-dark`} type="time" value={form.time} onChange={(e) => handleChange("time", e.target.value)} />
+              <div>
+                <label className={labelClass}>{t("startDate")} *</label>
+                <input className={`${inputClass} scheme-dark`} type="date" value={form.date} onChange={(e) => handleChange("date", e.target.value)} />
+              </div>
+              <div>
+                <label className={labelClass}>{t("endDate")}</label>
+                <input className={`${inputClass} scheme-dark`} type="date" value={form.endDate} min={form.date || undefined} onChange={(e) => handleChange("endDate", e.target.value)} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>{t("adults")} *</label>
+                <input className={inputClass} type="number" min={1} max={100} value={form.adults} onChange={(e) => handleChange("adults", e.target.value)} />
+              </div>
+              <div>
+                <label className={labelClass}>{t("children")}</label>
+                <input className={inputClass} type="number" min={0} max={100} value={form.children} onChange={(e) => handleChange("children", e.target.value)} />
+              </div>
+            </div>
+
+            {children > 0 && (
+              <fieldset className="grid grid-cols-2 gap-3">
+                <legend className={`${labelClass} col-span-2`}>{t("childrenAges")} *</legend>
+                {Array.from({ length: Math.min(children, MAX_CHILD_AGES) }, (_, i) => (
+                  <select
+                    key={i}
+                    aria-label={t("childAge", { n: i + 1 })}
+                    className={`${inputClass} scheme-dark`}
+                    value={childrenAges[i] ?? ""}
+                    onChange={(e) => setChildAge(i, e.target.value)}
+                  >
+                    <option value="" className="bg-stone-900">{t("childAge", { n: i + 1 })}</option>
+                    {Array.from({ length: MAX_CHILD_AGE + 1 }, (_, age) => (
+                      <option key={age} value={age} className="bg-stone-900">
+                        {age === 0 ? t("underOne") : t("ageYears", { age })}
+                      </option>
+                    ))}
+                  </select>
+                ))}
+              </fieldset>
+            )}
+
+            {/* Price estimate (only tours with a price list, like the live site) */}
+            {priced && persons >= 1 && (
+              <div className="border border-orange-500/20 bg-orange-500/10 rounded-lg p-5 text-sm text-stone-300" aria-live="polite">
+                {priceRow ? (
+                  <>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-orange-400">{t("estimate")}</p>
+                    <p className="mt-1 font-serif text-3xl font-bold text-white">${priceRow.price.toLocaleString("en-US")}</p>
+                    <p className="mt-1">
+                      {t("estimateTotal", { count: persons, days })}
+                      {priceRow.vehicle && <> · {t("vehicleLabel", { vehicle: priceRow.vehicle })}</>}
+                    </p>
+                    {persons > 1 && <p className="mt-0.5 text-stone-400">{t("perPersonApprox", { price: `$${Math.round(priceRow.price / persons)}` })}</p>}
+                    <p className="mt-3 text-[11px] text-stone-500">{t("estimateNote")}</p>
+                  </>
+                ) : (
+                  <p>{t("largeGroup", { max: maxPersons })}</p>
+                )}
+              </div>
+            )}
+            {!priced && tour.price === 0 && <p className="text-sm font-semibold text-white">{tTours("priceOnRequest")}</p>}
+
+            <div>
+              <label className={labelClass}>{t("pickup")}</label>
+              <input className={inputClass} value={form.pickupLocation} onChange={(e) => handleChange("pickupLocation", e.target.value)} />
             </div>
             <div>
-              <label className={labelClass}>{t("people")}</label>
-              <input className={inputClass} type="number" min={MINIMUM_TOUR_PEOPLE} max={tour.maxPeople || 20} value={form.people} onChange={(e) => handleChange("people", e.target.value)} />
-              <p className="text-[11px] text-stone-500 mt-2">{t("minimumPeople", { count: MINIMUM_TOUR_PEOPLE })}</p>
+              <label className={labelClass}>{t("message")}</label>
+              <textarea className={`${inputClass} min-h-24`} value={form.notes} onChange={(e) => handleChange("notes", e.target.value)} placeholder={t("notesPlaceholder")} />
             </div>
-            <div className="border border-orange-500/20 bg-orange-500/10 rounded-lg p-4 text-sm text-stone-300 space-y-2">
-              <div className="flex justify-between">
-                <span>{t("pricePerPerson")}</span>
-                <strong>${pricing.pricePerPerson.toFixed(2)}</strong>
-              </div>
-              <div className="flex justify-between text-white">
-                <span>{t("estimatedTotal")}</span>
-                <strong>${pricing.total.toFixed(2)}</strong>
-              </div>
-            </div>
+
             <button
               onClick={handleSendOtp}
               disabled={status === "sending"}

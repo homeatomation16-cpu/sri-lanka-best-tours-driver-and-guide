@@ -41,7 +41,10 @@ export async function GET() {
         if (match) {
           translations[lang] = {
             title: match.title || "",
+            shortDescription: match.shortDescription || "",
             overview: match.overview || "",
+            categoryName: match.category?.name || "",
+            route: match.route || [],
             itinerary: match.itinerary || [],
             included: match.included || [],
             excluded: match.excluded || [],
@@ -51,24 +54,40 @@ export async function GET() {
       });
 
       // 3. Database එකට Update හෝ Insert (Upsert) කිරීම
+      // Prices follow the live site's group price table, so the old per-person overrides are cleared.
       await Tour.findOneAndUpdate(
         { tourId: tourId },
         {
-          tourId: tourId,
-          price: tourBase.price,
-          image: tourBase.image,
-          duration: tourBase.duration,
-          tourType: tourBase.tourType,
-          translations: translations,
-          status: "active"
+          $set: {
+            tourId: tourId,
+            price: tourBase.price,
+            groupPrices: tourBase.groupPrices,
+            currency: tourBase.currency,
+            category: tourBase.category?.slug,
+            image: tourBase.image,
+            gallery: tourBase.gallery,
+            stops: tourBase.stops,
+            duration: tourBase.duration,
+            maxPeople: tourBase.maxPeople,
+            tourType: tourBase.tourType,
+            translations: translations,
+            status: "active",
+          },
+          $unset: { pricePerPerson: "", additionalPersonPrice: "" },
         },
         { upsert: true, returnDocument: 'after', strict: false }
       );
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      message: `Success! ${en.length} tours imported in 14 languages.` 
+    // 4. Tours that are not in the list any more are hidden (not deleted), so the site matches the live one.
+    const hidden = await Tour.updateMany(
+      { tourId: { $nin: en.map((tour) => tour.id) }, status: "active" },
+      { $set: { status: "inactive" } }
+    );
+
+    return NextResponse.json({
+      success: true,
+      message: `Success! ${en.length} tours imported in 14 languages. ${hidden.modifiedCount} old tours hidden.`
     });
 
   } catch (error: any) {

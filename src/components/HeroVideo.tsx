@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const SLIDE_DURATION = 8000;
@@ -63,7 +64,7 @@ const DEFAULT_SLIDES = [
   {
     src: `https://res.cloudinary.com/dj5mylqf1/video/upload/${VIDEO_TRANSFORM}/v1783184326/242272_m0xkut.mov`,
     poster: `https://res.cloudinary.com/dj5mylqf1/video/upload/${POSTER_TRANSFORM}/v1783184326/242272_m0xkut.jpg`,
-    title: "Elipents in Sri Lanka", // TODO: confirm/adjust title
+    title: "Elephants in Sri Lanka", // TODO: confirm/adjust title
     subtitle: "Discover the island's natural wonders",
   },
   {
@@ -101,41 +102,46 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   const SLIDES: Slide[] = slides && slides.length ? slides.map(toSlide) : DEFAULT_SLIDES.map((d) => ({ ...d, type: "video" as const }));
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [scrollY, setScrollY] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const [inView, setInView] = useState(true);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number | null>(null);
 
-  // Intersection Observer to stop video when not visible (saves CPU)
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(preference.matches);
+    update();
+    preference.addEventListener("change", update);
+    return () => preference.removeEventListener("change", update);
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-        if (videoRef.current) {
-          entry.isIntersecting ? videoRef.current.play() : videoRef.current.pause();
-        }
-      },
+      ([entry]) => setInView(entry.isIntersecting),
       { threshold: 0.1 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // Optimized Scroll Listener (only runs if in view)
   useEffect(() => {
-    if (!inView) return;
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true }); // Passive for performance
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [inView]);
+    const video = videoRef.current;
+    if (!video) return;
+    if (inView && !paused && !reducedMotion) {
+      void video.play().catch(() => { /* The poster remains visible if autoplay is blocked. */ });
+    } else {
+      video.pause();
+    }
+  }, [current, inView, paused, reducedMotion]);
 
   // Slide & Progress Logic
   useEffect(() => {
-    if (!inView) return; // Don't cycle slides if user isn't looking
+    if (!inView || paused || reducedMotion || SLIDES.length < 2) return;
 
-    let start = performance.now();
+    const start = performance.now();
     const animate = (time: number) => {
       const p = Math.min((time - start) / SLIDE_DURATION, 1);
       setProgress(p);
@@ -151,30 +157,31 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [current, inView]);
+  }, [current, inView, paused, reducedMotion, SLIDES.length]);
 
   const slide = SLIDES[current % SLIDES.length];
 
   return (
-    <section ref={sectionRef} className="relative h-screen overflow-hidden bg-black">
+    <section ref={sectionRef} className="hero-section relative flex flex-col overflow-hidden bg-slate-950 text-white" aria-label={t("brand")}>
       {slide.type === "image" ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={slide.src}
           src={slide.src}
           alt={slide.title}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: `scale(1.1) translate3d(0, ${scrollY * 0.15}px, 0)`, willChange: "transform" }}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.02)", willChange: "transform" }}
         />
       ) : (
         <video
           ref={videoRef}
           key={slide.src}
-          autoPlay
+          autoPlay={!paused && !reducedMotion}
           muted
           playsInline
-          loop={false}
+          loop
+          aria-hidden="true"
           poster={slide.poster} // Cloudinary-generated poster — critical for LCP
-          preload="metadata" // Keep as metadata: poster handles LCP, no need to eagerly buffer the payload          // @ts-expect-error fetchPriority is supported by browsers but may not exist in the current TS lib        fetchPriority={current === 0 ? "high" : "auto"} // LCP fix: only prioritize the first slide
+          preload="metadata"
           style={{
             position: "absolute",
             inset: 0,
@@ -182,30 +189,45 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
             height: "100%",
             objectFit: "cover",
             // Use transform3d for hardware acceleration
-            transform: `scale(1.1) translate3d(0, ${scrollY * 0.15}px, 0)`,
+            transform: "scale(1.02)",
             willChange: "transform", // Hints browser to optimize
           }}
         >
-          <source src={slide.src} type="video/mp4" />
+          <source src={slide.src} />
         </video>
       )}
 
-      {/* Overlay & Content */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/70" />
+      <div className="absolute inset-0 bg-linear-to-r from-slate-950/75 via-slate-950/30 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
 
-      <div className="relative z-10 flex h-full flex-col justify-center px-6 md:px-20 text-white max-w-4xl">
-        <h1 className="text-5xl md:text-8xl font-bold leading-tight">{slide.title}</h1>
-        <p className="mt-4 text-lg md:text-xl opacity-90">{slide.subtitle}</p>
-
-        <Link href="/tours" aria-label={t("cta")} className="mt-8 inline-block w-fit px-8 py-4 rounded-full bg-linear-to-r from-orange-600 to-amber-500 font-bold transition-transform hover:scale-105">
-          {t("cta")}
-        </Link>
-
-        {/* GPU Accelerated Progress Bar */}
-        <div className="mt-10 w-32 h-1 bg-white/20 rounded-full overflow-hidden">
-          <div className="h-full bg-linear-to-r from-orange-500 to-yellow-400 origin-left" style={{ transform: `scaleX(${progress})` }} />
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-12 pt-40 sm:px-10 lg:px-16">
+        <h1 className="hero-display max-w-4xl font-playfair text-4xl leading-[1.08] sm:text-6xl lg:text-7xl">{t("brand")}</h1>
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl">{t("subtitle")}</p>
+        <div className="mt-9 flex flex-wrap gap-4">
+          <Link href="/tours" className="rounded-full bg-amber-400 px-7 py-4 font-semibold text-slate-950 transition-colors hover:bg-amber-300">{t("cta")}</Link>
+          <Link href="/contact" className="rounded-full border border-white/60 bg-white/10 px-7 py-4 font-semibold backdrop-blur-sm transition-colors hover:bg-white/20">{t("ctaContact")}</Link>
         </div>
       </div>
+
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-wrap items-end justify-between gap-6 px-6 pb-24 sm:px-10 lg:px-16">
+        <div className="max-w-xl">
+          <p className="text-xl font-semibold sm:text-2xl">{slide.title}</p>
+          <p className="mt-2 text-sm text-white/80 sm:text-base">{slide.subtitle}</p>
+          <div className="hero-slide-selector mt-5 flex gap-2" role="group" aria-label={t("brand")}>
+            {SLIDES.map((item, index) => (
+              <button key={`${item.src}-${index}`} type="button" aria-label={item.title} aria-current={current === index ? "true" : undefined} onClick={() => { setCurrent(index); setProgress(0); }} className="hero-slide-step">
+                <span style={{ transform: `scaleX(${current === index ? progress : 0})` }} />
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <button type="button" aria-label={t("previousSlide")} onClick={() => { setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length); setProgress(0); }} className="hero-control"><ChevronLeft size={20} /></button>
+          <button type="button" aria-label={paused ? t("playSlideshow") : t("pauseSlideshow")} aria-pressed={paused} onClick={() => setPaused((value) => !value)} className="hero-control">{paused ? <Play size={18} /> : <Pause size={18} />}</button>
+          <button type="button" aria-label={t("nextSlide")} onClick={() => { setCurrent((c) => (c + 1) % SLIDES.length); setProgress(0); }} className="hero-control"><ChevronRight size={20} /></button>
+        </div>
+      </div>
+      <div className="hero-edge-fade" aria-hidden="true" />
     </section>
   );
 }

@@ -1,6 +1,9 @@
-// src/components/WhyUs.tsx
 "use client";
 
+import CinematicSection from "@/components/cinematic/CinematicSection";
+// src/components/WhyUs.tsx
+
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Star, MapPin, Sliders, Car, BadgeCheck, Zap } from "lucide-react";
 
@@ -17,31 +20,34 @@ export default function WhyUs() {
   ];
 
   return (
-    <section className="py-28 lg:py-36 px-6 bg-linear-to-b from-white to-orange-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
-          <p className="text-orange-600 text-xl mb-4 tracking-wide">{t("label")}</p>
-          <h2 className="text-4xl lg:text-6xl font-bold text-gray-900">{t("heading")}</h2>
+    <CinematicSection className="why-us-section home-section-spacing relative isolate overflow-hidden px-6 text-white">
+      {/* nightfall after the Descent sunset: afterglow at the top, then indigo */}
+      <div className="why-us-scenery why-us-dusk pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div className="why-us-glow absolute inset-0" data-parallax="0.06" />
+      </div>
+      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.9fr_1.3fr] lg:gap-14">
+        <div data-rise3d="self" className="why-us-story rounded-3xl p-6 sm:p-8">
+          <p className="mb-4 font-semibold text-amber-300">{t("label")}</p>
+          <h2 className="font-playfair text-4xl leading-tight sm:text-5xl">{t("heading")}</h2>
+          <div data-drift className="why-us-photo relative mt-7 h-64 overflow-hidden rounded-3xl sm:h-72 lg:h-80">
+            <div className="cine-image-plane" data-drift-layer>
+              <Image src="/images/editorial/ella-rock.jpg" alt="" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+            </div>
+          </div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {features.map((item, index) => {
+        <div className="grid gap-4 sm:grid-cols-2" data-rise3d>
+          {features.map((item) => {
             const Icon = item.icon;
             return (
-              <div
-                key={index}
-                className="group rounded-[28px] p-10 bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg transition hover:-translate-y-3 hover:shadow-[0_25px_60px_rgba(0,0,0,0.12)]"
-              >
-                <div className="w-16 h-16 mb-8 rounded-2xl bg-linear-to-br from-orange-500 to-amber-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
-                  <Icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.description}</p>
+              <div key={item.title} className="why-us-feature rounded-2xl border border-white/15 bg-[#092e29]/85 p-5 backdrop-blur-sm">
+                <Icon className="mb-3 h-6 w-6 text-amber-300" aria-hidden="true" />
+                <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-white/80">{item.description}</p>
               </div>
             );
           })}
         </div>
       </div>
-    </section>
+    </CinematicSection>
   );
 }

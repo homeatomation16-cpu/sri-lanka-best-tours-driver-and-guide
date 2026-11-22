@@ -7,7 +7,7 @@ import { Poppins, Playfair_Display, Noto_Sans_Sinhala, Libre_Baskerville } from 
 import localFont from "next/font/local";
 
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { routing } from "@/i18n/routing";
@@ -15,7 +15,14 @@ import { routing } from "@/i18n/routing";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 import "../globals.css";
+import "../theme.css";
+import { getTheme, isCustomBrand, themeToCss, THEME_INIT_SCRIPT } from "@/lib/theme";
+import { ThemeModeProvider } from "@/components/ThemeToggle";
 
+import SiteMotion from "@/components/SiteMotion";
+import ScrollReveal from "@/components/ScrollReveal";
+import { ContactProvider } from "@/components/ContactProvider";
+import { getSiteSettings } from "@/lib/siteSettings";
 import PageTransition from "../../components/PageTransition";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -170,23 +177,6 @@ const descriptions: Record<string, string> = {
    6. LANGUAGE / HREFLANG
 ========================================================= */
 
-const languageAlternates: Record<string, string> = {
-  en: `${siteUrl}/en`,
-  fr: `${siteUrl}/fr`,
-  de: `${siteUrl}/de`,
-  es: `${siteUrl}/es`,
-  it: `${siteUrl}/it`,
-  hi: `${siteUrl}/hi`,
-  zh: `${siteUrl}/zh`,
-  ru: `${siteUrl}/ru`,
-  ja: `${siteUrl}/ja`,
-  si: `${siteUrl}/si`,
-  ar: `${siteUrl}/ar`,
-  pt: `${siteUrl}/pt`,
-  nl: `${siteUrl}/nl`,
-  sv: `${siteUrl}/sv`,
-};
-
 /* =========================================================
    7. SEO METADATA
 ========================================================= */
@@ -200,7 +190,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   const description = descriptions[currentLocale] ?? descriptions[defaultLocale];
 
-  const canonicalUrl = `${siteUrl}/${currentLocale}`;
 
   return {
     /* =====================================================
@@ -261,35 +250,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
        CANONICAL + HREFLANG
     ===================================================== */
 
-    alternates: {
-      canonical: canonicalUrl,
-
-      languages: {
-        en: languageAlternates.en,
-        fr: languageAlternates.fr,
-        de: languageAlternates.de,
-        es: languageAlternates.es,
-        it: languageAlternates.it,
-        hi: languageAlternates.hi,
-        zh: languageAlternates.zh,
-        ru: languageAlternates.ru,
-        ja: languageAlternates.ja,
-        si: languageAlternates.si,
-        ar: languageAlternates.ar,
-        pt: languageAlternates.pt,
-        nl: languageAlternates.nl,
-        sv: languageAlternates.sv,
-        th: languageAlternates.th,
-        vi: languageAlternates.vi,
-        ta: languageAlternates.ta,
-        te: languageAlternates.te,
-        bn: languageAlternates.bn,
-        ur: languageAlternates.ur,
-
-        "x-default": languageAlternates.en,
-      },
-    },
-
     /* =====================================================
        OPEN GRAPH
     ===================================================== */
@@ -299,7 +259,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
       locale: currentLocale,
 
-      url: canonicalUrl,
 
       siteName,
 
@@ -309,7 +268,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
       images: [
         {
-          url: `${siteUrl}/og-image.jpg`,
+          url: `${siteUrl}/hero/sigiriya-poster.webp`,
 
           width: 1200,
 
@@ -331,7 +290,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
       description,
 
-      images: [`${siteUrl}/og-image.jpg`],
+      images: [`${siteUrl}/hero/sigiriya-poster.webp`],
     },
 
     /* =====================================================
@@ -421,6 +380,10 @@ export default async function LocaleLayout({
   ======================================================= */
 
   const messages = await getMessages();
+  // Contact details from Admin → Site settings, shared with every client component
+  const siteSettings = await getSiteSettings();
+  const theme = await getTheme();
+  const nav = await getTranslations({ locale, namespace: "nav" });
 
   /* =======================================================
      RTL SUPPORT
@@ -445,7 +408,7 @@ export default async function LocaleLayout({
 
     logo: `${siteUrl}/logo.png`,
 
-    image: `${siteUrl}/og-image.jpg`,
+    image: `${siteUrl}/hero/sigiriya-poster.webp`,
 
     description: descriptions[locale] ?? descriptions[defaultLocale],
 
@@ -477,6 +440,9 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={direction}
+      data-theme={theme.mode === "visitor" ? undefined : theme.mode}
+      data-brand={isCustomBrand(theme) ? "custom" : undefined}
+      suppressHydrationWarning
       className={`
         ${poppins.variable}
         ${playfair.variable}
@@ -486,6 +452,8 @@ export default async function LocaleLayout({
       `}
     >
       <head>
+        <style id="site-theme" dangerouslySetInnerHTML={{ __html: themeToCss(theme) }} />
+        {theme.mode === "visitor" && <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />}
         {/* =================================================
             JSON-LD STRUCTURED DATA
         ================================================= */}
@@ -517,6 +485,8 @@ export default async function LocaleLayout({
         ================================================= */}
 
         <NextIntlClientProvider messages={messages}>
+        <ContactProvider value={siteSettings}>
+        <ThemeModeProvider value={theme.mode}>
           {/* =================================================
               NAVBAR
           ================================================= */}
@@ -531,13 +501,16 @@ export default async function LocaleLayout({
             "
           >
             <Navbar />
+            <ScrollReveal />
           </header>
 
           {/* =================================================
               MAIN CONTENT
           ================================================= */}
 
-          <main>
+          <a className="skip-link" href="#main-content">{nav("skipToContent")}</a>
+          <SiteMotion>
+          <main id="main-content" tabIndex={-1}>
             <PageTransition>{children}</PageTransition>
           </main>
 
@@ -552,6 +525,7 @@ export default async function LocaleLayout({
           ================================================= */}
 
           <Footer />
+          </SiteMotion>
 
           {/* =================================================
               FLOATING LANGUAGE
@@ -567,6 +541,8 @@ export default async function LocaleLayout({
 
           {/* anonymous visitor analytics (see Admin → Analytics) */}
           <PageTracker />
+        </ThemeModeProvider>
+        </ContactProvider>
         </NextIntlClientProvider>
       </body>
     </html>

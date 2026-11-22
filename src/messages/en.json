@@ -8,14 +8,21 @@
     "tailorMade": "Tailor-Made Tours",
     "contact": "Contact",
     "about": "About",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "openNavigation": "Open navigation",
+    "closeNavigation": "Close navigation",
+    "skipToContent": "Skip to content"
   },
   "hero": {
     "tagline": "Luxury Experience",
     "brand": "Sri Lanka Best Tours Driver & Guide",
     "subtitle": "Discover the Pearl of the Indian Ocean",
     "cta": "Explore Tours",
-    "ctaContact": "Contact Us"
+    "ctaContact": "Contact Us",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "pauseSlideshow": "Pause slideshow",
+    "playSlideshow": "Play slideshow"
   },
   "tours": {
     "sectionLabel": "Recommended",
@@ -57,7 +64,32 @@
     "luxuryDayTrips": "Luxury Day Trips",
     "oneDayPackages": "One Day Tour Packages",
     "oneDayDesc": "Short on time but big on adventure? Our one-day excursions are designed to show you the very best of Sri Lanka in a single, unforgettable day.",
-    "upToGuests": "Up to {count} Guests"
+    "upToGuests": "Up to {count} Guests",
+    "priceOnRequest": "Price on request",
+    "groupPrices": "Group prices",
+    "travellers": "Travellers",
+    "vehicle": "Vehicle",
+    "totalPrice": "Total price",
+    "allTours": "All tours",
+    "inSeason": "In season now",
+    "moreTours": "More tours",
+    "tourCount": "{count} tours",
+    "seasonSouth": "November – June",
+    "seasonEast": "July – October",
+    "offSeason": "Off season",
+    "dayToursMore": "Day tours & more",
+    "anyLength": "Any length",
+    "oneDay": "One day",
+    "otherLength": "Other",
+    "daysCount": "{count} days",
+    "exploreTours": "Explore tours",
+    "exploreDesc": "Every tour is private and can be customised to your dates and interests.",
+    "pageSubtitle": "Private round tours with your own chauffeur-guide – every itinerary can be tailored.",
+    "cantFind": "Can’t find the perfect tour?",
+    "cantFindDesc": "We’ll design one around your dates and interests.",
+    "planTailor": "Plan a tailor-made tour",
+    "routeMap": "Route map",
+    "mapCaption": "Terrain map · elevation data: NASA SRTM"
   },
   "vehicles": {
     "whatsNew": "New",
@@ -100,7 +132,45 @@
       "item3": "Available 24/7 for your assistance",
       "item4": "Transparent, all-inclusive pricing"
     },
-    "cta": "Contact Us"
+    "cta": "Contact Us",
+    "teamLabel": "Our team",
+    "teamTitle": "Meet the people behind your journey",
+    "teamLanguages": "Speaks",
+    "awardsTitle": "Recognized by travelers",
+    "awardsSubtitle": "Proud recipients of Tripadvisor Travelers’ Choice awards, celebrating the journeys our guests remember.",
+    "awardsLabel": "Tripadvisor awards",
+    "stats": {
+      "experience": "Years Experience",
+      "travelers": "Happy Travelers",
+      "support": "Available Support",
+      "certified": "Licensed & Certified"
+    },
+    "reasons": {
+      "licensed": {
+        "title": "Licensed Tour Guides",
+        "desc": "All our guides are government-licensed professionals based in Colombo."
+      },
+      "rated": {
+        "title": "5-Star Rated Service",
+        "desc": "Consistently praised on TripAdvisor for exceptional hospitality and local knowledge."
+      },
+      "private": {
+        "title": "Private & Personalized",
+        "desc": "Every journey is tailored to your group — no shared buses, no strangers."
+      },
+      "passionate": {
+        "title": "Passionate About Sri Lanka",
+        "desc": "We're locals who love this island and want you to experience it at its finest."
+      },
+      "pata": {
+        "title": "PATA & Tourism Certified",
+        "desc": "Recognized members of Sri Lanka Tourism and the Pacific Asia Travel Association."
+      },
+      "transparent": {
+        "title": "Transparent Pricing",
+        "desc": "No hidden fees. Clear, upfront pricing so you can travel with complete peace of mind."
+      }
+    }
   },
   "stats": {
     "experience": "Years Experience",
@@ -183,7 +253,33 @@
     "notes": "Special Requests / Notes",
     "notesPlaceholder": "Dietary, extra stops, number of people...",
     "submit": "Send Message",
-    "nameRequired": "Please fill in your name and email."
+    "nameRequired": "Please fill in your name and email.",
+    "findUs": "Find us",
+    "openMaps": "Open in Google Maps",
+    "page": {
+      "online": "We're online",
+      "heroText": "Planning a trip to Sri Lanka? Tell us your dates and ideas – we'll plan the route, the stays and the driver for you.",
+      "whatsappUs": "WhatsApp us",
+      "callUs": "Call us",
+      "callNow": "Call now",
+      "startChat": "Start chat",
+      "emailLabel": "E-mail",
+      "writeToUs": "Write to us",
+      "visitUs": "Visit us",
+      "openMaps": "Open in Maps",
+      "sendMessage": "Send a message",
+      "planJourney": "Let's plan your journey",
+      "formIntro": "Fill in the form and we'll get back to you by e-mail.",
+      "sent": "Message sent!",
+      "sentText": "Thank you – we'll contact you very soon.",
+      "sendAnother": "Send another message",
+      "error": "Something went wrong. Please try again or message us on WhatsApp.",
+      "whyWrite": "Why travellers write to us",
+      "p1": "Reply within a few hours",
+      "p2": "Licensed, SLTDA-approved driver guide",
+      "p3": "No booking fees, pay on arrival",
+      "hours": "Open 24 hours · 7 days a week"
+    }
   },
   "trustBar": {
     "accredited": "Accredited & Recognized",
@@ -210,7 +306,13 @@
     "emailPlaceholder": "Your email",
     "subscribe": "Subscribe",
     "copyright": "Sri Lanka Tours Driver — All Rights Reserved",
-    "subscribed": "Subscribed successfully!"
+    "subscribed": "Subscribed successfully!",
+    "popularTours": "Popular tours",
+    "destinations": "Destinations",
+    "followUs": "Follow us",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "cookies": "Cookie Policy"
   },
   "rates": {
     "title": "Tour Package Rates",
@@ -275,7 +377,27 @@
     "minimumPeople": "Minimum {count} people",
     "minimumPeopleError": "At least {count} people are required.",
     "pricePerPerson": "Price per person",
-    "estimatedTotal": "Estimated total"
+    "estimatedTotal": "Estimated total",
+    "country": "Country",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "adults": "Adults",
+    "children": "Children",
+    "childrenAges": "Children’s ages",
+    "childAge": "Child {n}",
+    "ageYears": "{age} years",
+    "underOne": "Under 1",
+    "select": "Select…",
+    "pickup": "Pickup location",
+    "message": "Message",
+    "tourLength": "Tour length",
+    "daysOption": "{days} days",
+    "estimate": "Estimated price",
+    "estimateTotal": "Total for {count} travellers · {days} days",
+    "vehicleLabel": "Vehicle: {vehicle}",
+    "perPersonApprox": "≈ {price} per person",
+    "estimateNote": "We confirm the final price after your request. No payment now.",
+    "largeGroup": "For groups over {max} people we’ll send you a custom quote."
   },
   "loader": {
     "tagline": "Explore Paradise Island 🌴",
@@ -301,7 +423,10 @@
       "Religious": "Religious",
       "City": "City",
       "Nature": "Nature",
-      "Wildlife": "Wildlife"
+      "Wildlife": "Wildlife",
+      "Beach": "Beach",
+      "HillCountry": "Hill Country",
+      "Adventure": "Adventure"
     },
     "destinations": {
       "old-parliament-building": {
@@ -324,7 +449,9 @@
         "category": "Religious",
         "description": "One of the oldest Buddhist temples in Colombo."
       }
-    }
+    },
+    "gettingThere": "Getting there",
+    "experiencesIn": "Things to do in {place}"
   },
   "excursions": {
     "title": "Our Trips",
@@ -380,7 +507,11 @@
     "subtext2": "Romantic honeymoon, family adventure, or exclusive luxury escape — our specialists craft seamless itineraries with exclusive access.",
     "buttonPrimary": "Design My Journey",
     "buttonSecondary": "Talk to a specialist →",
-    "tags": ["Avg. 14 Days", "100% Private", "Fully Guided"],
+    "tags": [
+      "Avg. 14 Days",
+      "100% Private",
+      "Fully Guided"
+    ],
     "step1": "Travel Preferences",
     "step2": "Holiday Activities",
     "step3": "Accommodation & Dining",
@@ -453,5 +584,193 @@
   "gallery": {
     "label": "Gallery",
     "heading": "Moments from Sri Lanka"
+  },
+  "cinematic": {
+    "ascentLabel": "Into the hill country",
+    "ascentTitle": "Rise above the clouds, one bend at a time",
+    "ascentText": "From Kandy's temple town to mist-wrapped tea estates, your private driver-guide paces every day around the light, the views and the stories worth stopping for.",
+    "ascentCta": "Browse round tours",
+    "ascentMega": "Ceylon",
+    "descentLabel": "Down to the coast",
+    "descentTitle": "Then follow the rivers to the sea",
+    "descentText": "Colonial forts, temple towns and quiet southern beaches — we shape the route around you, with a vehicle and guide that stay with you the whole way.",
+    "descentCta": "Design your tailor-made tour",
+    "descentMega": "Coast",
+    "bridgeText": "Leave the coast behind — the road climbs into the clouds",
+    "frameImgAlt": "Nine Arch Bridge near Ella in the hill country"
+  },
+  "photoCredits": {
+    "summary": "Photo credits",
+    "resized": "resized"
+  },
+  "home": {
+    "experiences": {
+      "label": "Experiences",
+      "heading": "Find the trip that moves you",
+      "sub": "Pick a mood — we build the route, the driver and the guide around it.",
+      "explore": "Explore",
+      "items": {
+        "safari": {
+          "title": "Safari",
+          "desc": "Leopards, elephants and sloth bears in Yala, Udawalawe and Wilpattu."
+        },
+        "surfing": {
+          "title": "Surfing",
+          "desc": "Gentle reef breaks in the south and world-class waves at Arugam Bay."
+        },
+        "hiking": {
+          "title": "Hiking",
+          "desc": "Ella Rock, Adam's Peak and misty tea-country trails at sunrise."
+        },
+        "culture": {
+          "title": "Culture",
+          "desc": "Ancient cities, cave temples and the Temple of the Tooth in Kandy."
+        },
+        "food": {
+          "title": "Food",
+          "desc": "Rice and curry, hoppers and kottu — tasted with local families."
+        }
+      }
+    },
+    "readMore": "Read more",
+    "bookNow": "Book Now",
+    "highlights": "Highlights",
+    "stats": {
+      "label": "In numbers",
+      "heading": "Trusted on every road in Sri Lanka",
+      "tours": "Tours completed",
+      "travelers": "Happy travelers",
+      "experience": "Years of experience",
+      "satisfaction": "Guest satisfaction"
+    },
+    "gallery": {
+      "open": "Open photo",
+      "close": "Close",
+      "prev": "Previous photo",
+      "next": "Next photo",
+      "counter": "{current} of {total}",
+      "more": "See more photos",
+      "less": "Show less"
+    },
+    "slider": {
+      "prev": "Previous review",
+      "next": "Next review",
+      "goTo": "Go to review {n}"
+    },
+    "backToTop": "Back to top",
+    "contactForm": {
+      "label": "Plan your trip",
+      "heading": "Tell us about your journey",
+      "sub": "Share your dates and ideas — we usually reply within a few hours.",
+      "phone": "Phone / WhatsApp (optional)",
+      "phonePlaceholder": "+94 77 123 4567",
+      "message": "Your message",
+      "messagePlaceholder": "Dates, number of travellers, places you'd like to see...",
+      "errName": "Please enter your name.",
+      "errEmail": "Please enter your email address.",
+      "errEmailInvalid": "Please enter a valid email address.",
+      "errMessage": "Please write a message of at least 10 characters.",
+      "sending": "Sending...",
+      "success": "Thank you! Your message has been sent — we'll reply shortly.",
+      "failed": "Something went wrong. Please try again or message us on WhatsApp."
+    },
+    "map": {
+      "label": "Explore the island",
+      "heading": "Sri Lanka at a glance",
+      "sub": "From the ancient cities in the north to the beaches of the south – tap a place to discover it.",
+      "alt": "Illustrated map of Sri Lanka with its main destinations"
+    },
+    "collections": {
+      "honeymoonSub": "Coastal sunsets, quiet hill-country stays and time together.",
+      "familySub": "Wildlife, beaches and new discoveries to share with your family.",
+      "adventureSub": "Head outdoors and explore a different side of Sri Lanka.",
+      "explore": "Explore {name}"
+    }
+  },
+  "account": {
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "myAccount": "My account",
+    "createAccount": "Create account",
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to book faster with your saved details.",
+    "registerTitle": "Create your account",
+    "registerSubtitle": "Save your details for faster bookings.",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "passwordRule": "At least 8 characters, including a letter and a number",
+    "or": "or",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "guestNote": "An account is optional – you can always book as a guest.",
+    "staffLogin": "Admin / staff sign in",
+    "forgotPassword": "Forgot password?",
+    "forgotTitle": "Forgot password?",
+    "forgotSubtitle": "Enter your email and we'll send you a link to reset your password.",
+    "sendResetLink": "Send reset link",
+    "resetSent": "If an account exists for {email}, we've sent a password reset link. Check your inbox and spam folder.",
+    "backToSignIn": "Back to sign in",
+    "resetTitle": "Set a new password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "passwordsDontMatch": "Passwords don't match",
+    "updatePassword": "Update password",
+    "resetDone": "Your password has been updated. You can now sign in.",
+    "resetInvalid": "This reset link is invalid or has expired. Please request a new one.",
+    "requestNewLink": "Request a new link",
+    "invalidCredentials": "Incorrect email or password.",
+    "emailTaken": "An account with this email already exists. Try signing in instead.",
+    "locked": "Too many failed attempts. Please try again in 15 minutes.",
+    "rateLimited": "Too many attempts. Please wait a few minutes and try again.",
+    "checkFields": "Please check the highlighted fields.",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorNetwork": "We couldn't reach the server. Check your connection and try again.",
+    "googleFailed": "Google sign-in failed. Please try again.",
+    "googleConflict": "This email is already linked to a different Google account.",
+    "loading": "Loading…",
+    "hello": "Hello, {name}",
+    "accountIntro": "You're signed in. Your details are saved for faster bookings and enquiries.",
+    "googleConnected": "Google account connected",
+    "myBookings": "My bookings",
+    "myBookingsIntro": "Track every request you've sent us and see where it stands.",
+    "memberSince": "Member since",
+    "signInMethods": "Sign-in",
+    "filter_all": "All",
+    "filter_active": "Active",
+    "filter_past": "Past",
+    "statTotal": "Requests",
+    "statInProgress": "In progress",
+    "statUpcoming": "Upcoming trips",
+    "statCompleted": "Completed",
+    "bookingsError": "We couldn't load your bookings right now.",
+    "retry": "Try again",
+    "noBookings": "No bookings yet",
+    "noBookingsHint": "Requests you send while signed in will appear here, with live status updates.",
+    "noBookingsFilter": "No bookings in this view.",
+    "status_new": "Received",
+    "status_contacted": "In discussion",
+    "status_quoted": "Quote sent",
+    "status_pending": "Awaiting confirmation",
+    "status_confirmed": "Confirmed",
+    "status_cancelled": "Cancelled",
+    "status_completed": "Completed",
+    "stepReceived": "Received",
+    "stepReview": "Planning",
+    "stepConfirmed": "Confirmed",
+    "stepCompleted": "Completed",
+    "requestedOn": "Requested {date}",
+    "travellers": "{adults, plural, one {# adult} other {# adults}}{children, plural, =0 {} one {, # child} other {, # children}}",
+    "quote": "Quote",
+    "cancelledNote": "This booking was cancelled. Contact us if you'd like to rebook.",
+    "progress": "Booking progress",
+    "history": "Status history",
+    "trackBooking": "Track this booking in your account →",
+    "verifyTitle": "Confirm your e-mail",
+    "verifyDone": "Your e-mail address is confirmed. Thank you!",
+    "verifyInvalid": "This confirmation link is invalid or has expired. Sign in and send a new one from your account.",
+    "verifyPending": "Please confirm your e-mail address ({email}) to see your bookings here. We sent you a link when you signed up.",
+    "resendVerification": "Resend confirmation e-mail",
+    "verifySent": "Sent! Check your inbox and spam folder."
   }
 }

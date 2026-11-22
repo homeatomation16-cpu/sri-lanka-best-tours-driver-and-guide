@@ -1,10 +1,11 @@
 "use client";
 
-import { contact } from "@/data/contact";
+import { useContact } from "@/components/ContactProvider";
 import { Phone, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function ContactCTA() {
+  const contact = useContact();
   const t = useTranslations("contact");
 
   return (

@@ -8,14 +8,21 @@
     "tailorMade": "Tours a Medida",
     "contact": "Contacto",
     "about": "Nosotros",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "openNavigation": "Abrir navegación",
+    "closeNavigation": "Cerrar navegación",
+    "skipToContent": "Saltar al contenido"
   },
   "hero": {
     "tagline": "Experiencia de Lujo",
     "brand": "El Mejor Guía y Chofer de Sri Lanka",
     "subtitle": "Descubre la Perla del Océano Índico",
     "cta": "Explorar Tours",
-    "ctaContact": "Contáctanos"
+    "ctaContact": "Contáctanos",
+    "previousSlide": "Diapositiva anterior",
+    "nextSlide": "Diapositiva siguiente",
+    "pauseSlideshow": "Pausar presentación",
+    "playSlideshow": "Reproducir presentación"
   },
   "tours": {
     "sectionLabel": "Recomendado",
@@ -57,7 +64,32 @@
     "luxuryDayTrips": "Excursiones de lujo de un día",
     "oneDayPackages": "Paquetes Premium de un día",
     "oneDayDesc": "¿Poco tiempo pero muchas ganas de aventura? Nuestras excursiones de un día están diseñadas para mostrarle lo mejor de Sri Lanka en un solo día inolvidable.",
-    "upToGuests": "Hasta {count} Invitados"
+    "upToGuests": "Hasta {count} Invitados",
+    "priceOnRequest": "Precio a consultar",
+    "groupPrices": "Precios por grupo",
+    "travellers": "Viajeros",
+    "vehicle": "Vehículo",
+    "totalPrice": "Precio total",
+    "allTours": "Todos los tours",
+    "inSeason": "En temporada",
+    "moreTours": "Más tours",
+    "tourCount": "{count} tours",
+    "seasonSouth": "noviembre – junio",
+    "seasonEast": "julio – octubre",
+    "offSeason": "Temporada baja",
+    "dayToursMore": "Tours de un día y más",
+    "anyLength": "Cualquier duración",
+    "oneDay": "Un día",
+    "otherLength": "Otro",
+    "daysCount": "{count} días",
+    "exploreTours": "Explorar tours",
+    "exploreDesc": "Cada tour es privado y se adapta a tus fechas e intereses.",
+    "pageSubtitle": "Tours privados con tu propio chófer-guía: cada itinerario se puede personalizar.",
+    "cantFind": "¿No encuentras el tour ideal?",
+    "cantFindDesc": "Diseñamos uno según tus fechas e intereses.",
+    "planTailor": "Planificar un tour a medida",
+    "routeMap": "Mapa de la ruta",
+    "mapCaption": "Mapa del relieve · datos de elevación: NASA SRTM"
   },
   "vehicles": {
     "whatsNew": "Nuevo",
@@ -100,7 +132,45 @@
       "item3": "Disponibles 24/7 para tu asistencia",
       "item4": "Precios transparentes y todo incluido"
     },
-    "cta": "Contacto"
+    "cta": "Contacto",
+    "teamLabel": "Our team",
+    "teamTitle": "Meet the people behind your journey",
+    "teamLanguages": "Speaks",
+    "awardsTitle": "Reconocidos por quienes viajan",
+    "awardsSubtitle": "Nos enorgullece recibir los premios Travelers’ Choice de Tripadvisor, que celebran los viajes inolvidables de nuestros huéspedes.",
+    "awardsLabel": "Premios de Tripadvisor",
+    "stats": {
+      "experience": "Años de Experiencia",
+      "travelers": "Viajeros Felices",
+      "support": "Soporte Disponible",
+      "certified": "Licencia y Certificación"
+    },
+    "reasons": {
+      "licensed": {
+        "title": "Guías con Licencia",
+        "desc": "Todos nuestros guías son profesionales con licencia del gobierno."
+      },
+      "rated": {
+        "title": "Servicio de 5 Estrellas",
+        "desc": "Elogiados constantemente en TripAdvisor por nuestra hospitalidad."
+      },
+      "private": {
+        "title": "Privado y Personalizado",
+        "desc": "Cada viaje se adapta a tu grupo: sin autobuses compartidos, sin extraños."
+      },
+      "passionate": {
+        "title": "Pasión por Sri Lanka",
+        "desc": "Somos locales que aman esta isla y queremos que la vivas al máximo."
+      },
+      "pata": {
+        "title": "Certificado por PATA y Turismo",
+        "desc": "Miembros reconocidos de Sri Lanka Tourism y la Pacific Asia Travel Association."
+      },
+      "transparent": {
+        "title": "Precios Transparentes",
+        "desc": "Sin cargos ocultos. Precios claros para que viajes con total tranquilidad."
+      }
+    }
   },
   "stats": {
     "experience": "Años de Experiencia",
@@ -183,7 +253,33 @@
     "notes": "Peticiones Especiales / Notas",
     "notesPlaceholder": "Requisitos dietéticos, paradas extra, número de personas, etc...",
     "submit": "Enviar Mensaje",
-    "nameRequired": "Por favor, completa tu nombre y correo."
+    "nameRequired": "Por favor, completa tu nombre y correo.",
+    "findUs": "Dónde estamos",
+    "openMaps": "Abrir en Google Maps",
+    "page": {
+      "online": "Estamos en línea",
+      "heroText": "¿Planeas un viaje a Sri Lanka? Cuéntanos tus fechas e ideas: organizamos la ruta, el alojamiento y el conductor.",
+      "whatsappUs": "Escríbenos por WhatsApp",
+      "callUs": "Llámanos",
+      "callNow": "Llamar ahora",
+      "startChat": "Iniciar chat",
+      "emailLabel": "Correo",
+      "writeToUs": "Escríbenos",
+      "visitUs": "Visítanos",
+      "openMaps": "Abrir en Maps",
+      "sendMessage": "Enviar un mensaje",
+      "planJourney": "Planifiquemos tu viaje",
+      "formIntro": "Rellena el formulario y te responderemos por correo.",
+      "sent": "¡Mensaje enviado!",
+      "sentText": "Gracias, te contactaremos muy pronto.",
+      "sendAnother": "Enviar otro mensaje",
+      "error": "Algo salió mal. Inténtalo de nuevo o escríbenos por WhatsApp.",
+      "whyWrite": "Por qué los viajeros nos escriben",
+      "p1": "Respuesta en pocas horas",
+      "p2": "Conductor-guía con licencia aprobado por SLTDA",
+      "p3": "Sin gastos de reserva, pago a la llegada",
+      "hours": "Abierto 24 horas · 7 días a la semana"
+    }
   },
   "trustBar": {
     "accredited": "Acreditado y Reconocido",
@@ -210,7 +306,13 @@
     "emailPlaceholder": "Tu correo",
     "subscribe": "Suscribirse",
     "copyright": "Sri Lanka Tours Driver — Todos los derechos reservados",
-    "subscribed": "¡Suscrito con éxito!"
+    "subscribed": "¡Suscrito con éxito!",
+    "popularTours": "Tours populares",
+    "destinations": "Destinos",
+    "followUs": "Síguenos",
+    "privacy": "Política de privacidad",
+    "terms": "Términos y condiciones",
+    "cookies": "Política de cookies"
   },
   "rates": {
     "title": "Tarifas de Paquetes de Tours",
@@ -275,7 +377,27 @@
     "minimumPeople": "Mínimo {count} personas",
     "minimumPeopleError": "Se requieren al menos {count} personas.",
     "pricePerPerson": "Precio por persona",
-    "estimatedTotal": "Total estimado"
+    "estimatedTotal": "Total estimado",
+    "country": "País",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de fin",
+    "adults": "Adultos",
+    "children": "Niños",
+    "childrenAges": "Edades de los niños",
+    "childAge": "Niño {n}",
+    "ageYears": "{age} años",
+    "underOne": "Menos de 1",
+    "select": "Seleccionar…",
+    "pickup": "Lugar de recogida",
+    "message": "Mensaje",
+    "tourLength": "Duración del tour",
+    "daysOption": "{days} días",
+    "estimate": "Precio estimado",
+    "estimateTotal": "Total para {count} viajeros · {days} días",
+    "vehicleLabel": "Vehículo: {vehicle}",
+    "perPersonApprox": "≈ {price} por persona",
+    "estimateNote": "Confirmamos el precio final tras tu solicitud. Sin pago ahora.",
+    "largeGroup": "Para grupos de más de {max} personas te enviaremos una cotización."
   },
   "loader": {
     "tagline": "Explora la Isla Paraíso 🌴",
@@ -301,8 +423,13 @@
       "Religious": "Religioso",
       "City": "Ciudad",
       "Nature": "Naturaleza",
-      "Wildlife": "Vida Silvestre"
+      "Wildlife": "Vida Silvestre",
+      "Beach": "Playa",
+      "HillCountry": "Tierras altas",
+      "Adventure": "Aventura"
     },
+    "gettingThere": "Cómo llegar",
+    "experiencesIn": "Qué hacer en {place}",
     "destinations": {
       "old-parliament-building": {
         "title": "Antiguo Edificio del Parlamento",
@@ -390,7 +517,11 @@
     "phEmail": "Correo Electrónico",
     "btnSubmit": "Enviar mi Solicitud",
     "btnSending": "Enviando código...",
-    "tags": ["14 días prom.", "100% Privado", "Guías Expertos"],
+    "tags": [
+      "14 días prom.",
+      "100% Privado",
+      "Guías Expertos"
+    ],
     "styles": {
       "relaxed": "Relajado",
       "moderate": "Moderado",
@@ -433,6 +564,17 @@
       "watersports": "Deportes Acuáticos",
       "diving": "Buceo y Snorkel",
       "whales": "Avistamiento de Ballenas"
+    },
+    "yearsExpert": "Años de experiencia",
+    "subtext1": "Descubre Sri Lanka a tu manera, con viajes diseñados a tu medida.",
+    "subtext2": "Luna de miel romántica, aventura en familia o escapada de lujo: nuestros especialistas diseñan cada detalle de tu itinerario.",
+    "buttonPrimary": "Diseñar mi viaje",
+    "buttonSecondary": "Hablar con un especialista",
+    "additionalServices": "Servicios adicionales",
+    "services": {
+      "train": "Billetes de tren",
+      "entrance": "Entradas",
+      "transfer": "Traslado al aeropuerto"
     }
   },
   "testimonials": {
@@ -442,5 +584,193 @@
   "gallery": {
     "label": "Galería",
     "heading": "Momentos de Sri Lanka"
+  },
+  "cinematic": {
+    "ascentLabel": "Hacia las tierras altas",
+    "ascentTitle": "Por encima de las nubes, curva a curva",
+    "ascentText": "Desde la ciudad templo de Kandy hasta las plantaciones de té envueltas en niebla, tu conductor-guía privado organiza cada día en torno a la luz, las vistas y las historias que merecen una parada.",
+    "ascentCta": "Ver circuitos",
+    "ascentMega": "Ceilán",
+    "descentLabel": "Bajando a la costa",
+    "descentTitle": "Y luego seguir los ríos hasta el mar",
+    "descentText": "Fuertes coloniales, ciudades templo y tranquilas playas del sur: diseñamos la ruta a tu medida, con un vehículo y un guía que te acompañan durante todo el viaje.",
+    "descentCta": "Diseña tu viaje a medida",
+    "descentMega": "Costa",
+    "bridgeText": "Deja atrás la costa: la carretera sube hasta las nubes",
+    "frameImgAlt": "Puente de los Nueve Arcos cerca de Ella, en las tierras altas"
+  },
+  "photoCredits": {
+    "summary": "Créditos fotográficos",
+    "resized": "redimensionada"
+  },
+  "home": {
+    "experiences": {
+      "label": "Experiencias",
+      "heading": "Encuentra el viaje que te inspira",
+      "sub": "Elige un estilo — diseñamos la ruta, el conductor y el guía a tu medida.",
+      "explore": "Explorar",
+      "items": {
+        "safari": {
+          "title": "Safari",
+          "desc": "Leopardos, elefantes y osos bezudos en Yala, Udawalawe y Wilpattu."
+        },
+        "surfing": {
+          "title": "Surf",
+          "desc": "Olas suaves de arrecife en el sur y olas de primer nivel en Arugam Bay."
+        },
+        "hiking": {
+          "title": "Senderismo",
+          "desc": "Ella Rock, el Pico de Adán y senderos entre té y niebla al amanecer."
+        },
+        "culture": {
+          "title": "Cultura",
+          "desc": "Ciudades antiguas, templos en cuevas y el Templo del Diente en Kandy."
+        },
+        "food": {
+          "title": "Gastronomía",
+          "desc": "Arroz con curry, hoppers y kottu — probados con familias locales."
+        }
+      }
+    },
+    "readMore": "Leer más",
+    "bookNow": "Reservar ahora",
+    "highlights": "Lo más destacado",
+    "stats": {
+      "label": "En cifras",
+      "heading": "De confianza en cada carretera de Sri Lanka",
+      "tours": "Tours realizados",
+      "travelers": "Viajeros felices",
+      "experience": "Años de experiencia",
+      "satisfaction": "Satisfacción de los clientes"
+    },
+    "gallery": {
+      "open": "Abrir foto",
+      "close": "Cerrar",
+      "prev": "Foto anterior",
+      "next": "Foto siguiente",
+      "counter": "{current} de {total}",
+      "more": "Ver más fotos",
+      "less": "Ver menos"
+    },
+    "slider": {
+      "prev": "Reseña anterior",
+      "next": "Reseña siguiente",
+      "goTo": "Ir a la reseña {n}"
+    },
+    "backToTop": "Volver arriba",
+    "contactForm": {
+      "label": "Planifica tu viaje",
+      "heading": "Cuéntanos sobre tu viaje",
+      "sub": "Comparte tus fechas e ideas — normalmente respondemos en pocas horas.",
+      "phone": "Teléfono / WhatsApp (opcional)",
+      "phonePlaceholder": "+34 612 345 678",
+      "message": "Tu mensaje",
+      "messagePlaceholder": "Fechas, número de viajeros, lugares que te gustaría ver...",
+      "errName": "Por favor, introduce tu nombre.",
+      "errEmail": "Por favor, introduce tu correo electrónico.",
+      "errEmailInvalid": "Por favor, introduce un correo electrónico válido.",
+      "errMessage": "Por favor, escribe un mensaje de al menos 10 caracteres.",
+      "sending": "Enviando...",
+      "success": "¡Gracias! Tu mensaje ha sido enviado — te responderemos pronto.",
+      "failed": "Algo salió mal. Inténtalo de nuevo o escríbenos por WhatsApp."
+    },
+    "map": {
+      "label": "Explora la isla",
+      "heading": "Sri Lanka de un vistazo",
+      "sub": "De las ciudades antiguas del norte a las playas del sur: toca un lugar para descubrirlo.",
+      "alt": "Mapa ilustrado de Sri Lanka con sus principales destinos"
+    },
+    "collections": {
+      "honeymoonSub": "Atardeceres en la costa, estancias tranquilas en las colinas y tiempo juntos.",
+      "familySub": "Fauna, playas y nuevos descubrimientos para compartir en familia.",
+      "adventureSub": "Sal al aire libre y descubre otra cara de Sri Lanka.",
+      "explore": "Ver {name}"
+    }
+  },
+  "account": {
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "myAccount": "Mi cuenta",
+    "createAccount": "Crear cuenta",
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Inicia sesión para reservar más rápido con tus datos guardados.",
+    "registerTitle": "Crea tu cuenta",
+    "registerSubtitle": "Guarda tus datos para reservar más rápido.",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordRule": "Al menos 8 caracteres, con una letra y un número",
+    "or": "o",
+    "noAccount": "¿Eres nuevo?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "guestNote": "La cuenta es opcional: siempre puedes reservar como invitado.",
+    "staffLogin": "Acceso para administración / personal",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "forgotTitle": "¿Olvidaste tu contraseña?",
+    "forgotSubtitle": "Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+    "sendResetLink": "Enviar enlace de reinicio",
+    "resetSent": "Si existe una cuenta para {email}, le enviamos un enlace para restablecer la contraseña. Revisa tu bandeja de entrada y carpeta de spam.",
+    "backToSignIn": "Volver para iniciar sesión",
+    "resetTitle": "Establecer una nueva contraseña",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "passwordsDontMatch": "Las contraseñas no coinciden",
+    "updatePassword": "Actualizar contraseña",
+    "resetDone": "Su contraseña ha sido actualizada. Ahora puedes iniciar sesión.",
+    "resetInvalid": "Este enlace de restablecimiento no es válido o ha caducado. Por favor solicite uno nuevo.",
+    "requestNewLink": "Solicitar un nuevo enlace",
+    "invalidCredentials": "Correo o contraseña incorrectos.",
+    "emailTaken": "Ya existe una cuenta con este correo. Prueba a iniciar sesión.",
+    "locked": "Demasiados intentos fallidos. Inténtalo de nuevo en 15 minutos.",
+    "rateLimited": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+    "checkFields": "Revisa los campos marcados.",
+    "errorGeneric": "Algo salió mal. Inténtalo de nuevo.",
+    "errorNetwork": "No se pudo conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.",
+    "googleFailed": "Error al iniciar sesión con Google. Inténtalo de nuevo.",
+    "googleConflict": "Este correo ya está vinculado a otra cuenta de Google.",
+    "loading": "Cargando…",
+    "hello": "Hola, {name}",
+    "accountIntro": "Has iniciado sesión. Tus datos están guardados para reservas y consultas más rápidas.",
+    "googleConnected": "Cuenta de Google conectada",
+    "myBookings": "Mis reservas",
+    "myBookingsIntro": "Sigue cada solicitud que nos has enviado y consulta en qué punto está.",
+    "memberSince": "Miembro desde",
+    "signInMethods": "Inicio de sesión",
+    "filter_all": "Todas",
+    "filter_active": "Activas",
+    "filter_past": "Pasadas",
+    "statTotal": "Solicitudes",
+    "statInProgress": "En curso",
+    "statUpcoming": "Próximos viajes",
+    "statCompleted": "Completadas",
+    "bookingsError": "No hemos podido cargar tus reservas en este momento.",
+    "retry": "Reintentar",
+    "noBookings": "Aún no tienes reservas",
+    "noBookingsHint": "Las solicitudes que envíes con la sesión iniciada aparecerán aquí, con su estado actualizado.",
+    "noBookingsFilter": "No hay reservas en esta vista.",
+    "status_new": "Recibida",
+    "status_contacted": "En conversación",
+    "status_quoted": "Presupuesto enviado",
+    "status_pending": "Pendiente de confirmación",
+    "status_confirmed": "Confirmada",
+    "status_cancelled": "Cancelada",
+    "status_completed": "Completada",
+    "stepReceived": "Recibida",
+    "stepReview": "Planificación",
+    "stepConfirmed": "Confirmada",
+    "stepCompleted": "Completada",
+    "requestedOn": "Solicitada el {date}",
+    "travellers": "{adults, plural, one {# adulto} other {# adultos}}{children, plural, =0 {} one {, # niño} other {, # niños}}",
+    "quote": "Presupuesto",
+    "cancelledNote": "Esta reserva fue cancelada. Contáctanos si quieres volver a reservar.",
+    "progress": "Progreso de la reserva",
+    "history": "Historial de estados",
+    "trackBooking": "Sigue esta reserva en tu cuenta →",
+    "verifyTitle": "Confirma tu correo",
+    "verifyDone": "Tu dirección de correo está confirmada. ¡Gracias!",
+    "verifyInvalid": "Este enlace de confirmación no es válido o ha caducado. Inicia sesión y envía uno nuevo desde tu cuenta.",
+    "verifyPending": "Confirma tu correo ({email}) para ver aquí tus reservas. Te enviamos un enlace al registrarte.",
+    "resendVerification": "Reenviar correo de confirmación",
+    "verifySent": "¡Enviado! Revisa tu bandeja de entrada y la carpeta de spam."
   }
 }

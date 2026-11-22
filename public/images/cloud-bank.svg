@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="360" viewBox="0 0 1600 360" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="shade" x2="0" y2="1">
+      <stop stop-color="#ffffff"/>
+      <stop offset=".65" stop-color="#f7fafc"/>
+      <stop offset="1" stop-color="#dbe6ed"/>
+    </linearGradient>
+    <filter id="cloud" x="-10%" y="-35%" width="120%" height="170%">
+      <feTurbulence type="fractalNoise" baseFrequency=".012 .025" numOctaves="3" seed="12" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="32" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <linearGradient id="fade" x2="0" y2="1">
+      <stop offset=".55" stop-color="white"/>
+      <stop offset="1" stop-color="black"/>
+    </linearGradient>
+    <mask id="bottom"><path fill="url(#fade)" d="M0 0h1600v360H0z"/></mask>
+  </defs>
+  <g mask="url(#bottom)">
+    <g fill="url(#shade)" filter="url(#cloud)">
+      <ellipse cx="30" cy="190" rx="200" ry="85"/>
+      <ellipse cx="210" cy="150" rx="170" ry="95"/>
+      <ellipse cx="400" cy="205" rx="190" ry="85"/>
+      <ellipse cx="580" cy="165" rx="155" ry="100"/>
+      <ellipse cx="770" cy="205" rx="180" ry="90"/>
+      <ellipse cx="950" cy="135" rx="170" ry="100"/>
+      <ellipse cx="1150" cy="190" rx="190" ry="90"/>
+      <ellipse cx="1350" cy="155" rx="165" ry="100"/>
+      <ellipse cx="1550" cy="200" rx="210" ry="95"/>
+      <path d="M-50 210h1700v150H-50z"/>
+    </g>
+  </g>
+</svg>

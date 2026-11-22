@@ -12,6 +12,13 @@ export interface IBooking {
   itemName?: string;
   bookingType?: string;
   people: number;
+  adults?: number;
+  children?: number;
+  childrenAges?: number[];
+  country?: string;
+  endDate?: string;
+  pickupLocation?: string;
+  vehicle?: string;
   pricePerPerson?: number;
   additionalPersonPrice?: number;
   totalPrice?: number;
@@ -35,7 +42,14 @@ const BookingSchema = new Schema<IBooking>(
     internalNotes: String,
     itemName: String,
     bookingType: String,
-    people: { type: Number, required: true, min: 2 },
+    people: { type: Number, required: true, min: 1 },
+    adults: Number,
+    children: Number,
+    childrenAges: [Number],
+    country: String,
+    endDate: String,
+    pickupLocation: String,
+    vehicle: String,
     pricePerPerson: Number,
     additionalPersonPrice: Number,
     totalPrice: Number,

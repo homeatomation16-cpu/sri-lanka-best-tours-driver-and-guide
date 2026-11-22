@@ -1,12 +1,14 @@
+import { pageAlternates, localizedUrl } from "@/lib/seo";
 // src/app/[locale]/excursions/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
 import { EXCURSIONS } from "@/data/excursions";
+import { EXCURSION_DETAILS } from "@/data/excursionDetails";
 import PackagePrice from "@/components/PackagePrice";
 import BookingForm from "@/components/BookingForm";
-import { contact } from "@/data/contact";
+import { getSiteSettings } from "@/lib/siteSettings";
 import { PhoneCallIcon } from "lucide-react";
 import { Metadata } from "next";
 
@@ -42,7 +44,11 @@ export async function generateMetadata({
   return {
     title: `${title} | Sri Lanka Excursions`,
     description: description.substring(0, 160),
+    alternates: pageAlternates(locale, `/excursions/${id}`),
     openGraph: {
+      title,
+      description: description.substring(0, 160),
+      url: localizedUrl(locale, `/excursions/${id}`),
       images: [excursion.image],
     },
   };
@@ -83,6 +89,7 @@ export default async function ExcursionPage({
   const t  = await getTranslations("excursions");
   const te = await getTranslations("excursionPage");
   const tb = await getTranslations("booking");
+  const contact = await getSiteSettings();
 
   const excursion = EXCURSIONS.find(
     (item) => item.id?.trim().toLowerCase() === id?.trim().toLowerCase()
@@ -113,7 +120,10 @@ export default async function ExcursionPage({
     translatedCategory = te(catKey) || translatedCategory;
   } catch {}
 
-  const relatedExcursions = EXCURSIONS.filter((e) => e.id !== excursion.id).slice(0, 3);
+  // The live site's full write-up (sections + highlights) is in English only; other languages keep their translated summary.
+  const details = locale === "en" ? EXCURSION_DETAILS[excursion.id] : undefined;
+
+  const relatedExcursions =EXCURSIONS.filter((e) => e.id !== excursion.id).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-[#faf7f2]">
@@ -167,9 +177,34 @@ export default async function ExcursionPage({
         <div className="grid md:grid-cols-[1fr_320px] gap-12 lg:gap-16 pb-20">
           {/* Left Content */}
           <div>
-            <p className="text-[#5c4e3d] text-base md:text-lg leading-[1.9] font-light">
-              {translatedDesc}
-            </p>
+            {details ? (
+              <div className="space-y-4">
+                {details.description.split(/\n{2,}/).map((block, i) =>
+                  block.startsWith("## ") ? (
+                    <h2 key={i} className="pt-4 font-serif text-2xl font-bold text-[#1a1209]">{block.slice(3)}</h2>
+                  ) : (
+                    <p key={i} className="text-[#5c4e3d] text-base leading-[1.85]">{block}</p>
+                  ),
+                )}
+              </div>
+            ) : (
+              <p className="text-[#5c4e3d] text-base md:text-lg leading-[1.9] font-light">
+                {translatedDesc}
+              </p>
+            )}
+
+            {details && details.highlights.length > 0 && (
+              <div className="mt-8 rounded-2xl border border-[#e8ddd0] bg-white p-6">
+                <p className="text-[#1a1209] text-xs font-bold uppercase tracking-widest mb-4">Highlights</p>
+                <ul className="grid gap-2 sm:grid-cols-2">
+                  {details.highlights.map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-[#5c4e3d]">
+                      <span className="text-[#d4a853] text-base">✓</span>{item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {translatedIncludes.length > 0 && (
               <div className="mt-8">

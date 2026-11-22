@@ -2,8 +2,8 @@ import nodemailer from "nodemailer";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import { NextResponse } from "next/server";
-import { MINIMUM_TOUR_PEOPLE } from "@/utils/tourPricing";
 import { requireAdmin, esc } from "@/lib/adminAuth";
+import { emailLayout, sendEmail, SITE_URL } from "@/lib/email";
 
 // 🔹 MAIL TRANSPORT
 const transporter = nodemailer.createTransport({
@@ -21,13 +21,15 @@ export async function POST(req) {
   try {
     const body = await req.json();
 
-    const { name, email, phone, date, time, notes, itemName, bookingType, message, people, pricePerPerson, additionalPersonPrice, totalPrice } = body;
+    const { name, email, phone, date, time, notes, itemName, bookingType, message, people, pricePerPerson, additionalPersonPrice, totalPrice, country, endDate, adults, children, childrenAges, pickupLocation, vehicle } = body;
+    const ages = Array.isArray(childrenAges) ? childrenAges.map(Number).filter((age) => Number.isInteger(age) && age >= 0 && age <= 17).slice(0, 10) : [];
 
     // ✅ VALIDATION
     const requestedPeople = Number(people);
 
-    if (!name || !email || !Number.isInteger(requestedPeople) || requestedPeople < MINIMUM_TOUR_PEOPLE) {
-      return NextResponse.json({ error: `Name, email, and at least ${MINIMUM_TOUR_PEOPLE} people are required` }, { status: 400 });
+    if (!name || !email || !Number.isInteger(requestedPeople) || requestedPeople < 1) {
+      // the minimum per tour (1 with a price table, else 2) is enforced by the booking form
+      return NextResponse.json({ error: "Name, email, and at least 1 person are required" }, { status: 400 });
     }
 
     await connectDB();
@@ -42,6 +44,13 @@ export async function POST(req) {
       itemName,
       bookingType,
       people: requestedPeople,
+      adults: Number.isInteger(Number(adults)) ? Number(adults) : undefined,
+      children: Number.isInteger(Number(children)) ? Number(children) : undefined,
+      childrenAges: ages,
+      country,
+      endDate,
+      pickupLocation,
+      vehicle,
       pricePerPerson: Number(pricePerPerson) || undefined,
       additionalPersonPrice: Number(additionalPersonPrice) || undefined,
       totalPrice: Number(totalPrice) || undefined,
@@ -64,7 +73,11 @@ export async function POST(req) {
           <p><b>Name:</b> ${esc(name)}</p>
           <p><b>Email:</b> ${esc(email)}</p>
           <p><b>Phone:</b> ${esc(phone || "-")}</p>
-          <p><b>Date:</b> ${esc(date || "-")}</p>
+          <p><b>Date:</b> ${esc(date || "-")}${endDate ? ` – ${esc(endDate)}` : ""}</p>
+          <p><b>Country:</b> ${esc(country || "-")}</p>
+          <p><b>Adults / Children:</b> ${esc(adults ?? "-")} / ${esc(children ?? 0)}${ages.length ? ` (ages ${esc(ages.join(", "))})` : ""}</p>
+          <p><b>Vehicle:</b> ${esc(vehicle || "-")}</p>
+          <p><b>Pickup:</b> ${esc(pickupLocation || "-")}</p>
           <p><b>Item:</b> ${esc(itemName || "-")}</p>
           <p><b>People:</b> ${esc(people)}</p>
           <p><b>Price per person:</b> $${esc(pricePerPerson || "-")}</p>
@@ -74,17 +87,15 @@ export async function POST(req) {
       });
 
       // 📩 CUSTOMER CONFIRMATION EMAIL (🔥 NEW)
-      await transporter.sendMail({
-        from: `"Sri Lanka Tours" <${process.env.SMTP_USER}>`,
+      await sendEmail({
         to: email,
         subject: "Booking Received ✅",
-        html: `
-          <h2>Hello ${esc(name)},</h2>
-          <p>Your booking request has been received.</p>
-          <p>We will contact you soon.</p>
-          <br/>
-          <p>Thank you!</p>
-        `,
+        html: await emailLayout(
+          "Booking request received",
+          `<p>Hello ${esc(name)},</p>
+          <p>Thank you – we have received your booking request${itemName ? ` for <strong>${esc(itemName)}</strong>` : ""}. We will check availability and contact you soon by e-mail or WhatsApp.</p>`,
+          { label: "View my bookings", url: `${SITE_URL}/account` },
+        ),
       });
     } catch (mailError) {
       console.error("Email failed:", mailError);

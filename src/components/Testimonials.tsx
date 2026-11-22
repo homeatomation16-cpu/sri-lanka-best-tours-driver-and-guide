@@ -1,14 +1,19 @@
-// src/components/Testimonials.tsx
 "use client";
 
-import { Star } from "lucide-react";
+import CinematicSection from "@/components/cinematic/CinematicSection";
+// src/components/Testimonials.tsx
+
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import DecoShapes from "@/components/home/DecoShapes";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 export default function Testimonials() {
   const t = useTranslations("testimonials");
+  const ts = useTranslations("home.slider");
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
 
   const reviews = [
     { name: "Vairavelu R", text: "Perfectly organized tour. Smooth experience and very professional team.", img: "https://randomuser.me/api/portraits/men/32.jpg" },
@@ -17,46 +22,67 @@ export default function Testimonials() {
     { name: "Daniel K", text: "Luxury level comfort and very caring staff.", img: "https://randomuser.me/api/portraits/men/75.jpg" },
   ];
 
+  /** Scroll the slider so review `i` is the first visible card. */
+  const goTo = useCallback((i: number) => {
+    const el = sliderRef.current;
+    const card = el?.children[(i + reviews.length) % reviews.length] as HTMLElement | undefined;
+    if (!el || !card) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollTo({ left: card.offsetLeft, behavior: reduced ? "auto" : "smooth" });
+  }, [reviews.length]);
+
+  // Track which card is in front (for the dots).
   useEffect(() => {
     const el = sliderRef.current;
     if (!el) return;
-    let x = 0;
-    const i = setInterval(() => {
-      x += 0.4;
-      if (x >= el.scrollWidth / 2) x = 0;
-      el.scrollLeft = x;
-    }, 16);
-    return () => clearInterval(i);
+    const onScroll = () => {
+      const cards = Array.from(el.children) as HTMLElement[];
+      const left = el.scrollLeft;
+      let best = 0;
+      cards.forEach((c, i) => { if (Math.abs(c.offsetLeft - left) < Math.abs(cards[best].offsetLeft - left)) best = i; });
+      setActive(best);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Autoplay every 5 s; pauses while hovered or focused, off for reduced motion.
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => {
+      if (el.matches(":hover, :focus-within") || document.hidden) return;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      goTo(atEnd ? 0 : active + 1);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [active, goTo]);
+
   return (
-    <section className="py-32 bg-linear-to-b from-white via-gray-50 to-white">
+    <CinematicSection className="testimonials-section home-section-spacing relative isolate overflow-hidden bg-[#edf4ef]">
+      <DecoShapes tone="light" />
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-20">
-          <p className="text-orange-500 tracking-widest mb-4 uppercase text-sm font-semibold">
-            {t("label")}
-          </p>
-          <h2 className="text-4xl lg:text-6xl font-bold">{t("heading")}</h2>
+        <div data-rise3d="self" className="text-center mb-8">
+          <p className="text-orange-500 tracking-widest mb-4 uppercase text-sm font-semibold">{t("label")}</p>
+          <h2 className="font-playfair text-4xl lg:text-5xl">{t("heading")}</h2>
         </div>
 
         {/* Trust Bar */}
-        <div className="bg-white/70 backdrop-blur-xl border border-gray-200 rounded-[30px] shadow-xl p-10 flex flex-col lg:flex-row justify-between items-center gap-10 mb-20">
+        <div data-rise3d="self" className="bg-transparent border-y border-emerald-900/15 py-8 flex flex-col lg:flex-row justify-between items-center gap-8 mb-10">
           <TrustBlock label="Google Reviews" score="4.9" total="1,200+" />
           <TrustBlock label="TripAdvisor" score="5.0" total="800+" />
           <TrustBlock label="Happy Travelers" score="98%" total="Satisfaction" />
         </div>
 
-        {/* Slider */}
-        <div ref={sliderRef} className="overflow-hidden whitespace-nowrap py-5 -mx-5 sm:-mx-8 lg:-mx-12">
-          <div className="inline-flex gap-10">
-            {[...reviews, ...reviews].map((r, i) => (
-              <div
-                key={i}
-                className="min-w-85 lg:min-w-115 bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-[30px] p-10 hover:scale-[1.03] transition"
-              >
+        {/* Slider: scroll-snap track + arrows + dots */}
+        {/* dir="ltr": the reviews are in English and scroll maths stays simple in RTL locales */}
+        <div className="review-slider" data-reveal="up" dir="ltr">
+          <div ref={sliderRef} className="review-track scrollbar-hide" tabIndex={0} role="region" aria-roledescription="carousel" aria-label={t("heading")}>
+            {reviews.map((r, i) => (
+              <div key={i} className="review-card lift-card" role="group" aria-roledescription="slide" aria-label={`${i + 1} / ${reviews.length}`}>
                 <Stars />
-                <p className="my-6 text-gray-700 leading-relaxed">"{r.text}"</p>
+                <p className="my-6 text-gray-700 leading-relaxed">&quot;{r.text}&quot;</p>
                 <div className="flex items-center gap-4 mt-6">
                   <Image src={r.img} alt={r.name} width={50} height={50} className="rounded-full" />
                   <div>
@@ -67,9 +93,18 @@ export default function Testimonials() {
               </div>
             ))}
           </div>
+          <div className="review-controls">
+            <button type="button" className="review-arrow" onClick={() => goTo(active - 1)} aria-label={ts("prev")}><ChevronLeft size={20} /></button>
+            <div className="review-dots">
+              {reviews.map((_, i) => (
+                <button key={i} type="button" className={`review-dot ${i === active ? "is-active" : ""}`} onClick={() => goTo(i)} aria-label={ts("goTo", { n: i + 1 })} aria-current={i === active ? "true" : undefined} />
+              ))}
+            </div>
+            <button type="button" className="review-arrow" onClick={() => goTo(active + 1)} aria-label={ts("next")}><ChevronRight size={20} /></button>
+          </div>
         </div>
       </div>
-    </section>
+    </CinematicSection>
   );
 }
 

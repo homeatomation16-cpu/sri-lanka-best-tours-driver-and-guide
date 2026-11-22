@@ -1,105 +1,69 @@
 // src/app/[locale]/destinations/page.tsx
-"use client";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { pageAlternates } from "@/lib/seo";
+import { TOURS as EN_DESTINATIONS } from "@/data/destinations/en";
+import { ListingHero, CategoryChips, ListingCards } from "@/components/site/ListingPage";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { DESTINATIONS } from "../../../data/destinations";
+type LocalDestination = { id?: string; title?: string; description?: string; location?: string };
 
-export default function DestinationsPage() {
-  const t = useTranslations("destinations");
+/** Titles/descriptions in the visitor's language (src/data/destinations/<locale>.ts). */
+async function loadLocalized(locale: string): Promise<LocalDestination[]> {
+  try {
+    const mod = await import(`@/data/destinations/${locale}`);
+    const raw = mod.TOURS ?? mod.default ?? [];
+    return Array.isArray(raw) ? raw : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: "Sri Lanka Destinations | Sri Lanka Best Tours",
+    description: "Discover Sri Lanka's best places to visit – ancient cities, hill country, wildlife parks and beaches – and plan your private tour.",
+    alternates: pageAlternates(locale, "/destinations"),
+  };
+}
+
+// Live-site layout: hero, category chips (?category=), destination cards.
+export default async function DestinationsPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ category?: string }> }) {
+  const { locale } = await params;
+  const { category } = await searchParams;
+  const [t, tPage, tEx, localized] = await Promise.all([
+    getTranslations({ locale, namespace: "destinations" }),
+    getTranslations({ locale, namespace: "destinationPage" }),
+    getTranslations({ locale, namespace: "excursions" }),
+    loadLocalized(locale),
+  ]);
+  const tCat = (key: string) => (tPage.has(`categories.${key}`) ? tPage(`categories.${key}`) : key);
+
+  const items = (EN_DESTINATIONS as any[]).map((d) => {
+    const local = localized.find((x) => x?.id === d.id);
+    return {
+      key: d.category as string,
+      href: `/destinations/${d.id}`,
+      image: d.image,
+      title: local?.title || d.title,
+      category: tCat(d.category),
+      text: local?.description || d.description,
+      place: local?.location || d.location,
+    };
+  });
+
+  const categories = [...new Map(items.map((i) => [i.key, i.category])).entries()];
+  const active = categories.some(([key]) => key === category) ? category : undefined;
+  const visible = items.filter((i) => !active || i.key === active);
 
   return (
-    <main className="min-h-screen bg-[#faf7f2]">
-
-      {/* HERO SECTION */}
-      <header className="relative h-screen w-full overflow-hidden">
-        <Image 
-          src="/cover.jpg" 
-          alt="Sri Lanka Destinations" 
-          fill 
-          priority // 🌟 LCP එක වැඩි දියුණු කිරීමට
-          className="object-cover" 
-        />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-linear-to-t from-white via-white/70 to-transparent" />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-          <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.4em] text-gray-200">
-            {t("label")}
-          </p>
-          <div className="flex flex-row gap-4 mb-6 text-3xl lg:text-5xl font-bold leading-tight text-white"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.02em" }}>
-            Sri Lanka
-            <span className="italic text-[#d4a853]">{t("heading")}</span>
-          </div>
-          <div className="mb-6 h-px w-24 bg-[#d4a853]" />
-          <p className="max-w-xl text-sm md:text-lg font-light leading-relaxed text-gray-200">
-            Discover the most beautiful places across the pearl of the Indian Ocean.
-          </p>
-        </div>
-      </header>
-
-      {/* DESTINATIONS GRID */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {DESTINATIONS.map((d, index) => (
-            <Link
-              key={d.id}
-              href={`/destinations/${d.id}`}
-              className="group relative block overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
-            >
-              {/* Number Badge */}
-              <span className="absolute left-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-[#1a1209]/80 font-sans text-xs font-bold text-[#d4a853] backdrop-blur-sm">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-
-              {/* Destination Image Area */}
-              <div className="relative h-64 w-full overflow-hidden">
-                <Image 
-                  src={d.image} 
-                  alt={d.title} 
-                  fill
-                  // 🌟 මේ 'sizes' prop එක තමයි ඔයාගේ Warnings නැති කරන්නේ සහ Speed වැඩි කරන්නේ
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110" 
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-[#1a1209]/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              </div>
-
-              {/* Content Area */}
-              <div className="relative p-6">
-                <div className="mb-4 h-0.5 w-8 bg-[#d4a853] transition-all duration-300 group-hover:w-16" />
-                <h2 className="mb-2 text-xl font-bold text-[#1a1209] transition-colors duration-300 group-hover:text-[#8b4513]"
-                  style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
-                  {d.title}
-                </h2>
-                {d.location && (
-                  <p className="mb-2 text-sm text-[#6b5e4e]">📍 {d.location}</p>
-                )}
-                <p className="mb-5 font-sans text-sm leading-relaxed text-[#6b5e4e] line-clamp-3">
-                  {d.description}
-                </p>
-                <span className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-widest text-[#d4a853] transition-all duration-300 group-hover:gap-3">
-                  {t("explore")}
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </span>
-              </div>
-              
-              {/* Animated Bottom Border */}
-              <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#d4a853] transition-all duration-500 group-hover:w-full" />
-            </Link>
-          ))}
-        </div>
+    <main className="min-h-screen bg-[#f9f7f2]">
+      <ListingHero image="/cover.jpg" eyebrow={t("label")} title={t("heading")} subtitle={tPage("subtitle")} />
+      <section className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
+        <CategoryChips basePath="/destinations" allLabel={tEx("allCategories")} categories={categories} active={active} />
+        <p className="mb-6 text-sm text-slate-500" aria-live="polite">{visible.length} / {items.length}</p>
+        <ListingCards items={visible} />
       </section>
-
-      {/* FOOTER ACCENT */}
-      <div className="py-16 text-center">
-        <div className="mx-auto h-px w-24 bg-[#d4a853]/40" />
-        <p className="mt-4 font-sans text-xs uppercase tracking-widest text-[#9e8e7e]">
-          Pearl of the Indian Ocean
-        </p>
-      </div>
     </main>
   );
 }

@@ -1,82 +1,61 @@
+import CinematicHeading from "@/components/cinematic/CinematicHeading";
+import CinematicSection from "@/components/cinematic/CinematicSection";
+import { editorialImages } from "@/data/editorialImages";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Users, Clock, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import connectDB from "@/lib/mongodb";
-import Tour from "@/models/Tour";
+import { getActiveTours } from "@/lib/tourData";
 
 export default async function OneDayTours({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "tours" });
 
-  await connectDB();
-  const oneDayTours = await Tour.find({ duration: 1, status: "active" }).lean();
+  const oneDayTours = (await getActiveTours(locale)).filter((tour: any) => tour.duration === 1).slice(0, 6);
 
   return (
-    <section className="py-24 bg-linear-to-b from-white to-orange-50/30">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* --- HEADER SECTION --- */}
-        <div className="text-center mb-20">
-          <p className="text-orange-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-4">{t("luxuryDayTrips")}</p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-gray-900 mb-6 leading-tight">{t("oneDayPackages")}</h2>
-          <p className="text-gray-500 max-w-3xl mx-auto text-lg leading-relaxed font-light">{t("oneDayDesc")}</p>
-          <div className="mt-10 h-1 w-20 bg-orange-500 mx-auto rounded-full" />
+    <CinematicSection key={locale + oneDayTours.map((tour) => tour.tourId).join(",")} className="day-tours-section home-section-spacing relative isolate overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6">
+        <div data-rise3d="self" className="mb-8 flex flex-col justify-between gap-7 lg:flex-row lg:items-end">
+          <div className="max-w-2xl">
+            <p className="mb-3 font-semibold text-orange-700">{t("luxuryDayTrips")}</p>
+            <CinematicHeading className="font-playfair text-4xl leading-tight text-slate-900 sm:text-5xl">{t("oneDayPackages")}</CinematicHeading>
+            <p className="mt-5 max-w-xl leading-relaxed text-slate-600">{t("oneDayDesc")}</p>
+          </div>
+          <Link href="/tours" className="home-section-link shrink-0 self-start">
+            {t("viewAll")} <ArrowRight size={18} aria-hidden="true" />
+          </Link>
         </div>
-
-        {/* --- TOURS GRID --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {oneDayTours.map((tour: any) => {
-            const data = tour.translations?.[locale] || tour.translations?.["en"];
-
+        <div className={`day-tour-grid day-tour-grid--${oneDayTours.length}`}>
+          {oneDayTours.map((tour: any, index: number) => {
+            const data = tour.translations?.[locale] || tour.translations?.en;
+            const title = `${tour.tourId} ${data?.title || ""}`.toLowerCase();
+            const image = title.includes("galle") ? editorialImages.galle
+              : title.includes("kandy") ? editorialImages.kandy
+              : title.includes("sigiriya") ? editorialImages.sigiriyaPidurangala
+              : title.includes("udawalaw") ? editorialImages.udawalawe
+              : editorialImages.wildlife;
             return (
-              <div
-                key={tour.tourId}
-                className="group relative rounded-[40px] overflow-hidden bg-white shadow-xl shadow-orange-900/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border border-orange-100/50"
-              >
-                {/* Image Area */}
-                <div className="relative h-72 overflow-hidden">
-                  <Image
-                    src={tour.image}
-                    alt={data?.title}
-                    fill
-                    quality={60} // ✅ Added to shrink image payload
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width:768px) 100vw, 33vw"
-                  />
-                  <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg border border-white/20">
-                    <span className="text-[10px] font-black text-orange-600 uppercase tracking-widest block leading-none mb-1">{t("from")}</span>
-                    <span className="text-xl font-black text-gray-900 leading-none">
-                      ${tour.price} {t("perPerson")}
-                    </span>
-                  </div>
+              <div key={tour.tourId} className="day-tour-frame" data-scroll-float={index % 2 === 0 ? "1" : "-1"}>
+                <Link href={`/tours/${tour.tourId}`} data-drift className="travel-card day-tour-card relative flex h-full min-h-96 flex-col justify-end overflow-hidden rounded-2xl bg-slate-900 p-7 text-white">
+                <div className="cine-image-plane" data-drift-layer>
+                  <Image src={image} alt={data?.title || "Sri Lanka day tour"} fill quality={60} sizes={oneDayTours.length === 5 && index === 0 ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 66vw" : "(max-width: 640px) 100vw, 50vw"} className="travel-card-image object-cover" />
                 </div>
-
-                {/* Content Area */}
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-orange-600 transition-colors line-clamp-2 leading-snug">{data?.title}</h3>
-
-                  <div className="flex items-center gap-6 text-gray-500 text-sm mb-8">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-orange-500" />
-                      <span className="font-medium">1 {t("day")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-orange-500" />
-                      <span className="font-medium">{t("upToGuests", { count: tour.maxPeople || 10 })}</span>
-                    </div>
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/45 to-transparent" />
+                <p className="absolute start-6 top-6 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900">{tour.price > 0 ? `${t("from")} $${tour.price}` : t("priceOnRequest")}</p>
+                <div className="relative">
+                  <div className="mb-4 flex flex-wrap gap-4 text-sm text-white/85">
+                    <span className="inline-flex items-center gap-2"><Clock size={16} aria-hidden="true" />1 {t("day")}</span>
+                    <span className="inline-flex items-center gap-2"><Users size={16} aria-hidden="true" />{t("upToGuests", { count: tour.maxPeople || 10 })}</span>
                   </div>
-
-                  <Link href={`/${locale}/tours/${tour.tourId}`}>
-                    {/* ✅ Changed button to div to prevent HTML/Accessibility errors */}
-                    <div className="w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-widest text-white bg-zinc-900 transition-all hover:bg-orange-600 shadow-lg shadow-zinc-900/20 flex items-center justify-center gap-2">
-                      {t("exploreTour")} <ArrowRight size={16} />
-                    </div>
-                  </Link>
+                  <h3 className="text-2xl font-semibold leading-snug">{data?.title}</h3>
+                  <span className="mt-6 inline-flex items-center gap-3 font-semibold text-amber-300">{t("exploreTour")} <ArrowRight size={18} aria-hidden="true" /></span>
                 </div>
+                </Link>
               </div>
             );
           })}
         </div>
       </div>
-    </section>
+    </CinematicSection>
   );
 }

@@ -8,7 +8,7 @@ const PageViewSchema = new Schema(
     referrer: String,
     device: String, // mobile | tablet | desktop
     country: String,
-    createdAt: { type: Date, default: Date.now, index: true },
+    createdAt: { type: Date, default: Date.now },
   },
   { versionKey: false }
 );

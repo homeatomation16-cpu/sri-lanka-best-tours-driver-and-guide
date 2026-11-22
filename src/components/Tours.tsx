@@ -1,92 +1,77 @@
+import CinematicHeading from "@/components/cinematic/CinematicHeading";
+import CinematicSection from "@/components/cinematic/CinematicSection";
+import { homeTourImages } from "@/data/editorialImages";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { ArrowRight, ArrowUpRight, CalendarCheck, Check, Clock, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import connectDB from "@/lib/mongodb";
-import Tour from "@/models/Tour";
+import { getActiveTours } from "@/lib/tourData";
 
 export default async function ToursSection({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "tours" });
+  const tHome = await getTranslations({ locale, namespace: "home" });
 
-  await connectDB();
-
-  const downSouthTours = await Tour.find({
-    tourId: {
-      $in: ["05-days-down-south", "08-days-down-south", "10-days-down-south"],
-    },
-  }).lean();
+  const wanted = ["05-days-down-south", "08-days-down-south", "10-days-down-south"];
+  const downSouthTours = (await getActiveTours(locale)).filter((tour: any) => wanted.includes(tour.tourId));
 
   return (
-    <section className="py-20 bg-linear-to-b from-white to-orange-50">
+    <CinematicSection key={locale + downSouthTours.map((tour) => tour.tourId).join(",")} className="featured-tours-section py-10 sm:py-14 relative isolate overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header Section */}
-        <div className="text-center mb-14">
-          <p className="text-orange-500 font-bold uppercase tracking-widest text-sm mb-3">{t("sectionLabel")}</p>
-          <h2 className="font-poppins text-4xl md:text-5xl font-bold text-zinc-900 mb-4">{t("heading")}</h2>
-          <div className="flex flex-col items-center">
-            <h3 className="text-2xl font-bold text-orange-500 mb-4">{t("season")}</h3>
-            <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">{t("seasonDesc")}</p>
-            <div className="mt-6 h-1.5 w-20 bg-orange-500 rounded-full" />
+        <div data-rise3d="self" className="mb-8 grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-16">
+          <div>
+            <p className="mb-3 text-base font-semibold text-orange-700">{t("sectionLabel")}</p>
+            <CinematicHeading className="font-playfair text-4xl leading-tight text-slate-900 sm:text-5xl">{t("heading")}</CinematicHeading>
+          </div>
+          <div>
+            <p className="mb-3 font-semibold text-orange-700">{t("season")}</p>
+            <p className="max-w-xl leading-relaxed text-slate-600">{t("seasonDesc")}</p>
           </div>
         </div>
 
-        {/* Tours Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="package-story-grid" data-rise3d>
           {downSouthTours.map((tour: any) => {
-            const data = tour.translations?.[locale] || tour.translations?.["en"];
-
+            const data = tour.translations?.[locale] || tour.translations?.en;
+            // Highlights: the first three itinerary stops, without the "Day 1 -" prefix.
+            const highlights: string[] = (data?.itinerary ?? [])
+              .map((day: any) => String(day?.title ?? "").replace(/^\s*(day|tag|día|jour|giorno|dia|день)?\s*[\d\s,–-]+[-–:]\s*/i, "").trim())
+              .filter(Boolean)
+              .slice(0, 3);
             return (
-              <Link
-                key={tour.tourId}
-                href={`/${locale}/tours/${tour.tourId}`}
-                className="group bg-white rounded-4xl shadow-xl shadow-zinc-200/50 overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-zinc-100"
-              >
-                {/* Image Container */}
-                <div className="relative h-72 w-full overflow-hidden">
-                  <Image
-                    src={tour.image}
-                    alt={data?.title || "Tour Image"}
-                    fill
-                    quality={60} // ✅ Added to reduce file size
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg">
-                    <p className="text-xs font-bold text-zinc-500 uppercase tracking-tighter mb-0.5">{t("pricePerPerson")}</p>
-                    <p className="text-xl font-black text-orange-600 leading-none">${tour.price}</p>
+              <div key={tour.tourId} className="package-story-frame">
+                <Link href={`/tours/${tour.tourId}`} className="package-story-card group" data-drift>
+                  <div className="cine-image-plane" data-drift-layer>
+                    <Image src={homeTourImages[tour.tourId] || tour.image} alt={data?.title || "Sri Lanka tour"} fill quality={60} sizes="(max-width: 768px) 100vw, 55vw" className="travel-card-image object-cover" />
                   </div>
-                </div>
-
-                {/* Content Container */}
-                <div className="p-8 flex flex-col grow">
-                  <h3 className="text-2xl font-bold text-zinc-900 group-hover:text-orange-600 transition-colors line-clamp-2 mb-4">{data?.title}</h3>
-
-                  <div className="flex justify-between items-center mt-auto pt-6 border-t border-zinc-50">
-                    <div className="flex flex-col">
-                      {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
-                      <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">{t("duration")}</span>
-                      <span className="text-sm font-bold text-zinc-700">
-                        {tour.duration} {tour.duration > 1 ? t("days") : t("day")}
-                      </span>
-                    </div>
-                    <div className="flex flex-col text-right">
-                      {/* ✅ Changed text-zinc-400 to text-zinc-500 for Accessibility */}
-                      <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Availability</span>
-                      <span className="text-sm font-bold text-zinc-700">{t("maxPeople", { count: tour.maxPeople || 10 })}</span>
+                  <div className="package-story-shade" />
+                  <span className="package-duration"><Clock size={15} aria-hidden="true" />{tour.duration} {tour.duration > 1 ? t("days") : t("day")}</span>
+                  <div className="package-story-copy">
+                    <h3 className="font-playfair text-3xl leading-tight sm:text-4xl">{data?.title}</h3>
+                    <p className="mt-3 inline-flex items-center gap-2 text-sm text-white/85"><Users size={16} aria-hidden="true" />{t("maxPeople", { count: tour.maxPeople || 10 })}</p>
+                    {highlights.length > 0 && (
+                      <ul className="package-highlights" aria-label={tHome("highlights")}>
+                        {highlights.map((h) => <li key={h}><Check size={14} aria-hidden="true" />{h}</li>)}
+                      </ul>
+                    )}
+                    <div className="mt-5 flex items-end justify-between gap-5 border-t border-white/30 pt-4">
+                      <div><p className="text-xs text-white/80">{t("from")}</p><p className="mt-1 text-2xl font-semibold text-amber-200">{tour.price > 0 ? `$${tour.price}` : t("priceOnRequest")}</p></div>
+                      <span className="package-story-action"><span className="text-sm font-medium">{t("viewDetails")}</span><ArrowUpRight size={24} aria-hidden="true" /></span>
                     </div>
                   </div>
-
-                  <div className="mt-8">
-                    {/* ✅ Changed <button> to <div> since it's already inside a <Link> */}
-                    <div className="w-full text-center py-4 bg-zinc-900 text-white rounded-2xl font-bold text-sm group-hover:bg-orange-600 transition-all duration-300 shadow-lg shadow-zinc-900/10 group-hover:shadow-orange-500/20">
-                      {t("viewDetails")}
-                    </div>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+                {/* Separate link (not nested in the card link): straight to the booking form */}
+                <Link href={`/tours/${tour.tourId}#book`} className="package-book">
+                  <CalendarCheck size={16} aria-hidden="true" />{tHome("bookNow")}
+                </Link>
+              </div>
             );
           })}
         </div>
+        <div className="mt-8 flex justify-center">
+          <Link href="/tours" className="home-section-link">
+            {t("viewAll")} <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
       </div>
-    </section>
+    </CinematicSection>
   );
 }

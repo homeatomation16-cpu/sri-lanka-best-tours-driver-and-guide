@@ -8,14 +8,21 @@
     "tailorMade": "オーダーメイドツアー",
     "contact": "お問い合わせ",
     "about": "私たちについて",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "openNavigation": "ナビゲーションを開く",
+    "closeNavigation": "ナビゲーションを閉じる",
+    "skipToContent": "本文へ移動"
   },
   "hero": {
     "tagline": "贅沢な体験を",
     "brand": "スリランカ最高のドライバー＆ガイド",
     "subtitle": "インド洋の真珠を探索する旅へ",
     "cta": "ツアーを見る",
-    "ctaContact": "お問い合わせ"
+    "ctaContact": "お問い合わせ",
+    "previousSlide": "前のスライド",
+    "nextSlide": "次のスライド",
+    "pauseSlideshow": "スライドショーを一時停止",
+    "playSlideshow": "スライドショーを再生"
   },
   "tours": {
     "sectionLabel": "おすすめ",
@@ -57,7 +64,32 @@
     "luxuryDayTrips": "豪華な日帰り旅行",
     "oneDayPackages": "プレミアム日帰りパッケージ",
     "oneDayDesc": "時間は限られているけれど、冒険を楽しみたいですか？私たちの日帰りエクスカーションは、忘れられない一日にスリランカの最高の魅力を凝縮して体験できるように設計されています。",
-    "upToGuests": "最大 {count} 名様まで"
+    "upToGuests": "最大 {count} 名様まで",
+    "priceOnRequest": "料金はお問い合わせください",
+    "groupPrices": "グループ料金",
+    "travellers": "人数",
+    "vehicle": "車両",
+    "totalPrice": "合計料金",
+    "allTours": "すべてのツアー",
+    "inSeason": "今がシーズン",
+    "moreTours": "その他のツアー",
+    "tourCount": "{count}件のツアー",
+    "seasonSouth": "11月〜6月",
+    "seasonEast": "7月〜10月",
+    "offSeason": "オフシーズン",
+    "dayToursMore": "日帰りツアーほか",
+    "anyLength": "すべての日数",
+    "oneDay": "日帰り",
+    "otherLength": "その他",
+    "daysCount": "{count}日間",
+    "exploreTours": "ツアーを探す",
+    "exploreDesc": "すべてのツアーはプライベートで、日程やご希望に合わせて変更できます。",
+    "pageSubtitle": "専属ドライバーガイドと巡るプライベート周遊ツアー。旅程は自由に調整できます。",
+    "cantFind": "ぴったりのツアーが見つかりませんか？",
+    "cantFindDesc": "日程とご希望に合わせてお作りします。",
+    "planTailor": "オーダーメイドツアーを計画",
+    "routeMap": "ルートマップ",
+    "mapCaption": "地形図 · 標高データ: NASA SRTM"
   },
   "vehicles": {
     "whatsNew": "新着情報",
@@ -100,7 +132,45 @@
       "item3": "24時間365日の万全なサポート",
       "item4": "透明性の高いオールインワン料金"
     },
-    "cta": "お問い合わせ"
+    "cta": "お問い合わせ",
+    "teamLabel": "Our team",
+    "teamTitle": "Meet the people behind your journey",
+    "teamLanguages": "Speaks",
+    "awardsTitle": "旅人に選ばれたサービス",
+    "awardsSubtitle": "旅の思い出を大切にするお客様に支えられ、Tripadvisor Travelers’ Choiceを受賞しました。",
+    "awardsLabel": "Tripadvisorの受賞歴",
+    "stats": {
+      "experience": "年の経験",
+      "travelers": "満足された旅行者",
+      "support": "充実のサポート",
+      "certified": "公認・認定済み"
+    },
+    "reasons": {
+      "licensed": {
+        "title": "公認ツアーガイド",
+        "desc": "すべてのガイドは政府公認のプロフェッショナルであり、コロンボを拠点としています。"
+      },
+      "rated": {
+        "title": "5つ星のサービス",
+        "desc": "卓越したおもてなしと地元知識により、TripAdvisorで一貫して高い評価を得ています。"
+      },
+      "private": {
+        "title": "プライベート＆パーソナル",
+        "desc": "すべての旅はお客様のグループ専用です。相乗りバスや見知らぬ人との同行はありません。"
+      },
+      "passionate": {
+        "title": "スリランカへの情熱",
+        "desc": "私たちはこの島を愛する地元住民です。スリランカの最高の姿を体験していただきたいと願っています。"
+      },
+      "pata": {
+        "title": "PATA認定メンバー",
+        "desc": "スリランカ観光局および太平洋アジア観光協会（PATA）の公認メンバーです。"
+      },
+      "transparent": {
+        "title": "明朗な価格設定",
+        "desc": "隠れた費用はありません。事前に明確な価格を提示し、安心して旅行をお楽しみいただけます。"
+      }
+    }
   },
   "stats": {
     "experience": "年の経験",
@@ -183,7 +253,33 @@
     "notes": "ご要望・備考",
     "notesPlaceholder": "食事の制限、追加の立ち寄り先、参加人数など...",
     "submit": "メッセージを送信",
-    "nameRequired": "お名前とメールアドレスを入力してください。"
+    "nameRequired": "お名前とメールアドレスを入力してください。",
+    "findUs": "所在地",
+    "openMaps": "Google マップで開く",
+    "page": {
+      "online": "オンライン対応中",
+      "heroText": "スリランカ旅行をご計画ですか？日程とご希望をお知らせください。ルート、宿泊、ドライバーまでご用意します。",
+      "whatsappUs": "WhatsAppで連絡",
+      "callUs": "お電話",
+      "callNow": "今すぐ電話",
+      "startChat": "チャットを開始",
+      "emailLabel": "メール",
+      "writeToUs": "メールを送る",
+      "visitUs": "お越しください",
+      "openMaps": "マップで開く",
+      "sendMessage": "メッセージを送る",
+      "planJourney": "旅の計画を始めましょう",
+      "formIntro": "フォームにご記入ください。メールでご返信します。",
+      "sent": "送信しました！",
+      "sentText": "ありがとうございます。まもなくご連絡いたします。",
+      "sendAnother": "別のメッセージを送る",
+      "error": "問題が発生しました。もう一度お試しいただくか、WhatsAppでご連絡ください。",
+      "whyWrite": "旅行者が私たちに連絡する理由",
+      "p1": "数時間以内に返信",
+      "p2": "SLTDA認定の公認ドライバーガイド",
+      "p3": "予約手数料なし、現地でお支払い",
+      "hours": "24時間営業・年中無休"
+    }
   },
   "trustBar": {
     "accredited": "公認・認定",
@@ -210,7 +306,13 @@
     "emailPlaceholder": "メールアドレス",
     "subscribe": "購読する",
     "copyright": "Sri Lanka Tours Driver — All Rights Reserved",
-    "subscribed": "購読が完了しました！"
+    "subscribed": "購読が完了しました！",
+    "popularTours": "人気のツアー",
+    "destinations": "観光地",
+    "followUs": "フォローする",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "cookies": "クッキーポリシー"
   },
   "rates": {
     "title": "ツアーパッケージ料金表",
@@ -275,7 +377,27 @@
     "minimumPeople": "最低{count}名",
     "minimumPeopleError": "最低{count}名が必要です。",
     "pricePerPerson": "1名あたりの料金",
-    "estimatedTotal": "見積合計"
+    "estimatedTotal": "見積合計",
+    "country": "国",
+    "startDate": "開始日",
+    "endDate": "終了日",
+    "adults": "大人",
+    "children": "子ども",
+    "childrenAges": "子どもの年齢",
+    "childAge": "子ども {n}",
+    "ageYears": "{age}歳",
+    "underOne": "1歳未満",
+    "select": "選択…",
+    "pickup": "お迎え場所",
+    "message": "メッセージ",
+    "tourLength": "ツアーの日数",
+    "daysOption": "{days}日間",
+    "estimate": "概算料金",
+    "estimateTotal": "{count}名 · {days}日間の合計",
+    "vehicleLabel": "車両: {vehicle}",
+    "perPersonApprox": "1人あたり約 {price}",
+    "estimateNote": "最終料金はリクエスト後に確定します。今はお支払い不要です。",
+    "largeGroup": "{max}名を超えるグループは個別にお見積りします。"
   },
   "loader": {
     "tagline": "楽園の島を探索しましょう 🌴",
@@ -301,8 +423,13 @@
       "Religious": "宗教施設",
       "City": "都市",
       "Nature": "自然",
-      "Wildlife": "野生動物"
+      "Wildlife": "野生動物",
+      "Beach": "ビーチ",
+      "HillCountry": "高原地帯",
+      "Adventure": "アドベンチャー"
     },
+    "gettingThere": "アクセス",
+    "experiencesIn": "{place}でできること",
     "destinations": {
       "old-parliament-building": {
         "title": "旧国会議事堂",
@@ -390,7 +517,11 @@
     "phEmail": "メールアドレス",
     "btnSubmit": "リクエストを送信",
     "btnSending": "コード送信中...",
-    "tags": ["平均14日間", "100%プライベート", "専属ガイド付き"],
+    "tags": [
+      "平均14日間",
+      "100%プライベート",
+      "専属ガイド付き"
+    ],
     "styles": {
       "relaxed": "リラックス",
       "moderate": "標準的",
@@ -433,6 +564,17 @@
       "watersports": "マリンスポーツ",
       "diving": "ダイビング・シュノーケル",
       "whales": "ホエールウォッチング"
+    },
+    "yearsExpert": "年の経験",
+    "subtext1": "あなたの希望に合わせた旅で、スリランカを自分らしく楽しみましょう。",
+    "subtext2": "ハネムーン、家族での冒険、贅沢な休暇まで、専門スタッフが旅程の細部まで丁寧に計画します。",
+    "buttonPrimary": "自分だけの旅を計画",
+    "buttonSecondary": "専門スタッフに相談",
+    "additionalServices": "追加サービス",
+    "services": {
+      "train": "鉄道チケット",
+      "entrance": "入場券",
+      "transfer": "空港送迎"
     }
   },
   "testimonials": {
@@ -442,5 +584,193 @@
   "gallery": {
     "label": "ギャラリー",
     "heading": "スリランカの瞬間"
+  },
+  "cinematic": {
+    "ascentLabel": "高原地帯へ",
+    "ascentTitle": "雲の上へ、ひとつずつカーブを越えて",
+    "ascentText": "寺院の町キャンディから霧に包まれた茶畑まで、専属のドライバーガイドが光や景色、立ち止まる価値のある物語に合わせて毎日の旅を組み立てます。",
+    "ascentCta": "周遊ツアーを見る",
+    "ascentMega": "セイロン",
+    "descentLabel": "海岸へ下る",
+    "descentTitle": "そして川をたどって海へ",
+    "descentText": "植民地時代の要塞、寺院の町、静かな南の海岸。あなたに合わせてルートを設計し、車とガイドが旅のあいだずっと寄り添います。",
+    "descentCta": "オーダーメイドの旅を作る",
+    "descentMega": "海岸",
+    "bridgeText": "海岸をあとに、道は雲の中へと登っていく",
+    "frameImgAlt": "高原地帯エラ近郊のナインアーチ橋"
+  },
+  "photoCredits": {
+    "summary": "写真クレジット",
+    "resized": "サイズ変更"
+  },
+  "home": {
+    "experiences": {
+      "label": "体験",
+      "heading": "心が動く旅を見つけよう",
+      "sub": "気分を選ぶだけ — ルート、ドライバー、ガイドを合わせてご用意します。",
+      "explore": "見る",
+      "items": {
+        "safari": {
+          "title": "サファリ",
+          "desc": "ヤーラ、ウダワラウェ、ウィルパットゥでヒョウ、ゾウ、ナマケグマに出会う。"
+        },
+        "surfing": {
+          "title": "サーフィン",
+          "desc": "南部の穏やかなリーフブレイクと、アルガムベイの世界級の波。"
+        },
+        "hiking": {
+          "title": "ハイキング",
+          "desc": "エラロック、アダムスピーク、朝霧の茶畑トレイル。"
+        },
+        "culture": {
+          "title": "文化",
+          "desc": "古代都市、石窟寺院、そしてキャンディの仏歯寺。"
+        },
+        "food": {
+          "title": "グルメ",
+          "desc": "ライス＆カレー、ホッパー、コットゥ — 地元の家庭と一緒に。"
+        }
+      }
+    },
+    "readMore": "続きを読む",
+    "bookNow": "今すぐ予約",
+    "highlights": "見どころ",
+    "stats": {
+      "label": "数字で見る",
+      "heading": "スリランカのあらゆる道で信頼されています",
+      "tours": "催行ツアー数",
+      "travelers": "満足した旅行者",
+      "experience": "年の経験",
+      "satisfaction": "お客様満足度"
+    },
+    "gallery": {
+      "open": "写真を開く",
+      "close": "閉じる",
+      "prev": "前の写真",
+      "next": "次の写真",
+      "counter": "{current} / {total}",
+      "more": "もっと写真を見る",
+      "less": "閉じる"
+    },
+    "slider": {
+      "prev": "前のレビュー",
+      "next": "次のレビュー",
+      "goTo": "レビュー {n} へ"
+    },
+    "backToTop": "トップへ戻る",
+    "contactForm": {
+      "label": "旅を計画する",
+      "heading": "あなたの旅について教えてください",
+      "sub": "日程やご希望をお知らせください — 通常数時間以内に返信します。",
+      "phone": "電話 / WhatsApp（任意）",
+      "phonePlaceholder": "+81 90 1234 5678",
+      "message": "メッセージ",
+      "messagePlaceholder": "日程、人数、訪れたい場所など...",
+      "errName": "お名前を入力してください。",
+      "errEmail": "メールアドレスを入力してください。",
+      "errEmailInvalid": "有効なメールアドレスを入力してください。",
+      "errMessage": "10文字以上のメッセージを入力してください。",
+      "sending": "送信中...",
+      "success": "ありがとうございます！メッセージを送信しました。まもなくご連絡します。",
+      "failed": "問題が発生しました。もう一度お試しいただくか、WhatsAppでご連絡ください。"
+    },
+    "map": {
+      "label": "島を探検",
+      "heading": "スリランカをひと目で",
+      "sub": "北の古代都市から南のビーチまで。場所をタップして詳しく見てみましょう。",
+      "alt": "主な観光地を描いたスリランカのイラストマップ"
+    },
+    "collections": {
+      "honeymoonSub": "海辺の夕日、静かな高原での滞在、ふたりだけの時間。",
+      "familySub": "野生動物、ビーチ、家族で分かち合う新しい発見。",
+      "adventureSub": "アウトドアでスリランカの違う一面を探検。",
+      "explore": "{name}を見る"
+    }
+  },
+  "account": {
+    "signIn": "ログイン",
+    "signOut": "ログアウト",
+    "myAccount": "マイアカウント",
+    "createAccount": "アカウント作成",
+    "loginTitle": "おかえりなさい",
+    "loginSubtitle": "ログインすると、保存した情報ですばやく予約できます。",
+    "registerTitle": "アカウントを作成",
+    "registerSubtitle": "情報を保存して、予約をもっとスムーズに。",
+    "name": "氏名",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "passwordRule": "8文字以上で、英字と数字を含めてください",
+    "or": "または",
+    "noAccount": "初めてですか？",
+    "haveAccount": "すでにアカウントをお持ちですか？",
+    "guestNote": "アカウントは任意です。いつでもゲストとして予約できます。",
+    "staffLogin": "管理者 / スタッフ ログイン",
+    "forgotPassword": "パスワードをお忘れですか?",
+    "forgotTitle": "パスワードをお忘れですか?",
+    "forgotSubtitle": "メールアドレスを入力すると、パスワードをリセットするためのリンクが送信されます。",
+    "sendResetLink": "リセットリンクを送信する",
+    "resetSent": "{email} のアカウントが存在する場合は、パスワード リセット リンクを送信しました。受信箱とスパムフォルダーを確認してください。",
+    "backToSignIn": "サインインに戻る",
+    "resetTitle": "新しいパスワードを設定する",
+    "newPassword": "新しいパスワード",
+    "confirmPassword": "パスワードの確認",
+    "passwordsDontMatch": "パスワードが一致しません",
+    "updatePassword": "パスワードを更新する",
+    "resetDone": "パスワードが更新されました。これでサインインできるようになりました。",
+    "resetInvalid": "このリセット リンクは無効であるか、有効期限が切れています。新しいものをリクエストしてください。",
+    "requestNewLink": "新しいリンクをリクエストする",
+    "invalidCredentials": "メールアドレスまたはパスワードが正しくありません。",
+    "emailTaken": "このメールアドレスのアカウントは既に存在します。ログインしてください。",
+    "locked": "失敗回数が多すぎます。15分後に再度お試しください。",
+    "rateLimited": "試行回数が多すぎます。数分待ってから再度お試しください。",
+    "checkFields": "強調表示された項目を確認してください。",
+    "errorGeneric": "問題が発生しました。もう一度お試しください。",
+    "errorNetwork": "サーバーに接続できません。接続を確認して再度お試しください。",
+    "googleFailed": "Google ログインに失敗しました。もう一度お試しください。",
+    "googleConflict": "このメールアドレスは別の Google アカウントに連携済みです。",
+    "loading": "読み込み中…",
+    "hello": "こんにちは、{name}さん",
+    "accountIntro": "ログイン中です。予約やお問い合わせがすばやくできるよう、情報が保存されています。",
+    "googleConnected": "Google アカウント連携済み",
+    "myBookings": "予約一覧",
+    "myBookingsIntro": "送信したすべてのリクエストの状況を確認できます。",
+    "memberSince": "登録日",
+    "signInMethods": "ログイン方法",
+    "filter_all": "すべて",
+    "filter_active": "進行中",
+    "filter_past": "過去",
+    "statTotal": "リクエスト",
+    "statInProgress": "対応中",
+    "statUpcoming": "今後の旅行",
+    "statCompleted": "完了",
+    "bookingsError": "現在、予約を読み込めませんでした。",
+    "retry": "再試行",
+    "noBookings": "まだ予約はありません",
+    "noBookingsHint": "ログイン中に送信したリクエストは、最新のステータスとともにここに表示されます。",
+    "noBookingsFilter": "この表示に該当する予約はありません。",
+    "status_new": "受付済み",
+    "status_contacted": "相談中",
+    "status_quoted": "見積もり送付済み",
+    "status_pending": "確認待ち",
+    "status_confirmed": "確定",
+    "status_cancelled": "キャンセル",
+    "status_completed": "完了",
+    "stepReceived": "受付",
+    "stepReview": "計画",
+    "stepConfirmed": "確定",
+    "stepCompleted": "完了",
+    "requestedOn": "{date} にリクエスト",
+    "travellers": "大人 {adults} 名{children, plural, =0 {} other {、子ども # 名}}",
+    "quote": "見積もり",
+    "cancelledNote": "この予約はキャンセルされました。再度ご予約の際はお問い合わせください。",
+    "progress": "予約の進捗",
+    "history": "ステータス履歴",
+    "trackBooking": "アカウントでこの予約を確認する →",
+    "verifyTitle": "メールアドレスの確認",
+    "verifyDone": "メールアドレスが確認されました。ありがとうございます！",
+    "verifyInvalid": "この確認リンクは無効か期限切れです。ログインしてアカウントから再送してください。",
+    "verifyPending": "予約をここで表示するには、メールアドレス（{email}）を確認してください。登録時にリンクをお送りしました。",
+    "resendVerification": "確認メールを再送",
+    "verifySent": "送信しました！受信トレイと迷惑メールフォルダをご確認ください。"
   }
 }

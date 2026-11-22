@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  Plus, Edit, Trash2, Image as ImageIcon, Loader2, X, Copy, Search, Star, Eye, EyeOff, Clock, Users, Languages, ChevronUp, ChevronDown,
+  Plus, Edit, Trash2, Image as ImageIcon, Loader2, X, Copy, Search, Star, Eye, EyeOff, Clock, Users, Languages, ChevronUp, ChevronDown, Download,
 } from "lucide-react";
 import ImageUploader from "@/components/admin/ImageUploader";
 import { useToast } from "@/components/admin/Toast";
@@ -52,6 +52,23 @@ export default function ToursAdmin() {
     }
     setLoading(false);
   };
+  // Loads the 48 live-site tours (src/data/tours) into the database and hides old tours that are not in that list.
+  const [importing, setImporting] = useState(false);
+  const importLiveTours = async () => {
+    if (!window.confirm("Import the live site tours? Prices, texts and images of those tours will be replaced, and tours not on the live site will be hidden (not deleted).")) return;
+    setImporting(true);
+    try {
+      const res = await fetch("/api/tours/migrate");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error(data.error || "Import failed");
+      toast(data.message);
+      fetchTours();
+    } catch (e: any) {
+      toast(e.message, "error");
+    }
+    setImporting(false);
+  };
+
   useEffect(() => { fetchTours(); /* eslint-disable-next-line */ }, []);
 
   const filtered = useMemo(() => {
@@ -123,7 +140,8 @@ export default function ToursAdmin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.tourId.trim()) return toast("Tour ID is required", "error");
-    if (!Number(formData.price)) return toast("Price is required", "error");
+    // 0 = "Price on request" (as on the live site); only negative or non-numeric prices are rejected
+    if (formData.price === "" || !(Number(formData.price) >= 0)) return toast("Price is required (0 = price on request)", "error");
     if (!formData.translations?.en?.title?.trim()) { setActiveTab("en"); return toast("English title is required", "error"); }
 
     // clean translations
@@ -178,9 +196,14 @@ export default function ToursAdmin() {
           <h1 className="text-3xl font-serif font-bold text-white">Manage Tours</h1>
           <p className="text-zinc-500 text-sm">{tours.length} tours · {tours.filter((t) => (t.status || "active") === "active").length} live on website</p>
         </div>
-        <button onClick={openNew} className="bg-orange-600 hover:bg-orange-500 px-6 py-3 rounded-2xl flex gap-2 items-center font-bold">
-          <Plus size={20} /> Add Tour
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button onClick={importLiveTours} disabled={importing} className="border border-zinc-700 hover:border-orange-500 px-5 py-3 rounded-2xl flex gap-2 items-center font-bold disabled:opacity-50">
+            {importing ? <Loader2 size={18} className="animate-spin" /> : <Download size={18} />} Import live tours
+          </button>
+          <button onClick={openNew} className="bg-orange-600 hover:bg-orange-500 px-6 py-3 rounded-2xl flex gap-2 items-center font-bold">
+            <Plus size={20} /> Add Tour
+          </button>
+        </div>
       </div>
 
       {/* FILTERS */}
@@ -230,7 +253,9 @@ export default function ToursAdmin() {
                     <span className="flex items-center gap-1"><Languages size={12} /> {langs}/14</span>
                   </div>
                   <div className="flex justify-between items-center mt-auto pt-4">
-                    <span className="text-orange-500 font-bold text-lg">${tour.price}</span>
+                    <span className="text-orange-500 font-bold text-lg">
+                      {Number(tour.price) ? `${tour.groupPrices?.length ? "From " : ""}$${tour.price}` : "Price on request"}
+                    </span>
                     <div className="flex gap-1">
                       <IconBtn title="Toggle featured" onClick={() => quickUpdate(tour, { featured: !tour.featured }, tour.featured ? "Removed from featured" : "Marked featured")}><Star size={16} className={tour.featured ? "text-amber-400 fill-amber-400" : ""} /></IconBtn>
                       <IconBtn title={inactive ? "Show on website" : "Hide from website"} onClick={() => quickUpdate(tour, { status: inactive ? "active" : "inactive" }, inactive ? "Tour is now live" : "Tour hidden")}>{inactive ? <EyeOff size={16} /> : <Eye size={16} />}</IconBtn>

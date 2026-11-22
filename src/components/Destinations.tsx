@@ -3,10 +3,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function Destinations() {
   const t = useTranslations("destinations");
+  const tPage = useTranslations("destinationPage");
   const [selected, setSelected] = useState<any>(null);
 
   const destinations = [
@@ -31,24 +34,27 @@ export default function Destinations() {
   ];
 
   return (
-    <section className="py-24 px-6 bg-linear-to-b from-white to-gray-100">
+    <section className="home-section-spacing px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-3">
-            {t("label")}
-          </p>
-          <h2 className="text-5xl font-bold text-gray-800">{t("heading")}</h2>
+        <div className="mb-8 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <p className="mb-3 font-semibold text-orange-700">{t("label")}</p>
+            <h2 className="font-playfair text-4xl leading-tight text-slate-900 sm:text-5xl">{t("heading")}</h2>
+          </div>
+          <Link href="/destinations" className="home-section-link shrink-0 self-start">
+            {tPage("moreDestinations")} <ArrowRight size={18} aria-hidden="true" />
+          </Link>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {destinations.map((d, i) => (
-            <div key={i} className="group relative h-105 rounded-3xl overflow-hidden shadow-xl">
+            <div key={i} className={`group relative min-h-80 overflow-hidden rounded-2xl bg-slate-900 ${i === 0 ? "md:row-span-2 md:min-h-160" : ""}`}>
               <Image
                 src={d.image}
                 alt={d.name}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover group-hover:scale-110 transition duration-700"
                 unoptimized
               />
@@ -75,7 +81,8 @@ export default function Destinations() {
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white max-w-2xl rounded-2xl overflow-hidden shadow-2xl"
+            role="dialog" aria-modal="true" aria-label={selected.name}
+            className="bg-white max-w-2xl max-h-[90svh] overflow-y-auto mx-4 rounded-2xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-72">

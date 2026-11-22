@@ -8,7 +8,8 @@ import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Check, Sparkles, ArrowRight, Phone, Mail, MapPin, Coffee, Hotel, Users } from "lucide-react";
-import { contact } from "@/data/contact";
+import { useContact } from "@/components/ContactProvider";
+import { ListingHero } from "@/components/site/ListingPage";
 
 const initialForm = {
   travelWith: "", // Alone, Couple, Family, Friends
@@ -28,6 +29,7 @@ const initialForm = {
 };
 
 export default function TailorMadePage() {
+  const contact = useContact();
   const t = useTranslations("tailorMade");
   const tTours = useTranslations("tours");
   
@@ -58,11 +60,17 @@ export default function TailorMadePage() {
     // Constructing message using translated values
     const message = `🌴 *${t("label")} Request* ✅\n\n` +
       `*Name:* ${form.name}\n` +
+      `*Email:* ${form.email || "—"}\n` +
+      `*WhatsApp:* ${form.whatsapp || "—"}\n` +
+      `*Travelling as:* ${form.travelWith || "—"}\n` +
+      `*Travellers:* ${form.adults} adults, ${form.children} children\n` +
+      `*Dates:* ${form.startDate || "—"} → ${form.endDate || "—"} (${estimatedDays} Days)\n` +
       `*Vehicle:* ${form.vehicleType ? t(`vehicles.${form.vehicleType.toLowerCase()}`) : "—"}\n` +
+      `*Transport:* ${form.transportMethod || "—"}\n` +
       `*Accomm:* ${t(`accTypes.${form.accommodation}`)}\n` +
       `*Meals:* ${form.mealPlan ? t(`meals.${form.mealPlan}`) : "—"}\n` +
-      `*Duration:* ${estimatedDays} Days\n` +
-      `*Interests:* ${holidayNames}`;
+      `*Interests:* ${holidayNames || "—"}` +
+      (form.requirements ? `\n*Requirements:* ${form.requirements}` : "");
 
     window.open(`${contact.whatsappme}?text=${encodeURIComponent(message)}`, "_blank");
   };
@@ -71,29 +79,9 @@ export default function TailorMadePage() {
     <div className="bg-[#FDFBFA] min-h-screen font-sans text-stone-900 pb-20">
       
       {/* Hero Section */}
-      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-        <Image src="/cover.jpg" alt="Sri Lanka Luxury" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-linear-to-b from-black/40 to-black/80 z-10" />
-        
-        <motion.div 
-          initial={{ y: 30, opacity: 0 }} 
-          animate={{ y: 0, opacity: 1 }} 
-          className="relative z-20 text-center text-white px-4"
-        >
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2 rounded-full mb-6">
-            <Sparkles size={16} className="text-[#C9922A]" />
-            <span className="text-xs font-bold tracking-widest uppercase">{t("label")}</span>
-          </div>
-          <h1 className="text-4xl md:text-7xl font-serif font-extrabold leading-tight">
-            {t("heading")} <span className="text-[#C9922A]">Perfect</span>
-          </h1>
-          <p className="mt-4 text-stone-300 max-w-xl mx-auto text-sm md:text-base font-light">
-            {t("desc")}
-          </p>
-        </motion.div>
-      </section>
+      <ListingHero image="/tailor-made-sri-lanka.jpg" eyebrow={t("label")} title={t("heading")} subtitle={t("desc")} />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 -mt-12 relative z-30">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 pt-12 relative z-30">
         
         {/* Form Section */}
         <motion.div 

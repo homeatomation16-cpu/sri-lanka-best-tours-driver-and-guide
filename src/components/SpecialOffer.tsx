@@ -1,38 +1,29 @@
-// src/components/SpecialOffer.tsx
 "use client";
+
+import CinematicSection from "@/components/cinematic/CinematicSection";
+// src/components/SpecialOffer.tsx
 
 import { Check, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function SpecialOffer() {
   const t = useTranslations("specialOffer");
 
-  const included = [
-    "Private A/C Luxury Vehicle",
-    "Personal English-Speaking Chauffeur",
-    "4★ & 5★ Hotels with Breakfast",
-    "All Fuel, Tolls & Parking",
-  ];
+  const included = ["Private A/C Luxury Vehicle", "Personal English-Speaking Chauffeur", "4★ & 5★ Hotels with Breakfast", "All Fuel, Tolls & Parking"];
 
-  const bonuses = [
-    "Free Tourist SIM Card",
-    "Daily Premium Water Bottles",
-    "Scenic Train Experience",
-  ];
+  const bonuses = ["Free Tourist SIM Card", "Daily Premium Water Bottles", "Scenic Train Experience"];
 
   return (
-    <section className="py-32 px-6 bg-linear-to-b from-white to-orange-50">
+    <CinematicSection className="offer-section py-12 sm:py-16 px-6 bg-[#fff3db]">
       <div className="max-w-6xl mx-auto">
         {/* Section label */}
-        <div className="text-center mb-10">
-          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-2">
-            {t("label")}
-          </p>
+        <div className="text-center mb-6">
+          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-2">{t("label")}</p>
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900">{t("heading")}</h2>
         </div>
 
-        <div className="relative bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.1)] rounded-[36px] pt-24 pb-12 px-8 lg:p-16 overflow-hidden">
+        <div data-rise3d="self" className="relative bg-white border border-amber-200/70 shadow-sm rounded-[28px] pt-20 pb-8 px-6 lg:px-12 lg:pt-16 lg:pb-10 overflow-hidden">
           {/* Glow */}
           <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-300/20 blur-[120px] rounded-full pointer-events-none" />
 
@@ -43,21 +34,18 @@ export default function SpecialOffer() {
             </span>
           </div>
 
-          <div className="mt-10">
-            <h2 className="text-4xl lg:text-6xl font-bold mb-6 text-gray-900 text-center lg:text-left">
-              10-Day Luxury Sri Lanka Tour
-            </h2>
-            <p className="text-gray-600 mb-12 max-w-2xl text-lg leading-relaxed text-center lg:text-left">
-              A handcrafted journey through Sri Lanka's most beautiful destinations with private
-              chauffeur, premium hotels and unforgettable experiences.
+          <div className="mt-6">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-3 text-gray-900 text-center lg:text-left">10-Day Luxury Sri Lanka Tour</h2>
+            <p className="text-gray-600 mb-6 max-w-2xl text-base leading-relaxed text-center lg:text-left">
+              A handcrafted journey through Sri Lanka&apos;s most beautiful destinations with private chauffeur, premium hotels and unforgettable experiences.
             </p>
 
-            <div className="grid lg:grid-cols-2 gap-16">
+            <div className="grid lg:grid-cols-2 gap-8">
               {/* Included */}
               <div>
-                <h3 className="font-semibold text-xl mb-6 text-gray-900">Included</h3>
+                <h3 className="font-semibold text-lg mb-3 text-gray-900">Included</h3>
                 {included.map((item, idx) => (
-                  <div key={idx} className="flex gap-3 mb-4 items-center">
+                  <div key={idx} className="flex gap-3 mb-2 items-center">
                     <Check className="text-green-500 w-5 h-5 shrink-0" />
                     <span className="text-gray-700">{item}</span>
                   </div>
@@ -66,21 +54,21 @@ export default function SpecialOffer() {
 
               {/* Bonuses + Price */}
               <div>
-                <h3 className="font-semibold text-xl mb-6 text-gray-900">Complimentary Bonuses</h3>
+                <h3 className="font-semibold text-lg mb-3 text-gray-900">Complimentary Bonuses</h3>
                 {bonuses.map((bonus, idx) => (
-                  <div key={idx} className="flex gap-3 mb-4 items-center">
+                  <div key={idx} className="flex gap-3 mb-2 items-center">
                     <Star className="text-amber-500 w-5 h-5 shrink-0" />
                     <span className="text-gray-700">{bonus}</span>
                   </div>
                 ))}
 
-                <div className="mt-10 text-center lg:text-left">
+                <div className="mt-6 text-center lg:text-left">
                   <p className="text-gray-500">Exclusive Price</p>
-                  <p className="text-5xl lg:text-6xl font-bold text-orange-600">$700</p>
-                  <p className="text-gray-500 mb-6">For 2 Travelers</p>
+                  <p className="text-4xl lg:text-5xl font-bold text-orange-600">$700</p>
+                  <p className="text-gray-500 mb-4">For 2 Travelers</p>
                   <Link
                     href="/contact"
-                    className="inline-block bg-linear-to-r from-orange-500 to-amber-500 text-white px-10 py-4 rounded-full font-semibold shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300"
+                    className="inline-block bg-linear-to-r from-orange-500 to-amber-500 text-white px-8 py-3 rounded-full font-semibold shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300"
                   >
                     Reserve This Offer
                   </Link>
@@ -90,6 +78,6 @@ export default function SpecialOffer() {
           </div>
         </div>
       </div>
-    </section>
+    </CinematicSection>
   );
 }

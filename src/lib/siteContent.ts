@@ -6,8 +6,9 @@ export type SiteKey = "hero" | "gallery" | "tailorMade";
 
 /** Read one editable section. Returns null if the admin has never saved it (website then uses its built-in defaults). */
 export async function getSiteContent(key: SiteKey): Promise<any | null> {
+  // Let Next.js handle its dynamic-rendering signal before database error handling.
+  noStore();
   try {
-    noStore();
     await connectDB();
     const doc: any = await SiteContent.findOne({ key }).lean();
     return doc?.data ?? null;

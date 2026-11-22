@@ -26,8 +26,9 @@ export async function POST(req: Request) {
 
     const tourId = String(body.tourId || "").trim().toLowerCase().replace(/\s+/g, "-");
     if (!tourId) return NextResponse.json({ error: "Tour ID is required" }, { status: 400 });
-    if (!body.price || Number(body.price) <= 0) {
-      return NextResponse.json({ error: "Price must be greater than 0" }, { status: 400 });
+    // 0 = "Price on request"
+    if (body.price === undefined || body.price === "" || !(Number(body.price) >= 0)) {
+      return NextResponse.json({ error: "Price must be 0 (on request) or more" }, { status: 400 });
     }
     if (await Tour.exists({ tourId })) {
       return NextResponse.json({ error: `Tour ID "${tourId}" already exists` }, { status: 409 });

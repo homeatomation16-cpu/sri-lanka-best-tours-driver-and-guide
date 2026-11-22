@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
+import { emailLayout, sendEmail } from "@/lib/email";
 
 export async function POST(req) {
   try {
@@ -68,18 +69,15 @@ export async function POST(req) {
       `,
     });
 
-    // Confirmation email to customer
-    await transporter.sendMail({
-      from: `"Sri Lanka Tours Driver" <${process.env.EMAIL_USER}>`,
+    // Confirmation email to customer (branded layout + signature)
+    await sendEmail({
       to: body.email,
       subject: "Your Tailor Made Tour Request Received",
-      html: `
-        <h2>Thank you ${esc(body.name)}!</h2>
-        <p>We received your tailor-made tour request.</p>
-        <p>Our team will contact you shortly via WhatsApp or Email.</p>
-        <br/>
-        <p>Best Regards,<br/>Sri Lanka Tours Driver</p>
-      `,
+      html: await emailLayout(
+        "We received your tailor-made request",
+        `<p>Thank you ${esc(body.name)}!</p>
+        <p>Our team is planning a route around your dates and interests and will contact you shortly via WhatsApp or e-mail.</p>`,
+      ),
     });
 
     return Response.json({ success: true });

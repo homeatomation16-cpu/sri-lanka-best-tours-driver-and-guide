@@ -28,6 +28,7 @@ export interface IVehicle extends Document {
 
   status: "active" | "inactive";
   createdAt: Date;
+  updatedAt: Date;
 }
 
 // 🔹 Schema

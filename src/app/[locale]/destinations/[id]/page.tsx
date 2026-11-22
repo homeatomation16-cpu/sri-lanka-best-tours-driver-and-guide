@@ -1,3 +1,4 @@
+import { pageAlternates, localizedUrl } from "@/lib/seo";
 // src/app/[locale]/destinations/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -20,6 +21,9 @@ interface DestinationData {
   bestTime?: string;
   openHours?: string;
   entryFee?: string;
+  howToGetThere?: string;
+  /** Things to see at this destination (image is optional). */
+  experiences?: { title: string; description: string; image?: string }[];
 }
 
 // ─── SEO Metadata Generator ───────────────────────────────────────────────────
@@ -43,7 +47,11 @@ export async function generateMetadata({
   return {
     title: `${title} | Sri Lanka Travel Guide`,
     description: description.substring(0, 160), // පළමු අකුරු 160 පමණක්
+    alternates: pageAlternates(locale, `/destinations/${id}`),
     openGraph: {
+      title,
+      description: description.substring(0, 160),
+      url: localizedUrl(locale, `/destinations/${id}`),
       images: [destination.image],
     },
   };
@@ -106,17 +114,27 @@ export default async function DestinationPage({
   const translatedBestTime = field("bestTime");
   const translatedOpenHours = field("openHours");
   const translatedEntryFee = field("entryFee");
+  const translatedGettingThere = field("howToGetThere");
   const translatedTags: string[] = localeData?.tags ?? (destination as any).tags ?? [];
 
-  let translatedCategory = field("category");
-  try {
-    const catKey = `categories.${destination.category}` as any;
-    translatedCategory = td(catKey) || translatedCategory;
-  } catch {}
+  // Experiences: text from the visitor's language, images from the base data.
+  const baseExperiences: NonNullable<DestinationData["experiences"]> = (destination as any).experiences ?? [];
+  const experiences = baseExperiences.map((exp, i) => ({
+    ...exp,
+    ...(localeData?.experiences?.[i] ?? {}),
+    image: exp.image,
+  }));
 
-  const relatedDestinations = DESTINATIONS.filter(
-    (item) => item.id !== destination.id
-  ).slice(0, 3);
+  let translatedCategory = field("category");
+  const catKey = `categories.${destination.category}`;
+  if (td.has(catKey as any)) translatedCategory = td(catKey as any);
+
+  // Related: same category first, then the rest.
+  const others = DESTINATIONS.filter((item) => item.id !== destination.id);
+  const relatedDestinations = [
+    ...others.filter((item) => item.category === destination.category),
+    ...others.filter((item) => item.category !== destination.category),
+  ].slice(0, 3);
 
   return (
     <div className="min-h-screen bg-white">
@@ -198,6 +216,7 @@ export default async function DestinationPage({
                 {translatedOpenHours && <p>🕐 {translatedOpenHours}</p>}
                 {translatedEntryFee && <p>🎟️ {translatedEntryFee}</p>}
                 {translatedBestTime && <p>🌤️ {td("bestTime")}: {translatedBestTime}</p>}
+                {translatedGettingThere && <p>🚗 {td("gettingThere")}: {translatedGettingThere}</p>}
               </div>
             </div>
             <div className="rounded-2xl bg-stone-900 p-6 text-center text-white">
@@ -209,6 +228,30 @@ export default async function DestinationPage({
           </div>
         </div>
       </div>
+
+      {/* ── EXPERIENCES ── */}
+      {experiences.length > 0 && (
+        <div className="max-w-5xl mx-auto px-6 md:px-10 pb-20">
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-stone-900 mb-8">
+            {td("experiencesIn", { place: translatedTitle })}
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {experiences.map((exp) => (
+              <article key={exp.title} className="bg-white rounded-2xl overflow-hidden border border-stone-100 shadow-sm">
+                {exp.image && (
+                  <div className="relative h-48 overflow-hidden">
+                    <Image src={exp.image} alt={exp.title} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover" />
+                  </div>
+                )}
+                <div className="p-5">
+                  <h3 className="font-serif font-bold text-lg text-stone-900">{exp.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{exp.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── RELATED SECTION ── */}
       {relatedDestinations.length > 0 && (

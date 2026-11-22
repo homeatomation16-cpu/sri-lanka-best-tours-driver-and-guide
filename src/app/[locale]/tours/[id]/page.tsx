@@ -1,10 +1,11 @@
+import { pageAlternates, localizedUrl } from "@/lib/seo";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import BookingForm from "@/components/BookingForm";
-import connectDB from "@/lib/mongodb";
-import Tour from "@/models/Tour";
+import TourRouteMap from "@/components/TourRouteMap";
+import { getActiveTours, getTourById } from "@/lib/tourData";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -15,8 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, id } = await params;
 
   // Database එකට සම්බන්ධ වී අදාළ Tour එක සෙවීම
-  await connectDB();
-  const tourRaw = await Tour.findOne({ tourId: id }).lean();
+  const tourRaw = await getTourById(id, locale);
 
   if (!tourRaw) {
     return {
@@ -34,21 +34,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = translation?.overview ? `${translation.overview.substring(0, 155)}...` : `Explore the best of Sri Lanka with our ${title}. Book your custom tour with an expert guide.`;
 
   // අදාළ Tour එකේ පින්තූරය (නැත්නම් default පින්තූරයක්)
-  const imageUrl = tourRaw.image || "/og-image.jpg";
-  const siteUrl = "https://www.srilankabesttourdriverandguide.com";
+  const imageUrl = tourRaw.image || "/hero/sigiriya-poster.webp";
 
   return {
     title: `${title} | Sri Lanka Best Tour Driver & Guide`,
     description: description,
     keywords: [title, "Sri Lanka tour package", "Private driver in Sri Lanka", `${title} itinerary`, "Hire a guide for Sri Lanka tour", "Sri Lanka travel"],
-    alternates: {
-      // මේකෙන් Duplicate Content Error එක නැති කරනවා
-      canonical: `${siteUrl}/${locale}/tours/${id}`,
-    },
+    alternates: pageAlternates(locale, `/tours/${id}`),
     openGraph: {
       title: `${title} | Sri Lanka Best Tours`,
       description: description,
-      url: `${siteUrl}/${locale}/tours/${id}`,
+      url: localizedUrl(locale, `/tours/${id}`),
       type: "website",
       images: [
         {
@@ -74,11 +70,9 @@ export default async function TourDetailsPage({ params }: Props) {
 
   // ... ඔයාගේ කලින් තිබුණු කෝඩ් එක මෙතනින් පහළට ඒ විදිහටම තියන්න ...
 
-  // 1. Database එකට සම්බන්ධ වීම
-  await connectDB();
 
   // 2. tourId එක මගින් දත්ත සෙවීම
-  const tourRaw = await Tour.findOne({ tourId: id }).lean();
+  const tourRaw = await getTourById(id, locale);
 
   if (!tourRaw) notFound();
 
@@ -99,6 +93,15 @@ export default async function TourDetailsPage({ params }: Props) {
   };
 
   const itinerary = tour.itinerary ?? [];
+
+  // Other lengths of this tour for the booking form (same category, priced, with/without hotels kept apart)
+  const withHotels = (tourId: string) => tourId.endsWith("-hotels");
+  const lengths = tour.groupPrices?.length
+    ? (await getActiveTours(locale))
+        .filter((other: any) => other.category === tour.category && other.groupPrices?.length && other.duration && withHotels(other.tourId) === withHotels(tour.tourId))
+        .map((other: any) => ({ tourId: other.tourId as string, days: Number(other.duration) }))
+        .sort((a, b) => a.days - b.days)
+    : [];
 
   return (
     <div className="bg-stone-50 min-h-screen text-stone-800 font-sans">
@@ -126,10 +129,8 @@ export default async function TourDetailsPage({ params }: Props) {
               <div className="flex flex-wrap divide-x divide-white/20">
                 {[
                   { label: t("duration"), value: `${tour.duration} ${tour.duration === 1 ? t("day") : t("days")}` },
-                  { label: t("pricePerPerson"), value: tour.price ? `$${tour.price}` : "—" },
-                  { label: t("minimumPeople", { count: 2 }), value: `2 ${t("pax")}` },
+                  { label: t("priceFrom"), value: tour.price ? `$${tour.price}` : t("priceOnRequest") },
                   { label: t("maxGroup"), value: tour.maxPeople ? `${tour.maxPeople} ${t("pax")}` : `10 ${t("pax")}` },
-                  { label: t("minAge"), value: tour.minAge ? `${tour.minAge}+` : "12+" },
                 ].map((item, i) => (
                   <div key={i} className="px-8 py-5 max-sm:px-5 max-sm:py-3">
                     <p className="text-[9px] uppercase tracking-[0.2em] text-white/50 mb-1">{item.label}</p>
@@ -151,11 +152,12 @@ export default async function TourDetailsPage({ params }: Props) {
             {tour.overview && (
               <section>
                 <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-orange-600 mb-6">{t("overview")}</p>
-                <p className="text-lg leading-relaxed text-stone-600 font-light">{tour.overview}</p>
+                <p className="text-lg leading-relaxed text-stone-600 font-light whitespace-pre-line">{tour.overview}</p>
               </section>
             )}
 
             {/* Included / Excluded Grid */}
+            {(tour.included?.length > 0 || tour.excluded?.length > 0) && (
             <section className="grid md:grid-cols-2 gap-8">
               <div className="bg-white border border-stone-100 p-8 rounded-3xl shadow-sm">
                 <h3 className="text-xl font-bold mb-6 text-stone-900 flex items-center gap-2">
@@ -183,6 +185,7 @@ export default async function TourDetailsPage({ params }: Props) {
                 </ul>
               </div>
             </section>
+            )}
 
             {/* Itinerary Section */}
             {itinerary.length > 0 && (
@@ -203,7 +206,7 @@ export default async function TourDetailsPage({ params }: Props) {
                       <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-100 group-hover:shadow-xl transition-all">
                         <div className="grid md:grid-cols-[250px_1fr]">
                           <div className="relative h-48 md:h-full min-h-48">
-                            <Image src={day.image || "/placeholder-tour.jpg"} alt={`Day ${index + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 250px" />
+                            <Image src={day.image || tour.image || "/logo.png"} alt={`Day ${index + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 250px" />
                           </div>
                           <div className="p-8">
                             <span className="text-xs font-black uppercase tracking-widest text-orange-500 mb-2 block">
@@ -238,10 +241,19 @@ export default async function TourDetailsPage({ params }: Props) {
           </div>
 
           {/* Right Column: Booking Form */}
-          <aside className="lg:col-span-1">
-            <div className="sticky top-32">
+          <aside id="book" className="lg:col-span-1 scroll-mt-28">
+            {/* Booking form, then the route map below it (not sticky, so the map can be scrolled to) */}
+            <div className="space-y-8">
               {/* මෙතැනට tourPlain එක යැවීමට මතක තබාගන්න */}
-              <BookingForm tour={tour} />
+              <BookingForm tour={tour} lengths={lengths} sticky={false} />
+
+              {/* Route map: itinerary stops in order on the Sri Lanka terrain map */}
+              {tour.stops?.length > 0 && (
+                <section>
+                  <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-orange-600 mb-4">{t("routeMap")}</p>
+                  <TourRouteMap stops={tour.stops} label={t("routeMap")} caption={t("mapCaption")} />
+                </section>
+              )}
             </div>
           </aside>
         </div>

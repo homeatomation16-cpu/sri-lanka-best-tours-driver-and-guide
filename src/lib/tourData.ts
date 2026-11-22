@@ -1,0 +1,79 @@
+import connectDB from "@/lib/mongodb";
+import Tour from "@/models/Tour";
+
+// Tours come from MongoDB, with the bundled live-site tour files (src/data/tours/<locale>.ts) filling the gaps:
+// - a tour that is only in the files (not imported yet) is shown from the files;
+// - a database tour that was never updated by /api/tours/migrate (no category) is replaced by the file version.
+// Once the migrate import has run, every tour comes from the database, so admin edits win.
+
+const LOCALES = ["en", "si", "ru", "fr", "de", "it", "es", "ja", "zh", "ar", "hi", "ko", "pt", "ta"];
+
+async function loadFileTours(locale: string): Promise<any[]> {
+  const lang = LOCALES.includes(locale) ? locale : "en";
+  const mod = await import(`@/data/tours/${lang}`);
+  return mod.TOURS;
+}
+
+/** Shapes a file tour like a database document (translation stored under the requested locale and "en"). */
+function fromFile(tour: any, locale: string) {
+  const translation = {
+    title: tour.title,
+    shortDescription: tour.shortDescription,
+    overview: tour.overview,
+    categoryName: tour.category?.name ?? "",
+    route: tour.route,
+    itinerary: tour.itinerary,
+    included: tour.included,
+    excluded: tour.excluded,
+    vehicleInfo: tour.vehicleInfo,
+  };
+  return {
+    _id: tour.id,
+    tourId: tour.id,
+    price: tour.price,
+    groupPrices: tour.groupPrices,
+    currency: tour.currency,
+    category: tour.category?.slug,
+    image: tour.image,
+    gallery: tour.gallery,
+    stops: tour.stops,
+    duration: tour.duration,
+    maxPeople: tour.maxPeople,
+    tourType: tour.tourType,
+    status: "active",
+    translations: { [locale]: translation, en: translation },
+  };
+}
+
+const isImported = (doc: any) => Boolean(doc?.category);
+
+/** All active tours for the listing pages, in the live site's order. */
+export async function getActiveTours(locale: string) {
+  await connectDB();
+  const [docs, files] = await Promise.all([Tour.find({}).lean(), loadFileTours(locale)]);
+  const byId = new Map<string, any>(docs.map((doc: any) => [doc.tourId, doc]));
+  const fileIds = new Set(files.map((tour) => tour.id));
+
+  const tours = files
+    .map((file) => {
+      const doc = byId.get(file.id);
+      if (isImported(doc)) return doc.status === "active" ? doc : null;
+      return fromFile(file, locale);
+    })
+    .filter(Boolean);
+
+  // Database-only tours stay visible until the import hides them (old IDs not on the live site are skipped).
+  const extra = docs.filter((doc: any) => doc.status === "active" && !fileIds.has(doc.tourId) && isImported(doc));
+
+  return [...tours, ...extra];
+}
+
+/** One tour for the detail page, or null. */
+export async function getTourById(id: string, locale: string) {
+  await connectDB();
+  const doc: any = await Tour.findOne({ tourId: id }).lean();
+  if (isImported(doc)) return doc;
+  const file = (await loadFileTours(locale)).find((tour) => tour.id === id);
+  if (file) return fromFile(file, locale);
+  return doc;
+}

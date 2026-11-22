@@ -1,7 +1,9 @@
 // src/app/[locale]/page.tsx
 import { Suspense } from "react";
+import type { Metadata } from "next";
+import { pageAlternates, localizedUrl } from "@/lib/seo";
 import HeroVideo from "@/components/HeroVideo";
-import Destinations from "@/components/Destinations";
+import ExperienceExplorer from "@/components/ExperienceExplorer";
 import SeasonalTours from "@/components/SeasonalTours";
 import OneDayTours from "@/components/OneDayTours";
 import SpecialOffer from "@/components/SpecialOffer";
@@ -9,10 +11,31 @@ import TailorMade from "@/components/TailorMade";
 import WhyUs from "@/components/WhyUs";
 import Testimonials from "@/components/Testimonials";
 import Gallery from "@/components/Gallery";
-import VehiclesSection from "@/components/VehiclesSection";
+import TourCollections from "@/components/home/TourCollections";
 import Tours from "@/components/Tours";
+import PhotoCredits from "@/components/PhotoCredits";
+import CinematicScroll from "@/components/cinematic/CinematicScroll";
+import { CloudBridge, AscentScene, DescentScene } from "@/components/cinematic/CinematicScenes";
+import ExperienceIcons from "@/components/home/ExperienceIcons";
+import TopDestinations from "@/components/home/TopDestinations";
+import SriLankaMap from "@/components/home/SriLankaMap";
+import StatsCounters from "@/components/home/StatsCounters";
+import ContactSection from "@/components/home/ContactSection";
 import { getSiteContent } from "@/lib/siteContent";
 import { pick } from "@/lib/autoTranslate";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    alternates: pageAlternates(locale),
+    openGraph: {
+      type: "website",
+      url: localizedUrl(locale),
+      siteName: "Sri Lanka Best Tour Driver and Guide",
+      images: [{ url: "/hero/sigiriya-poster.webp", alt: "Sigiriya, Sri Lanka" }],
+    },
+  };
+}
 
 // A sleek loading skeleton to show while MongoDB fetches data
 function SectionLoader() {
@@ -25,6 +48,9 @@ function SectionLoader() {
     </div>
   );
 }
+
+// Re-render daily so the seasonal packages follow the current month.
+export const revalidate = 86400;
 
 export default async function HomePage({
   params,
@@ -50,37 +76,57 @@ export default async function HomePage({
     : undefined;
 
   return (
+    <CinematicScroll>
     <div className="relative bg-white">
       {/* HERO - Loads instantly, never blocked by database */}
       <div className="relative">
         <HeroVideo slides={heroSlides.length ? heroSlides : undefined} />
-        <div className="pointer-events-none absolute bottom-0 left-0 w-full h-40 bg-linear-to-t from-white/90 via-white/40 to-transparent shadow-xl" />
+
       </div>
+
+      <CloudBridge />
+      <AscentScene />
+
+      <Suspense fallback={<SectionLoader />}>
+        <SeasonalTours locale={locale} />
+      </Suspense>
+
+      <ExperienceExplorer />
+
+      {/* NEW: activity icon cards + top destinations grid */}
+      <ExperienceIcons locale={locale} />
+      <TopDestinations locale={locale} />
+      <SriLankaMap locale={locale} />
 
       {/* DB-HEAVY SECTIONS - Wrapped in Suspense to prevent server blocking */}
       <Suspense fallback={<SectionLoader />}>
         <Tours locale={locale} />
       </Suspense>
 
-      <Suspense fallback={<SectionLoader />}>
-        <SeasonalTours locale={locale} />
-      </Suspense>
+
+      <TailorMade />
 
       <Suspense fallback={<SectionLoader />}>
         <OneDayTours locale={locale} />
       </Suspense>
 
       <Suspense fallback={<SectionLoader />}>
-        <VehiclesSection locale={locale} />
+        <TourCollections locale={locale} />
       </Suspense>
 
+      {/* NEW: animated number counters (figures in src/data/homeStats.ts) */}
+      <StatsCounters />
+
       {/* STATIC SECTIONS - Usually don't need Suspense unless they hit external APIs */}
+      <DescentScene />
       <WhyUs />
-      <Destinations />
       <Testimonials />
       <SpecialOffer />
-      <TailorMade />
       <Gallery items={galleryItems} heading={galleryHeading} />
+      {/* NEW: enquiry form (posts to /api/contact) */}
+      <ContactSection />
+      <PhotoCredits />
     </div>
+    </CinematicScroll>
   );
 }
