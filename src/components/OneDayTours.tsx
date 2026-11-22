@@ -48,7 +48,7 @@ export default async function OneDayTours({ locale }: { locale: string }) {
                     <span className="inline-flex items-center gap-2"><Users size={16} aria-hidden="true" />{t("upToGuests", { count: tour.maxPeople || 10 })}</span>
                   </div>
                   <h3 className="text-2xl font-semibold leading-snug">{data?.title}</h3>
-                  <span className="mt-6 inline-flex items-center gap-3 font-semibold text-amber-300">{t("exploreTour")} <ArrowRight size={18} aria-hidden="true" /></span>
+                  <span className="mt-4 sm:mt-6 inline-flex items-center gap-3 font-semibold text-amber-300">{t("exploreTour")} <ArrowRight size={18} aria-hidden="true" /></span>
                 </div>
                 </Link>
               </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Plus, Edit, Trash2, Image as ImageIcon, Loader2, X, Copy, Search, Star, Eye, EyeOff, Clock, Users, Languages, ChevronUp, ChevronDown, Download,
 } from "lucide-react";
@@ -41,17 +41,20 @@ export default function ToursAdmin() {
   const [formData, setFormData] = useState<any>(EMPTY_FORM);
   const [deleteTarget, setDeleteTarget] = useState<any>(null);
 
-  const fetchTours = async () => {
+  // Starts with loading already true; refreshTours() shows the spinner again for later reloads.
+  const fetchTours = useCallback(() =>
+    fetch("/api/tours")
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to load");
+        setTours(data);
+      })
+      .catch((e: any) => toast(e.message, "error"))
+      .finally(() => setLoading(false)),
+  [toast]);
+  const refreshTours = () => {
     setLoading(true);
-    try {
-      const res = await fetch("/api/tours");
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to load");
-      setTours(data);
-    } catch (e: any) {
-      toast(e.message, "error");
-    }
-    setLoading(false);
+    fetchTours();
   };
   // Loads the 48 live-site tours (src/data/tours) into the database and hides old tours that are not in that list.
   const [importing, setImporting] = useState(false);
@@ -63,14 +66,14 @@ export default function ToursAdmin() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.success) throw new Error(data.error || "Import failed");
       toast(data.message);
-      fetchTours();
+      refreshTours();
     } catch (e: any) {
       toast(e.message, "error");
     }
     setImporting(false);
   };
 
-  useEffect(() => { fetchTours(); /* eslint-disable-next-line */ }, []);
+  useEffect(() => { fetchTours(); }, [fetchTours]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -169,7 +172,7 @@ export default function ToursAdmin() {
       if (!res.ok) throw new Error(json.error || "Save failed");
       toast(editingId ? "Tour updated" : "Tour created");
       closeModal();
-      fetchTours();
+      refreshTours();
     } catch (err: any) {
       toast(err.message, "error");
     }
@@ -317,7 +320,7 @@ export default function ToursAdmin() {
               <Section title="Pricing & Group size (USD)">
                 {PRICED_TOUR_IDS.has(formData.tourId) && (
                   <p className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
-                    This tour's prices are managed in <a href="pricing" className="font-bold underline">Admin → Tour pricing</a> (group price table). The fields below are not used for it.
+                    This tour&apos;s prices are managed in <a href="pricing" className="font-bold underline">Admin → Tour pricing</a> (group price table). The fields below are not used for it.
                   </p>
                 )}
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">

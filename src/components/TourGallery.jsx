@@ -13,7 +13,7 @@ export default function TourGallery({ tourId, tourTitle }) {
   const gallery = TOUR_GALLERIES[tourId];
   const [[selectedIndex, direction], setSelectedIndex] = useState([null, 0]);
 
-  if (!gallery || gallery.length === 0) return null;
+  const galleryLength = gallery?.length ?? 0;
 
   const openLightbox = (index) => setSelectedIndex([index, 0]);
   const closeLightbox = () => setSelectedIndex([null, 0]);
@@ -23,12 +23,14 @@ export default function TourGallery({ tourId, tourTitle }) {
       if (selectedIndex === null) return;
       const newIndex =
         selectedIndex + newDirection < 0
-          ? gallery.length - 1
-          : (selectedIndex + newDirection) % gallery.length;
+          ? galleryLength - 1
+          : (selectedIndex + newDirection) % galleryLength;
       setSelectedIndex([newIndex, newDirection]);
     },
-    [selectedIndex, gallery.length]
+    [selectedIndex, galleryLength]
   );
+
+  if (galleryLength === 0) return null;
 
   return (
     <section className="py-20 md:py-28 bg-linear-to-brom-stone-50 to-white relative overflow-hidden">

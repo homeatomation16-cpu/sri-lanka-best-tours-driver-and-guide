@@ -25,21 +25,18 @@ export default function ContentClient() {
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
 
-  const load = useCallback(async (key: string) => {
-    setLoading(true);
-    setDirty(false);
-    try {
-      const r = await fetch(`/api/admin/content?key=${key}`);
-      const j = await r.json();
-      if (!r.ok) throw new Error(j.error);
-      setData(j.data);
-      setIsDefault(!!j.isDefault);
-    } catch (e: any) {
-      toast(e.message || "Could not load", "error");
-    } finally {
-      setLoading(false);
-    }
-  }, [toast]);
+  // Callers show the spinner first (setLoading(true)); the first load starts with loading already true.
+  const load = useCallback((key: string) =>
+    fetch(`/api/admin/content?key=${key}`)
+      .then(async (r) => {
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error);
+        setData(j.data);
+        setIsDefault(!!j.isDefault);
+      })
+      .catch((e: any) => toast(e.message || "Could not load", "error"))
+      .finally(() => setLoading(false)),
+  [toast]);
 
   useEffect(() => { load(tab); }, [tab, load]);
 
@@ -66,11 +63,15 @@ export default function ContentClient() {
     if (!confirm("Go back to the original built-in content? Your saved changes for this section will be removed.")) return;
     await fetch(`/api/admin/content?key=${tab}`, { method: "DELETE" });
     toast("Restored original content");
+    setLoading(true);
+    setDirty(false);
     load(tab);
   };
 
   const switchTab = (k: any) => {
     if (dirty && !confirm("You have unsaved changes. Leave without saving?")) return;
+    setLoading(true);
+    setDirty(false);
     setTab(k);
   };
 
@@ -87,7 +88,7 @@ export default function ContentClient() {
         ))}
       </div>
 
-      {isDefault && !loading && <div className="mb-6 text-xs bg-sky-500/10 border border-sky-500/30 text-sky-300 px-4 py-3 rounded-xl">These are the website's current built-in items. Edit anything and press <b>Save</b> – from then on the website uses what you saved here.</div>}
+      {isDefault && !loading && <div className="mb-6 text-xs bg-sky-500/10 border border-sky-500/30 text-sky-300 px-4 py-3 rounded-xl">These are the website&apos;s current built-in items. Edit anything and press <b>Save</b> – from then on the website uses what you saved here.</div>}
 
       {loading || !data ? (
         <div className="flex items-center gap-3 text-zinc-500 py-20 justify-center"><Loader2 className="animate-spin" /> Loading…</div>

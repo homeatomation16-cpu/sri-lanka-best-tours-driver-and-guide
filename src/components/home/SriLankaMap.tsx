@@ -48,17 +48,17 @@ export default async function SriLankaMap({ locale }: { locale: string }) {
   const places = PLACES.filter((place) => names[place.id]);
 
   return (
-    <section className="home-section-spacing bg-[#f9f7f2]" aria-labelledby="sri-lanka-map-title">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 lg:grid-cols-[1fr_1.1fr]">
+    <section className="sri-lanka-map-section home-section-spacing bg-[#f9f7f2]" aria-labelledby="sri-lanka-map-title">
+      <div className="mx-auto grid max-w-7xl items-center gap-4 px-6 sm:gap-10 lg:grid-cols-[1fr_1.1fr]">
         <div>
           <p className="mb-3 font-semibold text-teal-800">{t("label")}</p>
           <h2 id="sri-lanka-map-title" className="font-playfair text-4xl leading-tight text-slate-900 sm:text-5xl">{t("heading")}</h2>
           <p className="mt-4 max-w-md leading-relaxed text-slate-600">{t("sub")}</p>
           {/* Same places as a plain list: readable for screen readers and easy to tap on small screens */}
-          <ul className="mt-8 flex flex-wrap gap-2">
+          <ul className="mt-5 flex flex-wrap gap-1.5 sm:mt-8 sm:gap-2">
             {places.map((place) => (
               <li key={place.id}>
-                <Link href={`/destinations/${place.id}`} className="inline-block rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-700 transition-colors hover:border-amber-400 hover:text-slate-950">
+                <Link href={`/destinations/${place.id}`} className="inline-block rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs text-slate-700 sm:px-3 sm:py-1.5 sm:text-sm transition-colors hover:border-amber-400 hover:text-slate-950">
                   {names[place.id]}
                 </Link>
               </li>
@@ -66,7 +66,7 @@ export default async function SriLankaMap({ locale }: { locale: string }) {
           </ul>
         </div>
 
-        <div className="relative mx-auto w-full max-w-xl">
+        <div className="sri-lanka-map-wrap relative mx-auto w-full max-w-xl">
           <Image
             src="/images/sri-lanka-map.webp"
             alt={t("alt")}

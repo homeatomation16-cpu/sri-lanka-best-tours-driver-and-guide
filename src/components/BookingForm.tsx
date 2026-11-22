@@ -232,54 +232,41 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
     }
   };
 
-  const inputClass = "w-full bg-white/[0.07] border border-stone-700 text-white px-4 py-3 text-sm outline-none focus:border-orange-500 rounded-md transition-all";
-  const labelClass = "block text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2";
+  const inputClass = "w-full bg-white/[0.07] border border-stone-700 text-white px-2.5 py-2 sm:px-4 sm:py-3 text-sm outline-none focus:border-orange-500 rounded-md transition-all";
+  const labelClass = "block text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-1 sm:mb-2 max-sm:truncate";
 
   return (
     <div className={`bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-2xl ${sticky ? "sticky top-8" : ""}`}>
-      <div className="bg-orange-700 p-7 text-white">
-        <h3 className="text-xl font-bold font-serif">{tour.title}</h3>
-        <p className="text-xs opacity-80 uppercase tracking-tighter mt-1">{t("reserveYour")}</p>
+      <div className="bg-orange-700 px-4 py-3 sm:p-7 text-white">
+        <h3 className="text-base sm:text-xl font-bold font-serif leading-snug">{tour.title}</h3>
+        <p className="text-xs opacity-80 uppercase tracking-tighter mt-0.5 sm:mt-1">{t("reserveYour")}</p>
       </div>
 
-      <div className="p-8 space-y-5">
+      <div className="p-4 sm:p-8 space-y-3 sm:space-y-5">
         {!showOtpField ? (
           // STEP 1: Details Entry
           <>
-            {lengths.length > 1 && tour.tourId && (
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-1 sm:gap-5">
               <div>
-                <label className={labelClass} htmlFor="tourLength">{t("tourLength")}</label>
-                <select
-                  id="tourLength"
-                  className={`${inputClass} scheme-dark`}
-                  value={tour.tourId}
-                  onChange={(e) => router.push(`/tours/${e.target.value}#book`)}
-                >
-                  {lengths.map((option) => (
-                    <option key={option.tourId} value={option.tourId} className="bg-stone-900">
-                      {t("daysOption", { days: option.days })}
-                    </option>
-                  ))}
-                </select>
+                <label className={labelClass}>{t("fullName")} *</label>
+                <input className={inputClass} value={form.name} onChange={(e) => handleChange("name", e.target.value)} placeholder={t("namePlaceholder")} autoComplete="name" />
               </div>
-            )}
-            <div>
-              <label className={labelClass}>{t("fullName")} *</label>
-              <input className={inputClass} value={form.name} onChange={(e) => handleChange("name", e.target.value)} placeholder={t("namePlaceholder")} autoComplete="name" />
+              <div>
+                <label className={labelClass}>{t("country")}</label>
+                <input className={inputClass} value={form.country} onChange={(e) => handleChange("country", e.target.value)} autoComplete="country-name" />
+              </div>
             </div>
-            <div>
-              <label className={labelClass}>{t("email")} *</label>
-              <input className={inputClass} type="email" value={form.email} onChange={(e) => handleChange("email", e.target.value)} placeholder={t("emailPlaceholder")} autoComplete="email" />
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-1 sm:gap-5">
+              <div className="min-w-0">
+                <label className={labelClass}>{t("email")} *</label>
+                <input className={inputClass} type="email" value={form.email} onChange={(e) => handleChange("email", e.target.value)} placeholder={t("emailPlaceholder")} autoComplete="email" />
+              </div>
+              <div className="min-w-0">
+                <label className={labelClass}>{t("whatsapp")}</label>
+                <PhoneInput defaultCountry="LK" value={form.phone} onChange={(v) => handleChange("phone", v || "")} className={`phone-input-dark ${inputClass} flex items-center gap-1.5 py-0! sm:py-0!`} />
+              </div>
             </div>
-            <div>
-              <label className={labelClass}>{t("whatsapp")}</label>
-              <PhoneInput defaultCountry="LK" value={form.phone} onChange={(v) => handleChange("phone", v || "")} className="phone-input-dark text-white" />
-            </div>
-            <div>
-              <label className={labelClass}>{t("country")}</label>
-              <input className={inputClass} value={form.country} onChange={(e) => handleChange("country", e.target.value)} autoComplete="country-name" />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
               <div>
                 <label className={labelClass}>{t("startDate")} *</label>
                 <input className={`${inputClass} scheme-dark`} type="date" value={form.date} onChange={(e) => handleChange("date", e.target.value)} />
@@ -289,7 +276,25 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
                 <input className={`${inputClass} scheme-dark`} type="date" value={form.endDate} min={form.date || undefined} onChange={(e) => handleChange("endDate", e.target.value)} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            {/* tour length, adults and children share one row */}
+            <div className={`grid gap-2.5 sm:gap-4 ${lengths.length > 1 && tour.tourId ? "grid-cols-[1.3fr_1fr_1fr] sm:grid-cols-2 sm:[&>:first-child]:col-span-2" : "grid-cols-2"}`}>
+              {lengths.length > 1 && tour.tourId && (
+                <div>
+                  <label className={labelClass} htmlFor="tourLength">{t("tourLength")}</label>
+                  <select
+                    id="tourLength"
+                    className={`${inputClass} scheme-dark`}
+                    value={tour.tourId}
+                    onChange={(e) => router.push(`/tours/${e.target.value}#book`)}
+                  >
+                    {lengths.map((option) => (
+                      <option key={option.tourId} value={option.tourId} className="bg-stone-900">
+                        {t("daysOption", { days: option.days })}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div>
                 <label className={labelClass}>{t("adults")} *</label>
                 <input className={inputClass} type="number" min={1} max={100} value={form.adults} onChange={(e) => handleChange("adults", e.target.value)} />
@@ -324,17 +329,17 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
 
             {/* Price estimate (only tours with a price list, like the live site) */}
             {priced && persons >= 1 && (
-              <div className="border border-orange-500/20 bg-orange-500/10 rounded-lg p-5 text-sm text-stone-300" aria-live="polite">
+              <div className="border border-orange-500/20 bg-orange-500/10 rounded-lg px-3.5 py-3 sm:p-5 text-xs sm:text-sm text-stone-300" aria-live="polite">
                 {priceRow ? (
                   <>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-orange-400">{t("estimate")}</p>
-                    <p className="mt-1 font-serif text-3xl font-bold text-white">{formatUsd(totalCents)}</p>
+                    <p className="mt-0.5 sm:mt-1 font-serif text-xl sm:text-3xl font-bold text-white">{formatUsd(totalCents)}</p>
                     <p className="mt-1">
                       {t("estimateTotal", { count: persons, days })}
                       {priceRow.vehicle && <> · {t("vehicleLabel", { vehicle: priceRow.vehicle })}</>}
                     </p>
-                    {persons > 1 && <p className="mt-0.5 text-stone-400">{t("perPersonApprox", { price: perPersonText })}</p>}
-                    <p className="mt-3 text-[11px] text-stone-500">{t("estimateNote")}</p>
+                    {persons > 1 && <p className="mt-0.5 text-stone-400 max-sm:hidden">{t("perPersonApprox", { price: perPersonText })}</p>}
+                    <p className="mt-1.5 sm:mt-3 text-[10px] sm:text-[11px] text-stone-500">{t("estimateNote")}</p>
                   </>
                 ) : (
                   <p>{t("largeGroup", { max: maxPersons })}</p>
@@ -350,13 +355,13 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
             </div>
             <div>
               <label className={labelClass}>{t("message")}</label>
-              <textarea className={`${inputClass} min-h-24`} value={form.notes} onChange={(e) => handleChange("notes", e.target.value)} placeholder={t("notesPlaceholder")} />
+              <textarea rows={2} className={`${inputClass} min-h-14 sm:min-h-24`} value={form.notes} onChange={(e) => handleChange("notes", e.target.value)} placeholder={t("notesPlaceholder")} />
             </div>
 
             <button
               onClick={handleSendOtp}
               disabled={status === "sending"}
-              className="w-full py-4 bg-orange-700 hover:bg-orange-600 text-white rounded-md font-bold uppercase text-xs tracking-widest transition-all disabled:opacity-50"
+              className="w-full py-3 sm:py-4 bg-orange-700 hover:bg-orange-600 text-white rounded-md font-bold uppercase text-xs tracking-widest transition-all disabled:opacity-50"
             >
               {status === "sending" ? "Sending OTP..." : "Get Verification Code"}
             </button>
@@ -417,7 +422,7 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
         )}
 
         {/* Footer Info */}
-        <div className="pt-4 border-t border-white/5 flex flex-wrap justify-center gap-4 text-[10px] text-stone-500 uppercase font-bold tracking-tighter">
+        <div className="pt-3 sm:pt-4 border-t border-white/5 flex flex-wrap justify-center gap-4 text-[10px] text-stone-500 uppercase font-bold tracking-tighter">
           <span className="flex items-center gap-1">
             <CheckCircle size={10} /> No Prepayment
           </span>

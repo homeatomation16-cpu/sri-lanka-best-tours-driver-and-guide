@@ -9,9 +9,13 @@ export default function AnalyticsClient() {
   const [d, setD] = useState<any>(null);
   const [err, setErr] = useState("");
 
-  useEffect(() => {
+  const changeRange = (range: number) => {
     setD(null);
     setErr("");
+    setDays(range);
+  };
+
+  useEffect(() => {
     fetch(`/api/admin/analytics?days=${days}`)
       .then(async (r) => { const j = await r.json(); if (!r.ok) throw new Error(j.error); setD(j); })
       .catch((e) => setErr(e.message));
@@ -28,7 +32,7 @@ export default function AnalyticsClient() {
         </div>
         <div className="flex gap-2">
           {RANGES.map((r) => (
-            <button key={r} onClick={() => setDays(r)} className={`px-4 py-2 rounded-xl text-sm font-bold ${days === r ? "bg-orange-600 text-white" : "bg-zinc-900 border border-zinc-800 text-zinc-400"}`}>{r} days</button>
+            <button key={r} onClick={() => changeRange(r)} className={`px-4 py-2 rounded-xl text-sm font-bold ${days === r ? "bg-orange-600 text-white" : "bg-zinc-900 border border-zinc-800 text-zinc-400"}`}>{r} days</button>
           ))}
         </div>
       </div>

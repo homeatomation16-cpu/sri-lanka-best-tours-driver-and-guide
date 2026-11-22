@@ -235,15 +235,19 @@ export default function FloatingCurrency() {
 
       {/* Floating Button */}
       <button
+        type="button"
+        aria-label={open ? "Close currency converter" : "Open currency converter"}
+        aria-expanded={open}
+        aria-controls="currency-converter"
         onClick={() => setOpen(!open)}
-        className="fixed bottom-24 right-6 z-50 w-14 h-14 bg-linear-to-br from-[#B5541A] to-[#8a3f12] text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 border-2 border-white/20 group"
+        className="fixed bottom-24 right-6 z-50 w-14 h-14 max-sm:bottom-[calc(64px+env(safe-area-inset-bottom))] max-sm:right-3 max-sm:h-[44px] max-sm:w-[44px] bg-linear-to-br from-[#B5541A] to-[#8a3f12] text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 border-2 border-white/20 group"
       >
         {open ? <X className="w-6 h-6" /> : <RiExchangeDollarLine className="w-6 h-6 group-hover:rotate-12 transition-transform" />}
       </button>
 
       {/* Converter Panel */}
       {open && (
-        <div className="curr-body fixed bottom-40 right-6 w-85 bg-white/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] rounded-sm border border-black/5 p-7 z-50 animate-in fade-in zoom-in slide-in-from-bottom-4 duration-300">
+        <div id="currency-converter" className="curr-body fixed bottom-40 right-6 max-sm:bottom-[calc(116px+env(safe-area-inset-bottom))] max-sm:right-3 w-85 bg-white/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] rounded-sm border border-black/5 p-7 z-50 animate-in fade-in zoom-in slide-in-from-bottom-4 duration-300">
           
           <div className="flex justify-between items-center mb-8">
             <div>

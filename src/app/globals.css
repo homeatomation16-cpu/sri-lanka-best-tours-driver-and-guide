@@ -158,6 +158,11 @@ body {
 .hero-section {
   min-height: clamp(620px, 88svh, 920px);
 }
+/* Phones in landscape: the 620px minimum is almost two screens tall and pushes the CTAs below the fold. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero-section { min-height: 100svh; }
+  .hero-section .hero-copy { padding-top: 6rem; padding-bottom: 2rem; }
+}
 
 .hero-edge-fade {
   position: absolute;
@@ -737,7 +742,10 @@ body {
   background: rgb(255 255 255 / 45%);
 }
 .hero-slide-step::before { content: ""; }
-.hero-slide-step span { background: #fbbf24; transform-origin: left; }
+.hero-slide-step span { background: #fbbf24; transform-origin: left; transform: scaleX(0); }
+.hero-slide-step span.is-running { animation: hero-step-fill linear forwards; }
+.hero-slide-step span.is-paused { animation-play-state: paused; }
+@keyframes hero-step-fill { to { transform: scaleX(1); } }
 .hero-slide-step[aria-current="true"]::before { background: white; }
 
 @media (max-width: 767px) {
@@ -757,6 +765,16 @@ body {
   .bespoke-card-back { height: 340px; }
   .bespoke-detail-photo { height: 190px; bottom: 52px; }
   .bespoke-photo-caption { bottom: 0; }
+}
+/* phones: a shorter photo stack so the section isn't a full screen of images */
+@media (max-width: 599px) {
+  .bespoke-composition { min-height: 0; padding-bottom: 76px; }
+  .bespoke-main-photo, .bespoke-card-back { height: 230px; }
+  .bespoke-card-back-far { top: -16px; }
+  .bespoke-card-back-near { top: -8px; }
+  .bespoke-detail-photo { height: 130px; bottom: 64px; border-width: 5px; }
+  .bespoke-photo-caption { gap: 6px; }
+  .bespoke-photo-caption span { padding: 5px 10px; font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1017,6 +1035,8 @@ body {
   perspective: 900px;
   perspective-origin: 50% 0%;
   overflow: clip visible;
+  /* overlap the Ascent by 1px so fractional-DPR rounding never leaves a hairline gap */
+  margin-bottom: -1px;
 }
 .cine-bridge .cine-billow {
   filter: blur(.6px) saturate(.9);
@@ -1062,7 +1082,8 @@ body {
 .cine-puff::before {
   content: "";
   position: absolute;
-  inset: 0;
+  /* larger than the piece, so the idle sway never slides the image's own edge into view */
+  inset: -15%;
   background: url('/images/cloud-bank-natural.webp') var(--bp) / var(--bs, 360%) auto no-repeat;
   transform: scaleX(var(--flip, 1));
   animation: cine-puff-idle var(--dur, 20s) ease-in-out var(--delay, 0s) infinite;
@@ -1091,6 +1112,39 @@ body {
 .cinematic-root .hero-edge-fade { display: none; }
 /* lead-in line sits below the cloud base, in clear sky */
 .cine-ascent .cine-skytext { inset-block-start: clamp(64px, 11%, 110px); }
+
+/* Phones: video → clouds → sky without a visible band.
+   - a longer haze with eased stops, so the dark video bottom never meets light cloud in a few px
+   - the cloud bank sits fully inside that haze (its top edge is never seen against the video)
+   - the small far-layer pieces that floated over the dark video are dropped
+   - the highlands photo fades in over a longer run, from the bank's sky colour into its blue sky */
+@media (max-width: 599px) {
+  .cine-bridge {
+    --overlap: 130px;
+    height: calc(150px + var(--overlap));
+    background: linear-gradient(180deg,
+      rgb(228 237 243 / 0%) 0,
+      rgb(228 237 243 / 8%) calc(var(--overlap) * .22),
+      rgb(228 237 243 / 26%) calc(var(--overlap) * .44),
+      rgb(228 237 243 / 52%) calc(var(--overlap) * .64),
+      rgb(228 237 243 / 76%) calc(var(--overlap) * .8),
+      rgb(228 237 243 / 91%) calc(var(--overlap) * .92),
+      rgb(228 237 243 / 98%) var(--overlap),
+      #e4edf3 calc(var(--overlap) + 40px));
+  }
+  /* the bank reaches up into the end of the haze, so cloud texture (not a flat strip) sits where the fade ends */
+  .cine-bridge .cine-billow-mid { height: 320px; bottom: -60px; }
+  .cine-bridge .cine-billow {
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 8%, #000 40%, #000 66%, transparent 100%),
+      linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+    mask-image:
+      linear-gradient(to bottom, transparent 8%, #000 40%, #000 66%, transparent 100%),
+      linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  }
+  .cine-puff-far { display: none; }
+  .cine-plate-ascent { mask-image: linear-gradient(180deg, transparent, rgb(0 0 0 / 35%) 9%, #000 22%, #000 38%, transparent 78%); }
+}
 
 /* =====================================================================
    HOMEPAGE JOURNEY — shared depth + colour seams for the regular sections
@@ -1602,6 +1656,13 @@ html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 .contact-submit:hover:not(:disabled) { background: white; transform: translateY(-2px); }
 .contact-submit:disabled { opacity: .7; cursor: progress; }
 .contact-submit:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+@media (max-width: 640px) {
+  .contact-card { padding: 16px; border-radius: 18px; }
+  .contact-label { margin-bottom: 5px; font-size: .78rem; }
+  .contact-input { padding: 8px 11px; border-radius: 10px; font-size: .9rem; }
+  .contact-submit { padding: 11px 20px; font-size: .9rem; }
+  .contact-line { gap: 10px; align-items: flex-start; }
+}
 
 /* ---------- responsive ---------- */
 @media (max-width: 1024px) {
@@ -1610,9 +1671,11 @@ html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 @media (max-width: 640px) {
   .dest-grid { grid-template-columns: 1fr; }
   .masonry { columns: 2; column-gap: 10px; }
-  .back-to-top { inset-inline-end: 20px; bottom: 160px; width: 44px; height: 44px; }
-  .reveal[data-reveal-dir="left"]  { --reveal-x: -32px; }
-  .reveal[data-reveal-dir="right"] { --reveal-x: 32px; }
+  /* stacked above the currency (64px) and language (12px) buttons, clear of the home indicator */
+  .back-to-top { inset-inline-end: 12px; bottom: calc(116px + env(safe-area-inset-bottom)); width: 44px; height: 44px; }
+  /* hidden state only: must not override .reveal.is-in, or shown blocks stay shifted sideways */
+  .reveal:not(.is-in)[data-reveal-dir="left"]  { --reveal-x: -32px; }
+  .reveal:not(.is-in)[data-reveal-dir="right"] { --reveal-x: 32px; }
 }
 
 /* ---------- reduced motion: everything visible, nothing moves ---------- */
@@ -1631,6 +1694,33 @@ html { scroll-behavior: smooth; scroll-padding-top: 96px; }
   mask-composite: intersect;
 }
 
+/* Phones: a smaller map with its empty sea above/below trimmed, and a deeper, softer edge fade so the
+   pale sea glow melts into the section colour (light or dark) instead of reading as a rectangle */
+@media (max-width: 640px) {
+  .sri-lanka-map-wrap { width: 80%; margin-block: -2% -8%; }
+  /* centred on the island itself; only the sea beyond the coast fades, so Jaffna (top) and the west coast stay whole */
+  .sri-lanka-map-fade {
+    -webkit-mask-image: radial-gradient(ellipse 66% 60% at 50% 48%, #000 62%, rgb(0 0 0 / 60%) 82%, transparent 100%), linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 88%, transparent 98%);
+    mask-image: radial-gradient(ellipse 66% 60% at 50% 48%, #000 62%, rgb(0 0 0 / 60%) 82%, transparent 100%), linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 88%, transparent 98%);
+  }
+  .sri-lanka-map-section { padding-block: 40px 32px; }
+}
+
+/* Booking form WhatsApp field: the library's inner input is unstyled (invisible on the dark form) */
+.phone-input-dark .PhoneInputInput {
+  min-width: 0;
+  padding-block: 10px;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: .875rem;
+  outline: none;
+}
+.phone-input-dark .PhoneInputInput::placeholder { color: rgb(168 162 158); }
+.phone-input-dark .PhoneInputCountrySelectArrow { color: rgb(214 211 209); opacity: .8; }
+.phone-input-dark .PhoneInputCountrySelect option { background: #1c1917; }
+.phone-input-dark:focus-within { border-color: rgb(249 115 22); }
+
 /* ---------- site-wide scroll reveal (src/components/ScrollReveal.tsx) ---------- */
 .sr-ready .sr-item {
   opacity: 0;
@@ -1641,3 +1731,52 @@ html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 .sr-ready .sr-item.sr-from-top { transform: translate3d(0, -42px, 0); }
 .sr-ready .sr-item.sr-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .sr-ready .sr-item { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- Phones: shorter cards (desktop and tablet sizes unchanged) ---------- */
+@media (max-width: 640px) {
+  .seasonal-photo-card { min-height: 340px; }
+  .day-tour-card { min-height: 17rem; }
+  .package-story-copy,
+  .package-story-frame:first-child .package-story-copy { min-height: 300px; padding: 56px 22px 22px; }
+  .experience-rail { min-height: 300px; }
+  .experience-panel,
+  .experience-panel.is-active { min-height: 280px; }
+  .activity-card { padding: 18px 18px 16px; }
+  .activity-icon { width: 44px; height: 44px; margin-bottom: 12px; border-radius: 12px; }
+  .activity-more { padding-top: 10px; }
+  .dest-photo { aspect-ratio: 16 / 10; }
+  .dest-body { padding: 18px 18px 20px; }
+  .review-card { padding: 22px; }
+
+  /* second pass: tighter still, so no single card fills the screen */
+  .seasonal-photo-card { min-height: 250px; }
+  .seasonal-tour-grid { gap: 14px; }
+  .day-tour-card { min-height: 14rem; padding: 20px; }
+  .day-tour-grid { gap: 14px; }
+  .package-story-copy,
+  .package-story-frame:first-child .package-story-copy { min-height: 230px; padding: 52px 18px 18px; }
+  .experience-rail { min-height: 250px; }
+  .experience-panel,
+  .experience-panel.is-active { min-height: 240px; }
+  /* activities and stats: two per row instead of one */
+  .activity-grid, .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .activity-card { padding: 14px 14px 12px; border-radius: 16px; font-size: .9rem; }
+  .activity-card h3 { font-size: 1rem; line-height: 1.3; }
+  .activity-card p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .activity-icon { width: 38px; height: 38px; margin-bottom: 10px; }
+  .stat-card { padding: 18px 12px; border-radius: 16px; }
+  .stat-number { font-size: 2.1rem; }
+  .stat-label { margin-top: 6px; font-size: .85rem; }
+  /* destinations: shorter photo, two-line summary, smaller button */
+  .dest-grid { gap: 14px; }
+  .dest-photo { aspect-ratio: 2 / 1; }
+  .dest-body { padding: 14px 16px 16px; }
+  .dest-body h3 { font-size: 1.35rem; }
+  .dest-body p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .dest-more { margin-top: 12px; padding: 8px 14px; font-size: .85rem; }
+  .why-us-photo { height: 11rem; margin-top: 1.25rem; }
+  /* close the empty run between the coast scene's button and the Why Us card */
+  .why-us-section { min-height: 0; padding-block: 24px 48px; }
+  .cine-descent .cine-stage { padding-block: 72px 28px; }
+  .masonry-item { margin-bottom: 10px; }
+}

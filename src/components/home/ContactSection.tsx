@@ -75,47 +75,47 @@ export default function ContactSection() {
   return (
     <CinematicSection id="contact" className="contact-home py-12 sm:py-16 relative isolate overflow-hidden text-white">
       <DecoShapes tone="dark" />
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
-        <div data-rise3d="self">
+      <div className="mx-auto grid max-w-7xl gap-6 px-5 sm:gap-10 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+        <div data-rise3d="self" className="min-w-0">
           <p className="mb-3 font-semibold text-amber-300">{t("label")}</p>
           <h2 className="font-playfair text-3xl leading-tight sm:text-4xl">{t("heading")}</h2>
-          <p className="mt-4 max-w-md leading-relaxed text-white/75">{t("sub")}</p>
-          <ul className="mt-6 space-y-3 text-white/85">
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-white/75 sm:mt-4 sm:text-base">{t("sub")}</p>
+          <ul className="mt-4 space-y-2 text-sm text-white/85 sm:mt-6 sm:space-y-3 sm:text-base">
             <li><a href={contact.whatsappme} target="_blank" rel="noopener noreferrer" className="contact-line"><MessageCircle size={20} aria-hidden="true" />WhatsApp {contact.phone}</a></li>
             <li><a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="contact-line"><Phone size={20} aria-hidden="true" />{contact.phone}</a></li>
-            <li><a href={`mailto:${contact.email}`} className="contact-line"><Mail size={20} aria-hidden="true" />{contact.email}</a></li>
+            <li><a href={`mailto:${contact.email}`} className="contact-line"><Mail size={20} aria-hidden="true" className="shrink-0" /><span className="min-w-0 break-all">{contact.email}</span></a></li>
           </ul>
         </div>
 
-        <form onSubmit={submit} noValidate className="contact-card" data-reveal="right">
+        <form onSubmit={submit} noValidate className="contact-card min-w-0" data-reveal="right">
           {status === "sent" ? (
             <div className="flex min-h-80 flex-col items-center justify-center text-center" role="status">
               <CheckCircle2 size={48} className="mb-4 text-emerald-300" aria-hidden="true" />
               <p className="max-w-sm text-lg">{t("success")}</p>
             </div>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="min-w-0">
                 <label htmlFor="home-name" className="contact-label">{tc("name")} *</label>
                 <input type="text" autoComplete="name" placeholder={tc("namePlaceholder")} {...field("name")} />
                 {errors.name && <p id="home-name-error" className="contact-error">{errors.name}</p>}
               </div>
-              <div>
+              <div className="min-w-0">
                 <label htmlFor="home-email" className="contact-label">{tc("email")} *</label>
                 <input type="email" autoComplete="email" placeholder={tc("emailPlaceholder")} {...field("email")} />
                 {errors.email && <p id="home-email-error" className="contact-error">{errors.email}</p>}
               </div>
-              <div className="sm:col-span-2">
+              <div className="col-span-2">
                 <label htmlFor="home-phone" className="contact-label">{t("phone")}</label>
                 <input type="tel" autoComplete="tel" placeholder={t("phonePlaceholder")} {...field("phone")} />
               </div>
-              <div className="sm:col-span-2">
+              <div className="col-span-2">
                 <label htmlFor="home-message" className="contact-label">{t("message")} *</label>
                 <textarea rows={3} placeholder={t("messagePlaceholder")} {...field("message")} />
                 {errors.message && <p id="home-message-error" className="contact-error">{errors.message}</p>}
               </div>
-              <div className="sm:col-span-2 flex flex-wrap items-center gap-4">
-                <button type="submit" className="contact-submit" disabled={status === "sending"}>
+              <div className="col-span-2 flex flex-wrap items-center gap-4">
+                <button type="submit" className="contact-submit max-sm:w-full max-sm:justify-center" disabled={status === "sending"}>
                   <Send size={18} aria-hidden="true" />
                   {status === "sending" ? t("sending") : tc("submit")}
                 </button>

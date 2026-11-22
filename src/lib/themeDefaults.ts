@@ -29,7 +29,7 @@ const c = (primary: string, accent: string, bg: string, darkBg: string, darkSurf
   ({ primary, accent, bg, darkBg, darkSurface, darkText, darkMuted, darkBorder });
 
 export const PRESETS: { id: string; name: string; colors: ThemeColors }[] = [
-  { id: "default", name: "Default (green & gold)", colors: c("#0b2a22", "#d4a853", "#faf7f2", "#0b1411", "#13201b", "#ece7da", "#a3b2a9", "#26372f") },
+  { id: "default", name: "Default (midnight navy & gold)", colors: c("#0b2a22", "#d4a853", "#faf7f2", "#060d1b", "#0b1628", "#f4f7fc", "#a0b4cc", "#17263e") },
   { id: "ocean", name: "Ocean", colors: c("#0b3954", "#f2a541", "#f4f9fb", "#07141c", "#0e212d", "#e3eef4", "#8fa9b8", "#1d3846") },
   { id: "sunset", name: "Sunset", colors: c("#7a2e1f", "#f28f3b", "#fdf6ef", "#160d09", "#24150f", "#f5e8df", "#b39a8e", "#3a261d") },
   { id: "forest", name: "Forest", colors: c("#1b4332", "#d4a373", "#f3f6f1", "#0a120d", "#132019", "#e4ece6", "#9bb0a2", "#22362a") },

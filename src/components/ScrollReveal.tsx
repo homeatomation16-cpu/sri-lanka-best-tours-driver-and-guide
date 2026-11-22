@@ -16,7 +16,7 @@ const TARGETS = [
   "footer h3", "footer li", "footer p",
 ].join(",");
 
-const SKIP = "[data-no-reveal], .cine-scene, [data-rise3d], [data-reveal], nav, header[role=banner], .lightbox, [role=dialog], #account-panel, .admin-root";
+const SKIP = "[data-no-reveal], .hero-section, .cine-scene, [data-rise3d], [data-reveal], nav, header[role=banner], .lightbox, [role=dialog], #account-panel, .admin-root";
 
 export default function ScrollReveal() {
   const pathname = usePathname();
@@ -45,21 +45,38 @@ export default function ScrollReveal() {
     );
 
     const seen = new WeakSet<Element>();
+    // Streamed (Suspense) HTML lands in the DOM before React hydrates it; touching its class/style
+    // then causes a hydration mismatch. React tags every node it owns with a __reactFiber$ key.
+    const isHydrated = (el: Element) => Object.keys(el).some((k) => k.startsWith("__reactFiber$"));
+    let retry: ReturnType<typeof setTimeout> | undefined;
     const scan = () => {
+      const added: HTMLElement[] = [];
+      let pending = false;
       document.querySelectorAll<HTMLElement>(TARGETS).forEach((el) => {
         if (seen.has(el) || el.closest(SKIP)) return;
+        if (!isHydrated(el)) { pending = true; return; }
         // Only the outermost match animates (a card moves as one piece, not every line inside it)
         const parent = el.parentElement?.closest(TARGETS);
         if (parent && !parent.closest(SKIP) && seen.has(parent)) return;
         seen.add(el);
-        el.classList.add("sr-item");
+        added.push(el);
+      });
+      // Measure everything before changing any classes, so the browser lays out once instead of once per element.
+      const onScreen = added.map((el) => {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+      });
+      added.forEach((el) => el.classList.add("sr-item"));
+      added.forEach((el, i) => {
         // Items in the same row arrive one after another
         const siblings = el.parentElement ? Array.from(el.parentElement.children).filter((c) => c.classList.contains("sr-item")) : [];
         el.style.setProperty("--sr-delay", `${Math.min(siblings.indexOf(el), 5) * 70}ms`);
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add("sr-in");
+        if (onScreen[i]) el.classList.add("sr-in");
         observer.observe(el);
       });
+      // Hydration itself does not mutate the DOM, so check again shortly for nodes that were skipped
+      clearTimeout(retry);
+      if (pending) retry = setTimeout(scan, 250);
     };
 
     scan();
@@ -68,6 +85,7 @@ export default function ScrollReveal() {
     mutations.observe(document.body, { childList: true, subtree: true });
 
     return () => {
+      clearTimeout(retry);
       observer.disconnect();
       mutations.disconnect();
     };

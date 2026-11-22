@@ -312,7 +312,9 @@
     "followUs": "关注我们",
     "privacy": "隐私政策",
     "terms": "条款与条件",
-    "cookies": "Cookie 政策"
+    "cookies": "Cookie 政策",
+    "faq": "常见问题",
+    "legalNav": "法律与帮助"
   },
   "rates": {
     "title": "旅游套餐资费表",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "锡吉里耶 (哈伯勒内)",
       "trincomalee": "亭可马里",
       "udawalawa": "乌达瓦拉维"
-    }
+    },
+    "seeMore": "查看更多",
+    "seeLess": "收起"
   },
   "booking": {
     "fullName": "全名",
@@ -587,18 +591,18 @@
     "heading": "精彩瞬间"
   },
   "cinematic": {
-    "ascentLabel": "深入山地",
-    "ascentTitle": "穿越云端，一弯又一弯",
-    "ascentText": "从寺庙古城康提到云雾缭绕的茶园，您的私人司机兼导游会围绕光线、风景和值得驻足的故事安排每一天。",
-    "ascentCta": "浏览环岛游",
+    "ascentLabel": "山间相伴的时光",
+    "ascentTitle": "共赏美景，珍惜此刻",
+    "ascentText": "在斯里兰卡的茶山间放慢脚步。专属司机兼导游为您照顾旅途，您可以找一处安静的观景点，呼吸清新的山间空气，一起欣赏眼前的风景。",
+    "ascentCta": "探索私人旅行",
     "ascentMega": "锡兰",
     "descentLabel": "驶向海岸",
     "descentTitle": "再沿着河流奔向大海",
     "descentText": "殖民时期的古堡、寺庙小城与宁静的南部海滩——我们为您量身规划路线，车辆与导游全程相伴。",
     "descentCta": "定制您的专属行程",
     "descentMega": "海岸",
-    "bridgeText": "告别海岸，公路蜿蜒攀入云端",
-    "frameImgAlt": "山地小镇埃拉附近的九拱桥"
+    "bridgeText": "亲近自然，也更亲近彼此",
+    "frameImgAlt": "一对情侣坐在观景点，眺望云雾缭绕的群山"
   },
   "photoCredits": {
     "summary": "图片来源",

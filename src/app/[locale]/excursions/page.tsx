@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { pageAlternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { EXCURSIONS } from "@/data/excursions";
 import { EXCURSION_DETAILS } from "@/data/excursionDetails";
 import { ListingHero, CategoryChips, ListingCards } from "@/components/site/ListingPage";
@@ -18,11 +18,8 @@ async function loadLocalized(locale: string): Promise<LocalExcursion[]> {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: "Sri Lanka Excursions & Day Trips | Sri Lanka Best Tours",
-    description: "Private excursions and transfers across Sri Lanka with your own driver – Kandy, Galle, Sigiriya, Ella and more.",
-    alternates: pageAlternates(locale, "/excursions"),
-  };
+  const t = await getTranslations({ locale, namespace: "excursions" });
+  return pageMetadata(locale, "/excursions", t("label"), t("subtitle"), "/excursions-cover.jpg");
 }
 
 // Live-site layout: hero, category chips (?category=), cards sorted A–Z.
@@ -54,7 +51,7 @@ export default async function ExcursionsPage({ params, searchParams }: { params:
     .map((i) => ({ ...i, category: i.categoryName }));
 
   return (
-    <main className="min-h-screen bg-[#f9f7f2]">
+    <div className="min-h-screen bg-[#f9f7f2]">
       <ListingHero image="/excursions-cover.jpg" eyebrow={t("label")} title={t("title")} subtitle={t("subtitle")} />
       <section className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
         <CategoryChips basePath="/excursions" allLabel={t("allCategories")} categories={categories} active={active} />
@@ -62,6 +59,6 @@ export default async function ExcursionsPage({ params, searchParams }: { params:
           <ListingCards items={visible} />
         </div>
       </section>
-    </main>
+    </div>
   );
 }

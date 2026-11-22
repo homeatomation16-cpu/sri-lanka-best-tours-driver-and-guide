@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import connectDB from "@/lib/mongodb";
-import Tour from "@/models/Tour";
+import { getActiveTours } from "@/lib/tourData";
 import Vehicle from "@/models/Vehicle";
 import { DESTINATIONS } from "@/data/destinations";
 import { EXCURSIONS } from "@/data/excursions";
@@ -18,7 +18,7 @@ function entries(path: string, updatedAt?: Date): MetadataRoute.Sitemap {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages = ["", "/about", "/tours", "/vehicles", "/destinations", "/excursions", "/contact", "/tailor-made-tours"];
+  const pages = ["", "/about", "/tours", "/vehicles", "/destinations", "/excursions", "/contact", "/tailor-made-tours", "/faq", "/privacy-policy", "/terms-and-conditions", "/cookie-policy"];
   const urls = [
     ...pages.flatMap((path) => entries(path)),
     ...DESTINATIONS.flatMap((item) => entries(`/destinations/${item.id}`)),
@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     await connectDB();
     const results = await Promise.allSettled([
-      Tour.find({ status: "active" }).select("tourId updatedAt").lean(),
+      getActiveTours(routing.defaultLocale),
       Vehicle.find({ status: "active" }).select("vehicleId updatedAt").lean(),
     ]);
     const [tours, vehicles] = results;

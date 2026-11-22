@@ -312,7 +312,9 @@
     "followUs": "Suivez-nous",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions générales",
-    "cookies": "Politique relative aux cookies"
+    "cookies": "Politique de cookies",
+    "faq": "FAQ",
+    "legalNav": "Mentions et aide"
   },
   "rates": {
     "title": "Tarifs des Forfaits",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "Sigiriya (Habarana)",
       "trincomalee": "Trincomalee",
       "udawalawa": "Udawalawa"
-    }
+    },
+    "seeMore": "Voir plus",
+    "seeLess": "Voir moins"
   },
   "booking": {
     "fullName": "Nom Complet",
@@ -587,18 +591,18 @@
     "heading": "Moments du Sri Lanka"
   },
   "cinematic": {
-    "ascentLabel": "Vers les hautes terres",
-    "ascentTitle": "S'élever au-dessus des nuages, virage après virage",
-    "ascentText": "De la ville-temple de Kandy aux plantations de thé enveloppées de brume, votre chauffeur-guide privé rythme chaque journée selon la lumière, les panoramas et les histoires qui méritent une halte.",
-    "ascentCta": "Voir les circuits",
+    "ascentLabel": "Des moments à deux dans les collines",
+    "ascentTitle": "Partagez la vue, savourez l’instant",
+    "ascentText": "Ralentissez au cœur des collines de thé du Sri Lanka. Votre chauffeur-guide privé s’occupe du trajet : trouvez un belvédère tranquille, respirez l’air des montagnes et admirez le paysage à deux.",
+    "ascentCta": "Explorer les circuits privés",
     "ascentMega": "Ceylan",
     "descentLabel": "Jusqu'à la côte",
     "descentTitle": "Puis suivre les rivières jusqu'à la mer",
     "descentText": "Forts coloniaux, villes-temples et plages paisibles du sud — nous concevons l'itinéraire pour vous, avec un véhicule et un guide qui vous accompagnent tout du long.",
     "descentCta": "Créer votre circuit sur mesure",
     "descentMega": "Côte",
-    "bridgeText": "Laissez la côte derrière vous — la route grimpe vers les nuages",
-    "frameImgAlt": "Le pont aux Neuf Arches près d'Ella, dans les hautes terres"
+    "bridgeText": "Plus près de la nature, plus près l’un de l’autre",
+    "frameImgAlt": "Un couple assis à un point de vue face aux montagnes brumeuses"
   },
   "photoCredits": {
     "summary": "Crédits photo",

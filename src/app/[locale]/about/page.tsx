@@ -4,13 +4,13 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, Award, CheckCircle2, Heart, Shield, Star, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { pageAlternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { ListingHero } from "@/components/site/ListingPage";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
-  return { title: t("title"), description: t("desc1"), alternates: pageAlternates(locale, "/about") };
+  return pageMetadata(locale, "/about", t("label"), t("desc1"), "/aboutcover.jpg");
 }
 
 const REASONS = [
@@ -34,7 +34,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const t = await getTranslations({ locale, namespace: "about" });
 
   return (
-    <main className="bg-white">
+    <div className="bg-white">
       <ListingHero image="/aboutcover.jpg" eyebrow={t("label")} title={t("title")} subtitle={t("desc1")} />
 
       {/* STORY */}
@@ -96,7 +96,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="bg-[#f5efe3] py-16 sm:py-24">
         <ul className="mx-auto grid max-w-7xl gap-6 px-6 md:grid-cols-2 lg:grid-cols-3">
           {REASONS.map(({ key, icon: Icon }) => (
-            <li key={key} className="group rounded-[2.5rem] bg-white p-9 shadow-sm transition-shadow hover:shadow-xl">
+            <li key={key} className="group rounded-[2.5rem] bg-white p-7 shadow-sm sm:p-9 transition-shadow hover:shadow-xl">
               <span className="mb-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 transition-colors group-hover:bg-emerald-800">
                 <Icon className="h-7 w-7 text-emerald-600 transition-colors group-hover:text-amber-400" aria-hidden />
               </span>
@@ -106,6 +106,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           ))}
         </ul>
       </section>
-    </main>
+    </div>
   );
 }

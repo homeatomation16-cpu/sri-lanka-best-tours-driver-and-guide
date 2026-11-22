@@ -1,8 +1,8 @@
-import { pageAlternates, localizedUrl } from "@/lib/seo";
+import { pageMetadata, breadcrumbJsonLd, serializeJsonLd } from "@/lib/seo";
 // src/app/[locale]/excursions/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import { EXCURSIONS } from "@/data/excursions";
 import { EXCURSION_DETAILS } from "@/data/excursionDetails";
@@ -28,30 +28,14 @@ interface ExcursionData {
 
 // ─── SEO Metadata Generator ───────────────────────────────────────────────────
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ id: string; locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string; locale: string }> }): Promise<Metadata> {
   const { id, locale } = await params;
-  const excursion = EXCURSIONS.find((item) => item.id === id);
-  if (!excursion) return {};
-
-  const localeData = await tryLoadLocale(locale, id);
-  const title = localeData?.title || excursion.title;
-  const description = localeData?.description || excursion.description;
-
-  return {
-    title: `${title} | Sri Lanka Excursions`,
-    description: description.substring(0, 160),
-    alternates: pageAlternates(locale, `/excursions/${id}`),
-    openGraph: {
-      title,
-      description: description.substring(0, 160),
-      url: localizedUrl(locale, `/excursions/${id}`),
-      images: [excursion.image],
-    },
-  };
+  const excursion = EXCURSIONS.find((item) => item.id === id.trim().toLowerCase());
+  if (!excursion) notFound();
+  const localeData = await tryLoadLocale(locale, excursion.id);
+  const t = await getTranslations({ locale, namespace: "excursions" });
+  return pageMetadata(locale, `/excursions/${encodeURIComponent(excursion.id)}`,
+    `${localeData?.title || excursion.title} – ${t("label")}`, localeData?.description || excursion.description, excursion.image);
 }
 
 // ─── Locale data loader ───────────────────────────────────────────────────────
@@ -97,8 +81,8 @@ export default async function ExcursionPage({
   if (!excursion) return notFound();
 
   const localeData =
-    (await tryLoadLocale(locale, id)) ??
-    (locale !== "en" ? await tryLoadLocale("en", id) : null);
+    (await tryLoadLocale(locale, excursion.id)) ??
+    (locale !== "en" ? await tryLoadLocale("en", excursion.id) : null);
 
   const field = <K extends keyof ExcursionData>(key: K): string => {
     const v = localeData?.[key];
@@ -127,6 +111,11 @@ export default async function ExcursionPage({
 
   return (
     <div className="min-h-screen bg-[#faf7f2]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd(locale, [
+        { name: (await getTranslations({ locale, namespace: "nav" }))("home"), path: "" },
+        { name: t("label"), path: "/excursions" },
+        { name: translatedTitle, path: `/excursions/${encodeURIComponent(excursion.id)}` },
+      ])) }} />
 
       {/* ── HERO ── */}
       <div className="relative h-[60vh] min-h-105 overflow-hidden">
@@ -167,16 +156,16 @@ export default async function ExcursionPage({
       </div>
 
       {/* ── BODY ── */}
-      <div className="max-w-5xl mx-auto px-6 md:px-10">
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="flex items-center gap-3 py-10">
           <div className="h-px w-12 bg-[#d4a853]" />
           <div className="w-1.5 h-1.5 rounded-full bg-[#d4a853]" />
           <div className="h-px flex-1 bg-[#e8ddd0]" />
         </div>
 
-        <div className="grid md:grid-cols-[1fr_320px] gap-12 lg:gap-16 pb-20">
+        <div className="grid md:grid-cols-[1fr_320px] gap-10 lg:gap-16 pb-20 [&>*]:min-w-0">
           {/* Left Content */}
-          <div>
+          <div className="min-w-0">
             {details ? (
               <div className="space-y-4">
                 {details.description.split(/\n{2,}/).map((block, i) =>
@@ -230,7 +219,7 @@ export default async function ExcursionPage({
 
             <div className="mt-12">
               <h3 className="font-serif text-xl font-bold text-[#1a1209] mb-4">{tb("reserveYour")}</h3>
-              <div className="overflow-x-auto rounded-2xl border border-[#e8ddd0] bg-white shadow-sm">
+              <div className="overflow-hidden rounded-2xl border border-[#e8ddd0] bg-white shadow-sm">
                 <PackagePrice />
               </div>
             </div>
@@ -262,7 +251,7 @@ export default async function ExcursionPage({
       {/* ── RELATED EXCURSIONS ── */}
       {relatedExcursions.length > 0 && (
         <div className="border-t border-[#e8ddd0] bg-white py-16">
-          <div className="max-w-5xl mx-auto px-6 md:px-10">
+          <div className="max-w-6xl mx-auto px-6 md:px-10">
             <h2 className="font-serif text-2xl font-bold text-[#1a1209] mb-8">{te("moreExcursions")}</h2>
             <div className="grid sm:grid-cols-3 gap-5">
               {await Promise.all(relatedExcursions.map(async (rel) => {

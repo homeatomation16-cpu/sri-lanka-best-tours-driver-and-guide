@@ -15,6 +15,48 @@ function pair(value: string | undefined, amplitude: number) {
   });
 }
 
+// ScrollTrigger.refresh() re-measures EVERY trigger on the page (and re-reads
+// computed styles for each invalidateOnRefresh tween), so all sections share a
+// single debounced refresh instead of each requesting its own while the page
+// streams in, images load and fonts swap.
+let refreshTimer: ReturnType<typeof setTimeout> | undefined;
+function scheduleRefresh() {
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => {
+    refreshTimer = undefined;
+    ScrollTrigger.refresh();
+  }, 150);
+}
+
+type VarRanges = Record<string, [from: number, to: number, unit: string]>;
+
+/**
+ * Tweens CSS custom properties through a plain object and writes them with
+ * setProperty. Tweening "--name" on the element directly makes GSAP read it
+ * back with getComputedStyle every time the tween starts or is invalidated on
+ * refresh, which forces a full-page style recalculation per tween.
+ * Returns a cleanup that removes the properties again (as mm.revert() would).
+ */
+function varTween(
+  el: HTMLElement,
+  ranges: VarRanges,
+  add: (target: Record<string, number>, from: gsap.TweenVars, to: gsap.TweenVars) => unknown,
+  vars: gsap.TweenVars,
+) {
+  const names = Object.keys(ranges);
+  const state: Record<string, number> = {};
+  const from: Record<string, number> = {};
+  const to: Record<string, number> = {};
+  names.forEach((name) => {
+    state[name] = from[name] = ranges[name][0];
+    to[name] = ranges[name][1];
+  });
+  const apply = () => names.forEach((name) => el.style.setProperty(name, `${state[name]}${ranges[name][2]}`));
+  apply();
+  add(state, from, { ...to, ...vars, onUpdate: apply });
+  return () => names.forEach((name) => el.style.removeProperty(name));
+}
+
 /**
  * This boundary sits INSIDE each resolved Suspense section. Its effect runs
  * after that section commits, without inspecting other streaming boundaries.
@@ -32,11 +74,8 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
     gsap.registerPlugin(ScrollTrigger);
     const mm = gsap.matchMedia();
     let disposed = false;
-    let refreshFrame = 0;
     const refresh = () => {
-      if (disposed) return;
-      cancelAnimationFrame(refreshFrame);
-      refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
+      if (!disposed) scheduleRefresh();
     };
 
     mm.add({
@@ -46,6 +85,7 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
     }, (context) => {
       const cond = context.conditions as Record<keyof typeof AMP, boolean>;
       const amp = cond.desktop ? AMP.desktop : cond.tablet ? AMP.tablet : AMP.mobile;
+      const clearVars: (() => void)[] = [];
 
       const isScene = el.matches("[data-scene]");
       const stickyScene = el.matches(".cine-scene") && !cond.mobile;
@@ -90,9 +130,8 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
             { y: 10 * amp }, { y: 0, stagger: 0.02, duration: 0.25 }, 0.1);
         }
       } else {
-        camera.fromTo(el, { "--camera-y": `${8 * amp}px` }, {
-          "--camera-y": `${-8 * amp}px`, duration: 1,
-        }, 0);
+        clearVars.push(varTween(el, { "--camera-y": [8 * amp, -8 * amp, "px"] },
+          (target, from, to) => camera.fromTo(target, from, to, 0), { duration: 1 }));
       }
 
       // Entry animation for [data-rise3d] grids/text now lives in
@@ -107,8 +146,7 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
         const items = self ? [grid] : (Array.from(grid.children) as HTMLElement[]);
         items.forEach((item, i) => {
           const d = (self ? -0.5 : FLOAT_DEPTHS[i % FLOAT_DEPTHS.length]) * 30 * amp;
-          gsap.fromTo(item, { "--float-y": `${d}px` }, {
-            "--float-y": `${-d}px`,
+          clearVars.push(varTween(item, { "--float-y": [d, -d, "px"] }, (target, from, to) => gsap.fromTo(target, from, to), {
             ease: "none",
             scrollTrigger: {
               trigger: self ? item : grid,
@@ -117,7 +155,7 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
               scrub: 0.6,
               invalidateOnRefresh: true,
             },
-          });
+          }));
         });
       });
 
@@ -140,16 +178,11 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
       // Each stacked card moves at its own depth on the section's scroll clock.
       el.querySelectorAll<HTMLElement>("[data-card-depth]").forEach((card) => {
         const depth = Number(card.dataset.cardDepth) * amp;
-        camera.fromTo(card, {
-          "--card-y": `${50 * depth}px`,
-          "--card-rx": `${7 * depth}deg`,
-          "--card-ry": `${-4 * depth}deg`,
-        }, {
-          "--card-y": `${-50 * depth}px`,
-          "--card-rx": `${-5 * depth}deg`,
-          "--card-ry": `${4 * depth}deg`,
-          duration: 1,
-        }, 0);
+        clearVars.push(varTween(card, {
+          "--card-y": [50 * depth, -50 * depth, "px"],
+          "--card-rx": [7 * depth, -5 * depth, "deg"],
+          "--card-ry": [-4 * depth, 4 * depth, "deg"],
+        }, (target, from, to) => camera.fromTo(target, from, to, 0), { duration: 1 }));
       });
 
       // Copy has its own gentler path, independent of the photo stack.
@@ -164,17 +197,15 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
         const plane = frame.querySelector<HTMLElement>("[data-drift-layer]");
         if (!plane) return;
         const depth = Number(frame.dataset.driftSpeed ?? 1) * amp;
-        camera.fromTo(plane, { "--py": `${-4 * depth}%` }, {
-          "--py": `${4 * depth}%`, duration: 1,
-        }, 0);
+        clearVars.push(varTween(plane, { "--py": [-4 * depth, 4 * depth, "%"] },
+          (target, from, to) => camera.fromTo(target, from, to, 0), { duration: 1 }));
       });
 
       // Backgrounds and photo planes share one clock, with different depths.
       el.querySelectorAll<HTMLElement>("[data-parallax]").forEach((layer) => {
         const speed = Number(layer.dataset.parallax || "0.06") * amp;
-        camera.fromTo(layer, { "--px": `${-speed * 100}%` }, {
-          "--px": `${speed * 100}%`, duration: 1,
-        }, 0);
+        clearVars.push(varTween(layer, { "--px": [-speed * 100, speed * 100, "%"] },
+          (target, from, to) => camera.fromTo(target, from, to, 0), { duration: 1 }));
       });
 
       el.querySelectorAll<HTMLElement>("[data-split]").forEach((heading) => {
@@ -185,6 +216,7 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
         });
       });
       refresh();
+      return () => clearVars.forEach((clear) => clear());
     }, root);
 
     // A later streamed section or loaded image can change trigger positions.
@@ -201,7 +233,6 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
     return () => {
       disposed = true;
       observer.disconnect();
-      cancelAnimationFrame(refreshFrame);
       // Reverts this section's inline styles, timelines and ScrollTriggers.
       mm.revert();
     };

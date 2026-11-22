@@ -1,4 +1,4 @@
-import { pageAlternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -11,13 +11,8 @@ import { getActiveTours } from "@/lib/tourData";
 // 🌟 1. Tours ප්‍රධාන පිටුව සඳහා SEO (Dynamic Metadata)
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-
-  return {
-    title: "Our Tour Packages | Sri Lanka Best Tours",
-    description: "Explore our wide range of custom Sri Lanka tour packages. Find the perfect itinerary for your holiday with our expert chauffeur guides.",
-    keywords: ["Sri Lanka tour packages", "Best tours in Sri Lanka", "Hire a private driver Sri Lanka", "Sri Lanka round tours", "Sri Lanka holiday packages"],
-    alternates: pageAlternates(locale, "/tours"),
-  };
+  const t = await getTranslations({ locale, namespace: "tours" });
+  return pageMetadata(locale, "/tours", t("allTours"), t("pageSubtitle"), "/images/editorial/coast.webp");
 }
 
 type TourCardData = {
@@ -168,7 +163,7 @@ export default async function ToursPage({
                     key={tour.id}
                     className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_-18px_rgb(15_23_42/0.35)] transition-transform duration-500 hover:-translate-y-1"
                   >
-                    <div className="relative aspect-4/3 overflow-hidden">
+                    <div className="relative aspect-16/10 overflow-hidden sm:aspect-4/3">
                       <Image
                         src={tour.image}
                         alt={tour.title}
@@ -220,7 +215,7 @@ export default async function ToursPage({
           ))}
 
         {/* ── Tailor-made call to action ── */}
-        <section className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-[#102d35] p-8 text-white sm:flex-row sm:items-center sm:p-10">
+        <section className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-[#102d35] p-6 text-white sm:flex-row sm:items-center sm:p-10">
           <div>
             <h2 className="font-playfair text-3xl">{t("cantFind")}</h2>
             <p className="mt-2 text-white/80">{t("cantFindDesc")}</p>

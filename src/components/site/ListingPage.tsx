@@ -49,7 +49,7 @@ export function ListingCards({ items }: { items: ListingCardItem[] }) {
           <div className="relative aspect-16/10 overflow-hidden">
             <Image src={item.image} alt={item.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" priority={index < 3} className="object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
-          <div className="flex flex-1 flex-col p-6">
+          <div className="flex flex-1 flex-col p-5 sm:p-6">
             {item.category && (
               <p className="mb-3">
                 <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">{item.category}</span>
@@ -60,7 +60,7 @@ export function ListingCards({ items }: { items: ListingCardItem[] }) {
             </h2>
             {item.text && <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{item.text}</p>}
             {item.place && (
-              <p className="mt-auto flex items-center gap-1 pt-5 text-sm text-slate-500">
+              <p className="mt-auto flex items-center gap-1 pt-4 text-sm text-slate-500 sm:pt-5">
                 <MapPin className="h-4 w-4 text-amber-600" aria-hidden /> {item.place}
               </p>
             )}

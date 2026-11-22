@@ -69,7 +69,7 @@ export default function Navbar() {
           <span aria-hidden className="flex min-w-0 flex-col whitespace-nowrap font-bold uppercase leading-[1.1]" style={{ fontFamily: '"Poppins", sans-serif' }}>
             <span className={`text-[0.8rem] tracking-[0.06em] sm:text-lg 2xl:text-xl ${solid ? "text-[#0f2a4a]" : "text-white"}`}>
               Sri Lanka <br className="sm:hidden" />Best Tours
-            </span>
+            </span>{" "}
             <span className={`mt-0.5 text-[0.6rem] tracking-[0.14em] sm:mt-1 sm:text-[0.72rem] sm:tracking-[0.22em] 2xl:text-[0.8rem] ${solid ? "text-teal-600" : "text-[#48d4b0]"}`}>Driver &amp; Guide</span>
           </span>
         </Link>

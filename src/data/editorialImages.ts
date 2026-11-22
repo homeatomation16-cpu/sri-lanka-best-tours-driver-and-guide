@@ -2,7 +2,7 @@
  * Homepage photography. Each image appears in exactly ONE homepage slot so the
  * scroll reads as a journey rather than a repeating slideshow:
  *
- *   Ascent .......... highlands (plate) + nineArch (frame)
+ *   Ascent .......... highlands (plate) + hillCountryCouple (frame)
  *   Explorer ........ mirissaCove, tea, sigiriya, wildlife
  *   Tours (south) ... stilt, galleLighthouse, leopard
  *   Seasonal (east) . pasikudahAerial (scenery) + pigeonIsland, arugamBay, coast
@@ -20,6 +20,7 @@ export const editorialImages = {
   sigiriya: "/images/editorial/sigiriya.webp",
   wildlife: "/images/editorial/elephant.webp",
   highlands: "/images/editorial/highlands.webp",
+  hillCountryCouple: "/images/editorial/hill-country-couple-v2.webp",
   landscape: "/images/editorial/sigiriya-landscape.webp",
   galle: "/images/editorial/galle.webp",
   kandy: "/images/editorial/kandy.webp",

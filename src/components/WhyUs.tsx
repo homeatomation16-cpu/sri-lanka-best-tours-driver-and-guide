@@ -35,14 +35,14 @@ export default function WhyUs() {
             </div>
           </div>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2" data-rise3d>
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4" data-rise3d>
           {features.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="why-us-feature rounded-2xl border border-white/15 bg-[#092e29]/85 p-5 backdrop-blur-sm">
-                <Icon className="mb-3 h-6 w-6 text-amber-300" aria-hidden="true" />
-                <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-white/80">{item.description}</p>
+              <div key={item.title} className="why-us-feature rounded-2xl border border-white/15 bg-[#092e29]/85 p-3.5 sm:p-5 backdrop-blur-sm min-w-0">
+                <Icon className="mb-2 h-5 w-5 sm:mb-3 sm:h-6 sm:w-6 text-amber-300" aria-hidden="true" />
+                <h3 className="mb-1 text-sm leading-snug sm:mb-2 sm:text-lg font-semibold">{item.title}</h3>
+                <p className="text-xs leading-relaxed text-white/80 sm:text-sm max-sm:line-clamp-3">{item.description}</p>
               </div>
             );
           })}

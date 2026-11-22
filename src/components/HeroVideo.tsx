@@ -101,14 +101,13 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   const t = useTranslations("hero");
   const SLIDES: Slide[] = slides && slides.length ? slides.map(toSlide) : DEFAULT_SLIDES.map((d) => ({ ...d, type: "video" as const }));
   const [current, setCurrent] = useState(0);
-  const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  // null until the preference is read after hydration, so the slide timer never starts before React can advance it.
+  const [reducedMotion, setReducedMotion] = useState<boolean | null>(null);
   const [inView, setInView] = useState(true);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -137,27 +136,15 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
     }
   }, [current, inView, paused, reducedMotion]);
 
-  // Slide & Progress Logic
-  useEffect(() => {
-    if (!inView || paused || reducedMotion || SLIDES.length < 2) return;
-
-    const start = performance.now();
-    const animate = (time: number) => {
-      const p = Math.min((time - start) / SLIDE_DURATION, 1);
-      setProgress(p);
-      if (p < 1) {
-        rafRef.current = requestAnimationFrame(animate);
-      } else {
-        setCurrent((c) => (c + 1) % SLIDES.length);
-        setProgress(0);
-      }
-    };
-
-    rafRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [current, inView, paused, reducedMotion, SLIDES.length]);
+  // Slide & Progress Logic: the active step fills with a CSS animation (runs on the compositor, no per-frame
+  // JavaScript) and the slide advances when it ends. Pausing freezes the fill; resuming restarts the slide's timer.
+  const running = inView && !paused && reducedMotion === false && SLIDES.length > 1;
+  const [run, setRun] = useState(0);
+  const [wasRunning, setWasRunning] = useState(running);
+  if (running !== wasRunning) {
+    setWasRunning(running);
+    if (running) setRun((r) => r + 1);
+  }
 
   const slide = SLIDES[current % SLIDES.length];
 
@@ -200,7 +187,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
       <div className="absolute inset-0 bg-linear-to-r from-slate-950/75 via-slate-950/30 to-transparent" />
       <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-12 pt-40 sm:px-10 lg:px-16">
+      <div className="hero-copy relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-12 pt-40 sm:px-10 lg:px-16">
         <h1 className="hero-display max-w-4xl font-playfair text-4xl leading-[1.08] sm:text-6xl lg:text-7xl">{t("brand")}</h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl">{t("subtitle")}</p>
         <div className="mt-9 flex flex-wrap gap-4">
@@ -215,16 +202,25 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
           <p className="mt-2 text-sm text-white/80 sm:text-base">{slide.subtitle}</p>
           <div className="hero-slide-selector mt-5 flex gap-2" role="group" aria-label={t("brand")}>
             {SLIDES.map((item, index) => (
-              <button key={`${item.src}-${index}`} type="button" aria-label={item.title} aria-current={current === index ? "true" : undefined} onClick={() => { setCurrent(index); setProgress(0); }} className="hero-slide-step">
-                <span style={{ transform: `scaleX(${current === index ? progress : 0})` }} />
+              <button key={`${item.src}-${index}`} type="button" aria-label={item.title} aria-current={current === index ? "true" : undefined} onClick={() => setCurrent(index)} className="hero-slide-step">
+                {current === index && reducedMotion === false ? (
+                  <span
+                    key={run}
+                    className={running ? "is-running" : "is-running is-paused"}
+                    style={{ animationDuration: `${SLIDE_DURATION}ms` }}
+                    onAnimationEnd={() => setCurrent((c) => (c + 1) % SLIDES.length)}
+                  />
+                ) : (
+                  <span />
+                )}
               </button>
             ))}
           </div>
         </div>
         <div className="flex gap-2">
-          <button type="button" aria-label={t("previousSlide")} onClick={() => { setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length); setProgress(0); }} className="hero-control"><ChevronLeft size={20} /></button>
+          <button type="button" aria-label={t("previousSlide")} onClick={() => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length)} className="hero-control"><ChevronLeft size={20} /></button>
           <button type="button" aria-label={paused ? t("playSlideshow") : t("pauseSlideshow")} aria-pressed={paused} onClick={() => setPaused((value) => !value)} className="hero-control">{paused ? <Play size={18} /> : <Pause size={18} />}</button>
-          <button type="button" aria-label={t("nextSlide")} onClick={() => { setCurrent((c) => (c + 1) % SLIDES.length); setProgress(0); }} className="hero-control"><ChevronRight size={20} /></button>
+          <button type="button" aria-label={t("nextSlide")} onClick={() => setCurrent((c) => (c + 1) % SLIDES.length)} className="hero-control"><ChevronRight size={20} /></button>
         </div>
       </div>
       <div className="hero-edge-fade" aria-hidden="true" />

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Users, ChevronRight, Fuel, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
@@ -141,11 +141,11 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
         </section>
 
         {/* ── VEHICLE LIST ── */}
-        <main className="max-w-7xl mx-auto px-6 py-20 pb-28 space-y-24">
+        <div className="max-w-7xl mx-auto px-6 py-20 pb-28 space-y-24">
           {cars.length > 0 && <VehicleGroup label="Cars" items={cars} t={t} locale={locale} />}
           {vans.length > 0 && <VehicleGroup label="Vans" items={vans} t={t} locale={locale} />}
           {buses.length > 0 && <VehicleGroup label="Buses" items={buses} t={t} locale={locale} />}
-        </main>
+        </div>
       </div>
     </>
   );
@@ -173,8 +173,8 @@ function VehicleCard({ v, t, locale }: any) {
   const data = v.translations?.[locale] || v.translations?.["en"] || v;
 
   return (
-    <Link href={`/${locale}/vehicles/${v.vehicleId}`} className="vl-card block">
-      <div className="relative overflow-hidden" style={{ height: "240px" }}>
+    <Link href={`/vehicles/${encodeURIComponent(v.vehicleId)}`} className="vl-card block">
+      <div className="relative h-[200px] overflow-hidden sm:h-[240px]">
         <Image
           src={v.image || "/placeholder.jpg"}
           alt={data.name}
@@ -195,7 +195,7 @@ function VehicleCard({ v, t, locale }: any) {
         <div className="vl-type-badge">{v.type}</div>
       </div>
 
-      <div style={{ padding: "24px 24px 20px" }}>
+      <div className="px-[18px] pb-[16px] pt-[18px] sm:px-[24px] sm:pb-[20px] sm:pt-[24px]">
         <h2 className="vl-serif mb-3" style={{
           fontSize: "clamp(22px, 3vw, 28px)",
           fontWeight: 600,
@@ -205,7 +205,7 @@ function VehicleCard({ v, t, locale }: any) {
           {data.name}
         </h2>
 
-        <div className="flex items-center gap-4 mb-6 text-zinc-500 text-[11px] font-medium border-y border-black/5 py-4">
+        <div className="flex items-center gap-4 mb-4 sm:mb-6 text-zinc-500 text-[11px] font-medium border-y border-black/5 py-3 sm:py-4">
           <div className="flex items-center gap-1.5">
             <Users size={13} className="text-[#B5541A]" /> {v.passengers} seats
           </div>

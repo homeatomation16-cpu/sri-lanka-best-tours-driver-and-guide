@@ -105,7 +105,7 @@ export function CloudBridge() {
  * ASCENT — hero (fades to white) → Explorer (#f9f7f2).
  * Camera tilts up: the highlands plate pans from ground to sky and eases back,
  * mist drifts past faster in front, the giant word sits behind the single
- * Nine Arch Bridge frame (the hill-country icon; every homepage photo is used once), and the base dissolves into the Explorer's cream.
+ * viewpoint couple frame, and the base dissolves into the Explorer's cream.
  */
 export async function AscentScene() {
   const t = await getTranslations("cinematic");
@@ -137,7 +137,7 @@ export async function AscentScene() {
           </div>
           <figure className="cine-frame cine-frame-ascent" data-layer data-at="0,1" data-y="2vh,-2vh" data-rx="1,-0.5">
             <div className="cine-frame-inner" data-layer data-at="0,1" data-scale="1.08,1.05" data-y="-1%,1%">
-              <Image src={editorialImages.nineArch} alt={t("frameImgAlt")} fill sizes="(max-width: 1024px) 70vw, 30vw" quality={75} className="object-cover" />
+              <Image src={editorialImages.hillCountryCouple} alt={t("frameImgAlt")} fill sizes="(max-width: 1024px) 70vw, 30vw" quality={75} className="object-cover" />
             </div>
           </figure>
         </div>

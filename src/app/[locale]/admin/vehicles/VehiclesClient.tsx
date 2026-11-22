@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Loader2, Eye, EyeOff } from "lucide-react";
 import ImageUploader from "@/components/admin/ImageUploader";
 import { useToast } from "@/components/admin/Toast";
@@ -34,17 +34,21 @@ export default function VehiclesClient() {
   });
 
   // 🔹 FETCH
-  const fetchVehicles = async () => {
+  // Starts with loading already true; refreshVehicles() shows the spinner again for later reloads.
+  const fetchVehicles = useCallback(() =>
+    fetch("/api/vehicles")
+      .then((res) => res.json())
+      .then((data) => {
+        setVehicles(Array.isArray(data) ? data : []);
+        setLoading(false);
+      }),
+  []);
+  const refreshVehicles = () => {
     setLoading(true);
-    const res = await fetch("/api/vehicles");
-    const data = await res.json();
-    setVehicles(Array.isArray(data) ? data : []);
-    setLoading(false);
+    fetchVehicles();
   };
 
-  useEffect(() => {
-    fetchVehicles();
-  }, []);
+  useEffect(() => { fetchVehicles(); }, [fetchVehicles]);
 
   // 🔹 EDIT
   const handleEdit = (v: any) => {
@@ -74,7 +78,7 @@ export default function VehiclesClient() {
 
     const r = await fetch(`/api/vehicles/${id}`, { method: "DELETE" });
     toast(r.ok ? "Vehicle deleted" : "Delete failed", r.ok ? "success" : "error");
-    fetchVehicles();
+    refreshVehicles();
   };
 
   // 🔹 TRANSLATION
@@ -120,7 +124,7 @@ export default function VehiclesClient() {
 
     toast(editingId ? "Vehicle updated" : "Vehicle created");
     closeModal();
-    fetchVehicles();
+    refreshVehicles();
   };
 
   const closeModal = () => {
@@ -183,8 +187,11 @@ export default function VehiclesClient() {
               className={`bg-zinc-900 p-5 rounded-2xl border border-zinc-800 ${v.status === "inactive" ? "opacity-60" : ""}`}>
 
               {v.image && (
+                // Admin-uploaded URLs can come from any host, so this stays a plain <img>.
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={v.image}
+                  alt={v.name || ""}
                   className="h-40 w-full object-cover rounded-xl mb-4"
                 />
               )}

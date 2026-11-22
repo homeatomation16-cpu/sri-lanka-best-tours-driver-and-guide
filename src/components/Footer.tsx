@@ -167,7 +167,13 @@ export default async function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {t("copyright")}</p>
-          <Link href="/account" className="hover:text-white">{tAccount("myAccount")}</Link>
+          <nav aria-label={t("legalNav")} className="flex flex-wrap gap-x-5 gap-y-2">
+            <Link href="/faq" className="hover:text-white">{t("faq")}</Link>
+            <Link href="/privacy-policy" className="hover:text-white">{t("privacy")}</Link>
+            <Link href="/terms-and-conditions" className="hover:text-white">{t("terms")}</Link>
+            <Link href="/cookie-policy" className="hover:text-white">{t("cookies")}</Link>
+            <Link href="/account" className="hover:text-white">{tAccount("myAccount")}</Link>
+          </nav>
         </div>
       </div>
     </footer>

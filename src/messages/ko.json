@@ -312,7 +312,9 @@
     "followUs": "팔로우하기",
     "privacy": "개인정보 처리방침",
     "terms": "이용약관",
-    "cookies": "쿠키 정책"
+    "cookies": "쿠키 정책",
+    "faq": "자주 묻는 질문",
+    "legalNav": "법적 고지 및 도움말"
   },
   "rates": {
     "title": "투어 패키지 요금표",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "시기리야 (하바라나)",
       "trincomalee": "트린코말리",
       "udawalawa": "우다왈라웨"
-    }
+    },
+    "seeMore": "더 보기",
+    "seeLess": "접기"
   },
   "booking": {
     "fullName": "성함",
@@ -587,18 +591,18 @@
     "heading": "스리랑카의 순간들"
   },
   "cinematic": {
-    "ascentLabel": "고원 지대로",
-    "ascentTitle": "구름 위로, 한 굽이씩",
-    "ascentText": "사원 도시 캔디에서 안개에 싸인 차밭까지, 전담 드라이버 가이드가 빛과 풍경, 그리고 멈춰 설 만한 이야기에 맞춰 하루하루를 설계합니다.",
-    "ascentCta": "투어 둘러보기",
+    "ascentLabel": "언덕에서 함께하는 순간",
+    "ascentTitle": "풍경을 나누고, 순간을 음미하세요",
+    "ascentText": "스리랑카의 차밭 언덕에서 잠시 쉬어 가세요. 전용 드라이버 겸 가이드에게 여정을 맡기고, 조용한 전망대에서 산의 공기를 마시며 함께 풍경을 즐겨 보세요.",
+    "ascentCta": "프라이빗 투어 둘러보기",
     "ascentMega": "실론",
     "descentLabel": "해안으로 내려가며",
     "descentTitle": "그리고 강을 따라 바다로",
     "descentText": "식민지 시대 요새, 사원 도시, 고요한 남부 해변 — 여러분에게 맞춘 경로를 설계하며, 차량과 가이드가 여행 내내 함께합니다.",
     "descentCta": "맞춤 투어 만들기",
     "descentMega": "해안",
-    "bridgeText": "해안을 뒤로하고, 길은 구름 속으로 오릅니다",
-    "frameImgAlt": "고원 지대 엘라 근처의 나인 아치 브리지"
+    "bridgeText": "자연과 더 가까이, 서로에게 더 가까이",
+    "frameImgAlt": "전망대에 앉아 안개 낀 산을 바라보는 커플"
   },
   "photoCredits": {
     "summary": "사진 출처",

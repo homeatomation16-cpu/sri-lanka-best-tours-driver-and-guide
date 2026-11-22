@@ -50,7 +50,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <main className="bg-[#faf7f2]">
+    <div className="bg-[#faf7f2]">
       {/* HERO */}
       <section className="relative h-[62vh] min-h-110 overflow-hidden">
         <Image src="/contact-cover.jpg" alt="Sri Lanka" fill priority sizes="100vw" className="object-cover scale-105" />
@@ -127,7 +127,7 @@ export default function ContactPage() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="relative overflow-hidden rounded-3xl bg-[#0b2a22] p-8 text-white">
+            <div className="relative overflow-hidden rounded-3xl bg-[#0b2a22] p-6 text-white sm:p-8">
               <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#d4a853]/20 blur-2xl" />
               <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#f5d58a]">{p("whyWrite")}</p>
               <ul className="mt-5 space-y-4">
@@ -157,6 +157,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

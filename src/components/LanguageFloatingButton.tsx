@@ -51,11 +51,11 @@ export default function LanguageFloatingButton() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50 max-sm:bottom-[calc(12px+env(safe-area-inset-bottom))] max-sm:right-3">
       {/* Floating Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="w-14 h-14 rounded-full bg-amber-500 hover:bg-amber-600 text-white shadow-2xl flex items-center justify-center text-2xl transition-transform hover:scale-110 active:scale-95"
+        className="w-14 h-14 max-sm:h-[44px] max-sm:w-[44px] max-sm:text-xl rounded-full bg-amber-500 hover:bg-amber-600 text-white shadow-2xl flex items-center justify-center text-2xl transition-transform hover:scale-110 active:scale-95"
         aria-label="Change language"
       >
         {current.flag}

@@ -13,7 +13,7 @@ export default function TourCard({ tour }: { tour: any }) {
       <div className="relative h-60">
         <Image src={tour.image} alt={tour.title} fill className="object-cover" />
       </div>
-      <div className="p-6">
+      <div className="p-5 sm:p-6">
         <h3 className="text-xl font-semibold mb-2">{tour.title}</h3>
         <p className="text-gray-500 mb-4">
           {tour.duration} {t("days")}

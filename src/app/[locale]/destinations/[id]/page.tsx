@@ -1,8 +1,8 @@
-import { pageAlternates, localizedUrl } from "@/lib/seo";
+import { pageMetadata, breadcrumbJsonLd, serializeJsonLd } from "@/lib/seo";
 // src/app/[locale]/destinations/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import { DESTINATIONS } from "@/data/destinations";
 import PackagePrice from "@/components/PackagePrice";
@@ -28,33 +28,14 @@ interface DestinationData {
 
 // ─── SEO Metadata Generator ───────────────────────────────────────────────────
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ id: string; locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string; locale: string }> }): Promise<Metadata> {
   const { id, locale } = await params;
-  
-  // Static data එකෙන් මුලින්ම පින්තූරය වැනි දේ ලබා ගනිමු
-  const destination = DESTINATIONS.find((item) => item.id === id);
-  if (!destination) return {};
-
-  // අදාළ locale එකෙන් විස්තර ලබා ගනිමු
-  const localeData = await tryLoadLocale(locale, id);
-  const title = localeData?.title || destination.title;
-  const description = localeData?.description || destination.description;
-
-  return {
-    title: `${title} | Sri Lanka Travel Guide`,
-    description: description.substring(0, 160), // පළමු අකුරු 160 පමණක්
-    alternates: pageAlternates(locale, `/destinations/${id}`),
-    openGraph: {
-      title,
-      description: description.substring(0, 160),
-      url: localizedUrl(locale, `/destinations/${id}`),
-      images: [destination.image],
-    },
-  };
+  const destination = DESTINATIONS.find((item) => item.id === id.trim().toLowerCase());
+  if (!destination) notFound();
+  const localeData = await tryLoadLocale(locale, destination.id);
+  const t = await getTranslations({ locale, namespace: "destinationPage" });
+  return pageMetadata(locale, `/destinations/${encodeURIComponent(destination.id)}`,
+    `${localeData?.title || destination.title} – ${t("travelGuide")}`, localeData?.description || destination.description, destination.image);
 }
 
 // ─── Locale data loader ───────────────────────────────────────────────────────
@@ -99,8 +80,8 @@ export default async function DestinationPage({
   if (!destination) return notFound();
 
   const localeData =
-    (await tryLoadLocale(locale, id)) ??
-    (locale !== "en" ? await tryLoadLocale("en", id) : null);
+    (await tryLoadLocale(locale, destination.id)) ??
+    (locale !== "en" ? await tryLoadLocale("en", destination.id) : null);
 
   const field = <K extends keyof DestinationData>(key: K): string => {
     const fromLocale = localeData?.[key];
@@ -138,6 +119,11 @@ export default async function DestinationPage({
 
   return (
     <div className="min-h-screen bg-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd(locale, [
+        { name: (await getTranslations({ locale, namespace: "nav" }))("home"), path: "" },
+        { name: t("label"), path: "/destinations" },
+        { name: translatedTitle, path: `/destinations/${encodeURIComponent(destination.id)}` },
+      ])) }} />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <div className="relative h-[60vh] min-h-105 overflow-hidden">
@@ -209,7 +195,7 @@ export default async function DestinationPage({
 
           {/* Right Column (Sidebar) */}
           <div className="space-y-4">
-            <div className="rounded-2xl bg-amber-50 border border-amber-100 p-6">
+            <div className="rounded-2xl bg-amber-50 border border-amber-100 p-5 sm:p-6">
               <p className="text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">{td("planYourVisit")}</p>
               <div className="space-y-3 text-sm text-stone-600">
                 {translatedLocation && <p>📍 {translatedLocation}</p>}
@@ -219,7 +205,7 @@ export default async function DestinationPage({
                 {translatedGettingThere && <p>🚗 {td("gettingThere")}: {translatedGettingThere}</p>}
               </div>
             </div>
-            <div className="rounded-2xl bg-stone-900 p-6 text-center text-white">
+            <div className="rounded-2xl bg-stone-900 p-5 sm:p-6 text-center text-white">
               <p className="text-xs opacity-70 mb-1">{td("needHelp")}</p>
               <a href="tel:+94702062697" className="block mt-4 px-5 py-2.5 rounded-full bg-amber-500 text-stone-900 font-bold text-xs tracking-tight">
                 📞 CALL SPECIALIST

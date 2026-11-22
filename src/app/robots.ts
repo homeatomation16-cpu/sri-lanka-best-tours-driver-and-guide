@@ -1,14 +1,14 @@
 import type { MetadataRoute } from "next";
-import { routing } from "@/i18n/routing";
 import { siteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const privatePaths = ["/admin", "/login", "/booking"];
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", ...privatePaths, ...routing.locales.flatMap((locale) => privatePaths.map((path) => `/${locale}${path}`))],
+      // Private HTML routes use X-Robots-Tag: noindex, including localized routes.
+      // Blocking those URLs here would prevent crawlers from reading that directive.
+      disallow: ["/api/"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
   };

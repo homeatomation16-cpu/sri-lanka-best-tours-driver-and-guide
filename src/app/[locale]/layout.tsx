@@ -1,6 +1,8 @@
 // src/app/[locale]/layout.tsx
 
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { pageMetadata, siteUrl, siteName, serializeJsonLd } from "@/lib/seo";
 
 import { Poppins, Playfair_Display, Noto_Sans_Sinhala, Libre_Baskerville } from "next/font/google";
 
@@ -34,10 +36,6 @@ import PageTracker from "@/components/PageTracker";
 /* =========================================================
    1. SITE CONFIG
 ========================================================= */
-
-const siteUrl = "https://www.srilankabesttourdriverandguide.com";
-
-const siteName = "Sri Lanka Best Tours Driver & Guide";
 
 const defaultLocale = "en";
 
@@ -188,7 +186,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   const title = titles[currentLocale] ?? titles[defaultLocale];
 
-  const description = descriptions[currentLocale] ?? descriptions[defaultLocale];
+  const description = descriptions[currentLocale] ?? (await getTranslations({ locale: currentLocale, namespace: "hero" }))("subtitle");
+  const seo = pageMetadata(currentLocale, "", title, description);
 
 
   return {
@@ -198,9 +197,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
     metadataBase: new URL(siteUrl),
 
-    title,
+    title: seo.title,
 
-    description,
+    description: seo.description,
 
     applicationName: siteName,
 
@@ -254,59 +253,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
        OPEN GRAPH
     ===================================================== */
 
-    openGraph: {
-      type: "website",
+    openGraph: seo.openGraph,
 
-      locale: currentLocale,
-
-
-      siteName,
-
-      title,
-
-      description,
-
-      images: [
-        {
-          url: `${siteUrl}/hero/sigiriya-poster.webp`,
-
-          width: 1200,
-
-          height: 630,
-
-          alt: siteName,
-        },
-      ],
-    },
-
-    /* =====================================================
-       TWITTER / X
-    ===================================================== */
-
-    twitter: {
-      card: "summary_large_image",
-
-      title,
-
-      description,
-
-      images: [`${siteUrl}/hero/sigiriya-poster.webp`],
-    },
+    twitter: seo.twitter,
 
     /* =====================================================
        ROBOTS
     ===================================================== */
 
     robots: {
-      index: true,
-
-      follow: true,
-
       googleBot: {
-        index: true,
-
-        follow: true,
-
         "max-video-preview": -1,
 
         "max-image-preview": "large",
@@ -325,14 +281,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
           url: "/favicon.ico",
         },
         {
-          url: "/icon.png",
+          url: "/logo.png",
           type: "image/png",
         },
       ],
 
       apple: [
         {
-          url: "/apple-touch-icon.png",
+          url: "/logo.png",
         },
       ],
     },
@@ -418,18 +374,6 @@ export default async function LocaleLayout({
       name: "Sri Lanka",
     },
 
-    serviceType: ["Private Tours", "Private Driver Hire", "Chauffeur Service", "Airport Transfers", "Airport Taxi", "Tour Guide", "Custom Itineraries"],
-
-    priceRange: "$$",
-
-    inLanguage: locale,
-
-    sameAs: [
-      // Add your real social media URLs here
-      // "https://www.facebook.com/...",
-      // "https://www.instagram.com/...",
-      // "https://www.youtube.com/...",
-    ],
   };
 
   /* =======================================================
@@ -461,7 +405,13 @@ export default async function LocaleLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
+            __html: serializeJsonLd({
+              "@context": "https://schema.org",
+              "@graph": [structuredData, {
+                "@type": "WebSite", "@id": `${siteUrl}/#website`, name: siteName,
+                url: siteUrl, inLanguage: routing.locales, publisher: { "@id": `${siteUrl}/#travel-agency` },
+              }],
+            }),
           }}
         />
       </head>
@@ -524,7 +474,10 @@ export default async function LocaleLayout({
               FOOTER
           ================================================= */}
 
-          <Footer />
+          {/* The footer reads the tour list from the database; streaming it lets the page above render without waiting. */}
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
           </SiteMotion>
 
           {/* =================================================

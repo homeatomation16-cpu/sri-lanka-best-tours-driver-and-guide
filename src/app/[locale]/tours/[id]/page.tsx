@@ -1,4 +1,4 @@
-import { pageAlternates, localizedUrl } from "@/lib/seo";
+import { pageMetadata, localizedUrl, siteUrl, serializeJsonLd } from "@/lib/seo";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -14,54 +14,11 @@ interface Props {
 // 🚀 1. Dynamic Metadata ජනනය කිරීම
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, id } = await params;
-
-  // Database එකට සම්බන්ධ වී අදාළ Tour එක සෙවීම
-  const tourRaw = await getTourById(id, locale);
-
-  if (!tourRaw) {
-    return {
-      title: "Tour Not Found | Sri Lanka Best Tours",
-    };
-  }
-
-  // අදාළ භාෂාවට අදාළ දත්ත තෝරාගැනීම (Fallback to English)
-  // @ts-ignore (Optional: Type checking සඳහා)
-  const translation = tourRaw.translations?.[locale] || tourRaw.translations?.["en"];
-
-  const title = translation?.title || "Sri Lanka Tour Package";
-
-  // Description එක අකුරු 160කට සීමා කිරීම (SEO Best Practice)
-  const description = translation?.overview ? `${translation.overview.substring(0, 155)}...` : `Explore the best of Sri Lanka with our ${title}. Book your custom tour with an expert guide.`;
-
-  // අදාළ Tour එකේ පින්තූරය (නැත්නම් default පින්තූරයක්)
-  const imageUrl = tourRaw.image || "/hero/sigiriya-poster.webp";
-
-  return {
-    title: `${title} | Sri Lanka Best Tour Driver & Guide`,
-    description: description,
-    keywords: [title, "Sri Lanka tour package", "Private driver in Sri Lanka", `${title} itinerary`, "Hire a guide for Sri Lanka tour", "Sri Lanka travel"],
-    alternates: pageAlternates(locale, `/tours/${id}`),
-    openGraph: {
-      title: `${title} | Sri Lanka Best Tours`,
-      description: description,
-      url: localizedUrl(locale, `/tours/${id}`),
-      type: "website",
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${title} | Sri Lanka Best Tours`,
-      description: description,
-      images: [imageUrl],
-    },
-  };
+  const tour = await getTourById(id, locale);
+  if (!tour || tour.status !== "active") notFound();
+  const translation = tour.translations?.[locale] || tour.translations?.en || {};
+  return pageMetadata(locale, `/tours/${encodeURIComponent(tour.tourId)}`, translation.title || tour.tourId,
+    translation.overview || translation.shortDescription || translation.title || tour.tourId, tour.image || undefined);
 }
 
 // 🚀 2. ඔයාගේ ප්‍රධාන Page Component එක (මෙතැන් සිට ඔයාගේ කලින් කෝඩ් එක ඒ විදිහටම තියන්න)
@@ -74,7 +31,7 @@ export default async function TourDetailsPage({ params }: Props) {
   // 2. tourId එක මගින් දත්ත සෙවීම
   const tourRaw = await getTourById(id, locale);
 
-  if (!tourRaw) notFound();
+  if (!tourRaw || tourRaw.status !== "active") notFound();
 
   // 3. Serialization Fix: ObjectId වැනි සංකීර්ණ දත්ත සරල Plain Objects බවට පත් කිරීම
   // Client Components (BookingForm) වලට දත්ත යැවීමේදී මෙය අත්‍යවශ්‍ය වේ.
@@ -105,8 +62,15 @@ export default async function TourDetailsPage({ params }: Props) {
 
   return (
     <div className="bg-stone-50 min-h-screen text-stone-800 font-sans">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({
+        "@context": "https://schema.org", "@type": "TouristTrip",
+        name: tour.title, description: tour.overview || tour.shortDescription,
+        url: localizedUrl(locale, `/tours/${encodeURIComponent(tour.tourId)}`),
+        ...(tour.image ? { image: new URL(tour.image, siteUrl).href } : {}),
+        provider: { "@id": `${siteUrl}/#travel-agency` },
+      }) }} />
       {/* ── Hero Section ── */}
-      <section className="relative h-[90vh] min-h-150 overflow-hidden">
+      <section className="relative h-[90vh] min-h-150 overflow-hidden [@media(orientation:landscape)_and_(max-height:500px)]:min-h-0">
         {tour.image ? (
           <Image src={tour.image} alt={tour.title} fill className="object-cover brightness-[0.85]" priority quality={90} sizes="100vw" />
         ) : (
@@ -118,7 +82,7 @@ export default async function TourDetailsPage({ params }: Props) {
           <div className="px-16 pb-10 max-lg:px-10 max-sm:px-6">
             <div className="flex items-center gap-3 mb-4">
               <span className="block w-8 h-px bg-amber-400" />
-              <h1 className="text-[10px] font-medium tracking-[0.3em] uppercase text-amber-300">{t("tagline")}</h1>
+              <p className="text-[10px] font-medium tracking-[0.3em] uppercase text-amber-300">{t("tagline")}</p>
             </div>
             <h1 className="font-serif text-4xl lg:text-7xl font-semibold text-white leading-tight max-w-4xl tracking-tight max-sm:text-3xl">{tour.title}</h1>
           </div>
@@ -205,10 +169,10 @@ export default async function TourDetailsPage({ params }: Props) {
 
                       <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-100 group-hover:shadow-xl transition-all">
                         <div className="grid md:grid-cols-[250px_1fr]">
-                          <div className="relative h-48 md:h-full min-h-48">
+                          <div className="relative h-40 min-h-40 sm:h-48 sm:min-h-48 md:h-full">
                             <Image src={day.image || tour.image || "/logo.png"} alt={`Day ${index + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 250px" />
                           </div>
-                          <div className="p-8">
+                          <div className="p-5 sm:p-8">
                             <span className="text-xs font-black uppercase tracking-widest text-orange-500 mb-2 block">
                               {t("day")} {index + 1}
                             </span>

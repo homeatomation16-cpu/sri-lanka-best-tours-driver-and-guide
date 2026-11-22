@@ -312,7 +312,9 @@
     "followUs": "フォローする",
     "privacy": "プライバシーポリシー",
     "terms": "利用規約",
-    "cookies": "クッキーポリシー"
+    "cookies": "クッキーポリシー",
+    "faq": "よくある質問",
+    "legalNav": "法的情報とヘルプ"
   },
   "rates": {
     "title": "ツアーパッケージ料金表",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "シギリヤ（ハバラナ）",
       "trincomalee": "トリンコマリー",
       "udawalawa": "ウダー・ワラウェ"
-    }
+    },
+    "seeMore": "もっと見る",
+    "seeLess": "閉じる"
   },
   "booking": {
     "fullName": "お名前",
@@ -587,18 +591,18 @@
     "heading": "スリランカの瞬間"
   },
   "cinematic": {
-    "ascentLabel": "高原地帯へ",
-    "ascentTitle": "雲の上へ、ひとつずつカーブを越えて",
-    "ascentText": "寺院の町キャンディから霧に包まれた茶畑まで、専属のドライバーガイドが光や景色、立ち止まる価値のある物語に合わせて毎日の旅を組み立てます。",
-    "ascentCta": "周遊ツアーを見る",
+    "ascentLabel": "丘で過ごす、ふたりのひととき",
+    "ascentTitle": "景色を分かち合い、今を味わう",
+    "ascentText": "スリランカの茶畑に包まれた丘で、ゆったりとした時間を。専属ドライバーガイドに道中を任せ、静かな展望スポットで山の空気を吸い込み、ふたりで景色を楽しみましょう。",
+    "ascentCta": "プライベートツアーを見る",
     "ascentMega": "セイロン",
     "descentLabel": "海岸へ下る",
     "descentTitle": "そして川をたどって海へ",
     "descentText": "植民地時代の要塞、寺院の町、静かな南の海岸。あなたに合わせてルートを設計し、車とガイドが旅のあいだずっと寄り添います。",
     "descentCta": "オーダーメイドの旅を作る",
     "descentMega": "海岸",
-    "bridgeText": "海岸をあとに、道は雲の中へと登っていく",
-    "frameImgAlt": "高原地帯エラ近郊のナインアーチ橋"
+    "bridgeText": "自然に近づき、ふたりの距離も近づく",
+    "frameImgAlt": "展望スポットに座り、霧に包まれた山々を眺めるカップル"
   },
   "photoCredits": {
     "summary": "写真クレジット",

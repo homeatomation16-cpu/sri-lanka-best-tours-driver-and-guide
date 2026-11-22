@@ -312,7 +312,9 @@
     "followUs": "Folgen Sie uns",
     "privacy": "Datenschutz",
     "terms": "AGB",
-    "cookies": "Cookie-Richtlinie"
+    "cookies": "Cookie-Richtlinie",
+    "faq": "FAQ",
+    "legalNav": "Rechtliches und Hilfe"
   },
   "rates": {
     "title": "Preise für Tour-Pakete",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "Sigiriya (Habarana)",
       "trincomalee": "Trincomalee",
       "udawalawa": "Udawalawa"
-    }
+    },
+    "seeMore": "Mehr anzeigen",
+    "seeLess": "Weniger anzeigen"
   },
   "booking": {
     "fullName": "Vollständiger Name",
@@ -587,18 +591,18 @@
     "heading": "Momente aus Sri Lanka"
   },
   "cinematic": {
-    "ascentLabel": "Ins Hochland",
-    "ascentTitle": "Über die Wolken, Kurve für Kurve",
-    "ascentText": "Von Kandys Tempelstadt bis zu nebelverhangenen Teeplantagen plant Ihr privater Fahrer und Guide jeden Tag rund um das Licht, die Ausblicke und die Geschichten, für die es sich anzuhalten lohnt.",
-    "ascentCta": "Rundreisen ansehen",
+    "ascentLabel": "Gemeinsame Momente im Hochland",
+    "ascentTitle": "Den Ausblick teilen, den Moment genießen",
+    "ascentText": "Entschleunigen Sie in Sri Lankas grünen Teehügeln. Ihr privater Fahrer und Guide kümmert sich um die Fahrt: Finden Sie einen ruhigen Aussichtspunkt, atmen Sie die Bergluft ein und genießen Sie gemeinsam den Blick.",
+    "ascentCta": "Private Touren entdecken",
     "ascentMega": "Ceylon",
     "descentLabel": "Hinunter zur Küste",
     "descentTitle": "Dann den Flüssen bis zum Meer folgen",
     "descentText": "Koloniale Festungen, Tempelstädte und ruhige Strände im Süden – wir gestalten die Route nach Ihren Wünschen, mit Fahrzeug und Guide, die Sie die ganze Reise begleiten.",
     "descentCta": "Individuelle Reise gestalten",
     "descentMega": "Küste",
-    "bridgeText": "Lassen Sie die Küste hinter sich – die Straße steigt in die Wolken",
-    "frameImgAlt": "Neun-Bogen-Brücke bei Ella im Hochland"
+    "bridgeText": "Der Natur näher, einander näher",
+    "frameImgAlt": "Ein Paar sitzt an einem Aussichtspunkt und blickt auf neblige Berge"
   },
   "photoCredits": {
     "summary": "Bildnachweise",

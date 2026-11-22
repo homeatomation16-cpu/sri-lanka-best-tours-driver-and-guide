@@ -104,10 +104,10 @@ export default async function TourCollections({ locale }: { locale: string }) {
                 {cards.map((card) => (
                   <div key={card.id} className="w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
                     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_-12px_rgb(15_23_42/0.2)] transition-transform duration-500 hover:-translate-y-1">
-                      <div className="relative aspect-4/3 overflow-hidden bg-emerald-900">
+                      <div className="relative aspect-2/1 overflow-hidden bg-emerald-900 sm:aspect-4/3">
                         <Image src={card.image} alt={card.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                       </div>
-                      <div className="flex flex-1 flex-col p-5">
+                      <div className="flex flex-1 flex-col p-4 sm:p-5">
                         <h3 className="font-playfair text-xl leading-snug text-slate-900">
                           <Link href={`/tours/${card.id}`} className="after:absolute after:inset-0 focus:outline-none">{card.title}</Link>
                         </h3>

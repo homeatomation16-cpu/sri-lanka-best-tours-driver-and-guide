@@ -1,3 +1,4 @@
+import { cache } from "react";
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 import { getPricing, withPricing } from "@/lib/tourPricing";
@@ -48,10 +49,18 @@ function fromFile(tour: any, locale: string) {
 
 const isImported = (doc: any) => Boolean(doc?.category);
 
-/** All active tours for the listing pages, in the live site's order. */
-export async function getActiveTours(locale: string) {
+/**
+ * All active tours for the listing pages, in the live site's order.
+ * Memoised per request: the footer and several homepage sections all ask for the same list.
+ */
+export const getActiveTours = cache(async (locale: string) => {
   await connectDB();
-  const [docs, files, pricing] = await Promise.all([Tour.find({}).lean(), loadFileTours(locale), getPricing()]);
+  // Only this locale's and the English (fallback) translations are read here; skipping the other
+  // languages' texts and itineraries keeps the query a fraction of the full multilingual documents.
+  const otherLanguages = Object.fromEntries(
+    LOCALES.filter((l) => l !== locale && l !== "en").map((l) => [`translations.${l}`, 0]),
+  );
+  const [docs, files, pricing] = await Promise.all([Tour.find({}, otherLanguages).lean(), loadFileTours(locale), getPricing()]);
   const byId = new Map<string, any>(docs.map((doc: any) => [doc.tourId, doc]));
   const fileIds = new Set(files.map((tour) => tour.id));
 
@@ -68,14 +77,14 @@ export async function getActiveTours(locale: string) {
 
   // The 10 round tours always show the prices from Admin → Tour pricing
   return [...tours, ...extra].map((tour: any) => withPricing(tour, pricing));
-}
+});
 
 /** One tour for the detail page, or null. */
-export async function getTourById(id: string, locale: string) {
+export const getTourById = cache(async (id: string, locale: string) => {
   await connectDB();
   const [doc, pricing]: [any, Awaited<ReturnType<typeof getPricing>>] = await Promise.all([Tour.findOne({ tourId: id }).lean(), getPricing()]);
   if (isImported(doc)) return withPricing(doc, pricing);
   const file = (await loadFileTours(locale)).find((tour) => tour.id === id);
   if (file) return withPricing(fromFile(file, locale), pricing);
   return withPricing(doc, pricing);
-}
+});

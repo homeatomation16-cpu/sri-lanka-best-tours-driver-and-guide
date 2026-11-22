@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import { cache } from "react";
+import { pageMetadata } from "@/lib/seo";
 // src/app/[locale]/vehicles/[id]/page.tsx
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -15,6 +18,21 @@ import Vehicle from "@/models/Vehicle";
 import Carousel from "@/components/Carousel";
 import VehicleSlider from "@/components/VehicleSlider";
 import BookingBox from "@/components/BookingBox";
+
+const getVehicle = cache(async (id: string) => {
+  await connectDB();
+  return Vehicle.findOne({ vehicleId: id, status: "active" }).lean();
+});
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string; locale: string }> }): Promise<Metadata> {
+  const { id, locale } = await params;
+  const vehicle = await getVehicle(id);
+  if (!vehicle) notFound();
+  const translation = vehicle.translations?.[locale] || vehicle.translations?.en;
+  const name = translation?.name || vehicle.name;
+  return pageMetadata(locale, `/vehicles/${encodeURIComponent(vehicle.vehicleId)}`, name,
+    translation?.overview || name, vehicle.image || "/vehicalcover.jpg");
+}
 
 export async function generateStaticParams() {
   await connectDB();
@@ -37,8 +55,7 @@ export default async function VehiclePage({
   const { id, locale } = await params;
   const t = await getTranslations("vehicles");
 
-  await connectDB();
-  const vehicleRaw = await Vehicle.findOne({ vehicleId: id }).lean();
+  const vehicleRaw = await getVehicle(id);
 
   if (!vehicleRaw) return notFound();
 
@@ -104,7 +121,7 @@ export default async function VehiclePage({
         </section>
 
         {/* CONTENT SECTION */}
-        <main className="relative z-30 max-w-7xl mx-auto px-6 md:px-12 -mt-16 pb-24">
+        <div className="relative z-30 max-w-7xl mx-auto px-6 md:px-12 -mt-16 pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 items-start">
             <div className="space-y-12">
               <div className="vd-anim overflow-hidden shadow-2xl rounded-2xl bg-white aspect-video max-h-110 border border-white/60 relative">
@@ -175,7 +192,7 @@ export default async function VehiclePage({
               </div>
             </aside>
           </div>
-        </main>
+        </div>
 
         <div className="bg-white border-t border-black/5 py-16">
           <div className="max-w-full mx-auto px-6 md:px-12">

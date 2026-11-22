@@ -312,7 +312,9 @@
     "followUs": "Síguenos",
     "privacy": "Política de privacidad",
     "terms": "Términos y condiciones",
-    "cookies": "Política de cookies"
+    "cookies": "Política de cookies",
+    "faq": "Preguntas frecuentes",
+    "legalNav": "Legal y ayuda"
   },
   "rates": {
     "title": "Tarifas de Paquetes de Tours",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "Sigiriya (Habarana)",
       "trincomalee": "Trincomalee",
       "udawalawa": "Udawalawa"
-    }
+    },
+    "seeMore": "Ver más",
+    "seeLess": "Ver menos"
   },
   "booking": {
     "fullName": "Nombre Completo",
@@ -587,18 +591,18 @@
     "heading": "Momentos de Sri Lanka"
   },
   "cinematic": {
-    "ascentLabel": "Hacia las tierras altas",
-    "ascentTitle": "Por encima de las nubes, curva a curva",
-    "ascentText": "Desde la ciudad templo de Kandy hasta las plantaciones de té envueltas en niebla, tu conductor-guía privado organiza cada día en torno a la luz, las vistas y las historias que merecen una parada.",
-    "ascentCta": "Ver circuitos",
+    "ascentLabel": "Momentos juntos entre montañas",
+    "ascentTitle": "Compartan la vista, disfruten el momento",
+    "ascentText": "Bajen el ritmo entre las colinas de té de Sri Lanka. Su conductor y guía privado se ocupa del trayecto: encuentren un mirador tranquilo, respiren el aire de montaña y disfruten juntos del paisaje.",
+    "ascentCta": "Explorar tours privados",
     "ascentMega": "Ceilán",
     "descentLabel": "Bajando a la costa",
     "descentTitle": "Y luego seguir los ríos hasta el mar",
     "descentText": "Fuertes coloniales, ciudades templo y tranquilas playas del sur: diseñamos la ruta a tu medida, con un vehículo y un guía que te acompañan durante todo el viaje.",
     "descentCta": "Diseña tu viaje a medida",
     "descentMega": "Costa",
-    "bridgeText": "Deja atrás la costa: la carretera sube hasta las nubes",
-    "frameImgAlt": "Puente de los Nueve Arcos cerca de Ella, en las tierras altas"
+    "bridgeText": "Más cerca de la naturaleza, más cerca el uno del otro",
+    "frameImgAlt": "Una pareja sentada en un mirador contemplando montañas entre la niebla"
   },
   "photoCredits": {
     "summary": "Créditos fotográficos",

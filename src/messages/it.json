@@ -312,7 +312,9 @@
     "followUs": "Seguici",
     "privacy": "Informativa sulla privacy",
     "terms": "Termini e condizioni",
-    "cookies": "Cookie policy"
+    "cookies": "Cookie policy",
+    "faq": "FAQ",
+    "legalNav": "Note legali e aiuto"
   },
   "rates": {
     "title": "Tariffe dei Pacchetti Tour",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "Sigiriya (Habarana)",
       "trincomalee": "Trincomalee",
       "udawalawa": "Udawalawa"
-    }
+    },
+    "seeMore": "Mostra di più",
+    "seeLess": "Mostra meno"
   },
   "booking": {
     "fullName": "Nome Completo",
@@ -587,18 +591,18 @@
     "heading": "Momenti dallo Sri Lanka"
   },
   "cinematic": {
-    "ascentLabel": "Verso gli altopiani",
-    "ascentTitle": "Sopra le nuvole, una curva alla volta",
-    "ascentText": "Dalla città-tempio di Kandy alle piantagioni di tè avvolte nella nebbia, il tuo autista-guida privato scandisce ogni giornata secondo la luce, i panorami e le storie che meritano una sosta.",
-    "ascentCta": "Scopri i tour",
+    "ascentLabel": "Momenti insieme tra le colline",
+    "ascentTitle": "Condividete il panorama, assaporate l’istante",
+    "ascentText": "Rallentate tra le colline del tè dello Sri Lanka. Il vostro autista e guida privato si occupa del viaggio: trovate un punto panoramico tranquillo, respirate l’aria di montagna e godetevi la vista insieme.",
+    "ascentCta": "Esplora i tour privati",
     "ascentMega": "Ceylon",
     "descentLabel": "Giù fino alla costa",
     "descentTitle": "Poi seguire i fiumi fino al mare",
     "descentText": "Forti coloniali, città-tempio e tranquille spiagge del sud: disegniamo l'itinerario su misura per te, con un veicolo e una guida che ti accompagnano per tutto il viaggio.",
     "descentCta": "Crea il tuo tour su misura",
     "descentMega": "Costa",
-    "bridgeText": "Lascia la costa alle spalle: la strada sale tra le nuvole",
-    "frameImgAlt": "Il ponte dei Nove Archi vicino a Ella, sugli altopiani"
+    "bridgeText": "Più vicini alla natura, più vicini tra voi",
+    "frameImgAlt": "Una coppia seduta in un punto panoramico ammira le montagne avvolte nella nebbia"
   },
   "photoCredits": {
     "summary": "Crediti fotografici",

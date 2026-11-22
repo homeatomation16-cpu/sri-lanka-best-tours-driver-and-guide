@@ -1,7 +1,8 @@
 // src/app/[locale]/page.tsx
 import { Suspense } from "react";
-import type { Metadata } from "next";
-import { pageAlternates, localizedUrl } from "@/lib/seo";
+import type { Metadata, ResolvingMetadata } from "next";
+import { pageMetadata, siteName } from "@/lib/seo";
+import { getTranslations } from "next-intl/server";
 import HeroVideo from "@/components/HeroVideo";
 import ExperienceExplorer from "@/components/ExperienceExplorer";
 import SeasonalTours from "@/components/SeasonalTours";
@@ -24,17 +25,11 @@ import ContactSection from "@/components/home/ContactSection";
 import { getSiteContent } from "@/lib/siteContent";
 import { pick } from "@/lib/autoTranslate";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }, parent: ResolvingMetadata): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    alternates: pageAlternates(locale),
-    openGraph: {
-      type: "website",
-      url: localizedUrl(locale),
-      siteName: "Sri Lanka Best Tours Driver & Guide",
-      images: [{ url: "/hero/sigiriya-poster.webp", alt: "Sigiriya, Sri Lanka" }],
-    },
-  };
+  const t = await getTranslations({ locale, namespace: "hero" });
+  const inherited = await parent;
+  return pageMetadata(locale, "", inherited.title?.absolute || siteName, inherited.description || t("subtitle"));
 }
 
 // A sleek loading skeleton to show while MongoDB fetches data

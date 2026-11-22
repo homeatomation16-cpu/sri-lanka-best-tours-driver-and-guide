@@ -312,7 +312,9 @@
     "followUs": "Siga-nos",
     "privacy": "Política de privacidade",
     "terms": "Termos e condições",
-    "cookies": "Política de cookies"
+    "cookies": "Política de cookies",
+    "faq": "Perguntas frequentes",
+    "legalNav": "Legal e ajuda"
   },
   "rates": {
     "title": "Tarifas de Pacotes de Tours",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "Sigiriya (Habarana)",
       "trincomalee": "Trincomalee",
       "udawalawa": "Udawalawa"
-    }
+    },
+    "seeMore": "Ver mais",
+    "seeLess": "Ver menos"
   },
   "booking": {
     "fullName": "Nome Completo",
@@ -587,18 +591,18 @@
     "heading": "Momentos do Sri Lanka"
   },
   "cinematic": {
-    "ascentLabel": "Rumo às terras altas",
-    "ascentTitle": "Acima das nuvens, uma curva de cada vez",
-    "ascentText": "Da cidade-templo de Kandy às plantações de chá envoltas em névoa, o seu motorista-guia privado organiza cada dia em torno da luz, das paisagens e das histórias que merecem uma paragem.",
-    "ascentCta": "Ver circuitos",
+    "ascentLabel": "Momentos juntos nas montanhas",
+    "ascentTitle": "Partilhem a vista, saboreiem o momento",
+    "ascentText": "Abrande entre as colinas de chá do Sri Lanka. O seu motorista e guia privado trata da viagem: encontre um miradouro tranquilo, respire o ar da montanha e desfrute da paisagem a dois.",
+    "ascentCta": "Explorar passeios privados",
     "ascentMega": "Ceilão",
     "descentLabel": "Descendo até à costa",
     "descentTitle": "Depois seguir os rios até ao mar",
     "descentText": "Fortes coloniais, cidades-templo e praias tranquilas do sul — desenhamos o roteiro à sua medida, com um veículo e um guia que o acompanham durante toda a viagem.",
     "descentCta": "Crie a sua viagem personalizada",
     "descentMega": "Costa",
-    "bridgeText": "Deixe a costa para trás — a estrada sobe até às nuvens",
-    "frameImgAlt": "Ponte dos Nove Arcos perto de Ella, nas terras altas"
+    "bridgeText": "Mais perto da natureza, mais perto um do outro",
+    "frameImgAlt": "Um casal sentado num miradouro contempla montanhas envoltas em nevoeiro"
   },
   "photoCredits": {
     "summary": "Créditos das fotos",

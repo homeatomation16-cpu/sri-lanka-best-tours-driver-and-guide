@@ -65,7 +65,7 @@ export default function Gallery({ items, heading }) {
         <div className="masonry" data-rise3d>
           {images.map((item, i) => (
             <figure key={item.src + i} className="masonry-item lift-card">
-              <button type="button" className="masonry-button group" onClick={() => show(i)} aria-label={`${th("open")}: ${item.alt || item.caption || i + 1}`}>
+              <button type="button" className="masonry-button group" onClick={() => show(i)} aria-label={`${th("open")}: ${item.caption || item.alt || i + 1}`}>
                 <span className={`masonry-photo ${["ratio-tall", "ratio-wide", "ratio-square"][i % 3]}`}>
                   <span className="reveal-img">
                     <Image src={item.src} alt={item.alt || ""} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" quality={60} className="object-cover transition-transform duration-700 group-hover:scale-105" />

@@ -312,7 +312,9 @@
     "followUs": "Follow us",
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions",
-    "cookies": "Cookie Policy"
+    "cookies": "Cookie Policy",
+    "faq": "FAQ",
+    "legalNav": "Legal and help"
   },
   "rates": {
     "title": "Tour Package Rates",
@@ -348,7 +350,9 @@
       "sigiriya-habarana": "Sigiriya (Habarana)",
       "trincomalee": "Trincomalee",
       "udawalawa": "Udawalawa"
-    }
+    },
+    "seeMore": "See more",
+    "seeLess": "See less"
   },
   "booking": {
     "fullName": "Full Name",
@@ -587,18 +591,18 @@
     "heading": "Moments from Sri Lanka"
   },
   "cinematic": {
-    "ascentLabel": "Into the hill country",
-    "ascentTitle": "Rise above the clouds, one bend at a time",
-    "ascentText": "From Kandy's temple town to mist-wrapped tea estates, your private driver-guide paces every day around the light, the views and the stories worth stopping for.",
-    "ascentCta": "Browse round tours",
+    "ascentLabel": "Moments together in the hills",
+    "ascentTitle": "Share the view, savour the moment",
+    "ascentText": "Slow down among Sri Lanka’s tea-covered hills. With your private driver-guide taking care of the journey, find a quiet viewpoint, breathe in the mountain air and enjoy the view together.",
+    "ascentCta": "Explore private tours",
     "ascentMega": "Ceylon",
     "descentLabel": "Down to the coast",
     "descentTitle": "Then follow the rivers to the sea",
     "descentText": "Colonial forts, temple towns and quiet southern beaches — we shape the route around you, with a vehicle and guide that stay with you the whole way.",
     "descentCta": "Design your tailor-made tour",
     "descentMega": "Coast",
-    "bridgeText": "Leave the coast behind — the road climbs into the clouds",
-    "frameImgAlt": "Nine Arch Bridge near Ella in the hill country"
+    "bridgeText": "Closer to nature, closer to each other",
+    "frameImgAlt": "Couple seated at a viewpoint overlooking misty mountains"
   },
   "photoCredits": {
     "summary": "Photo credits",
