@@ -295,7 +295,7 @@
     "tagline": "⚡ Быстрый ответ в WhatsApp • Личный подход • Гарантия лучшей цены"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "Роскошные частные туры по всей Шри-Ланке с профессиональными водителями. Путешествуйте с комфортом и стилем.",
     "quickLinks": "Быстрые ссылки",
     "gallery": "Галерея",
@@ -305,7 +305,7 @@
     "newsletter": "Получать спецпредложения",
     "emailPlaceholder": "Ваш Email",
     "subscribe": "Подписаться",
-    "copyright": "Sri Lanka Tours Driver — Все права защищены",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — Все права защищены",
     "subscribed": "Вы успешно подписались!",
     "popularTours": "Популярные туры",
     "destinations": "Направления",
@@ -397,7 +397,8 @@
     "vehicleLabel": "Транспорт: {vehicle}",
     "perPersonApprox": "≈ {price} на человека",
     "estimateNote": "Окончательную цену мы подтвердим после заявки. Оплата сейчас не нужна.",
-    "largeGroup": "Для групп более {max} человек мы пришлём индивидуальное предложение."
+    "largeGroup": "Для групп более {max} человек мы пришлём индивидуальное предложение.",
+    "priceChanged": "Цена этого пакета только что изменилась на {price}. Проверьте новую цену и отправьте запрос ещё раз."
   },
   "loader": {
     "tagline": "Исследуйте остров-рай 🌴",

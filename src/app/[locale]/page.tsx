@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       type: "website",
       url: localizedUrl(locale),
-      siteName: "Sri Lanka Best Tour Driver and Guide",
+      siteName: "Sri Lanka Best Tours Driver & Guide",
       images: [{ url: "/hero/sigiriya-poster.webp", alt: "Sigiriya, Sri Lanka" }],
     },
   };

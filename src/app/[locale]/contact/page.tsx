@@ -79,7 +79,7 @@ export default function ContactPage() {
         <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {INFO.map(({ icon: Icon, label, value, href, cta, tone }) => (
             <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer"
-              className="group rounded-2xl border border-[#ece6da] bg-white p-6 shadow-xl shadow-[#0b2a22]/5 transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
+              className="group min-w-0 rounded-2xl border border-[#ece6da] bg-white p-6 shadow-xl shadow-[#0b2a22]/5 transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
               <span className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br ${tone} text-white shadow-md`}>
                 <Icon size={22} />
               </span>

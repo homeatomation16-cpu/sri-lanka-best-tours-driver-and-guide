@@ -295,7 +295,7 @@
     "tagline": "⚡ ردود سريعة عبر واتساب • تخطيط مخصص • ضمان أفضل سعر"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "جولات خاصة فاخرة عبر سريلانكا مع سائقين محترفين. سافر براحة، استكشف بأناقة.",
     "quickLinks": "روابط سريعة",
     "gallery": "معرض الصور",
@@ -305,7 +305,7 @@
     "newsletter": "احصل على عروض فاخرة",
     "emailPlaceholder": "بريدك الإلكتروني",
     "subscribe": "اشترك",
-    "copyright": "Sri Lanka Tours Driver — جميع الحقوق محفوظة",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — جميع الحقوق محفوظة",
     "subscribed": "تم الاشتراك بنجاح!",
     "popularTours": "الجولات الشائعة",
     "destinations": "الوجهات",
@@ -397,7 +397,8 @@
     "vehicleLabel": "المركبة: {vehicle}",
     "perPersonApprox": "≈ {price} للشخص",
     "estimateNote": "نؤكد السعر النهائي بعد طلبك. لا دفع الآن.",
-    "largeGroup": "للمجموعات التي تزيد عن {max} أشخاص سنرسل عرض سعر خاص."
+    "largeGroup": "للمجموعات التي تزيد عن {max} أشخاص سنرسل عرض سعر خاص.",
+    "priceChanged": "تم تحديث سعر هذه الباقة للتو إلى {price}. يرجى مراجعة السعر الجديد وإرسال طلبك مرة أخرى."
   },
   "loader": {
     "tagline": "استكشف جزيرة الفردوس 🌴",

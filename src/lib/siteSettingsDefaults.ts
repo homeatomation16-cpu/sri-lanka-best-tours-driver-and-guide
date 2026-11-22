@@ -20,7 +20,7 @@ export type SiteSettings = {
 };
 
 export const DEFAULT_SETTINGS: SiteSettings = {
-  brand: "Sri Lanka Best Tour Driver and Guide",
+  brand: "Sri Lanka Best Tours Driver & Guide",
   phone: defaults.phone,
   whatsapp: defaults.whatsapp,
   whatsappme: defaults.whatsappme,

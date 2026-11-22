@@ -295,7 +295,7 @@
     "tagline": "⚡ WhatsApp 快速响应 • 个性化规划 • 最佳价格保证"
   },
   "footer": {
-    "brand": "斯里兰卡顶级旅游司机",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "提供斯里兰卡全境豪华私人团。舒适出行，尊享品质。",
     "quickLinks": "快速链接",
     "gallery": "图片展示",
@@ -305,7 +305,7 @@
     "newsletter": "获取独家优惠",
     "emailPlaceholder": "您的电子邮箱",
     "subscribe": "立即订阅",
-    "copyright": "斯里兰卡旅游司机 — 版权所有",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — 版权所有",
     "subscribed": "订阅成功！",
     "popularTours": "热门线路",
     "destinations": "目的地",
@@ -397,7 +397,8 @@
     "vehicleLabel": "车辆：{vehicle}",
     "perPersonApprox": "约每人 {price}",
     "estimateNote": "最终价格将在您提交后确认，现在无需付款。",
-    "largeGroup": "超过 {max} 人的团体我们将单独报价。"
+    "largeGroup": "超过 {max} 人的团体我们将单独报价。",
+    "priceChanged": "此套餐的价格刚刚更新为 {price}。请查看新价格后重新提交您的请求。"
   },
   "loader": {
     "tagline": "探索天堂岛 🌴",

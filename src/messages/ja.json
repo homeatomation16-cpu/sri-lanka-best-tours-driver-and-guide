@@ -295,7 +295,7 @@
     "tagline": "⚡ WhatsAppでの迅速な返答 • パーソナライズされたプランニング • ベストプライス保証"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "プロのドライバーによるスリランカ全土のラグジュアリーなプライベートツアー。快適な移動とスタイリッシュな探検を。",
     "quickLinks": "クイックリンク",
     "gallery": "ギャラリー",
@@ -305,7 +305,7 @@
     "newsletter": "限定オファーを受け取る",
     "emailPlaceholder": "メールアドレス",
     "subscribe": "購読する",
-    "copyright": "Sri Lanka Tours Driver — All Rights Reserved",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — All Rights Reserved",
     "subscribed": "購読が完了しました！",
     "popularTours": "人気のツアー",
     "destinations": "観光地",
@@ -397,7 +397,8 @@
     "vehicleLabel": "車両: {vehicle}",
     "perPersonApprox": "1人あたり約 {price}",
     "estimateNote": "最終料金はリクエスト後に確定します。今はお支払い不要です。",
-    "largeGroup": "{max}名を超えるグループは個別にお見積りします。"
+    "largeGroup": "{max}名を超えるグループは個別にお見積りします。",
+    "priceChanged": "このパッケージの料金が {price} に更新されました。新しい料金をご確認のうえ、もう一度お申し込みください。"
   },
   "loader": {
     "tagline": "楽園の島を探索しましょう 🌴",

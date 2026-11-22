@@ -295,7 +295,7 @@
     "tagline": "⚡ Schnelle WhatsApp-Antwort • Persönliche Planung • Bestpreis-Garantie"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "Luxuriöse Privattouren durch Sri Lanka mit professionellen Fahrern. Komfortabel reisen, stilvoll entdecken.",
     "quickLinks": "Schnelllinks",
     "gallery": "Galerie",
@@ -305,7 +305,7 @@
     "newsletter": "Luxus-Angebote erhalten",
     "emailPlaceholder": "Ihre E-Mail",
     "subscribe": "Abonnieren",
-    "copyright": "Sri Lanka Tours Driver — Alle Rechte vorbehalten",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — Alle Rechte vorbehalten",
     "subscribed": "Erfolgreich abonniert!",
     "popularTours": "Beliebte Touren",
     "destinations": "Reiseziele",
@@ -397,7 +397,8 @@
     "vehicleLabel": "Fahrzeug: {vehicle}",
     "perPersonApprox": "≈ {price} pro Person",
     "estimateNote": "Den Endpreis bestätigen wir nach Ihrer Anfrage. Jetzt keine Zahlung.",
-    "largeGroup": "Für Gruppen über {max} Personen senden wir ein individuelles Angebot."
+    "largeGroup": "Für Gruppen über {max} Personen senden wir ein individuelles Angebot.",
+    "priceChanged": "Der Preis für dieses Paket wurde gerade auf {price} aktualisiert. Bitte prüfen Sie den neuen Preis und senden Sie Ihre Anfrage erneut."
   },
   "loader": {
     "tagline": "Entdecken Sie das Inselparadies 🌴",

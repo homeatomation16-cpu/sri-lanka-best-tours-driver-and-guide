@@ -295,7 +295,7 @@
     "tagline": "⚡ WhatsApp හරහා ඉක්මන් ප්‍රතිචාර • පුද්ගලීකරණය කළ සංචාර සැලසුම් • හොඳම මිල සහතිකය"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "වෘත්තීය රියදුරන් සහ සුවිශේෂී අත්දැකීම් සමඟ ශ්‍රී ලංකාව පුරා සුඛෝපභෝගී පුද්ගලික සංචාර. සුවපහසුවෙන් ගමන් කරන්න, විලාසිතාවෙන් ගවේෂණය කරන්න.",
     "quickLinks": "ප්‍රයෝජනවත් සබැඳි",
     "gallery": "ඡායාරූප එකතුව",
@@ -305,7 +305,7 @@
     "newsletter": "විශේෂ දීමනා ලබා ගන්න",
     "emailPlaceholder": "ඔබේ විද්‍යුත් තැපෑල",
     "subscribe": "සබ්ස්ක්‍රයිබ් කරන්න",
-    "copyright": "Sri Lanka Tours Driver — සියලුම හිමිකම් ඇවිරිණි",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — සියලුම හිමිකම් ඇවිරිණි",
     "subscribed": "සාර්ථකව ලියාපදිංචි විය!",
     "popularTours": "ජනප්‍රිය චාරිකා",
     "destinations": "ගමනාන්ත",
@@ -397,7 +397,8 @@
     "vehicleLabel": "වාහනය: {vehicle}",
     "perPersonApprox": "එක් අයෙකුට ≈ {price}",
     "estimateNote": "ඔබේ ඉල්ලීමෙන් පසු අවසන් මිල අපි තහවුරු කරමු. දැන් ගෙවීමක් නැත.",
-    "largeGroup": "{max} ට වැඩි කණ්ඩායම් සඳහා අපි විශේෂ මිලක් එවන්නෙමු."
+    "largeGroup": "{max} ට වැඩි කණ්ඩායම් සඳහා අපි විශේෂ මිලක් එවන්නෙමු.",
+    "priceChanged": "මෙම පැකේජයේ මිල දැන් {price} ලෙස යාවත්කාලීන විය. කරුණාකර නව මිල පරීක්ෂා කර ඔබේ ඉල්ලීම නැවත යවන්න."
   },
   "loader": {
     "tagline": "පාරාදීස දූපත ගවේෂණය කරන්න 🌴",

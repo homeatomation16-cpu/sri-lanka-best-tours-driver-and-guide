@@ -12,6 +12,8 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useContact } from "@/components/ContactProvider";
 
+const BRAND_NAME = "Sri Lanka Best Tours Driver & Guide";
+
 export default function Navbar() {
   const contact = useContact();
   const t = useTranslations("nav");
@@ -54,7 +56,7 @@ export default function Navbar() {
     >
       <div className="flex h-16 w-full items-center gap-2 px-3 sm:gap-3 sm:px-6 lg:px-8 xl:h-20 2xl:px-10">
         {/* LOGO */}
-        <Link href="/" aria-label={t("home")} className="flex min-w-0 shrink items-center gap-2 sm:gap-2.5">
+        <Link href="/" aria-label={`${BRAND_NAME} – ${t("home")}`} className="flex min-w-0 shrink items-center gap-2 sm:gap-2.5">
           <Image
             src="/logo.png"
             alt=""
@@ -63,9 +65,12 @@ export default function Navbar() {
             priority
             className="h-9 w-9 shrink-0 rounded-full border-2 border-[#0f2a4a] bg-white object-contain p-0.5 shadow-sm sm:h-12 sm:w-12"
           />
-          <span className="flex flex-col whitespace-nowrap font-bold leading-none" style={{ fontFamily: '"Poppins", sans-serif' }}>
-            <span className={`text-base tracking-[0.08em] sm:text-2xl ${solid ? "text-[#0f2a4a]" : "text-white"}`}>SRI LANKA</span>
-            <span className={`mt-1 text-[0.7rem] tracking-[0.16em] sm:text-base ${solid ? "text-teal-600" : "text-[#48d4b0]"}`}>TOURS DRIVER</span>
+          {/* Wordmark: stacked on phones ("SRI LANKA / BEST TOURS / DRIVER & GUIDE"), two lines from sm up */}
+          <span aria-hidden className="flex min-w-0 flex-col whitespace-nowrap font-bold uppercase leading-[1.1]" style={{ fontFamily: '"Poppins", sans-serif' }}>
+            <span className={`text-[0.8rem] tracking-[0.06em] sm:text-lg 2xl:text-xl ${solid ? "text-[#0f2a4a]" : "text-white"}`}>
+              Sri Lanka <br className="sm:hidden" />Best Tours
+            </span>
+            <span className={`mt-0.5 text-[0.6rem] tracking-[0.14em] sm:mt-1 sm:text-[0.72rem] sm:tracking-[0.22em] 2xl:text-[0.8rem] ${solid ? "text-teal-600" : "text-[#48d4b0]"}`}>Driver &amp; Guide</span>
           </span>
         </Link>
 
@@ -92,7 +97,7 @@ export default function Navbar() {
         {/* RIGHT SIDE ACTIONS */}
         <div className="ms-auto flex shrink-0 items-center gap-0 sm:gap-1 2xl:gap-2">
           {/* LanguageSwitcher has white text built in; darken it on the white bar */}
-          <div className={solid ? "[&>div>button]:text-slate-800! [&>div>button:hover]:bg-slate-100!" : ""}>
+          <div data-lang-wrap className={solid ? "[&>div>button]:text-slate-800! [&>div>button:hover]:bg-slate-100! dark:[&>div>button]:text-stone-100! dark:[&>div>button:hover]:bg-white/10!" : ""}>
             <LanguageSwitcher />
           </div>
 

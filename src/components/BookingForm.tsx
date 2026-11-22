@@ -8,6 +8,7 @@ import { Edit2, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { useContact } from "@/components/ContactProvider";
 import { getGroupPrice, getMaximumPeople } from "@/utils/tourPricing";
+import { formatUsd } from "@/lib/tourPricingCore";
 
 interface Tour {
   title: string;
@@ -61,6 +62,7 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
   const [childrenAges, setChildrenAges] = useState<string[]>([]);
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [priceNotice, setPriceNotice] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(0);
@@ -74,6 +76,9 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
   const maxPersons = getMaximumPeople(tour);
   const priceRow = priced && persons >= 1 && persons <= maxPersons ? getGroupPrice(tour, persons) : undefined;
   const days = tour.duration || 1;
+  // Exact group total in cents; the per-person figure is display only (rounded to the cent)
+  const totalCents = priceRow ? Math.round(priceRow.price * 100) : 0;
+  const perPersonText = priceRow && persons > 0 ? formatUsd(Math.round(totalCents / persons)) : "";
 
   // Resend Timer Logic
   useEffect(() => {
@@ -165,7 +170,6 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
       }
 
       const ages = childrenAges.slice(0, Math.min(children, MAX_CHILD_AGES)).map(Number);
-      const pricePerPerson = priceRow ? Math.round((priceRow.price / persons) * 100) / 100 : undefined;
 
       // Booking Submission
       const res = await fetch("/api/booking", {
@@ -184,16 +188,24 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
           pickupLocation: form.pickupLocation,
           notes: form.notes,
           people: persons,
-          pricePerPerson,
-          totalPrice: priceRow?.price,
-          vehicle: priceRow?.vehicle,
+          // The server works out the price itself from tourId + people; quotedTotal only lets it tell us if the price changed
+          tourId: tour.tourId,
+          quotedTotal: priceRow?.price,
           itemName: tour.title,
           bookingType: "Tour",
         }),
       });
 
       const data = await res.json();
+      if (res.status === 409 && data.error === "priceChanged") {
+        setPriceNotice(t("priceChanged", { price: formatUsd(data.quote.totalCents) }));
+        setShowOtpField(false);
+        setStatus("idle");
+        router.refresh();
+        return;
+      }
       if (!data.success) throw new Error();
+      const confirmed = data.booking as { totalPrice?: number; vehicle?: string } | undefined;
 
       // Final WhatsApp Redirection
       const lines = [
@@ -207,7 +219,7 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
         `Dates: ${form.date}${form.endDate ? ` – ${form.endDate}` : ""}`,
         `Adults: ${adults}`,
         `Children: ${children}${ages.length ? ` (ages ${ages.join(", ")})` : ""}`,
-        priceRow ? `Estimated price: $${priceRow.price} (${priceRow.vehicle ?? ""})` : "Price: on request",
+        confirmed?.totalPrice ? `Price: ${formatUsd(Math.round(confirmed.totalPrice * 100))} USD for ${persons} travellers (${confirmed.vehicle ?? ""})` : "Price: on request",
         `Pickup: ${form.pickupLocation}`,
         `Message: ${form.notes}`,
       ];
@@ -316,12 +328,12 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
                 {priceRow ? (
                   <>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-orange-400">{t("estimate")}</p>
-                    <p className="mt-1 font-serif text-3xl font-bold text-white">${priceRow.price.toLocaleString("en-US")}</p>
+                    <p className="mt-1 font-serif text-3xl font-bold text-white">{formatUsd(totalCents)}</p>
                     <p className="mt-1">
                       {t("estimateTotal", { count: persons, days })}
                       {priceRow.vehicle && <> · {t("vehicleLabel", { vehicle: priceRow.vehicle })}</>}
                     </p>
-                    {persons > 1 && <p className="mt-0.5 text-stone-400">{t("perPersonApprox", { price: `$${Math.round(priceRow.price / persons)}` })}</p>}
+                    {persons > 1 && <p className="mt-0.5 text-stone-400">{t("perPersonApprox", { price: perPersonText })}</p>}
                     <p className="mt-3 text-[11px] text-stone-500">{t("estimateNote")}</p>
                   </>
                 ) : (
@@ -329,6 +341,7 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
                 )}
               </div>
             )}
+            {priceNotice && <p role="alert" className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-200">{priceNotice}</p>}
             {!priced && tour.price === 0 && <p className="text-sm font-semibold text-white">{tTours("priceOnRequest")}</p>}
 
             <div>

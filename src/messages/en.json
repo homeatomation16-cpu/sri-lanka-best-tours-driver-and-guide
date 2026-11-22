@@ -295,7 +295,7 @@
     "tagline": "⚡ Quick replies on WhatsApp • Personalised tour planning • Best price guarantee"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "Luxury private tours across Sri Lanka with professional chauffeurs and curated experiences.",
     "quickLinks": "Quick Links",
     "gallery": "Gallery",
@@ -305,7 +305,7 @@
     "newsletter": "Get Luxury Offers",
     "emailPlaceholder": "Your email",
     "subscribe": "Subscribe",
-    "copyright": "Sri Lanka Tours Driver — All Rights Reserved",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — All Rights Reserved",
     "subscribed": "Subscribed successfully!",
     "popularTours": "Popular tours",
     "destinations": "Destinations",
@@ -397,7 +397,8 @@
     "vehicleLabel": "Vehicle: {vehicle}",
     "perPersonApprox": "≈ {price} per person",
     "estimateNote": "We confirm the final price after your request. No payment now.",
-    "largeGroup": "For groups over {max} people we’ll send you a custom quote."
+    "largeGroup": "For groups over {max} people we’ll send you a custom quote.",
+    "priceChanged": "The price for this package has just been updated to {price}. Please check the new price and send your request again."
   },
   "loader": {
     "tagline": "Explore Paradise Island 🌴",

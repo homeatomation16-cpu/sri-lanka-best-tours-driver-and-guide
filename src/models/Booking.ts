@@ -19,6 +19,12 @@ export interface IBooking {
   endDate?: string;
   pickupLocation?: string;
   vehicle?: string;
+  /** Price snapshot: tour, exact total in cents, currency, pricing table version and where the price came from. */
+  tourId?: string;
+  totalPriceCents?: number;
+  currency?: "USD";
+  pricingVersion?: number;
+  priceSource?: "server" | "estimate" | "customQuote";
   pricePerPerson?: number;
   additionalPersonPrice?: number;
   totalPrice?: number;
@@ -50,6 +56,11 @@ const BookingSchema = new Schema<IBooking>(
     endDate: String,
     pickupLocation: String,
     vehicle: String,
+    tourId: String,
+    totalPriceCents: Number,
+    currency: { type: String, enum: ["USD"] },
+    pricingVersion: Number,
+    priceSource: { type: String, enum: ["server", "estimate", "customQuote"] },
     pricePerPerson: Number,
     additionalPersonPrice: Number,
     totalPrice: Number,

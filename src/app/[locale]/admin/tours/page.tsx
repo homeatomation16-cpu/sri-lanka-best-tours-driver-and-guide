@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import ImageUploader from "@/components/admin/ImageUploader";
 import { useToast } from "@/components/admin/Toast";
+import { PRICED_TOUR_IDS } from "@/lib/tourPricingCore";
 
 const LANGUAGES = [
   { code: "en", label: "English" }, { code: "si", label: "Sinhala" }, { code: "ru", label: "Russian" },
@@ -314,6 +315,11 @@ export default function ToursAdmin() {
 
               {/* PRICING */}
               <Section title="Pricing & Group size (USD)">
+                {PRICED_TOUR_IDS.has(formData.tourId) && (
+                  <p className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+                    This tour's prices are managed in <a href="pricing" className="font-bold underline">Admin → Tour pricing</a> (group price table). The fields below are not used for it.
+                  </p>
+                )}
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   <div><label className={labelCls}>Base price *</label><input type="number" value={formData.price} onChange={(e) => set({ price: e.target.value })} className={inputCls} /></div>
                   <div><label className={labelCls}>Price per person</label><input type="number" value={formData.pricePerPerson} onChange={(e) => set({ pricePerPerson: e.target.value })} className={inputCls} /></div>

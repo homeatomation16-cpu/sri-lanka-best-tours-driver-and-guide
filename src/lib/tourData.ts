@@ -1,5 +1,6 @@
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
+import { getPricing, withPricing } from "@/lib/tourPricing";
 
 // Tours come from MongoDB, with the bundled live-site tour files (src/data/tours/<locale>.ts) filling the gaps:
 // - a tour that is only in the files (not imported yet) is shown from the files;
@@ -50,7 +51,7 @@ const isImported = (doc: any) => Boolean(doc?.category);
 /** All active tours for the listing pages, in the live site's order. */
 export async function getActiveTours(locale: string) {
   await connectDB();
-  const [docs, files] = await Promise.all([Tour.find({}).lean(), loadFileTours(locale)]);
+  const [docs, files, pricing] = await Promise.all([Tour.find({}).lean(), loadFileTours(locale), getPricing()]);
   const byId = new Map<string, any>(docs.map((doc: any) => [doc.tourId, doc]));
   const fileIds = new Set(files.map((tour) => tour.id));
 
@@ -65,15 +66,16 @@ export async function getActiveTours(locale: string) {
   // Database-only tours stay visible until the import hides them (old IDs not on the live site are skipped).
   const extra = docs.filter((doc: any) => doc.status === "active" && !fileIds.has(doc.tourId) && isImported(doc));
 
-  return [...tours, ...extra];
+  // The 10 round tours always show the prices from Admin → Tour pricing
+  return [...tours, ...extra].map((tour: any) => withPricing(tour, pricing));
 }
 
 /** One tour for the detail page, or null. */
 export async function getTourById(id: string, locale: string) {
   await connectDB();
-  const doc: any = await Tour.findOne({ tourId: id }).lean();
-  if (isImported(doc)) return doc;
+  const [doc, pricing]: [any, Awaited<ReturnType<typeof getPricing>>] = await Promise.all([Tour.findOne({ tourId: id }).lean(), getPricing()]);
+  if (isImported(doc)) return withPricing(doc, pricing);
   const file = (await loadFileTours(locale)).find((tour) => tour.id === id);
-  if (file) return fromFile(file, locale);
-  return doc;
+  if (file) return withPricing(fromFile(file, locale), pricing);
+  return withPricing(doc, pricing);
 }

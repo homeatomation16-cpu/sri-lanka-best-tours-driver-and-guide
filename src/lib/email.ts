@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 import { getSiteSettings, type SiteSettings } from "@/lib/siteSettings";
 import { esc } from "@/lib/adminAuth";
 
-export const BRAND = "Sri Lanka Best Tour Driver and Guide";
+export const BRAND = "Sri Lanka Best Tours Driver & Guide";
 export const SITE_URL = (process.env.SITE_URL || "https://srilankabesttourdriverandguide.com").replace(/\/$/, "");
 
 const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;

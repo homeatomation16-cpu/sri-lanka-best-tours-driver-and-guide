@@ -295,7 +295,7 @@
     "tagline": "⚡ Réponses rapides sur WhatsApp • Planification personnalisée • Meilleur prix"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "Circuits privés de luxe au Sri Lanka avec chauffeurs professionnels. Voyagez confortablement, explorez avec style.",
     "quickLinks": "Liens Rapides",
     "gallery": "Galerie",
@@ -305,7 +305,7 @@
     "newsletter": "Offres de Luxe",
     "emailPlaceholder": "Votre email",
     "subscribe": "S'abonner",
-    "copyright": "Sri Lanka Tours Driver — Tous droits réservés",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — Tous droits réservés",
     "subscribed": "Inscription réussie !",
     "popularTours": "Circuits populaires",
     "destinations": "Destinations",
@@ -397,7 +397,8 @@
     "vehicleLabel": "Véhicule : {vehicle}",
     "perPersonApprox": "≈ {price} par personne",
     "estimateNote": "Nous confirmons le prix final après votre demande. Aucun paiement maintenant.",
-    "largeGroup": "Pour les groupes de plus de {max} personnes, nous vous enverrons un devis."
+    "largeGroup": "Pour les groupes de plus de {max} personnes, nous vous enverrons un devis.",
+    "priceChanged": "Le prix de ce forfait vient d'être mis à jour à {price}. Veuillez vérifier le nouveau prix et renvoyer votre demande."
   },
   "loader": {
     "tagline": "Explorez l'Île Paradis 🌴",

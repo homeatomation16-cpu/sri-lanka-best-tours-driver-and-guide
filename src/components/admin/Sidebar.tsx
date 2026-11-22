@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { LayoutDashboard, CalendarCheck, Map, Car, Users, MessageSquare, LogOut, Menu, X, Globe, LayoutTemplate, BarChart3, UserCog, Settings, Palette } from "lucide-react";
+import { LayoutDashboard, CalendarCheck, Map, Car, Users, MessageSquare, LogOut, Menu, X, Globe, LayoutTemplate, BarChart3, UserCog, Settings, Palette, Table2 } from "lucide-react";
 
 export default function Sidebar({ locale, newInquiries = 0, pendingBookings = 0, newUsers = 0 }: { locale: string; newInquiries?: number; pendingBookings?: number; newUsers?: number }) {
   const pathname = usePathname();
@@ -26,6 +26,7 @@ export default function Sidebar({ locale, newInquiries = 0, pendingBookings = 0,
     ] },
     { title: "Website", items: [
       { name: "Tours", href: `${base}/tours`, icon: Map, hint: "Packages, prices, itineraries" },
+      { name: "Tour pricing", href: `${base}/pricing`, icon: Table2, hint: "Group prices (USD) for round tours" },
       { name: "Vehicles", href: `${base}/vehicles`, icon: Car, hint: "Fleet & rates" },
       { name: "Website Content", href: `${base}/content`, icon: LayoutTemplate, hint: "Hero, gallery, tailor-made" },
     ] },

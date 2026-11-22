@@ -295,7 +295,7 @@
     "tagline": "⚡ 왓츠앱 빠른 응답 • 개인별 맞춤 투어 계획 • 최저가 보장"
   },
   "footer": {
-    "brand": "스리랑카 베스트 투어 드라이버",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "전문 드라이버와 함께하는 스리랑카 전역의 럭셔리 단독 투어. 편안한 이동과 품격 있는 탐험을 약속합니다.",
     "quickLinks": "퀵 링크",
     "gallery": "갤러리",
@@ -305,7 +305,7 @@
     "newsletter": "특별 혜택 받기",
     "emailPlaceholder": "이메일 주소",
     "subscribe": "구독하기",
-    "copyright": "Sri Lanka Tours Driver — All Rights Reserved",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — All Rights Reserved",
     "subscribed": "구독이 완료되었습니다!",
     "popularTours": "인기 투어",
     "destinations": "여행지",
@@ -397,7 +397,8 @@
     "vehicleLabel": "차량: {vehicle}",
     "perPersonApprox": "1인당 약 {price}",
     "estimateNote": "최종 요금은 요청 후 확정됩니다. 지금은 결제가 필요 없습니다.",
-    "largeGroup": "{max}명 초과 그룹은 별도 견적을 보내드립니다."
+    "largeGroup": "{max}명 초과 그룹은 별도 견적을 보내드립니다.",
+    "priceChanged": "이 패키지의 가격이 방금 {price}(으)로 변경되었습니다. 새 가격을 확인하신 후 다시 요청해 주세요."
   },
   "loader": {
     "tagline": "낙원의 섬을 탐험하세요 🌴",

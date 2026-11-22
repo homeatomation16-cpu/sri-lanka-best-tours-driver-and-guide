@@ -37,7 +37,7 @@ import PageTracker from "@/components/PageTracker";
 
 const siteUrl = "https://www.srilankabesttourdriverandguide.com";
 
-const siteName = "Sri Lanka Best Tour Driver and Guide";
+const siteName = "Sri Lanka Best Tours Driver & Guide";
 
 const defaultLocale = "en";
 

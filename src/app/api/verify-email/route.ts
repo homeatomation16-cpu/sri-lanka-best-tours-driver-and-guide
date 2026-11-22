@@ -40,7 +40,7 @@ export async function POST(request) {
       otpStore.set(email.toLowerCase(), { otp, expiresAt });
 
       await transporter.sendMail({
-        from: `"Sri Lanka Tours Driver" <${process.env.SMTP_USER}>`,
+        from: `"Sri Lanka Best Tours Driver & Guide" <${process.env.SMTP_USER}>`,
         to: email,
         subject: "Your Verification Code — Sri Lanka Tours",
         html: `
@@ -66,7 +66,7 @@ export async function POST(request) {
           <body>
             <div class="wrap">
               <div class="header">
-                <h1>Sri Lanka Tours Driver</h1>
+                <h1>Sri Lanka Best Tours Driver &amp; Guide</h1>
               </div>
               <div class="body">
                 <p>Thank you for your tailor-made tour request.<br/>Please use the code below to verify your email address.</p>
@@ -78,7 +78,7 @@ export async function POST(request) {
                 <p class="note">If you did not request this, please ignore this email.</p>
               </div>
               <div class="footer">
-                <p>© ${new Date().getFullYear()} Sri Lanka Tours Driver · info@srilankatoursdriver.com</p>
+                <p>© ${new Date().getFullYear()} Sri Lanka Best Tours Driver &amp; Guide · info@srilankabesttourdriverandguide.com</p>
               </div>
             </div>
           </body>

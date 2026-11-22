@@ -295,7 +295,7 @@
     "tagline": "⚡ Risposte rapide su WhatsApp • Pianificazione personalizzata • Miglior prezzo garantito"
   },
   "footer": {
-    "brand": "Sri Lanka Best Tours Driver",
+    "brand": "Sri Lanka Best Tours Driver & Guide",
     "desc": "Tour privati di lusso in tutto lo Sri Lanka con autisti professionisti. Viaggia in totale comfort, esplora con stile.",
     "quickLinks": "Link Rapidi",
     "gallery": "Galleria",
@@ -305,7 +305,7 @@
     "newsletter": "Ricevi Offerte di Lusso",
     "emailPlaceholder": "La tua email",
     "subscribe": "Iscriviti",
-    "copyright": "Sri Lanka Tours Driver — Tutti i diritti riservati",
+    "copyright": "Sri Lanka Best Tours Driver & Guide — Tutti i diritti riservati",
     "subscribed": "Iscrizione avvenuta con successo!",
     "popularTours": "Tour più richiesti",
     "destinations": "Destinazioni",
@@ -397,7 +397,8 @@
     "vehicleLabel": "Veicolo: {vehicle}",
     "perPersonApprox": "≈ {price} a persona",
     "estimateNote": "Confermiamo il prezzo finale dopo la richiesta. Nessun pagamento ora.",
-    "largeGroup": "Per gruppi oltre {max} persone invieremo un preventivo su misura."
+    "largeGroup": "Per gruppi oltre {max} persone invieremo un preventivo su misura.",
+    "priceChanged": "Il prezzo di questo pacchetto è appena stato aggiornato a {price}. Controlla il nuovo prezzo e invia di nuovo la richiesta."
   },
   "loader": {
     "tagline": "Esplora l'Isola del Paradiso 🌴",

@@ -99,6 +99,29 @@ ${D} :is(input,textarea,select){color-scheme:dark}
 ${pal.join("\n")}
 ${dark.join("\n")}
 
+/* Home-page sections and cards styled in globals.css (light gradients that the class rules above cannot see) */
+${D} :is(.experience-section,.activity-section,.destinations-home,.featured-tours-section,.seasonal-section,.bespoke-section,.day-tours-section,.stats-section,.testimonials-section){background:var(--t-dark-bg)!important}
+${D} :is(.featured-tours-section,.day-tours-section)::before{opacity:.25}
+${D} .offer-section{background:linear-gradient(180deg,var(--t-dark-bg) 0%,var(--t-dark-bg) 70%,#102d35 100%)!important}
+${D} .why-us-section{background:linear-gradient(180deg,#5c786b,#123e36 120px,#123e36 calc(100% - 80px),var(--t-dark-bg))}
+${D} .why-us-section::after{background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--t-dark-bg) 55%,transparent) 55%,var(--t-dark-bg))}
+${D} .cine-ascent{background:linear-gradient(180deg,#16242c,var(--t-dark-bg))}
+${D} .cine-plate-ascent::after{background:linear-gradient(var(--copy-direction,90deg),color-mix(in srgb,var(--t-dark-bg) 88%,transparent),color-mix(in srgb,var(--t-dark-bg) 70%,transparent) 32%,transparent 80%)}
+${D} .cine-ascent .cine-copy{text-shadow:0 0 22px rgb(0 0 0 / 60%)}
+${D} .cine-ascent :is(.cine-copy,.cine-skytext) :is(p,h2,h3,span){color:var(--t-dark-text)}
+${D} .cine-descent{background:linear-gradient(180deg,var(--t-dark-bg),#9a6a35 30%,#5a3418 60%)}
+${D} :is(.activity-card,.dest-card,.stat-card,.review-card,.bespoke-card-back-near){background:var(--t-dark-surface);border-color:var(--t-dark-border)}
+${D} .bespoke-detail-photo{border-color:var(--t-dark-bg)}
+${D} .bespoke-card-back-far{background:color-mix(in oklab,var(--t-dark-surface) 80%,#cfddd4)}
+${D} .bespoke-photo-caption span{color:var(--t-dark-text);border-color:var(--t-dark-border)}
+${D} .activity-icon{background:color-mix(in oklab,var(--t-dark-surface) 70%,#d4a853);color:#f3cf8a}
+${D} .activity-more{color:#e8c27a}
+${D} .stat-number{color:var(--t-dark-text)}
+${D} .stat-label{color:var(--t-dark-muted)}
+${D} .stat-suffix{color:#e8a066}
+/* Dark text stays dark on bright amber / orange buttons */
+${D} :is([class*="bg-amber-"],[class*="bg-orange-4"],[class*="bg-yellow-"]):is(.text-slate-950,.text-slate-900,.text-gray-900){color:#1a1209}
+
 /* ── Brand presets (only when the colours differ from the original design) ── */
 ${P}{${accentVars.join(";")}}
 ${brand.join("\n")}

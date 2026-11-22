@@ -108,6 +108,29 @@ html[data-theme="dark"] body:not(:has(.admin-root)) .bg-\[\#edf4ef\]{background-
 html[data-theme="dark"] body:not(:has(.admin-root)) .text-\[\#0a0e27\]{color:var(--t-dark-text)}
 html[data-theme="dark"] body:not(:has(.admin-root)) .bg-\[\#eef3f2\]{background-color:var(--t-dark-bg)}
 
+/* Home-page sections and cards styled in globals.css (light gradients that the class rules above cannot see) */
+html[data-theme="dark"] body:not(:has(.admin-root)) :is(.experience-section,.activity-section,.destinations-home,.featured-tours-section,.seasonal-section,.bespoke-section,.day-tours-section,.stats-section,.testimonials-section){background:var(--t-dark-bg)!important}
+html[data-theme="dark"] body:not(:has(.admin-root)) :is(.featured-tours-section,.day-tours-section)::before{opacity:.25}
+html[data-theme="dark"] body:not(:has(.admin-root)) .offer-section{background:linear-gradient(180deg,var(--t-dark-bg) 0%,var(--t-dark-bg) 70%,#102d35 100%)!important}
+html[data-theme="dark"] body:not(:has(.admin-root)) .why-us-section{background:linear-gradient(180deg,#5c786b,#123e36 120px,#123e36 calc(100% - 80px),var(--t-dark-bg))}
+html[data-theme="dark"] body:not(:has(.admin-root)) .why-us-section::after{background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--t-dark-bg) 55%,transparent) 55%,var(--t-dark-bg))}
+html[data-theme="dark"] body:not(:has(.admin-root)) .cine-ascent{background:linear-gradient(180deg,#16242c,var(--t-dark-bg))}
+html[data-theme="dark"] body:not(:has(.admin-root)) .cine-plate-ascent::after{background:linear-gradient(var(--copy-direction,90deg),color-mix(in srgb,var(--t-dark-bg) 88%,transparent),color-mix(in srgb,var(--t-dark-bg) 70%,transparent) 32%,transparent 80%)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .cine-ascent .cine-copy{text-shadow:0 0 22px rgb(0 0 0 / 60%)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .cine-ascent :is(.cine-copy,.cine-skytext) :is(p,h2,h3,span){color:var(--t-dark-text)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .cine-descent{background:linear-gradient(180deg,var(--t-dark-bg),#9a6a35 30%,#5a3418 60%)}
+html[data-theme="dark"] body:not(:has(.admin-root)) :is(.activity-card,.dest-card,.stat-card,.review-card,.bespoke-card-back-near){background:var(--t-dark-surface);border-color:var(--t-dark-border)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .bespoke-detail-photo{border-color:var(--t-dark-bg)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .bespoke-card-back-far{background:color-mix(in oklab,var(--t-dark-surface) 80%,#cfddd4)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .bespoke-photo-caption span{color:var(--t-dark-text);border-color:var(--t-dark-border)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .activity-icon{background:color-mix(in oklab,var(--t-dark-surface) 70%,#d4a853);color:#f3cf8a}
+html[data-theme="dark"] body:not(:has(.admin-root)) .activity-more{color:#e8c27a}
+html[data-theme="dark"] body:not(:has(.admin-root)) .stat-number{color:var(--t-dark-text)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .stat-label{color:var(--t-dark-muted)}
+html[data-theme="dark"] body:not(:has(.admin-root)) .stat-suffix{color:#e8a066}
+/* Dark text stays dark on bright amber / orange buttons */
+html[data-theme="dark"] body:not(:has(.admin-root)) :is([class*="bg-amber-"],[class*="bg-orange-4"],[class*="bg-yellow-"]):is(.text-slate-950,.text-slate-900,.text-gray-900){color:#1a1209}
+
 /* ── Brand presets (only when the colours differ from the original design) ── */
 html[data-brand="custom"] body:not(:has(.admin-root)){--color-amber-400:var(--t-accent);--color-amber-500:var(--t-accent);--color-amber-600:var(--t-accent);--color-orange-400:var(--t-accent);--color-orange-500:var(--t-accent);--color-orange-600:var(--t-accent);--color-yellow-500:var(--t-accent)}
 html[data-brand="custom"] body:not(:has(.admin-root)) .bg-\[\#f5efe3\]{background-color:var(--t-bg)}
