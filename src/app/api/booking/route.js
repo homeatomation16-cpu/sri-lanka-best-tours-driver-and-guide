@@ -1,8 +1,10 @@
+import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
+import EmailOtp from "@/models/EmailOtp";
 import { NextResponse } from "next/server";
 import { requireAdmin, esc } from "@/lib/adminAuth";
-import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
+import { clientIp, isEmail, rateLimited, sha256 } from "@/lib/customerAuth";
 import { ADMIN_EMAIL, emailLayout, sendEmail, SITE_URL } from "@/lib/email";
 import { formatUsd, MAX_TRAVELLERS, PRICED_TOUR_IDS, serverQuote } from "@/lib/tourPricing";
 
@@ -63,28 +65,53 @@ export async function POST(req) {
       };
     }
 
+    // ✅ E-MAIL VERIFIED ON THE SERVER: /api/verify-email returns a proof after a correct code.
+    // It is checked only now, after validation and pricing, so a rejected request does not use it up.
+    const proof = typeof body.emailProof === "string" ? body.emailProof : "";
+    if (!proof) {
+      return NextResponse.json({ error: "emailNotVerified" }, { status: 403 });
+    }
+
     await connectDB();
 
-    // ✅ SAVE DB FIRST
-    const booking = await Booking.create({
-      name,
-      email,
-      phone,
-      date,
-      time,
-      itemName,
-      bookingType,
-      people: requestedPeople,
-      adults: Number.isInteger(Number(adults)) ? Number(adults) : undefined,
-      children: Number.isInteger(Number(children)) ? Number(children) : undefined,
-      childrenAges: ages,
-      country,
-      endDate,
-      pickupLocation,
-      ...price,
-      message: message || notes,
-      status: "pending",
-    });
+    // ✅ SAVE: using the proof and creating the booking happen in one transaction, so a proof books
+    // exactly once (a simultaneous second request finds it gone) and is kept if the save fails.
+    const NOT_VERIFIED = new Error("emailNotVerified");
+    let booking;
+    const session = await mongoose.startSession();
+    try {
+      await session.withTransaction(async () => {
+        const used = await EmailOtp.findOneAndDelete(
+          { _id: sha256(email.trim().toLowerCase()), proofHash: sha256(proof), purpose: "booking", expiresAt: { $gt: new Date() } },
+          { session },
+        );
+        if (!used) throw NOT_VERIFIED;
+        [booking] = await Booking.create([{
+          name,
+          email,
+          phone,
+          date,
+          time,
+          itemName,
+          bookingType,
+          people: requestedPeople,
+          adults: Number.isInteger(Number(adults)) ? Number(adults) : undefined,
+          children: Number.isInteger(Number(children)) ? Number(children) : undefined,
+          childrenAges: ages,
+          country,
+          endDate,
+          pickupLocation,
+          ...price,
+          message: message || notes,
+          status: "pending",
+        }], { session });
+      });
+    } catch (error) {
+      if (error === NOT_VERIFIED) return NextResponse.json({ error: "emailNotVerified" }, { status: 403 });
+      throw error;
+    } finally {
+      await session.endSession();
+    }
 
     // 🔥 EMAIL TRY BLOCK (important)
     try {

@@ -193,6 +193,7 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
           quotedTotal: priceRow?.price,
           itemName: tour.title,
           bookingType: "Tour",
+          emailProof: verifyData.proof, // the server checks this instead of trusting the browser
         }),
       });
 

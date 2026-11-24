@@ -9,6 +9,7 @@ import { clientIp, isEmail, rateLimited, sha256 } from "@/lib/customerAuth";
 
 const CODE_TTL_MS = 5 * 60 * 1000;
 const MAX_GUESSES = 5;
+const PROOF_TTL_MS = 30 * 60 * 1000; // time to finish the booking after a correct code
 
 export async function POST(request: Request) {
   try {
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
       const otp = crypto.randomInt(100000, 1000000).toString();
       await EmailOtp.findOneAndUpdate(
         { _id: id },
-        { codeHash: sha256(otp), attempts: 0, expiresAt: new Date(Date.now() + CODE_TTL_MS) },
+        { $set: { codeHash: sha256(otp), attempts: 0, expiresAt: new Date(Date.now() + CODE_TTL_MS) }, $unset: { proofHash: 1, purpose: 1 } },
         { upsert: true },
       );
 
@@ -99,7 +100,7 @@ export async function POST(request: Request) {
       }
 
       const record = await EmailOtp.findById(id).lean();
-      if (!record) {
+      if (!record || !record.codeHash) {
         return Response.json({ success: false, message: "No OTP found. Please request a new code." }, { status: 400 });
       }
       if (Date.now() > new Date(record.expiresAt).getTime() || record.attempts >= MAX_GUESSES) {
@@ -113,9 +114,17 @@ export async function POST(request: Request) {
         return Response.json({ success: false, message: "Invalid OTP." }, { status: 400 });
       }
 
-      // correct: single use
-      await EmailOtp.deleteOne({ _id: id });
-      return Response.json({ success: true, message: "Email verified" });
+      // Correct: the code is used up and replaced by a proof that only /api/booking accepts, once,
+      // for this e-mail address. The filter on codeHash makes a second, simultaneous verify fail.
+      const proof = crypto.randomBytes(32).toString("base64url");
+      const swapped = await EmailOtp.updateOne(
+        { _id: id, codeHash: record.codeHash },
+        { $set: { proofHash: sha256(proof), purpose: "booking", expiresAt: new Date(Date.now() + PROOF_TTL_MS) }, $unset: { codeHash: 1, attempts: 1 } },
+      );
+      if (swapped.modifiedCount !== 1) {
+        return Response.json({ success: false, message: "No OTP found. Please request a new code." }, { status: 400 });
+      }
+      return Response.json({ success: true, message: "Email verified", proof });
     }
 
     return Response.json({ success: false, message: "Invalid action" }, { status: 400 });

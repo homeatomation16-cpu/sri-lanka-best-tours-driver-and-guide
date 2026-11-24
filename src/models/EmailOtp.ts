@@ -1,10 +1,14 @@
 import mongoose, { Schema, models } from "mongoose";
 
-// Booking e-mail verification codes. Only hashes are stored; MongoDB deletes expired codes.
+// Booking e-mail verification. A document holds either a pending 6-digit code or, once the code
+// is correct, a short-lived proof the booking API consumes. Only hashes are stored; MongoDB deletes
+// expired documents, and both routes also check expiresAt themselves.
 const EmailOtpSchema = new Schema(
   {
     _id: String, // sha256(lower-case e-mail)
-    codeHash: { type: String, required: true },
+    codeHash: String, // sha256(code) while a code is pending
+    proofHash: String, // sha256(proof token) after a correct code
+    purpose: String, // "booking" for a proof
     attempts: { type: Number, default: 0 },
     expiresAt: { type: Date, required: true },
   },
