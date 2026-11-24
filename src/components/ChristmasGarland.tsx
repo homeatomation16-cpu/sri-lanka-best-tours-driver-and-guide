@@ -152,10 +152,17 @@ export default function ChristmasGarland() {
       build();
       if (still) draw(performance.now());
     };
+    // stop redrawing while the tab is in the background
+    const onVisibility = () => {
+      cancelAnimationFrame(raf);
+      if (!document.hidden && !still) raf = requestAnimationFrame(draw);
+    };
     window.addEventListener("resize", onResize);
+    document.addEventListener("visibilitychange", onVisibility);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 

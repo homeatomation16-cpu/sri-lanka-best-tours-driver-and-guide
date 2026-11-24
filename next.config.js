@@ -47,7 +47,7 @@ const nextConfig = {
   images: {
     // serve AVIF first, then WebP, to browsers that accept them (same pixels, smaller files)
     formats: ["image/avif", "image/webp"],
-    qualities: [60, 75],
+    qualities: [60, 65, 75, 80],
     remotePatterns: [
       {
         protocol: "http",
