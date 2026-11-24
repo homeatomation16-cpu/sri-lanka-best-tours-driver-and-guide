@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { ADMIN_EMAIL, sendEmail } from "@/lib/email";
 import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
@@ -6,7 +6,7 @@ import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
 
 export async function POST(req) {
   try {
-    if (rateLimited(`contact:${clientIp(req)}`, 5, 3600000)) {
+    if (await rateLimited(`contact:${clientIp(req)}`, 5, 3600000)) {
       return Response.json({ success: false }, { status: 429 });
     }
     const body = await req.json();
@@ -30,14 +30,8 @@ export async function POST(req) {
 
     // 2) E-mail notification
     try {
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-      });
-
-      await transporter.sendMail({
-        from: `"Website Contact" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_USER,
+      await sendEmail({
+        to: ADMIN_EMAIL,
         replyTo: email,
         subject: `New Contact Message from ${String(name).replace(/[\r\n]/g, " ")}`,
         html: `

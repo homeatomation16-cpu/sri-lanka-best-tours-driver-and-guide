@@ -8,6 +8,8 @@ export const BRAND = "Sri Lanka Best Tours Driver & Guide";
 export const SITE_URL = (process.env.SITE_URL || "https://srilankabesttourdriverandguide.com").replace(/\/$/, "");
 
 const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
+/** Where new bookings and enquiries are reported. */
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || smtpUser || "";
 
 const transporter = process.env.SMTP_USER
   ? nodemailer.createTransport({

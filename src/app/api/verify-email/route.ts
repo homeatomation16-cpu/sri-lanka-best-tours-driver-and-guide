@@ -1,55 +1,46 @@
-// src/app/api/verify-email/route.js
-// OTP Send + Verify — Nodemailer SMTP
+// Booking e-mail verification: sends a 6-digit code and checks it.
+// Codes are stored hashed in MongoDB (shared by every server instance), expire after 5 minutes,
+// allow 5 guesses each, and are deleted once used. Mail goes through the shared transport in lib/email.
+import crypto from "node:crypto";
+import connectDB from "@/lib/mongodb";
+import EmailOtp from "@/models/EmailOtp";
+import { sendEmail } from "@/lib/email";
+import { clientIp, isEmail, rateLimited, sha256 } from "@/lib/customerAuth";
 
-import nodemailer from "nodemailer";
-import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
+const CODE_TTL_MS = 5 * 60 * 1000;
+const MAX_GUESSES = 5;
 
-// ── In-memory OTP store (production වල Redis use කරන්න) ──
-// Map<email, { otp: string, expiresAt: number }>
-const otpStore = new Map();
-
-// ── Nodemailer transporter ──
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,       // e.g. smtp.gmail.com
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true,                      // 465 port = SSL
-  auth: {
-    user: process.env.SMTP_USER,     // your email
-    pass: process.env.SMTP_PASS,     // app password
-  },
-});
-
-// ── 6-digit OTP generate ──
-function generateOtp() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-}
-
-export async function POST(request) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, otp: userOtp, action } = body;
+    const { otp: userOtp, action } = body;
+    const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
 
     if (!isEmail(email) || !action) {
       return Response.json({ success: false, message: "Missing fields" }, { status: 400 });
     }
-    // Limits: codes sent per address and per visitor, and guesses per address (a 6-digit code must not be brute-forced).
+    // Limits: codes sent per address and per visitor, and guesses per address.
     const ip = clientIp(request);
     const limited = action === "send"
-      ? rateLimited(`otp-send:${ip}`, 5, 900000) || rateLimited(`otp-send:${email.toLowerCase()}`, 3, 900000)
-      : rateLimited(`otp-verify:${email.toLowerCase()}`, 8, 900000);
+      ? (await rateLimited(`otp-send:${ip}`, 5, 900000)) || (await rateLimited(`otp-send:${email}`, 3, 900000))
+      : await rateLimited(`otp-verify:${email}`, 8, 900000);
     if (limited) {
       return Response.json({ success: false, message: "Too many attempts. Please wait a few minutes." }, { status: 429 });
     }
 
+    await connectDB();
+    const id = sha256(email);
+
     // ── SEND OTP ──
     if (action === "send") {
-      const otp = generateOtp();
-      const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes
+      const otp = crypto.randomInt(100000, 1000000).toString();
+      await EmailOtp.findOneAndUpdate(
+        { _id: id },
+        { codeHash: sha256(otp), attempts: 0, expiresAt: new Date(Date.now() + CODE_TTL_MS) },
+        { upsert: true },
+      );
 
-      otpStore.set(email.toLowerCase(), { otp, expiresAt });
-
-      await transporter.sendMail({
-        from: `"Sri Lanka Best Tours Driver & Guide" <${process.env.SMTP_USER}>`,
+      const sent = await sendEmail({
         to: email,
         subject: "Your Verification Code — Sri Lanka Tours",
         html: `
@@ -94,7 +85,10 @@ export async function POST(request) {
           </html>
         `,
       });
-
+      if (!sent) {
+        await EmailOtp.deleteOne({ _id: id });
+        return Response.json({ success: false, message: "Server error" }, { status: 500 });
+      }
       return Response.json({ success: true, message: "OTP sent" });
     }
 
@@ -104,29 +98,27 @@ export async function POST(request) {
         return Response.json({ success: false, message: "OTP required" }, { status: 400 });
       }
 
-      const record = otpStore.get(email.toLowerCase());
-
+      const record = await EmailOtp.findById(id).lean();
       if (!record) {
         return Response.json({ success: false, message: "No OTP found. Please request a new code." }, { status: 400 });
       }
-
-      if (Date.now() > record.expiresAt) {
-        otpStore.delete(email.toLowerCase());
+      if (Date.now() > new Date(record.expiresAt).getTime() || record.attempts >= MAX_GUESSES) {
+        await EmailOtp.deleteOne({ _id: id });
         return Response.json({ success: false, message: "OTP expired. Please request a new code." }, { status: 400 });
       }
 
-      if (record.otp !== userOtp.trim()) {
+      const given = Buffer.from(sha256(String(userOtp).trim()));
+      if (!crypto.timingSafeEqual(given, Buffer.from(record.codeHash))) {
+        await EmailOtp.updateOne({ _id: id }, { $inc: { attempts: 1 } });
         return Response.json({ success: false, message: "Invalid OTP." }, { status: 400 });
       }
 
-      // OTP correct — delete from store (single use)
-      otpStore.delete(email.toLowerCase());
-
+      // correct: single use
+      await EmailOtp.deleteOne({ _id: id });
       return Response.json({ success: true, message: "Email verified" });
     }
 
     return Response.json({ success: false, message: "Invalid action" }, { status: 400 });
-
   } catch (error) {
     console.error("verify-email error:", error);
     return Response.json({ success: false, message: "Server error" }, { status: 500 });

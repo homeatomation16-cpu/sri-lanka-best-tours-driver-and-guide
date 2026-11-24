@@ -1,27 +1,15 @@
-import nodemailer from "nodemailer";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import { NextResponse } from "next/server";
 import { requireAdmin, esc } from "@/lib/adminAuth";
 import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
-import { emailLayout, sendEmail, SITE_URL } from "@/lib/email";
+import { ADMIN_EMAIL, emailLayout, sendEmail, SITE_URL } from "@/lib/email";
 import { formatUsd, MAX_TRAVELLERS, PRICED_TOUR_IDS, serverQuote } from "@/lib/tourPricing";
-
-// 🔹 MAIL TRANSPORT
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "smtp.gmail.com",
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
 
 // 🔹 CREATE BOOKING
 export async function POST(req) {
   try {
-    if (rateLimited(`booking:${clientIp(req)}`, 10, 3600000)) {
+    if (await rateLimited(`booking:${clientIp(req)}`, 10, 3600000)) {
       return NextResponse.json({ error: "Too many requests, please try again later" }, { status: 429 });
     }
     const body = await req.json();
@@ -98,14 +86,11 @@ export async function POST(req) {
       status: "pending",
     });
 
-    const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
-
     // 🔥 EMAIL TRY BLOCK (important)
     try {
       // 📩 ADMIN EMAIL
-      await transporter.sendMail({
-        from: `"Tours Booking" <${process.env.SMTP_USER}>`,
-        to: adminEmail,
+      await sendEmail({
+        to: ADMIN_EMAIL,
         replyTo: email,
         subject: `New Booking - ${String(itemName || "Tour").replace(/[\r\n]/g, " ")}`,
         html: `

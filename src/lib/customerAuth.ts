@@ -5,6 +5,7 @@ import { promisify } from "node:util";
 import { cookies } from "next/headers";
 import connectDB from "@/lib/mongodb";
 import Customer from "@/models/Customer";
+import RateLimit from "@/models/RateLimit";
 
 const scrypt = promisify(crypto.scrypt) as (password: string, salt: string, keylen: number) => Promise<Buffer>;
 
@@ -96,15 +97,32 @@ export async function getCurrentCustomer() {
   return { id: String(customer._id), name: customer.name, email: customer.email, emailVerified: customer.emailVerified, createdAt: customer.createdAt };
 }
 
-// ── rate limiting (per server instance; enough to slow down password guessing) ──
+// ── rate limiting: shared by all server instances through MongoDB (fixed windows) ──
+// If the database cannot be reached, a per-instance memory count is used so requests are still limited.
 const hits = new Map<string, number[]>();
-export function rateLimited(key: string, limit: number, windowMs: number) {
+function memoryRateLimited(key: string, limit: number, windowMs: number) {
   const now = Date.now();
   const recent = (hits.get(key) || []).filter((t) => now - t < windowMs);
   recent.push(now);
   hits.set(key, recent);
   if (hits.size > 5000) for (const [k, v] of hits) if (now - v[v.length - 1] > windowMs) hits.delete(k);
   return recent.length > limit;
+}
+
+export async function rateLimited(key: string, limit: number, windowMs: number) {
+  const window = Math.floor(Date.now() / windowMs);
+  try {
+    await connectDB();
+    const doc = await RateLimit.findOneAndUpdate(
+      { _id: `${sha256(key)}:${window}` },
+      { $inc: { count: 1 }, $setOnInsert: { expiresAt: new Date((window + 1) * windowMs) } },
+      { upsert: true, new: true, lean: true },
+    );
+    return doc.count > limit;
+  } catch (error) {
+    console.error("Rate limit store unavailable, using memory:", error);
+    return memoryRateLimited(key, limit, windowMs);
+  }
 }
 
 export function clientIp(req: Request) {

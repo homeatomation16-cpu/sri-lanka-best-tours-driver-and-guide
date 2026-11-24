@@ -57,7 +57,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
     await connectDB();
 
     if (action === "register") {
-      if (rateLimited(`register:${ip}`, 5, 3600000)) return json({ error: "rateLimited" }, 429);
+      if (await rateLimited(`register:${ip}`, 5, 3600000)) return json({ error: "rateLimited" }, 429);
       const name = typeof body.name === "string" ? body.name.trim().slice(0, 120) : "";
       if (!name || !isEmail(email) || !isStrongPassword(body.password)) return json({ error: "checkFields" }, 400);
       if (await Customer.exists({ email })) return json({ error: "emailTaken" }, 409);
@@ -68,7 +68,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
     }
 
     if (action === "login") {
-      if (rateLimited(`login:${ip}`, 20, 900000) || rateLimited(`login:${email}`, 8, 900000)) return json({ error: "locked" }, 429);
+      if ((await rateLimited(`login:${ip}`, 20, 900000)) || (await rateLimited(`login:${email}`, 8, 900000))) return json({ error: "locked" }, 429);
       const customer = isEmail(email) ? await Customer.findOne({ email }).select("+passwordHash") : null;
       const ok = await verifyPassword(String(body.password ?? ""), customer?.passwordHash);
       if (!customer || !ok) return json({ error: "invalidCredentials" }, 401);
@@ -81,7 +81,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
     if (action === "google") {
       // Google Identity Services ID token. Google's tokeninfo endpoint checks the signature and expiry;
       // we check that it was issued for this site's client ID and that Google verified the e-mail.
-      if (rateLimited(`google:${ip}`, 20, 900000)) return json({ error: "rateLimited" }, 429);
+      if (await rateLimited(`google:${ip}`, 20, 900000)) return json({ error: "rateLimited" }, 429);
       const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
       if (!clientId || typeof body.credential !== "string" || body.credential.length > 4096) return json({ error: "googleFailed" }, 400);
       const res = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(body.credential)}`, { cache: "no-store" });
@@ -115,7 +115,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
     }
 
     if (action === "forgot-password") {
-      if (rateLimited(`forgot:${ip}`, 5, 3600000)) return json({ error: "rateLimited" }, 429);
+      if (await rateLimited(`forgot:${ip}`, 5, 3600000)) return json({ error: "rateLimited" }, 429);
       // Same answer whether or not the account exists
       const customer = isEmail(email) ? await Customer.findOne({ email }) : null;
       if (customer) {
@@ -136,7 +136,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
     }
 
     if (action === "reset-password") {
-      if (rateLimited(`reset:${ip}`, 10, 3600000)) return json({ error: "rateLimited" }, 429);
+      if (await rateLimited(`reset:${ip}`, 10, 3600000)) return json({ error: "rateLimited" }, 429);
       if (typeof body.token !== "string" || !isStrongPassword(body.password)) return json({ error: "checkFields" }, 400);
       const customer = await Customer.findOne({ resetTokenHash: sha256(body.token), resetExpires: { $gt: new Date() } });
       if (!customer) return json({ error: "resetInvalid" }, 400);
@@ -160,7 +160,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
       const current = await getCurrentCustomer();
       if (!current) return json({ error: "unauthorized" }, 401);
       if (current.emailVerified) return json({ ok: true });
-      if (rateLimited(`verify:${current.id}`, 3, 3600000)) return json({ error: "rateLimited" }, 429);
+      if (await rateLimited(`verify:${current.id}`, 3, 3600000)) return json({ error: "rateLimited" }, 429);
       await sendVerification({ _id: current.id, name: current.name, email: current.email }, body.locale);
       return json({ ok: true });
     }

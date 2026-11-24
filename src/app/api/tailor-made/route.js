@@ -1,13 +1,12 @@
-import nodemailer from "nodemailer";
 import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
 import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
-import { emailLayout, sendEmail } from "@/lib/email";
+import { ADMIN_EMAIL, emailLayout, sendEmail } from "@/lib/email";
 
 export async function POST(req) {
   try {
-    if (rateLimited(`tailor-made:${clientIp(req)}`, 5, 3600000)) {
+    if (await rateLimited(`tailor-made:${clientIp(req)}`, 5, 3600000)) {
       return Response.json({ success: false }, { status: 429 });
     }
     const body = await req.json();
@@ -34,17 +33,8 @@ export async function POST(req) {
     // E-mails are best-effort: the request is already saved, so a mail failure must not
     // show the customer an error (they would send the same request again).
     try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Sri Lanka Tours Driver" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
+    await sendEmail({
+      to: ADMIN_EMAIL,
       subject: `🌴 New Tailor Made Tour Request`,
       html: `
         <h2>Tailor Made Tour Request</h2>
