@@ -7,6 +7,10 @@ import { emailLayout, sendEmail } from "@/lib/email";
 export async function POST(req) {
   try {
     const body = await req.json();
+    // Same rule as the contact form: nothing is saved or e-mailed without a name and e-mail address.
+    if (!body?.name || !body?.email) {
+      return Response.json({ success: false }, { status: 400 });
+    }
 
     // Save to CRM first so the request is never lost even if e-mail fails
     try {
@@ -23,6 +27,9 @@ export async function POST(req) {
       console.error("Inquiry save failed:", dbError);
     }
 
+    // E-mails are best-effort: the request is already saved, so a mail failure must not
+    // show the customer an error (they would send the same request again).
+    try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -79,6 +86,9 @@ export async function POST(req) {
         <p>Our team is planning a route around your dates and interests and will contact you shortly via WhatsApp or e-mail.</p>`,
       ),
     });
+    } catch (mailError) {
+      console.error("Tailor-made e-mail failed:", mailError);
+    }
 
     return Response.json({ success: true });
 
