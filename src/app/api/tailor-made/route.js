@@ -16,6 +16,7 @@ export async function POST(req) {
     }
 
     // Save to CRM first so the request is never lost even if e-mail fails
+    let saved = false;
     try {
       await connectDB();
       await Inquiry.create({
@@ -26,14 +27,16 @@ export async function POST(req) {
         message: body.additionalRequirements,
         data: body,
       });
+      saved = true;
     } catch (dbError) {
       console.error("Inquiry save failed:", dbError);
     }
 
     // E-mails are best-effort: the request is already saved, so a mail failure must not
     // show the customer an error (they would send the same request again).
+    let notified = false;
     try {
-    await sendEmail({
+    notified = await sendEmail({
       to: ADMIN_EMAIL,
       subject: `🌴 New Tailor Made Tour Request`,
       html: `
@@ -84,6 +87,7 @@ export async function POST(req) {
       console.error("Tailor-made e-mail failed:", mailError);
     }
 
+    if (!saved && !notified) return Response.json({ success: false }, { status: 500 });
     return Response.json({ success: true });
 
   } catch (error) {

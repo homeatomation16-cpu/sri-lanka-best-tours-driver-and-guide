@@ -21,16 +21,19 @@ export async function POST(req) {
     }
 
     // 1) Save to CRM first so the message is never lost
+    let saved = false;
     try {
       await connectDB();
       await Inquiry.create({ type: "contact", name, email, phone, message });
+      saved = true;
     } catch (dbError) {
       console.error("Inquiry save failed:", dbError);
     }
 
-    // 2) E-mail notification
+    // 2) E-mail notification (sendEmail returns false instead of throwing)
+    let notified = false;
     try {
-      await sendEmail({
+      notified = await sendEmail({
         to: ADMIN_EMAIL,
         replyTo: email,
         subject: `New Contact Message from ${String(name).replace(/[\r\n]/g, " ")}`,
@@ -46,6 +49,8 @@ export async function POST(req) {
       console.error("Contact email failed:", mailError);
     }
 
+    // Success only if the message reached us one way or the other; otherwise the visitor must retry.
+    if (!saved && !notified) return Response.json({ success: false }, { status: 500 });
     return Response.json({ success: true });
   } catch (error) {
     console.error(error);
