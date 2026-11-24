@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 import { Link } from "@/i18n/navigation";
 import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -77,6 +78,30 @@ const DEFAULT_SLIDES = [
   },
 ];
 
+/** Same look as the 1920px poster; smaller files only where the cropped image is drawn smaller. */
+const POSTER_WIDTHS = [640, 960, 1280, 1920];
+function posterSources(poster: string) {
+  if (!poster.includes("w_1920")) return { src: poster };
+  return {
+    src: poster,
+    srcSet: POSTER_WIDTHS.map((w) => `${poster.replace("w_1920", `w_${w}`)} ${w}w`).join(", "),
+    // object-fit: cover on a 16:9 image: on screens taller than 16:9 (portrait phones) the image is
+    // drawn at height × 16/9 wide, so it needs that many pixels to stay as sharp as before.
+    sizes: "(max-aspect-ratio: 16/9) 178vh, 100vw",
+  };
+}
+
+/** Covers the hero exactly like the video does (the poster used to be drawn by the <video> itself). */
+const MEDIA_STYLE = {
+  position: "absolute",
+  inset: 0,
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  transform: "scale(1.02)",
+  willChange: "transform",
+} as const;
+
 export type HeroSlideInput = {
   type?: "video" | "image";
   src: string;
@@ -150,6 +175,19 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
 
   const slide = SLIDES[current % SLIDES.length];
 
+  // LCP: the first slide's image is requested from <head> with high priority and a responsive
+  // srcset, instead of being discovered late as a <video poster> (which can't be responsive).
+  const first = SLIDES[0];
+  const lcpImage = first.type === "image" ? { src: first.src } : first.poster ? posterSources(first.poster) : null;
+  if (lcpImage) {
+    preload(lcpImage.src, {
+      as: "image",
+      fetchPriority: "high",
+      ...("srcSet" in lcpImage ? { imageSrcSet: lcpImage.srcSet, imageSizes: lcpImage.sizes } : {}),
+    });
+  }
+  const poster = slide.type === "video" && slide.poster ? posterSources(slide.poster) : null;
+
   return (
     <section ref={sectionRef} className="hero-section relative flex flex-col overflow-hidden bg-slate-950 text-white" aria-label={t("brand")}>
       {slide.type === "image" ? (
@@ -158,9 +196,27 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
           key={slide.src}
           src={slide.src}
           alt={slide.title}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.02)", willChange: "transform" }}
+          fetchPriority={current === 0 ? "high" : undefined}
+          style={MEDIA_STYLE}
         />
       ) : (
+        <>
+        {poster && (
+          // The poster as a real image under the video: identical position/crop, but responsive and
+          // high priority. The video has no poster of its own, so it is transparent until it plays.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={`poster-${slide.src}`}
+            src={poster.src}
+            srcSet={"srcSet" in poster ? poster.srcSet : undefined}
+            sizes={"sizes" in poster ? poster.sizes : undefined}
+            alt=""
+            aria-hidden="true"
+            fetchPriority={current === 0 ? "high" : undefined}
+            decoding="async"
+            style={MEDIA_STYLE}
+          />
+        )}
         <video
           ref={videoRef}
           key={slide.src}
@@ -169,22 +225,13 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
           playsInline
           loop
           aria-hidden="true"
-          poster={slide.poster} // Cloudinary-generated poster — critical for LCP
           preload="metadata"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            // Use transform3d for hardware acceleration
-            transform: "scale(1.02)",
-            willChange: "transform", // Hints browser to optimize
-          }}
+          style={MEDIA_STYLE}
         >
           <source src={slide.src.replace(VIDEO_TRANSFORM, MOBILE_VIDEO_TRANSFORM)} media="(max-width: 767px)" />
           <source src={slide.src} />
         </video>
+        </>
       )}
 
       <div className="absolute inset-0 bg-linear-to-r from-slate-950/75 via-slate-950/30 to-transparent" />
