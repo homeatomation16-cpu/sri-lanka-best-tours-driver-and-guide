@@ -10,6 +10,8 @@ const SLIDE_DURATION = 8000;
 // Shared Cloudinary transformation strings — kept as constants so all three
 // slides stay in sync if you tune quality/width later.
 const VIDEO_TRANSFORM = "w_1920,c_limit,q_auto:good,f_auto,vc_auto";
+// Phones get a narrower encode (still sharp on a ~400px-wide, 2–3x screen) to save mobile data.
+const MOBILE_VIDEO_TRANSFORM = "w_1080,c_limit,q_auto:good,f_auto,vc_auto";
 const POSTER_TRANSFORM = "so_auto,f_auto,q_auto,w_1920";
 
 const DEFAULT_SLIDES = [
@@ -180,6 +182,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
             willChange: "transform", // Hints browser to optimize
           }}
         >
+          <source src={slide.src.replace(VIDEO_TRANSFORM, MOBILE_VIDEO_TRANSFORM)} media="(max-width: 767px)" />
           <source src={slide.src} />
         </video>
       )}

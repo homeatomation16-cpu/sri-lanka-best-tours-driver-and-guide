@@ -95,9 +95,8 @@ export default async function VehiclePage({
         { name: v.name, path: `/vehicles/${encodeURIComponent(id)}` },
       ])} />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap');
-        .vd-serif { font-family: 'Cormorant Garamond', serif; }
-        .vd-sans  { font-family: 'Outfit', sans-serif; }
+        .vd-serif { font-family: var(--font-cormorant), 'Cormorant Garamond', serif; }
+        .vd-sans  { font-family: var(--font-outfit), 'Outfit', sans-serif; }
         .vd-anim { animation: vd-up 0.65s cubic-bezier(.22,1,.36,1) both; }
         @keyframes vd-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
