@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { DESTINATIONS } from "@/data/destinations";
+import { getSiteSettings } from "@/lib/siteSettings";
 import PackagePrice from "@/components/PackagePrice";
 import { Metadata } from "next";
 
@@ -72,6 +73,8 @@ export default async function DestinationPage({
 
   const t = await getTranslations("destinations");
   const td = await getTranslations("destinationPage");
+  const tc = await getTranslations("contact.page");
+  const { phone } = await getSiteSettings();
 
   const destination = DESTINATIONS.find(
     (item) => item.id?.trim().toLowerCase() === id?.trim().toLowerCase()
@@ -215,8 +218,8 @@ export default async function DestinationPage({
             </div>
             <div className="rounded-2xl bg-stone-900 p-5 sm:p-6 text-center text-white">
               <p className="text-xs opacity-70 mb-1">{td("needHelp")}</p>
-              <a href="tel:+94702062697" className="block mt-4 px-5 py-2.5 rounded-full bg-amber-500 text-stone-900 font-bold text-xs tracking-tight">
-                📞 CALL SPECIALIST
+              <a href={`tel:${phone.replace(/\s/g, "")}`} className="block mt-4 px-5 py-2.5 rounded-full bg-amber-500 text-stone-900 font-bold text-xs tracking-tight">
+                <span aria-hidden>📞 </span>{tc("callNow")}
               </a>
             </div>
           </div>

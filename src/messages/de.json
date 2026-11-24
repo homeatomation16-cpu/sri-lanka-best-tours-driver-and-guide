@@ -89,7 +89,8 @@
     "cantFindDesc": "Wir planen eine nach Ihren Daten und Wünschen.",
     "planTailor": "Individuelle Tour planen",
     "routeMap": "Routenkarte",
-    "mapCaption": "Geländekarte · Höhendaten: NASA SRTM"
+    "mapCaption": "Geländekarte · Höhendaten: NASA SRTM",
+    "alsoAvailable": "Auch erhältlich als"
   },
   "vehicles": {
     "whatsNew": "Neu",
@@ -151,8 +152,8 @@
         "desc": "Alle unsere Guides sind staatlich lizenziert und in Colombo ansässig."
       },
       "rated": {
-        "title": "5-Sterne Service",
-        "desc": "Auf TripAdvisor regelmäßig für Gastfreundschaft und lokales Wissen gelobt."
+        "title": "Mit 4.9/5 auf Google bewertet",
+        "desc": "Reisende bewerten unseren Service in ihren Google-Bewertungen mit 4.9 von 5."
       },
       "private": {
         "title": "Privat & Persönlich",
@@ -213,8 +214,8 @@
         "desc": "Alle unsere Guides sind staatlich lizenziert und in Colombo ansässig."
       },
       "rated": {
-        "title": "5-Sterne Service",
-        "desc": "Auf TripAdvisor regelmäßig für Gastfreundschaft und lokales Wissen gelobt."
+        "title": "Mit 4.9/5 auf Google bewertet",
+        "desc": "Reisende bewerten unseren Service in ihren Google-Bewertungen mit 4.9 von 5."
       },
       "private": {
         "title": "Privat & Persönlich",
@@ -402,7 +403,17 @@
     "perPersonApprox": "≈ {price} pro Person",
     "estimateNote": "Den Endpreis bestätigen wir nach Ihrer Anfrage. Jetzt keine Zahlung.",
     "largeGroup": "Für Gruppen über {max} Personen senden wir ein individuelles Angebot.",
-    "priceChanged": "Der Preis für dieses Paket wurde gerade auf {price} aktualisiert. Bitte prüfen Sie den neuen Preis und senden Sie Ihre Anfrage erneut."
+    "priceChanged": "Der Preis für dieses Paket wurde gerade auf {price} aktualisiert. Bitte prüfen Sie den neuen Preis und senden Sie Ihre Anfrage erneut.",
+    "passengers": "Mitreisende",
+    "getCode": "Bestätigungscode anfordern",
+    "codeSent": "Wir haben einen 6-stelligen Code an {email} gesendet",
+    "code": "Bestätigungscode",
+    "confirm": "Buchung bestätigen",
+    "resend": "Neuen Code senden",
+    "editDetails": "Angaben bearbeiten",
+    "invalidCode": "Der Code ist falsch oder abgelaufen. Bitte fordern Sie einen neuen an.",
+    "verifyAgain": "Ihre Bestätigung ist abgelaufen. Bitte fordern Sie einen neuen Code an.",
+    "missingFields": "Bitte geben Sie Ihren Namen, eine gültige E-Mail-Adresse und die Anzahl der Mitreisenden an."
   },
   "loader": {
     "tagline": "Entdecken Sie das Inselparadies 🌴",

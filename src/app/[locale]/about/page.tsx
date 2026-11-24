@@ -4,7 +4,7 @@ import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowUpRight, Award, CheckCircle2, Heart, Shield, Star, Users } from "lucide-react";
+import { ArrowUpRight, Award, CheckCircle2, Heart, Star, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { ListingHero } from "@/components/site/ListingPage";
 
@@ -15,7 +15,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 const REASONS = [
-  { key: "licensed", icon: Shield },
   { key: "rated", icon: Star },
   { key: "private", icon: Users },
   { key: "passionate", icon: Heart },

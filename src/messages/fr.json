@@ -89,7 +89,8 @@
     "cantFindDesc": "Nous en créons un selon vos dates et vos envies.",
     "planTailor": "Créer un circuit sur mesure",
     "routeMap": "Carte de l’itinéraire",
-    "mapCaption": "Carte du relief · données d’altitude : NASA SRTM"
+    "mapCaption": "Carte du relief · données d’altitude : NASA SRTM",
+    "alsoAvailable": "Également disponible :"
   },
   "vehicles": {
     "whatsNew": "Nouveau",
@@ -151,8 +152,8 @@
         "desc": "Tous nos guides sont agréés par le gouvernement."
       },
       "rated": {
-        "title": "Service 5 Étoiles",
-        "desc": "Régulièrement salué sur TripAdvisor."
+        "title": "Noté 4.9/5 sur Google",
+        "desc": "Les voyageurs notent notre service 4.9 sur 5 dans leurs avis Google."
       },
       "private": {
         "title": "Privé & Personnalisé",
@@ -213,8 +214,8 @@
         "desc": "Tous nos guides sont agréés par le gouvernement."
       },
       "rated": {
-        "title": "Service 5 Étoiles",
-        "desc": "Régulièrement salué sur TripAdvisor."
+        "title": "Noté 4.9/5 sur Google",
+        "desc": "Les voyageurs notent notre service 4.9 sur 5 dans leurs avis Google."
       },
       "private": {
         "title": "Privé & Personnalisé",
@@ -402,7 +403,17 @@
     "perPersonApprox": "≈ {price} par personne",
     "estimateNote": "Nous confirmons le prix final après votre demande. Aucun paiement maintenant.",
     "largeGroup": "Pour les groupes de plus de {max} personnes, nous vous enverrons un devis.",
-    "priceChanged": "Le prix de ce forfait vient d'être mis à jour à {price}. Veuillez vérifier le nouveau prix et renvoyer votre demande."
+    "priceChanged": "Le prix de ce forfait vient d'être mis à jour à {price}. Veuillez vérifier le nouveau prix et renvoyer votre demande.",
+    "passengers": "Passagers",
+    "getCode": "Recevoir le code de vérification",
+    "codeSent": "Nous avons envoyé un code à 6 chiffres à {email}",
+    "code": "Code de vérification",
+    "confirm": "Confirmer la réservation",
+    "resend": "Envoyer un nouveau code",
+    "editDetails": "Modifier les informations",
+    "invalidCode": "Ce code est incorrect ou a expiré. Veuillez en demander un nouveau.",
+    "verifyAgain": "Votre vérification a expiré. Veuillez demander un nouveau code.",
+    "missingFields": "Veuillez indiquer votre nom, une adresse e-mail valide et le nombre de passagers."
   },
   "loader": {
     "tagline": "Explorez l'Île Paradis 🌴",

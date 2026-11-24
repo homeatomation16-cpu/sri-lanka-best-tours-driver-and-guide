@@ -89,7 +89,8 @@
     "cantFindDesc": "Ne creiamo uno in base alle tue date e ai tuoi interessi.",
     "planTailor": "Pianifica un tour su misura",
     "routeMap": "Mappa del percorso",
-    "mapCaption": "Mappa del rilievo · dati di elevazione: NASA SRTM"
+    "mapCaption": "Mappa del rilievo · dati di elevazione: NASA SRTM",
+    "alsoAvailable": "Disponibile anche come"
   },
   "vehicles": {
     "whatsNew": "Novità",
@@ -151,8 +152,8 @@
         "desc": "Tutte le nostre guide sono professionisti autorizzati dal governo con sede a Colombo."
       },
       "rated": {
-        "title": "Servizio a 5 Stelle",
-        "desc": "Costantemente lodati su TripAdvisor per l'eccezionale ospitalità e conoscenza locale."
+        "title": "Valutato 4.9/5 su Google",
+        "desc": "I viaggiatori valutano il nostro servizio 4.9 su 5 nelle recensioni Google."
       },
       "private": {
         "title": "Privato e Personalizzato",
@@ -213,8 +214,8 @@
         "desc": "Tutte le nostre guide sono professionisti autorizzati dal governo con sede a Colombo."
       },
       "rated": {
-        "title": "Servizio a 5 Stelle",
-        "desc": "Costantemente lodati su TripAdvisor per l'eccezionale ospitalità e conoscenza locale."
+        "title": "Valutato 4.9/5 su Google",
+        "desc": "I viaggiatori valutano il nostro servizio 4.9 su 5 nelle recensioni Google."
       },
       "private": {
         "title": "Privato e Personalizzato",
@@ -402,7 +403,17 @@
     "perPersonApprox": "≈ {price} a persona",
     "estimateNote": "Confermiamo il prezzo finale dopo la richiesta. Nessun pagamento ora.",
     "largeGroup": "Per gruppi oltre {max} persone invieremo un preventivo su misura.",
-    "priceChanged": "Il prezzo di questo pacchetto è appena stato aggiornato a {price}. Controlla il nuovo prezzo e invia di nuovo la richiesta."
+    "priceChanged": "Il prezzo di questo pacchetto è appena stato aggiornato a {price}. Controlla il nuovo prezzo e invia di nuovo la richiesta.",
+    "passengers": "Passeggeri",
+    "getCode": "Ricevi il codice di verifica",
+    "codeSent": "Abbiamo inviato un codice di 6 cifre a {email}",
+    "code": "Codice di verifica",
+    "confirm": "Conferma prenotazione",
+    "resend": "Invia un nuovo codice",
+    "editDetails": "Modifica dati",
+    "invalidCode": "Il codice è errato o scaduto. Richiedine uno nuovo.",
+    "verifyAgain": "La verifica è scaduta. Richiedi un nuovo codice.",
+    "missingFields": "Inserisci il tuo nome, un indirizzo e-mail valido e il numero di passeggeri."
   },
   "loader": {
     "tagline": "Esplora l'Isola del Paradiso 🌴",

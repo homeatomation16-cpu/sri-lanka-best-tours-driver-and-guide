@@ -4,9 +4,11 @@
 // The number comes from Admin → Site settings.
 import { FaWhatsapp } from "react-icons/fa6";
 import { useContact } from "@/components/ContactProvider";
+import { useTranslations } from "next-intl";
 
 export default function WhatsAppButton() {
   const contact = useContact();
+  const t = useTranslations("contact.page");
   if (!contact.whatsappme) return null;
 
   return (
@@ -14,8 +16,8 @@ export default function WhatsAppButton() {
       href={contact.whatsappme}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Chat on WhatsApp ${contact.whatsapp}`}
-      title="Chat on WhatsApp"
+      aria-label={`${t("whatsappUs")} ${contact.whatsapp}`}
+      title={t("whatsappUs")}
       className="group fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-6px_rgba(37,211,102,0.6)] transition-transform hover:scale-110 active:scale-95 max-sm:bottom-[calc(12px+env(safe-area-inset-bottom))] max-sm:left-3 max-sm:h-12 max-sm:w-12"
     >
       {/* soft pulse ring to draw the eye */}

@@ -20,6 +20,7 @@ export default function Navbar() {
   const contact = useContact();
   const t = useTranslations("nav");
   const tHome = useTranslations("home");
+  const tContact = useTranslations("contact.page");
   const pathname = usePathname();
 
   const [scrolled, setScrolled] = useState(false);
@@ -105,10 +106,10 @@ export default function Navbar() {
 
           <a
             href={`tel:${contact.phone}`}
-            aria-label={contact.phone}
+            aria-label={`${tContact("callUs")} ${contact.phone}`}
             className={`hidden h-11 w-11 items-center justify-center rounded-full transition-colors lg:inline-flex ${textColor} ${solid ? "hover:bg-slate-100" : "hover:bg-white/10"}`}
           >
-            <Phone size={16} />
+            <Phone size={16} aria-hidden />
           </a>
 
           <ThemeToggle className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors ${textColor} ${solid ? "hover:bg-slate-100" : "hover:bg-white/10"}`} />

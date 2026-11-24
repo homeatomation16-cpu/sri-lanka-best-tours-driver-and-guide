@@ -14,6 +14,7 @@ import { useContact } from "@/components/ContactProvider";
 export default function TrustBar() {
   const contact = useContact();
   const t = useTranslations("trustBar");
+  const tPage = useTranslations("contact.page");
 
   const socialLinks = [
     { href: contact.social.facebook, icon: FaFacebook, label: "Facebook", hoverBg: "hover:bg-blue-600", iconColor: "text-blue-600 group-hover:text-white" },
@@ -40,7 +41,7 @@ export default function TrustBar() {
     { 
       href: contact.whatsappme, 
       icon: FaWhatsapp, 
-      label: "WhatsApp Us", 
+      label: tPage("whatsappUs"),
       subLabel: t("whatsappDesc"), 
       external: true 
     },

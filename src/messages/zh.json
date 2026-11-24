@@ -89,7 +89,8 @@
     "cantFindDesc": "我们会根据您的日期和兴趣为您设计。",
     "planTailor": "规划定制行程",
     "routeMap": "路线地图",
-    "mapCaption": "地形图 · 高程数据：NASA SRTM"
+    "mapCaption": "地形图 · 高程数据：NASA SRTM",
+    "alsoAvailable": "另有此行程"
   },
   "vehicles": {
     "whatsNew": "最新动态",
@@ -151,8 +152,8 @@
         "desc": "所有导游均为政府持证专业人员。"
       },
       "rated": {
-        "title": "五星级评价服务",
-        "desc": "在 TripAdvisor 上因卓越的热情待客而屡获好评。"
+        "title": "Google 评分 4.9/5",
+        "desc": "旅行者在 Google 评价中给我们的服务打出 4.9 分（满分 5 分）。"
       },
       "private": {
         "title": "私密与个性化",
@@ -213,8 +214,8 @@
         "desc": "所有导游均为政府持证专业人员。"
       },
       "rated": {
-        "title": "五星级评价服务",
-        "desc": "在 TripAdvisor 上因卓越的热情待客而屡获好评。"
+        "title": "Google 评分 4.9/5",
+        "desc": "旅行者在 Google 评价中给我们的服务打出 4.9 分（满分 5 分）。"
       },
       "private": {
         "title": "私密与个性化",
@@ -402,7 +403,17 @@
     "perPersonApprox": "约每人 {price}",
     "estimateNote": "最终价格将在您提交后确认，现在无需付款。",
     "largeGroup": "超过 {max} 人的团体我们将单独报价。",
-    "priceChanged": "此套餐的价格刚刚更新为 {price}。请查看新价格后重新提交您的请求。"
+    "priceChanged": "此套餐的价格刚刚更新为 {price}。请查看新价格后重新提交您的请求。",
+    "passengers": "乘客人数",
+    "getCode": "获取验证码",
+    "codeSent": "我们已向 {email} 发送 6 位验证码",
+    "code": "验证码",
+    "confirm": "确认预订",
+    "resend": "重新发送验证码",
+    "editDetails": "修改信息",
+    "invalidCode": "验证码错误或已过期，请重新获取。",
+    "verifyAgain": "验证已过期，请重新获取验证码。",
+    "missingFields": "请输入您的姓名、有效的电子邮箱和乘客人数。"
   },
   "loader": {
     "tagline": "探索天堂岛 🌴",

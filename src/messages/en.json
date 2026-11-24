@@ -89,7 +89,8 @@
     "cantFindDesc": "We’ll design one around your dates and interests.",
     "planTailor": "Plan a tailor-made tour",
     "routeMap": "Route map",
-    "mapCaption": "Terrain map · elevation data: NASA SRTM"
+    "mapCaption": "Terrain map · elevation data: NASA SRTM",
+    "alsoAvailable": "Also available as"
   },
   "vehicles": {
     "whatsNew": "New",
@@ -151,8 +152,8 @@
         "desc": "All our guides are government-licensed professionals based in Colombo."
       },
       "rated": {
-        "title": "5-Star Rated Service",
-        "desc": "Consistently praised on TripAdvisor for exceptional hospitality and local knowledge."
+        "title": "Rated 4.9/5 on Google",
+        "desc": "Travellers rate our service 4.9 out of 5 in their Google reviews."
       },
       "private": {
         "title": "Private & Personalized",
@@ -213,8 +214,8 @@
         "desc": "All our guides are government-licensed professionals based in Colombo."
       },
       "rated": {
-        "title": "5-Star Rated Service",
-        "desc": "Consistently praised on TripAdvisor for exceptional hospitality and local knowledge."
+        "title": "Rated 4.9/5 on Google",
+        "desc": "Travellers rate our service 4.9 out of 5 in their Google reviews."
       },
       "private": {
         "title": "Private & Personalized",
@@ -402,7 +403,17 @@
     "perPersonApprox": "≈ {price} per person",
     "estimateNote": "We confirm the final price after your request. No payment now.",
     "largeGroup": "For groups over {max} people we’ll send you a custom quote.",
-    "priceChanged": "The price for this package has just been updated to {price}. Please check the new price and send your request again."
+    "priceChanged": "The price for this package has just been updated to {price}. Please check the new price and send your request again.",
+    "passengers": "Passengers",
+    "getCode": "Get verification code",
+    "codeSent": "We sent a 6-digit code to {email}",
+    "code": "Verification code",
+    "confirm": "Confirm booking",
+    "resend": "Send a new code",
+    "editDetails": "Edit details",
+    "invalidCode": "That code is wrong or has expired. Please request a new one.",
+    "verifyAgain": "Your verification has expired. Please request a new code.",
+    "missingFields": "Please enter your name, a valid e-mail address and the number of passengers."
   },
   "loader": {
     "tagline": "Explore Paradise Island 🌴",

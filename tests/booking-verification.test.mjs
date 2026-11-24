@@ -196,3 +196,15 @@ test('rate limit refuses requests when its store is unavailable', { skip }, asyn
     console.error = originalError;
   }
 });
+
+test('vehicle booking (the BookingBox request) needs a proof and a passenger count', { skip }, async () => {
+  const email = 'vehicle@example.test';
+  const vehicleOrder = (extra) => ({ name: 'QA Test', email, itemName: 'QA tour', bookingType: 'Vehicle', date: '2027-01-10', time: '08:00', notes: '', phone: '', ...extra });
+  assert.equal((await call(booking, '/api/booking', vehicleOrder({ people: 2 }))).status, 403, 'no proof');
+  const proof = await proofFor(email);
+  assert.equal((await call(booking, '/api/booking', vehicleOrder({ emailProof: proof }))).status, 400, 'no passengers');
+  const ok = await call(booking, '/api/booking', vehicleOrder({ emailProof: proof, people: 3 }));
+  assert.equal(ok.status, 201);
+  const saved = await Booking.findOne({ email, bookingType: 'Vehicle' }).lean();
+  assert.equal(saved.people, 3);
+});

@@ -89,7 +89,8 @@
     "cantFindDesc": "Diseñamos uno según tus fechas e intereses.",
     "planTailor": "Planificar un tour a medida",
     "routeMap": "Mapa de la ruta",
-    "mapCaption": "Mapa del relieve · datos de elevación: NASA SRTM"
+    "mapCaption": "Mapa del relieve · datos de elevación: NASA SRTM",
+    "alsoAvailable": "También disponible como"
   },
   "vehicles": {
     "whatsNew": "Nuevo",
@@ -151,8 +152,8 @@
         "desc": "Todos nuestros guías son profesionales con licencia del gobierno."
       },
       "rated": {
-        "title": "Servicio de 5 Estrellas",
-        "desc": "Elogiados constantemente en TripAdvisor por nuestra hospitalidad."
+        "title": "Valorado con 4.9/5 en Google",
+        "desc": "Los viajeros valoran nuestro servicio con 4.9 sobre 5 en sus reseñas de Google."
       },
       "private": {
         "title": "Privado y Personalizado",
@@ -213,8 +214,8 @@
         "desc": "Todos nuestros guías son profesionales con licencia del gobierno."
       },
       "rated": {
-        "title": "Servicio de 5 Estrellas",
-        "desc": "Elogiados constantemente en TripAdvisor por nuestra hospitalidad."
+        "title": "Valorado con 4.9/5 en Google",
+        "desc": "Los viajeros valoran nuestro servicio con 4.9 sobre 5 en sus reseñas de Google."
       },
       "private": {
         "title": "Privado y Personalizado",
@@ -402,7 +403,17 @@
     "perPersonApprox": "≈ {price} por persona",
     "estimateNote": "Confirmamos el precio final tras tu solicitud. Sin pago ahora.",
     "largeGroup": "Para grupos de más de {max} personas te enviaremos una cotización.",
-    "priceChanged": "El precio de este paquete acaba de actualizarse a {price}. Revisa el nuevo precio y vuelve a enviar tu solicitud."
+    "priceChanged": "El precio de este paquete acaba de actualizarse a {price}. Revisa el nuevo precio y vuelve a enviar tu solicitud.",
+    "passengers": "Pasajeros",
+    "getCode": "Obtener código de verificación",
+    "codeSent": "Hemos enviado un código de 6 dígitos a {email}",
+    "code": "Código de verificación",
+    "confirm": "Confirmar reserva",
+    "resend": "Enviar un código nuevo",
+    "editDetails": "Editar datos",
+    "invalidCode": "El código es incorrecto o ha caducado. Solicita uno nuevo.",
+    "verifyAgain": "Tu verificación ha caducado. Solicita un código nuevo.",
+    "missingFields": "Introduce tu nombre, un correo electrónico válido y el número de pasajeros."
   },
   "loader": {
     "tagline": "Explora la Isla Paraíso 🌴",

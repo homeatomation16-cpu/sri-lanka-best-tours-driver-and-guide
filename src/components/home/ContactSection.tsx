@@ -81,7 +81,7 @@ export default function ContactSection() {
           <h2 className="font-playfair text-3xl leading-tight sm:text-4xl">{t("heading")}</h2>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-white/75 sm:mt-4 sm:text-base">{t("sub")}</p>
           <ul className="mt-4 space-y-2 text-sm text-white/85 sm:mt-6 sm:space-y-3 sm:text-base">
-            <li><a href={contact.whatsappme} target="_blank" rel="noopener noreferrer" className="contact-line"><MessageCircle size={20} aria-hidden="true" />WhatsApp {contact.phone}</a></li>
+            <li><a href={contact.whatsappme} target="_blank" rel="noopener noreferrer" className="contact-line"><MessageCircle size={20} aria-hidden="true" />WhatsApp {contact.whatsapp || contact.phone}</a></li>
             <li><a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="contact-line"><Phone size={20} aria-hidden="true" />{contact.phone}</a></li>
             <li><a href={`mailto:${contact.email}`} className="contact-line"><Mail size={20} aria-hidden="true" className="shrink-0" /><span className="min-w-0 break-all">{contact.email}</span></a></li>
           </ul>
