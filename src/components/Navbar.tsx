@@ -6,10 +6,12 @@ import { Menu, X, Phone } from "lucide-react";
 import AccountMenu from "@/components/account/AccountMenu";
 import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence, LazyMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ThemeToggle from "@/components/ThemeToggle";
+
+const loadMotionFeatures = () => import("@/lib/motionFeatures").then((mod) => mod.default);
 import { useContact } from "@/components/ContactProvider";
 
 const BRAND_NAME = "Sri Lanka Best Tours Driver & Guide";
@@ -135,9 +137,10 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE MENU */}
+      <LazyMotion features={loadMotionFeatures}>
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -170,9 +173,10 @@ export default function Navbar() {
                 {t("whatsapp")}
               </a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
+      </LazyMotion>
     </nav>
   );
 }

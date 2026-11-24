@@ -2,7 +2,7 @@
 
 import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { m, LazyMotion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 
 function subscribeReducedMotion(notify: () => void) {
   const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -10,6 +10,7 @@ function subscribeReducedMotion(notify: () => void) {
   return () => query.removeEventListener("change", notify);
 }
 
+const loadMotionFeatures = () => import("@/lib/motionFeatures").then((mod) => mod.default);
 const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export default function SiteMotion({ children }: { children: ReactNode }) {
@@ -43,12 +44,14 @@ export default function SiteMotion({ children }: { children: ReactNode }) {
 
   return (
     <div className="site-world">
+      <LazyMotion features={loadMotionFeatures}>
       <div className="world-backdrop" aria-hidden="true">
-        <motion.div className="world-landscape" style={{ x: reducedMotion ? 0 : backgroundX, y: reducedMotion ? 0 : backgroundY }}>
+        <m.div className="world-landscape" style={{ x: reducedMotion ? 0 : backgroundX, y: reducedMotion ? 0 : backgroundY }}>
           <Image src="/images/editorial/highlands.webp" alt="" fill quality={75} sizes="100vw" className="object-cover" />
-        </motion.div>
+        </m.div>
         <div className="world-atmosphere" />
       </div>
+      </LazyMotion>
       {children}
     </div>
   );

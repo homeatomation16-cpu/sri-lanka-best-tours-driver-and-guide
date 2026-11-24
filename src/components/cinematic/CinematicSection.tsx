@@ -1,9 +1,23 @@
 "use client";
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { gsap as Gsap } from "gsap";
+import type { ScrollTrigger as ScrollTriggerType } from "gsap/ScrollTrigger";
 import { registerRevealSection } from "@/components/home/reveal";
+
+// GSAP is downloaded only when the first cinematic section nears the viewport,
+// so it stays out of the startup JavaScript. All sections share one load.
+let gsap: typeof Gsap;
+let ScrollTrigger: typeof ScrollTriggerType;
+let gsapLoading: Promise<void> | undefined;
+function loadGsap() {
+  gsapLoading ??= Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([core, plugin]) => {
+    gsap = core.gsap;
+    ScrollTrigger = plugin.ScrollTrigger;
+    gsap.registerPlugin(ScrollTrigger);
+  });
+  return gsapLoading;
+}
 
 const AMP = { desktop: 1, tablet: 0.6, mobile: 0.35 };
 
@@ -75,13 +89,17 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
     // of the viewport, instead of every section measuring the whole page during hydration.
     // Sections on the first screen are set up immediately; the rest are ready before they appear.
     let teardown: (() => void) | undefined;
+    let disposed = false;
     const near = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
       near.disconnect();
-      teardown = setup(el);
+      void loadGsap().then(() => {
+        if (!disposed) teardown = setup(el);
+      });
     }, { rootMargin: "150% 0px" });
     near.observe(el);
     return () => {
+      disposed = true;
       near.disconnect();
       teardown?.();
     };
@@ -94,7 +112,6 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
 
 /** Scroll animations for one section; returns its cleanup. */
 function setup(el: HTMLElement) {
-  gsap.registerPlugin(ScrollTrigger);
   const mm = gsap.matchMedia();
   let disposed = false;
   const refresh = () => {
