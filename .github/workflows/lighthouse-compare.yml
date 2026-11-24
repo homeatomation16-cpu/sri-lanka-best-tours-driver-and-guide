@@ -1,0 +1,43 @@
+# Manual Lighthouse comparison of two deployments on a clean GitHub-hosted runner.
+# Needs the repository secret VERCEL_AUTOMATION_BYPASS_SECRET for protected Vercel previews.
+name: Lighthouse compare
+
+on:
+  workflow_dispatch:
+    inputs:
+      baseline_url:
+        description: Baseline URL (e.g. the preview of the commit production runs)
+        required: true
+      candidate_url:
+        description: Candidate URL (e.g. the preview of the branch)
+        required: true
+      runs:
+        description: Runs per URL
+        default: "5"
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Lighthouse (for this job only)
+        run: npm install --no-save --no-package-lock lighthouse@12.6.1 puppeteer-core@24
+      - name: Compare
+        env:
+          BASELINE_URL: ${{ inputs.baseline_url }}
+          CANDIDATE_URL: ${{ inputs.candidate_url }}
+          RUNS: ${{ inputs.runs }}
+          CHROME_PATH: /usr/bin/google-chrome
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: node scripts/lighthouse-compare.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-compare
+          path: lighthouse-compare.json
