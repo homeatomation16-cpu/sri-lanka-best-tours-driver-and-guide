@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export default function VehicleSlider({ images = [] }) {
+export default function VehicleSlider({ images = [], name = "" }) {
   const [i, setI] = useState(0);
 
   // 1. Filter valid images
@@ -21,7 +21,7 @@ export default function VehicleSlider({ images = [] }) {
       <div className="relative h-105 rounded-xl overflow-hidden bg-gray-100">
         <Image
           src={safeImages[i]}
-          alt="vehicle display"
+          alt={name ? `${name} – photo ${i + 1}` : `Tour vehicle – photo ${i + 1}`}
           fill
           priority
           // 🌟 Warning Fix: Main image එක desktop එකේදී grid එකෙන් 66% ක් ගන්නා නිසා
@@ -66,7 +66,7 @@ export default function VehicleSlider({ images = [] }) {
             >
               <Image
                 src={img}
-                alt={`thumbnail ${idx}`}
+                alt={name ? `${name} – thumbnail ${idx + 1}` : `Tour vehicle thumbnail ${idx + 1}`}
                 fill
                 // 🌟 Warning Fix: Thumbnails කුඩා නිසා:
                 sizes="96px"

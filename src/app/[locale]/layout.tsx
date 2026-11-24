@@ -1,6 +1,6 @@
 // src/app/[locale]/layout.tsx
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { pageMetadata, siteUrl, siteName, serializeJsonLd } from "@/lib/seo";
 
@@ -32,6 +32,9 @@ import TrustBar from "../../components/TrustBar";
 import LanguageFloatingButton from "@/components/LanguageFloatingButton";
 import FloatingCurrency from "@/components/FloatingCurrency";
 import PageTracker from "@/components/PageTracker";
+import Snowfall from "@/components/Snowfall";
+import ChristmasGarland from "@/components/ChristmasGarland";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 /* =========================================================
    1. SITE CONFIG
@@ -187,7 +190,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const title = titles[currentLocale] ?? titles[defaultLocale];
 
   const description = descriptions[currentLocale] ?? (await getTranslations({ locale: currentLocale, namespace: "hero" }))("subtitle");
-  const seo = pageMetadata(currentLocale, "", title, description);
+  // The home title already carries the keywords; appending the 36-char brand would push it far past 60 chars.
+  const seo = pageMetadata(currentLocale, "", title, description, undefined, { brand: false });
 
 
   return {
@@ -197,7 +201,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
     metadataBase: new URL(siteUrl),
 
-    title: seo.title,
+    // Pages that set a plain string title get "<title> | <brand>"; pageMetadata() titles are absolute.
+    title: { default: title, template: `%s | ${siteName}` },
 
     description: seo.description,
 
@@ -307,6 +312,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
+/* Browser UI colour (mobile address bar), matching the site's light and dark backgrounds. */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#060d1b" },
+  ],
+};
+
 /* =========================================================
    8. LOCALE LAYOUT
 ========================================================= */
@@ -374,6 +387,16 @@ export default async function LocaleLayout({
       name: "Sri Lanka",
     },
 
+    // Contact details exactly as shown on the site (Admin → Site settings)
+    ...(siteSettings.phone ? { telephone: siteSettings.phone } : {}),
+    ...(siteSettings.email ? { email: siteSettings.email } : {}),
+    ...(siteSettings.address
+      ? { address: { "@type": "PostalAddress", streetAddress: siteSettings.address, addressCountry: "LK" } }
+      : {}),
+    ...(() => {
+      const sameAs = Object.values(siteSettings.social ?? {}).filter((url) => typeof url === "string" && /^https?:\/\//.test(url));
+      return sameAs.length ? { sameAs } : {};
+    })(),
   };
 
   /* =======================================================
@@ -386,6 +409,7 @@ export default async function LocaleLayout({
       dir={direction}
       data-theme={theme.mode === "visitor" ? undefined : theme.mode}
       data-brand={isCustomBrand(theme) ? "custom" : undefined}
+      data-season={theme.preset === "christmas" ? "christmas" : undefined}
       suppressHydrationWarning
       className={`
         ${poppins.variable}
@@ -452,6 +476,7 @@ export default async function LocaleLayout({
           >
             <Navbar />
             <ScrollReveal />
+            {theme.preset === "christmas" && <ChristmasGarland />}
           </header>
 
           {/* =================================================
@@ -492,8 +517,14 @@ export default async function LocaleLayout({
 
           <FloatingCurrency />
 
+          {/* floating WhatsApp chat */}
+          <WhatsAppButton />
+
           {/* anonymous visitor analytics (see Admin → Analytics) */}
           <PageTracker />
+
+          {/* falling snowflakes over the whole site */}
+          {theme.preset === "christmas" && <Snowfall />}
         </ThemeModeProvider>
         </ContactProvider>
         </NextIntlClientProvider>

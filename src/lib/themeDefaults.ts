@@ -39,6 +39,7 @@ export const PRESETS: { id: string; name: string; colors: ThemeColors }[] = [
   { id: "lagoon", name: "Lagoon", colors: c("#064e5a", "#ff7a59", "#f2faf9", "#061416", "#0c2226", "#e0f2f0", "#8fb3b2", "#1b3a3e") },
   { id: "royal-maroon", name: "Royal Maroon", colors: c("#5a1a2b", "#c9a227", "#fbf7f2", "#130a0d", "#211217", "#f3e8ea", "#b39ea4", "#3b2229") },
   { id: "sand-sea", name: "Sand & Sea", colors: c("#12355b", "#d4a259", "#fbf8f1", "#081019", "#0f1c29", "#e7edf2", "#97a8b6", "#1e3043") },
+  { id: "christmas", name: "Christmas (pine green & berry red)", colors: c("#0f3d2e", "#d4283a", "#fbf8f4", "#07130e", "#0f2119", "#f1f5ef", "#a7b8ab", "#1f3a2c") },
 ];
 
 export const DEFAULT_THEME: ThemeSettings = { mode: "visitor", preset: "default", colors: PRESETS[0].colors };

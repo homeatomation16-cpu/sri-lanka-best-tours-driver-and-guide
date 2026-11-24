@@ -1,6 +1,7 @@
+import JsonLd from "@/components/seo/JsonLd";
+import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { pageMetadata } from "@/lib/seo";
 import connectDB from "@/lib/mongodb";
 import Vehicle from "@/models/Vehicle";
 import VehiclesPageClient from "@/components/VehiclesPageClient";
@@ -21,5 +22,10 @@ export default async function VehiclesPage({ params }: { params: Promise<{ local
   // Serialization Fix (ObjectId ප්‍රශ්නය විසඳීමට)
   const vehicles = JSON.parse(JSON.stringify(rawVehicles));
 
-  return <VehiclesPageClient vehicles={vehicles} locale={locale} />;
+  return (
+    <>
+      <JsonLd data={sectionBreadcrumb(locale, (await getTranslations({ locale, namespace: "nav" }))("home"), (await getTranslations({ locale, namespace: "nav" }))("vehicles"), "/vehicles")} />
+      <VehiclesPageClient vehicles={vehicles} locale={locale} />
+    </>
+  );
 }

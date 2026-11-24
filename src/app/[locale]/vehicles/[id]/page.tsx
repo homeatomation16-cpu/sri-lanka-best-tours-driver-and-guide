@@ -1,6 +1,7 @@
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { cache } from "react";
-import { pageMetadata } from "@/lib/seo";
 // src/app/[locale]/vehicles/[id]/page.tsx
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -88,6 +89,11 @@ export default async function VehiclePage({
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(locale, [
+        { name: (await getTranslations({ locale, namespace: "nav" }))("home"), path: "" },
+        { name: (await getTranslations({ locale, namespace: "nav" }))("vehicles"), path: "/vehicles" },
+        { name: v.name, path: `/vehicles/${encodeURIComponent(id)}` },
+      ])} />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap');
         .vd-serif { font-family: 'Cormorant Garamond', serif; }
@@ -127,7 +133,7 @@ export default async function VehiclePage({
               <div className="vd-anim overflow-hidden shadow-2xl rounded-2xl bg-white aspect-video max-h-110 border border-white/60 relative">
                 {/* 🌟 Note: VehicleSlider එක ඇතුළේ Image tag එකක් තිබේ නම්, 
                     එයටද sizes="(max-width: 1024px) 100vw, 66vw" වැනි අගයක් ලබා දිය යුතුය. */}
-                <VehicleSlider images={safeGallery} />
+                <VehicleSlider images={safeGallery} name={v.name} />
               </div>
 
               {v.overview && (

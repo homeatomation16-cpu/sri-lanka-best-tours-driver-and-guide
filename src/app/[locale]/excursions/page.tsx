@@ -1,6 +1,7 @@
+import JsonLd from "@/components/seo/JsonLd";
+import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { pageMetadata } from "@/lib/seo";
 import { EXCURSIONS } from "@/data/excursions";
 import { EXCURSION_DETAILS } from "@/data/excursionDetails";
 import { ListingHero, CategoryChips, ListingCards } from "@/components/site/ListingPage";
@@ -52,6 +53,7 @@ export default async function ExcursionsPage({ params, searchParams }: { params:
 
   return (
     <div className="min-h-screen bg-[#f9f7f2]">
+      <JsonLd data={sectionBreadcrumb(locale, (await getTranslations({ locale, namespace: "nav" }))("home"), (await getTranslations({ locale, namespace: "nav" }))("excursions"), "/excursions")} />
       <ListingHero image="/excursions-cover.jpg" eyebrow={t("label")} title={t("title")} subtitle={t("subtitle")} />
       <section className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
         <CategoryChips basePath="/excursions" allLabel={t("allCategories")} categories={categories} active={active} />
