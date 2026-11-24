@@ -1,6 +1,6 @@
 // Server-side e-mail verification for bookings, rate limits and their failure modes.
 // Runs only against a separate test database: TEST_MONGODB_URI must name a database ending in "_test".
-// E-mail is not configured in this process, so sendEmail() returns false and nothing is sent.
+// E-mail goes to a fake SMTP host and transporter.sendMail is replaced by a recorder, so nothing is sent.
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { registerHooks } from 'node:module';
@@ -17,6 +17,13 @@ registerHooks({
     if (specifier === '@/lib/adminAuth') {
       const stub = 'export const esc = (v) => String(v ?? "").replace(/[&<>"\']/g, (c) => `&#${c.charCodeAt(0)};`);'
         + ' export const requireAdmin = async () => new Response(null, { status: 401 });';
+      return { url: `data:text/javascript,${encodeURIComponent(stub)}`, shortCircuit: true };
+    }
+    // Site settings use Next's unstable_cache, which needs a running Next server; the defaults are enough for e-mails.
+    if (specifier === '@/lib/siteSettings') {
+      const defaults = new URL('../src/lib/siteSettingsDefaults.ts', import.meta.url).href;
+      const stub = `export * from ${JSON.stringify(defaults)}; import { DEFAULT_SETTINGS } from ${JSON.stringify(defaults)};`
+        + ' export const getSiteSettings = async () => DEFAULT_SETTINGS;';
       return { url: `data:text/javascript,${encodeURIComponent(stub)}`, shortCircuit: true };
     }
     if (specifier.startsWith('@/')) {
@@ -41,7 +48,25 @@ registerHooks({
   },
 });
 
-let booking, verifyEmail, rateLimited, mongoose, EmailOtp, Booking, RateLimit;
+let booking, verifyEmail, rateLimited, mongoose, EmailOtp, Booking, RateLimit, Vehicle, mail;
+const sent = []; // every message the code tried to send
+let failFor = () => false; // (message) => true makes that delivery fail
+
+// Fake mail settings, set before src/lib/email.ts is loaded
+Object.assign(process.env, {
+  SMTP_HOST: 'smtp.invalid', SMTP_PORT: '465', SMTP_USER: 'info@business.test', SMTP_PASS: 'not-a-real-password',
+  ADMIN_EMAIL: 'Info@Business.test', ADMIN_NOTIFICATION_EMAILS: ' owner@gmail.test, info@business.test,not-an-address,owner@GMAIL.test ',
+});
+async function loadMail() {
+  if (mail) return mail;
+  mail = await import('../src/lib/email.ts');
+  mail.transporter.sendMail = async (message) => {
+    sent.push(message);
+    if (failFor(message)) throw Object.assign(new Error('simulated SMTP failure'), { code: 'EAUTH' });
+    return { messageId: 'test' };
+  };
+  return mail;
+}
 const sha = (v) => crypto.createHash('sha256').update(v).digest('hex');
 let ip = 0;
 const call = (handler, path, body) =>
@@ -66,7 +91,7 @@ async function proofFor(email) {
 before(async () => {
   if (skip) return;
   process.env.MONGODB_URI = uri;
-  for (const name of ['SMTP_USER', 'SMTP_PASS', 'EMAIL_USER', 'EMAIL_PASS']) delete process.env[name];
+  await loadMail();
   ({ POST: booking } = await import('../src/app/api/booking/route.js'));
   ({ POST: verifyEmail } = await import('../src/app/api/verify-email/route.ts'));
   ({ rateLimited } = await import('../src/lib/customerAuth.ts'));
@@ -74,9 +99,11 @@ before(async () => {
   EmailOtp = (await import('../src/models/EmailOtp.ts')).default;
   Booking = (await import('../src/models/Booking.ts')).default;
   RateLimit = (await import('../src/models/RateLimit.ts')).default;
+  Vehicle = (await import('../src/models/Vehicle.ts')).default;
   await (await import('../src/lib/mongodb.ts')).default();
   assert.ok(mongoose.connection.db.databaseName.endsWith('_test'), 'refusing to run outside a _test database');
-  await Promise.all([EmailOtp.deleteMany({}), Booking.deleteMany({ itemName: 'QA tour' }), RateLimit.deleteMany({})]);
+  await Promise.all([EmailOtp.deleteMany({}), Booking.deleteMany({ itemName: 'QA tour' }), RateLimit.deleteMany({}), Vehicle.deleteMany({ vehicleId: /^qa-/ })]);
+  await Vehicle.create({ vehicleId: 'qa-van', name: 'QA Van', passengers: 4, status: 'active' });
   await Promise.all([EmailOtp.init(), RateLimit.init(), Booking.init()]);
 });
 after(async () => { if (!skip) await mongoose.disconnect(); });
@@ -197,14 +224,115 @@ test('rate limit refuses requests when its store is unavailable', { skip }, asyn
   }
 });
 
-test('vehicle booking (the BookingBox request) needs a proof and a passenger count', { skip }, async () => {
+const vehicleOrder = (email, extra) => ({ name: 'QA Test', email, bookingType: 'Vehicle', vehicleId: 'qa-van', date: '2027-01-10', time: '08:00', ...extra });
+
+test('vehicle booking: seats are checked on the server and a rejected request keeps the proof', { skip }, async () => {
   const email = 'vehicle@example.test';
-  const vehicleOrder = (extra) => ({ name: 'QA Test', email, itemName: 'QA tour', bookingType: 'Vehicle', date: '2027-01-10', time: '08:00', notes: '', phone: '', ...extra });
-  assert.equal((await call(booking, '/api/booking', vehicleOrder({ people: 2 }))).status, 403, 'no proof');
+  assert.equal((await call(booking, '/api/booking', vehicleOrder(email, { people: 2 }))).status, 403, 'no proof');
   const proof = await proofFor(email);
-  assert.equal((await call(booking, '/api/booking', vehicleOrder({ emailProof: proof }))).status, 400, 'no passengers');
-  const ok = await call(booking, '/api/booking', vehicleOrder({ emailProof: proof, people: 3 }));
+  const rejected = [
+    { people: 0 }, { people: -1 }, { people: 2.5 }, { people: 'two' }, {},
+    { people: 5 }, // QA Van has 4 seats
+    { people: 5, passengers: 9, capacity: 9 }, // a capacity sent by the browser is ignored
+    { people: 2, vehicleId: 'no-such-vehicle' }, { people: 2, vehicleId: { $ne: '' } }, { people: 2, vehicleId: undefined },
+  ];
+  for (const extra of rejected) {
+    const res = await call(booking, '/api/booking', vehicleOrder(email, { emailProof: proof, ...extra }));
+    assert.equal(res.status, 400, JSON.stringify(extra));
+  }
+  assert.equal((await (await call(booking, '/api/booking', vehicleOrder(email, { emailProof: proof, people: 5 }))).json()).error, 'tooManyPassengers');
+  assert.ok(await EmailOtp.exists({ _id: sha(email), proofHash: sha(proof) }), 'validation failures did not use the proof');
+  const ok = await call(booking, '/api/booking', vehicleOrder(email, { emailProof: proof, people: 4, itemName: 'Forged name' }));
   assert.equal(ok.status, 201);
   const saved = await Booking.findOne({ email, bookingType: 'Vehicle' }).lean();
-  assert.equal(saved.people, 3);
+  assert.equal(saved.people, 4);
+  assert.equal(saved.itemName, 'QA Van', 'the vehicle name comes from the database');
+  await Booking.deleteMany({ email });
+});
+
+test('booking e-mails: every admin gets a separate notification, the customer gets a request acknowledgement', { skip }, async () => {
+  const email = 'notify@example.test';
+  const proof = await proofFor(email);
+  sent.length = 0;
+  assert.equal((await call(booking, '/api/booking', vehicleOrder(email, { emailProof: proof, people: 2 }))).status, 201);
+  const admin = sent.filter((m) => m.subject.startsWith('New vehicle booking'));
+  assert.deepEqual(admin.map((m) => m.to).sort(), ['info@business.test', 'owner@gmail.test']);
+  for (const m of admin) {
+    assert.equal(m.replyTo, email);
+    assert.ok(m.from.includes('info@business.test'));
+    assert.ok(m.html.includes('QA Van') && m.html.includes('Pending'));
+  }
+  const customer = sent.filter((m) => m.to === email);
+  assert.equal(customer.length, 1);
+  assert.ok(!customer[0].html.includes('owner@gmail.test'));
+  assert.match(customer[0].html, /not yet a confirmed reservation/);
+  await Booking.deleteMany({ email });
+});
+
+test('booking is saved even when every e-mail fails, the failure is recorded and a retry cannot book twice', { skip }, async () => {
+  const email = 'mailfail@example.test';
+  const proof = await proofFor(email);
+  failFor = () => true;
+  const originalError = console.error;
+  console.error = () => {};
+  try {
+    const res = await call(booking, '/api/booking', vehicleOrder(email, { emailProof: proof, people: 1 }));
+    assert.equal(res.status, 201);
+  } finally {
+    failFor = () => false;
+    console.error = originalError;
+  }
+  const saved = await Booking.findOne({ email }).lean();
+  assert.ok(saved.history.some((h) => /notification e-mail failed/.test(h.action)));
+  const retry = await call(booking, '/api/booking', vehicleOrder(email, { emailProof: proof, people: 1 }));
+  assert.equal(retry.status, 403);
+  assert.equal(await Booking.countDocuments({ email }), 1);
+  await Booking.deleteMany({ email });
+});
+
+test('the verification code goes only to the customer, never to admins', { skip }, async () => {
+  sent.length = 0;
+  const res = await call(verifyEmail, '/api/verify-email', { email: 'otp-privacy@example.test', action: 'send' });
+  assert.equal((await res.json()).success, true);
+  assert.deepEqual(sent.map((m) => m.to), ['otp-privacy@example.test']);
+});
+
+// These two need no database
+test('admin recipients: ADMIN_EMAIL + ADMIN_NOTIFICATION_EMAILS, valid and de-duplicated', async () => {
+  const { adminRecipients } = await loadMail();
+  const originalError = console.error;
+  console.error = () => {};
+  try {
+    assert.deepEqual(adminRecipients(), ['info@business.test', 'owner@gmail.test']);
+    assert.deepEqual(adminRecipients({ SMTP_USER: 'info@business.test' }), ['info@business.test']);
+    assert.deepEqual(
+      adminRecipients({ ADMIN_EMAIL: 'a@x.test', ADMIN_NOTIFICATION_EMAILS: 'b@x.test,,a@x.test, "evil"@x.test\r\nBcc: c@x.test' }),
+      ['a@x.test', 'b@x.test'],
+    );
+  } finally {
+    console.error = originalError;
+  }
+});
+
+test('sendEmail: refuses bad recipients, strips header line breaks, reports SMTP and partial failures', async () => {
+  const { sendEmail, notifyAdmins } = await loadMail();
+  const originalError = console.error;
+  console.error = () => {};
+  try {
+    sent.length = 0;
+    assert.equal(await sendEmail({ to: 'not-an-address', subject: 's', html: 'h' }), false);
+    assert.equal(await sendEmail({ to: 'a@x.test\r\nBcc: b@x.test', subject: 's', html: 'h' }), false);
+    assert.equal(sent.length, 0);
+    assert.equal(await sendEmail({ to: 'a@x.test', subject: 'line\r\nBcc: b@x.test', html: 'h', replyTo: 'bad reply' }), true);
+    assert.equal(/[\r\n]/.test(sent[0].subject), false);
+    assert.equal(sent[0].replyTo, undefined);
+    failFor = (m) => m.to === 'owner@gmail.test'; // one admin address fails
+    assert.equal(await notifyAdmins({ subject: 'partial', html: 'h' }), true);
+    failFor = () => true; // SMTP down: nothing is reported as sent
+    assert.equal(await notifyAdmins({ subject: 'none', html: 'h' }), false);
+    assert.equal(await sendEmail({ to: 'a@x.test', subject: 's', html: 'h' }), false);
+  } finally {
+    failFor = () => false;
+    console.error = originalError;
+  }
 });

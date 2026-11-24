@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
+import Vehicle from "@/models/Vehicle";
 import EmailOtp from "@/models/EmailOtp";
 import { NextResponse } from "next/server";
 import { requireAdmin, esc } from "@/lib/adminAuth";
 import { clientIp, isEmail, rateLimited, sha256 } from "@/lib/customerAuth";
-import { ADMIN_EMAIL, emailLayout, sendEmail, SITE_URL } from "@/lib/email";
+import { emailLayout, notifyAdmins, sendEmail, SITE_URL } from "@/lib/email";
 import { formatUsd, MAX_TRAVELLERS, PRICED_TOUR_IDS, serverQuote } from "@/lib/tourPricing";
 
 // 🔹 CREATE BOOKING
@@ -16,7 +17,7 @@ export async function POST(req) {
     }
     const body = await req.json();
 
-    const { name, email, phone, date, time, notes, itemName, bookingType, message, people, pricePerPerson, additionalPersonPrice, totalPrice, country, endDate, adults, children, childrenAges, pickupLocation, vehicle, tourId, quotedTotal } = body;
+    const { name, email, phone, date, time, notes, bookingType, vehicleId, message, people, pricePerPerson, additionalPersonPrice, totalPrice, country, endDate, adults, children, childrenAges, pickupLocation, vehicle, tourId, quotedTotal } = body;
     const ages = Array.isArray(childrenAges) ? childrenAges.map(Number).filter((age) => Number.isInteger(age) && age >= 0 && age <= 17).slice(0, 10) : [];
 
     // ✅ VALIDATION
@@ -25,6 +26,18 @@ export async function POST(req) {
     if (typeof name !== "string" || !name.trim() || name.length > 120 || !isEmail(email) || !Number.isInteger(requestedPeople) || requestedPeople < 1) {
       // the minimum per tour (1 with a price table, else 2) is enforced by the booking form
       return NextResponse.json({ error: "Name, email, and at least 1 person are required" }, { status: 400 });
+    }
+
+    // 🚗 VEHICLE: the vehicle and its seats come from the database, never from the browser
+    let itemName = typeof body.itemName === "string" ? body.itemName.slice(0, 200) : undefined;
+    if (bookingType === "Vehicle") {
+      await connectDB();
+      const car = typeof vehicleId === "string" ? await Vehicle.findOne({ vehicleId, status: "active" }).select("name passengers").lean() : null;
+      if (!car) return NextResponse.json({ error: "invalidVehicle" }, { status: 400 });
+      if (car.passengers > 0 && requestedPeople > car.passengers) {
+        return NextResponse.json({ error: "tooManyPassengers", max: car.passengers }, { status: 400 });
+      }
+      itemName = car.name;
     }
 
     // 💲 PRICE
@@ -113,45 +126,48 @@ export async function POST(req) {
       await session.endSession();
     }
 
-    // 🔥 EMAIL TRY BLOCK (important)
-    try {
-      // 📩 ADMIN EMAIL
-      await sendEmail({
-        to: ADMIN_EMAIL,
-        replyTo: email,
-        subject: `New Booking - ${String(itemName || "Tour").replace(/[\r\n]/g, " ")}`,
-        html: `
-          <h2>New Booking</h2>
-          <p><b>Name:</b> ${esc(name)}</p>
-          <p><b>Email:</b> ${esc(email)}</p>
-          <p><b>Phone:</b> ${esc(phone || "-")}</p>
-          <p><b>Date:</b> ${esc(date || "-")}${endDate ? ` – ${esc(endDate)}` : ""}</p>
-          <p><b>Country:</b> ${esc(country || "-")}</p>
-          <p><b>Adults / Children:</b> ${esc(adults ?? "-")} / ${esc(children ?? 0)}${ages.length ? ` (ages ${esc(ages.join(", "))})` : ""}</p>
-          <p><b>Vehicle:</b> ${esc(price.vehicle || "-")}</p>
-          <p><b>Pickup:</b> ${esc(pickupLocation || "-")}</p>
-          <p><b>Item:</b> ${esc(itemName || "-")}</p>
-          <p><b>People:</b> ${esc(people)}</p>
-          <p><b>Group total:</b> ${price.totalPriceCents ? `${formatUsd(price.totalPriceCents)} USD (server price, table v${esc(price.pricingVersion)})` : price.totalPrice ? `${esc(formatUsd(Math.round(price.totalPrice * 100)))} USD (estimate)` : price.priceSource === "customQuote" ? "Custom quote needed (more than 10 travellers)" : "-"}</p>
-          <p><b>Per person (approx.):</b> ${price.pricePerPerson ? esc(formatUsd(Math.round(price.pricePerPerson * 100))) : "-"}</p>
-          <p><b>Message:</b> ${esc(message || notes || "-")}</p>
-        `,
-      });
+    // ✉️ E-MAILS: the booking is already saved, so a mail failure never fails the request (and a retry
+    // cannot book twice: the proof is used up). A failed admin notification is noted in the booking history.
+    const rows = [
+        ["Reference", String(booking._id)],
+        ["Status", "Pending – request, not yet confirmed"],
+        ["Type", bookingType || "-"],
+        ["Item", itemName || "-"],
+        ["Name", name],
+        ["Email", email],
+        ["Phone", phone || "-"],
+        ["Date", `${date || "-"}${endDate ? ` – ${endDate}` : ""}${time ? ` ${time}` : ""}`],
+        ["People", `${requestedPeople}${adults !== undefined ? ` (adults ${adults ?? "-"}, children ${children ?? 0}${ages.length ? `, ages ${ages.join(", ")}` : ""})` : ""}`],
+        ["Country", country || "-"],
+        ["Pickup", pickupLocation || "-"],
+        ["Vehicle", price.vehicle || "-"],
+        ["Group total", price.totalPriceCents ? `${formatUsd(price.totalPriceCents)} USD (server price, table v${price.pricingVersion})` : price.totalPrice ? `${formatUsd(Math.round(price.totalPrice * 100))} USD (estimate)` : price.priceSource === "customQuote" ? "Custom quote needed (more than 10 travellers)" : "-"],
+        ["Message", message || notes || "-"],
+        ["Submitted", booking.createdAt ? new Date(booking.createdAt).toISOString() : new Date().toISOString()],
+      ];
+    const adminNotified = await notifyAdmins({
+      replyTo: email,
+      subject: `New ${bookingType === "Vehicle" ? "vehicle" : "tour"} booking request - ${itemName || "Tour"}`,
+      html: `<h2>New booking request</h2><table cellpadding="4">${rows.map(([label, value]) => `<tr><td><b>${esc(label)}</b></td><td>${esc(value)}</td></tr>`).join("")}</table>`,
+    });
+    if (!adminNotified) {
+      await Booking.updateOne({ _id: booking._id }, { $push: { history: { action: "Admin notification e-mail failed", at: new Date() } } }).catch(() => {});
+    }
 
-      // 📩 CUSTOMER CONFIRMATION EMAIL (🔥 NEW)
-      await sendEmail({
-        to: email,
-        subject: "Booking Received ✅",
-        html: await emailLayout(
-          "Booking request received",
-          `<p>Hello ${esc(name)},</p>
-          <p>Thank you – we have received your booking request${itemName ? ` for <strong>${esc(itemName)}</strong>` : ""}. We will check availability and contact you soon by e-mail or WhatsApp.</p>${price.totalPriceCents ? `<table role="presentation" style="margin:16px 0;border-collapse:collapse;font-size:14px"><tr><td style="padding:4px 16px 4px 0;color:#64748b">Travellers</td><td><strong>${esc(requestedPeople)}</strong></td></tr><tr><td style="padding:4px 16px 4px 0;color:#64748b">Vehicle</td><td><strong>${esc(price.vehicle)}</strong></td></tr><tr><td style="padding:4px 16px 4px 0;color:#64748b">Group total</td><td><strong>${formatUsd(price.totalPriceCents)} USD</strong></td></tr></table>` : ""}`,
-          { label: "View my bookings", url: `${SITE_URL}/account` },
-        ),
-      });
+    // Customer acknowledgement: a request, not a confirmed reservation
+    try {
+    await sendEmail({
+      to: email,
+      subject: "Booking request received",
+      html: await emailLayout(
+        "Booking request received",
+        `<p>Hello ${esc(name)},</p>
+        <p>Thank you – we have received your booking request${itemName ? ` for <strong>${esc(itemName)}</strong>` : ""} (reference ${esc(String(booking._id).slice(-8).toUpperCase())}). This is not yet a confirmed reservation: we will check availability and contact you soon by e-mail or WhatsApp.</p>${price.totalPriceCents ? `<table role="presentation" style="margin:16px 0;border-collapse:collapse;font-size:14px"><tr><td style="padding:4px 16px 4px 0;color:#64748b">Travellers</td><td><strong>${esc(requestedPeople)}</strong></td></tr><tr><td style="padding:4px 16px 4px 0;color:#64748b">Vehicle</td><td><strong>${esc(price.vehicle)}</strong></td></tr><tr><td style="padding:4px 16px 4px 0;color:#64748b">Group total</td><td><strong>${formatUsd(price.totalPriceCents)} USD</strong></td></tr></table>` : ""}`,
+        { label: "View my bookings", url: `${SITE_URL}/account` },
+      ),
+    });
     } catch (mailError) {
-      console.error("Email failed:", mailError);
-      // ❗ email fail උනාට booking save වෙනවා
+      console.error("Customer booking e-mail failed:", mailError?.message || mailError);
     }
 
     return NextResponse.json(

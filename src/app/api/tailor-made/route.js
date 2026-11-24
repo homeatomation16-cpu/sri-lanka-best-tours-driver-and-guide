@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
 import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
-import { ADMIN_EMAIL, emailLayout, sendEmail } from "@/lib/email";
+import { emailLayout, notifyAdmins, sendEmail } from "@/lib/email";
 
 export async function POST(req) {
   try {
@@ -36,8 +36,8 @@ export async function POST(req) {
     // show the customer an error (they would send the same request again).
     let notified = false;
     try {
-    notified = await sendEmail({
-      to: ADMIN_EMAIL,
+    notified = await notifyAdmins({
+      replyTo: body.email,
       subject: `🌴 New Tailor Made Tour Request`,
       html: `
         <h2>Tailor Made Tour Request</h2>

@@ -1,4 +1,4 @@
-import { ADMIN_EMAIL, sendEmail } from "@/lib/email";
+import { emailLayout, notifyAdmins, sendEmail } from "@/lib/email";
 import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
@@ -33,20 +33,33 @@ export async function POST(req) {
     // 2) E-mail notification (sendEmail returns false instead of throwing)
     let notified = false;
     try {
-      notified = await sendEmail({
-        to: ADMIN_EMAIL,
+      notified = await notifyAdmins({
         replyTo: email,
         subject: `New Contact Message from ${String(name).replace(/[\r\n]/g, " ")}`,
         html: `
           <h2>Contact Message</h2>
           <p><strong>Name:</strong> ${esc(name)}</p>
           <p><strong>Email:</strong> ${esc(email)}</p>
+          <p><strong>Phone:</strong> ${esc(phone || "-")}</p>
           <p><strong>Message:</strong></p>
           <p>${esc(message)}</p>
         `,
       });
     } catch (mailError) {
       console.error("Contact email failed:", mailError);
+    }
+
+    // Acknowledgement to the visitor (separate message; admin addresses are never shown to them)
+    if (notified || saved) {
+      try {
+        await sendEmail({
+          to: email,
+          subject: "We received your message",
+          html: await emailLayout("We received your message", `<p>Hello ${esc(name)},</p><p>Thank you for contacting us. We will reply by e-mail or WhatsApp as soon as possible.</p>`),
+        });
+      } catch (mailError) {
+        console.error("Contact acknowledgement failed:", mailError?.message || mailError);
+      }
     }
 
     // Success only if the message reached us one way or the other; otherwise the visitor must retry.

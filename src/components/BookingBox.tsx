@@ -69,8 +69,10 @@ export default function BookingBox({ vehicle }: { vehicle?: any }) {
           ...form,
           email: form.email.trim(),
           people,
-          itemName: vehicle?.name || "Vehicle Booking",
-          bookingType: "Vehicle",
+          // the server looks up the vehicle and its seats; general requests (/booking) have no vehicle
+          vehicleId: vehicle?.vehicleId,
+          itemName: vehicle ? undefined : "Booking request",
+          bookingType: vehicle ? "Vehicle" : "Request",
           emailProof: verify.proof,
         }),
       });
@@ -80,6 +82,12 @@ export default function BookingBox({ vehicle }: { vehicle?: any }) {
         setStep("details");
         setStatus("idle");
         setMessage(t("verifyAgain"));
+        return;
+      }
+      if (res.status === 400) {
+        setStep("details");
+        setStatus("idle");
+        setMessage(t("missingFields"));
         return;
       }
       if (!data.success) throw new Error();

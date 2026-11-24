@@ -1,5 +1,9 @@
-// Shared e-mail helpers: one SMTP transport, the branded layout and the signature (like the live site's emails).
-// Credentials come from the environment (SMTP_* or the older EMAIL_USER / EMAIL_PASS for Gmail); nothing is hard-coded.
+// Shared e-mail helpers: one SMTP transport (the business cPanel mailbox), the branded layout and the signature.
+// Everything comes from the environment; nothing is hard-coded:
+//   SMTP_HOST, SMTP_PORT (465), SMTP_SECURE (true for 465), SMTP_USER, SMTP_PASS
+//   SMTP_FROM                  sender, e.g. "Sri Lanka Best Tours Driver & Guide <info@…>" (default: SMTP_USER)
+//   ADMIN_EMAIL                main address for booking / enquiry notifications (default: SMTP_USER)
+//   ADMIN_NOTIFICATION_EMAILS  more notification addresses, comma-separated
 import nodemailer from "nodemailer";
 import { getSiteSettings, type SiteSettings } from "@/lib/siteSettings";
 import { esc } from "@/lib/adminAuth";
@@ -7,18 +11,29 @@ import { esc } from "@/lib/adminAuth";
 export const BRAND = "Sri Lanka Best Tours Driver & Guide";
 export const SITE_URL = (process.env.SITE_URL || "https://srilankabesttourdriverandguide.com").replace(/\/$/, "");
 
-const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
-/** Where new bookings and enquiries are reported. */
-export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || smtpUser || "";
+const isAddress = (value: string) => value.length <= 254 && /^[^\s@,;<>"]+@[^\s@,;<>"]+\.[^\s@,;<>"]+$/.test(value);
+const port = Number(process.env.SMTP_PORT) || 465;
+// A bare address in SMTP_FROM gets the brand name: "Sri Lanka Best Tours Driver & Guide" <info@…>
+const fromAddress = (process.env.SMTP_FROM || process.env.SMTP_USER || "").replace(/[\r\n]/g, "").trim();
+const from = fromAddress.includes("<") ? fromAddress : `"${BRAND}" <${fromAddress}>`;
 
-const transporter = process.env.SMTP_USER
-  ? nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: Number(process.env.SMTP_PORT) || 465,
-      secure: (Number(process.env.SMTP_PORT) || 465) === 465,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-    })
-  : nodemailer.createTransport({ service: "gmail", auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS } });
+/** Valid, de-duplicated notification addresses from ADMIN_EMAIL + ADMIN_NOTIFICATION_EMAILS. */
+export function adminRecipients(env: Record<string, string | undefined> = process.env) {
+  const list = [env.ADMIN_EMAIL || env.SMTP_USER || "", ...(env.ADMIN_NOTIFICATION_EMAILS || "").split(",")]
+    .map((address) => address.trim().toLowerCase())
+    .filter(Boolean);
+  const invalid = list.filter((address) => !isAddress(address));
+  if (invalid.length) console.error(`Ignoring ${invalid.length} invalid notification address(es)`);
+  return [...new Set(list.filter(isAddress))];
+}
+
+// TLS certificates are verified (Nodemailer's default); `secure` is TLS from the start (port 465).
+export const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port,
+  secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : port === 465,
+  auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+});
 
 /** "Best regards" block with logo, phone, WhatsApp, e-mail, website and social links (inline styles for e-mail clients). */
 export function emailSignature(contact: SiteSettings) {
@@ -63,17 +78,38 @@ export async function emailLayout(title: string, bodyHtml: string, button?: { la
 </div></body></html>`;
 }
 
-/** Sends a mail from the site address. Returns false (and logs) instead of throwing when SMTP fails. */
+/** Sends one mail from the business address. Returns false (and logs) instead of throwing when SMTP fails. */
 export async function sendEmail({ to, subject, html, text, replyTo }: { to: string; subject: string; html: string; text?: string; replyTo?: string }) {
-  if (!smtpUser) {
-    console.error("E-mail not sent: SMTP_USER / EMAIL_USER is not configured");
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.error("E-mail not sent: SMTP_HOST / SMTP_USER / SMTP_PASS are not configured");
+    return false;
+  }
+  if (!isAddress(String(to || "").trim())) {
+    console.error("E-mail not sent: invalid recipient");
     return false;
   }
   try {
-    await transporter.sendMail({ from: `"${BRAND}" <${smtpUser}>`, to, subject: subject.replace(/[\r\n]/g, " "), html, text, replyTo });
+    await transporter.sendMail({
+      from,
+      to: to.trim(),
+      subject: subject.replace(/[\r\n]/g, " "),
+      html,
+      text,
+      replyTo: replyTo && isAddress(replyTo.trim()) ? replyTo.trim() : undefined,
+    });
     return true;
-  } catch (error) {
-    console.error("E-mail failed:", error);
+  } catch (error: any) {
+    console.error("E-mail failed:", error?.code || error?.message || error);
     return false;
   }
+}
+
+/**
+ * Business notification (new booking, enquiry, status change) to every admin address, one separate
+ * message each so no address sees the others. Never use this for codes, reset links or other secrets.
+ * Returns true if at least one admin received it.
+ */
+export async function notifyAdmins({ subject, html, replyTo }: { subject: string; html: string; replyTo?: string }) {
+  const results = await Promise.all(adminRecipients().map((to) => sendEmail({ to, subject, html, replyTo })));
+  return results.some(Boolean);
 }
