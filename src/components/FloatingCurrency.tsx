@@ -228,9 +228,8 @@ export default function FloatingCurrency() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap');
-        .curr-display { font-family: 'Cormorant Garamond', serif; }
-        .curr-body { font-family: 'Outfit', sans-serif; }
+        .curr-display { font-family: var(--font-cormorant), 'Cormorant Garamond', serif; }
+        .curr-body { font-family: var(--font-outfit), 'Outfit', sans-serif; }
       `}} />
 
       {/* Floating Button */}

@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { pageMetadata, siteUrl, siteName, serializeJsonLd } from "@/lib/seo";
 
-import { Poppins, Playfair_Display, Noto_Sans_Sinhala, Libre_Baskerville } from "next/font/google";
+import { Poppins, Playfair_Display, Noto_Sans_Sinhala, Libre_Baskerville, Cormorant_Garamond, Outfit } from "next/font/google";
 
 import localFont from "next/font/local";
 
@@ -72,6 +72,25 @@ const libre = Libre_Baskerville({
   weight: ["400", "700"],
   variable: "--font-libre",
   display: "swap",
+});
+
+// Used by the currency converter and the vehicle pages. Self-hosted instead of a render-blocking
+// Google Fonts @import; preload off so they only download where they are used.
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+  preload: false,
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-outfit",
+  display: "swap",
+  preload: false,
 });
 
 const thea = localFont({
@@ -417,6 +436,8 @@ export default async function LocaleLayout({
         ${sinhala.variable}
         ${libre.variable}
         ${thea.variable}
+        ${cormorant.variable}
+        ${outfit.variable}
       `}
     >
       <head>

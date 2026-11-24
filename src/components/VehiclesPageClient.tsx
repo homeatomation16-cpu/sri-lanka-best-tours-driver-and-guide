@@ -48,9 +48,8 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap');
-        .vl-serif { font-family: 'Cormorant Garamond', serif; }
-        .vl-sans  { font-family: 'Outfit', sans-serif; }
+        .vl-serif { font-family: var(--font-cormorant), 'Cormorant Garamond', serif; }
+        .vl-sans  { font-family: var(--font-outfit), 'Outfit', sans-serif; }
         @keyframes vl-fade-up {
           from { opacity: 0; transform: translateY(14px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -76,7 +75,7 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
           position: absolute; top: 16px; right: 16px;
           background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
           padding: 8px 16px; border-radius: 100px;
-          font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700;
+          font-family: var(--font-outfit), 'Outfit', sans-serif; font-size: 13px; font-weight: 700;
           color: #B5541A; border: 1px solid rgba(255,255,255,0.8);
           box-shadow: 0 2px 12px rgba(0,0,0,0.08); z-index: 10;
         }
@@ -84,7 +83,7 @@ export default function VehiclesPageClient({ vehicles, locale }: VehiclesPageCli
           position: absolute; bottom: 16px; left: 16px;
           background: rgba(26,23,20,0.85); backdrop-filter: blur(8px);
           padding: 5px 14px; border-radius: 100px;
-          font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700;
+          font-family: var(--font-outfit), 'Outfit', sans-serif; font-size: 9px; font-weight: 700;
           letter-spacing: 0.18em; text-transform: uppercase;
           color: rgba(255,255,255,0.9); z-index: 10;
         }
