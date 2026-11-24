@@ -1,4 +1,4 @@
-﻿import { test } from 'node:test';
+import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { registerHooks } from 'node:module';
 import fs from 'node:fs';
@@ -12,7 +12,7 @@ registerHooks({
   },
 });
 const { routing } = await import('../src/i18n/routing.ts');
-const { localizedUrl, pageAlternates, pageMetadata, metaDescription, serializeJsonLd, breadcrumbJsonLd, siteName, siteUrl } = await import('../src/lib/seo.ts');
+const { localizedUrl, pageAlternates, pageMetadata, metaDescription, serializeJsonLd, breadcrumbJsonLd, siteName, shortSiteName, siteUrl } = await import('../src/lib/seo.ts');
 
 test('all supported locales have self-canonical and reciprocal equivalent-page alternates', () => {
   for (const locale of routing.locales) {
@@ -31,9 +31,14 @@ test('page-specific search, Open Graph and Twitter previews agree in every local
   for (const locale of routing.locales) {
     const messages = JSON.parse(fs.readFileSync(new URL(`../src/messages/${locale}.json`, import.meta.url)));
     const m = pageMetadata(locale, '/contact', messages.contact.title, messages.contact.page.heroText, '/contact-cover.jpg');
-    assert.equal(m.title, `${messages.contact.title} | ${siteName}`);
-    assert.equal(m.openGraph.title, m.title);
-    assert.equal(m.twitter.title, m.title);
+    // absolute: the layout's "%s | brand" template must not add the brand twice.
+    // Full brand when it fits in ~60 characters, else the short brand, else the bare title.
+    const title = m.title.absolute;
+    const expected = [`${messages.contact.title} | ${siteName}`, `${messages.contact.title} | ${shortSiteName}`].find((t) => t.length <= 60) ?? messages.contact.title;
+    assert.equal(title, expected);
+    assert.ok(title.length <= 60 || title === messages.contact.title);
+    assert.equal(m.openGraph.title, title);
+    assert.equal(m.twitter.title, title);
     assert.equal(m.twitter.description, m.description);
     assert.equal(m.openGraph.description, m.description);
     assert.equal(m.openGraph.url, m.alternates.canonical);
@@ -41,7 +46,7 @@ test('page-specific search, Open Graph and Twitter previews agree in every local
     assert.equal(m.openGraph.alternateLocale.length, routing.locales.length - 1);
     assert.equal(m.twitter.images[0], '/contact-cover.jpg');
     assert.ok(m.description.length <= 160);
-    assert.equal(pageMetadata(locale, '', m.title, 'text').title, m.title);
+    assert.equal(pageMetadata(locale, '', title, 'text').title.absolute, title); // already branded: not branded again
   }
 });
 
