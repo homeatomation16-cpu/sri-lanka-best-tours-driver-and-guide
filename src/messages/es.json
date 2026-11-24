@@ -90,7 +90,8 @@
     "planTailor": "Planificar un tour a medida",
     "routeMap": "Mapa de la ruta",
     "mapCaption": "Mapa del relieve · datos de elevación: NASA SRTM",
-    "alsoAvailable": "También disponible como"
+    "alsoAvailable": "También disponible como",
+    "destinationsOnTour": "Destinos de este tour"
   },
   "vehicles": {
     "whatsNew": "Nuevo",
@@ -467,7 +468,8 @@
         "category": "Religioso",
         "description": "Uno de los templos más importantes de Colombo."
       }
-    }
+    },
+    "toursVisiting": "Tours que visitan {place}"
   },
   "excursions": {
     "title": "Nuestros Viajes",

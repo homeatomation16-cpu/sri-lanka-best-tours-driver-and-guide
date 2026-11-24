@@ -2,11 +2,12 @@
 
 // Navbar account button: opens a panel under the navbar with sign in / sign up, or – when signed in – the
 // customer's name, a link to My account and Sign out. No separate page needed.
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { UserRound, X } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
-import AuthForm from "./AuthForm";
+// The closed account menu needs no form or Google sign-in JavaScript.
+const AuthForm = lazy(() => import("./AuthForm"));
 
 type Me = { name: string; email: string } | null;
 
@@ -92,7 +93,7 @@ export default function AccountMenu({ className }: { className: string }) {
               </div>
             </div>
           ) : (
-            <Suspense>
+            <Suspense fallback={<p className="py-8 text-center text-sm text-slate-500" role="status">{t("loading")}</p>}>
               <AuthForm mode="login" embedded onSignedIn={loadMe} />
             </Suspense>
           )}

@@ -90,7 +90,8 @@
     "planTailor": "Planejar um tour personalizado",
     "routeMap": "Mapa do roteiro",
     "mapCaption": "Mapa de relevo · dados de elevação: NASA SRTM",
-    "alsoAvailable": "Também disponível como"
+    "alsoAvailable": "Também disponível como",
+    "destinationsOnTour": "Destinos deste circuito"
   },
   "vehicles": {
     "whatsNew": "Novidades",
@@ -467,7 +468,8 @@
         "category": "Religioso",
         "description": "Um dos templos mais importantes e antigos de Colombo."
       }
-    }
+    },
+    "toursVisiting": "Circuitos que visitam {place}"
   },
   "excursions": {
     "title": "Nossas Viagens",

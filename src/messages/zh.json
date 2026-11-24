@@ -90,7 +90,8 @@
     "planTailor": "规划定制行程",
     "routeMap": "路线地图",
     "mapCaption": "地形图 · 高程数据：NASA SRTM",
-    "alsoAvailable": "另有此行程"
+    "alsoAvailable": "另有此行程",
+    "destinationsOnTour": "本行程的目的地"
   },
   "vehicles": {
     "whatsNew": "最新动态",
@@ -467,7 +468,8 @@
         "category": "宗教圣地",
         "description": "科伦坡最古老的佛教寺庙之一，也是文化教育中心。"
       }
-    }
+    },
+    "toursVisiting": "包含{place}的行程"
   },
   "excursions": {
     "title": "短途游项目",

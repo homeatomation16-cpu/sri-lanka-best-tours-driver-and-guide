@@ -90,7 +90,8 @@
     "planTailor": "Créer un circuit sur mesure",
     "routeMap": "Carte de l’itinéraire",
     "mapCaption": "Carte du relief · données d’altitude : NASA SRTM",
-    "alsoAvailable": "Également disponible :"
+    "alsoAvailable": "Également disponible :",
+    "destinationsOnTour": "Destinations de ce circuit"
   },
   "vehicles": {
     "whatsNew": "Nouveau",
@@ -467,7 +468,8 @@
         "category": "Religieux",
         "description": "L'un des plus anciens et importants temples de Colombo."
       }
-    }
+    },
+    "toursVisiting": "Circuits qui passent par {place}"
   },
   "excursions": {
     "title": "Nos Escapades",

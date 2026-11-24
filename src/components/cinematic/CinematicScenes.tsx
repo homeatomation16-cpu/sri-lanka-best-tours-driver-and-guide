@@ -137,7 +137,7 @@ export async function AscentScene() {
           </div>
           <figure className="cine-frame cine-frame-ascent" data-layer data-at="0,1" data-y="2vh,-2vh" data-rx="1,-0.5">
             <div className="cine-frame-inner" data-layer data-at="0,1" data-scale="1.08,1.05" data-y="-1%,1%">
-              <Image src={editorialImages.hillCountryCouple} alt={t("frameImgAlt")} fill sizes="(max-width: 1024px) 70vw, 30vw" quality={75} className="object-cover" />
+              <Image src={editorialImages.hillCountryCouple} alt={t("frameImgAlt")} fill sizes="(max-width: 599px) calc(87vw - 42px), (max-width: 1024px) calc(49vw - 35px), (max-width: 1280px) 50vw, 562px" quality={75} className="object-cover" />
             </div>
           </figure>
         </div>

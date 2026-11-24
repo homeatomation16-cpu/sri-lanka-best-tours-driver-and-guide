@@ -529,7 +529,7 @@ export default async function LocaleLayout({
               TRUST BAR
           ================================================= */}
 
-          <TrustBar />
+          <TrustBar contact={siteSettings} />
 
           {/* =================================================
               FOOTER
@@ -554,7 +554,7 @@ export default async function LocaleLayout({
           <FloatingCurrency />
 
           {/* floating WhatsApp chat */}
-          <WhatsAppButton />
+          <WhatsAppButton contact={siteSettings} />
 
           {/* anonymous visitor analytics (see Admin → Analytics) */}
           <PageTracker />

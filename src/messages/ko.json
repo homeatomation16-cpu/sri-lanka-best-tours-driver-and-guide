@@ -90,7 +90,8 @@
     "planTailor": "맞춤 투어 계획하기",
     "routeMap": "경로 지도",
     "mapCaption": "지형도 · 고도 데이터: NASA SRTM",
-    "alsoAvailable": "다음 상품도 있습니다"
+    "alsoAvailable": "다음 상품도 있습니다",
+    "destinationsOnTour": "이 투어의 여행지"
   },
   "vehicles": {
     "whatsNew": "새로운 기능",
@@ -467,7 +468,8 @@
         "category": "종교 성지",
         "description": "콜롬보에서 가장 중요하고 유서 깊은 불교 사원 중 하나입니다."
       }
-    }
+    },
+    "toursVisiting": "{place}을(를) 방문하는 투어"
   },
   "excursions": {
     "title": "추천 여행",

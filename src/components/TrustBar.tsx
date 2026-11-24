@@ -1,20 +1,18 @@
-"use client";
-
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { 
   FaFacebook, FaInstagram, FaYoutube, FaTripadvisor, 
   FaWhatsapp, FaPhone, FaEnvelope 
 } from "react-icons/fa";
 
 // Contact data import
-import { useContact } from "@/components/ContactProvider";
+import type { SiteSettings } from "@/lib/siteSettingsDefaults";
 
 
-export default function TrustBar() {
-  const contact = useContact();
-  const t = useTranslations("trustBar");
-  const tPage = useTranslations("contact.page");
+export default async function TrustBar({ contact }: { contact: SiteSettings }) {
+  const [t, tPage] = await Promise.all([
+    getTranslations("trustBar"),
+    getTranslations("contact.page"),
+  ]);
 
   const socialLinks = [
     { href: contact.social.facebook, icon: FaFacebook, label: "Facebook", hoverBg: "hover:bg-blue-600", iconColor: "text-blue-600 group-hover:text-white" },
@@ -62,7 +60,7 @@ export default function TrustBar() {
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             {socialLinks.map(({ href, icon: Icon, label, hoverBg, iconColor }) => (
-              <Link
+              <a
                 key={label}
                 href={href}
                 target="_blank"
@@ -73,7 +71,7 @@ export default function TrustBar() {
                 <span className="text-sm font-bold text-zinc-700 transition-colors duration-300 group-hover:text-white">
                   {label}
                 </span>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

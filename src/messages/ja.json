@@ -90,7 +90,8 @@
     "planTailor": "オーダーメイドツアーを計画",
     "routeMap": "ルートマップ",
     "mapCaption": "地形図 · 標高データ: NASA SRTM",
-    "alsoAvailable": "こちらのプランもあります"
+    "alsoAvailable": "こちらのプランもあります",
+    "destinationsOnTour": "このツアーで訪れる場所"
   },
   "vehicles": {
     "whatsNew": "新着情報",
@@ -467,7 +468,8 @@
         "category": "宗教施設",
         "description": "コロンボで最も重要で歴史のある仏教寺院の一つです。"
       }
-    }
+    },
+    "toursVisiting": "{place}を訪れるツアー"
   },
   "excursions": {
     "title": "私たちのツアー",

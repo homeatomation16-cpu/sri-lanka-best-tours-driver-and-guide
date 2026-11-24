@@ -90,7 +90,8 @@
     "planTailor": "විශේෂ සංචාරයක් සැලසුම් කරන්න",
     "routeMap": "මාර්ග සිතියම",
     "mapCaption": "භූ සිතියම · උන්නතාංශ දත්ත: NASA SRTM",
-    "alsoAvailable": "මෙලෙසද ලබාගත හැක"
+    "alsoAvailable": "මෙලෙසද ලබාගත හැක",
+    "destinationsOnTour": "මෙම සංචාරයේ ගමනාන්ත"
   },
   "vehicles": {
     "whatsNew": "අලුත්ම ඒවා",
@@ -487,7 +488,8 @@
         "category": "ආගමික",
         "description": "ශ්‍රී ලංකාවේ විශාලතම පල්ලිවලින් එකක් වන මෙය, සිවිලිමේ ඇති අලංකාර සිතුවම් සඳහා ප්‍රසිද්ධියක් උසුලයි."
       }
-    }
+    },
+    "toursVisiting": "{place} නරඹන සංචාර"
   },
   "excursions": {
     "title": "අපගේ චාරිකා",

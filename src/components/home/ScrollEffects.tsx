@@ -38,39 +38,125 @@ export default function ScrollEffects() {
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let frame = 0;
+    let settle: ReturnType<typeof setTimeout> | undefined;
+    let layersDirty = true;
+    let topVisible = false;
+    let geometryDirty = true;
+    let maxScroll = 0;
+    const geometry = new WeakMap<HTMLElement, { top: number; height: number }>();
 
-    const update = () => {
-      frame = 0;
-      const vh = window.innerHeight;
-      const max = document.documentElement.scrollHeight - vh;
-      const progress = max > 0 ? window.scrollY / max : 0;
-      // Collect geometry before reveal classes, the progress bar or parallax
-      // writes can invalidate it. Streamed sections are picked up on each pass.
-      const layers = reduced ? [] : Array.from(document.querySelectorAll<HTMLElement>(".cinematic-root [data-depth]"), (layer) => {
-        const box = (layer.parentElement ?? layer).getBoundingClientRect();
-        return { layer, box };
+    // Performance: only layers near the viewport are measured each frame (an IntersectionObserver keeps that
+    // set, 200px margin as before), instead of querying and measuring every layer on the page per frame.
+    const visible = new Set<HTMLElement>();
+    const watched = new WeakSet<HTMLElement>();
+    const hostLayers = new WeakMap<HTMLElement, { layer: HTMLElement; depth: number }[]>();
+    const near = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const host = e.target as HTMLElement;
+        if (e.isIntersecting) {
+          visible.add(host);
+          geometry.set(host, { top: e.boundingClientRect.top + window.scrollY, height: e.boundingClientRect.height });
+        } else visible.delete(host);
       });
-      if (!reduced) revealPassed();
-      if (barRef.current) barRef.current.style.transform = `scaleX(${progress})`;
-      setShowTop(window.scrollY > vh * 1.2);
-
-      if (reduced) return;
-      // Each [data-depth] layer moves by (distance from viewport centre × depth).
-      layers.forEach(({ layer, box }) => {
-        if (box.bottom < -200 || box.top > vh + 200) return; // off-screen: skip work
-        const offset = box.top + box.height / 2 - vh / 2;
-        layer.style.setProperty("--deco-y", `${(-offset * Number(layer.dataset.depth)).toFixed(1)}px`);
+      onScroll();
+    }, { rootMargin: "200px 0px" });
+    const watchLayers = () => {
+      if (reduced || !layersDirty) return;
+      layersDirty = false;
+      document.querySelectorAll<HTMLElement>(".cinematic-root [data-depth]").forEach((layer) => {
+        const target = layer.parentElement ?? layer;
+        hostLayers.set(target, Array.from(target.querySelectorAll<HTMLElement>(":scope > [data-depth]"),
+          (child) => ({ layer: child, depth: Number(child.dataset.depth) })));
+        if (watched.has(target)) return;
+        watched.add(target);
+        near.observe(target);
       });
     };
 
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
+    const update = () => {
+      frame = 0;
+      watchLayers();
+      const vh = window.innerHeight;
+      const scrollY = window.scrollY;
+      if (geometryDirty) {
+        maxScroll = document.documentElement.scrollHeight - vh;
+        visible.forEach((host) => {
+          const box = host.getBoundingClientRect();
+          geometry.set(host, { top: box.top + scrollY, height: box.height });
+        });
+        geometryDirty = false;
+      }
+      const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+      // Read all geometry first, then write (no interleaved layout).
+      const layers: { layer: HTMLElement; depth: number; offset: number }[] = [];
+      visible.forEach((host) => {
+        if (!host.isConnected) { visible.delete(host); near.unobserve(host); return; }
+        const box = geometry.get(host);
+        if (!box) return;
+        const offset = box.top - scrollY + box.height / 2 - vh / 2;
+        hostLayers.get(host)?.forEach((layer) => layers.push({ ...layer, offset }));
+      });
+      if (barRef.current) barRef.current.style.transform = `scaleX(${progress})`;
+      const nextTop = scrollY > vh * 1.2;
+      if (nextTop !== topVisible) { topVisible = nextTop; setShowTop(nextTop); }
+      // Each [data-depth] layer moves by (distance from viewport centre × depth).
+      layers.forEach(({ layer, depth, offset }) => {
+        layer.style.translate = `0 ${(-offset * depth).toFixed(1)}px`;
+      });
+    };
+
+    // revealPassed() measures every reveal element; it only matters after a fast jump, so it runs once
+    // scrolling settles instead of on every frame. Streamed-in layers are picked up at the same time.
+    const onSettle = () => {
+      if (!reduced) revealPassed();
+    };
+    function onScroll() {
+      if (!frame) frame = requestAnimationFrame(update);
+      clearTimeout(settle);
+      settle = setTimeout(onSettle, 120);
+    }
+    const invalidateGeometry = () => { geometryDirty = true; onScroll(); };
+    // Observe layout boxes, not animated style attributes. Transforms never
+    // invalidate these stable document coordinates on ordinary scroll frames.
+    const root = document.querySelector(".cinematic-root") ?? document.body;
+    const observed = new WeakSet<Element>();
+    const sizes = new ResizeObserver(invalidateGeometry);
+    const observeSizes = () => {
+      [document.body, ...root.querySelectorAll("section")].forEach((el) => {
+        if (!observed.has(el)) { observed.add(el); sizes.observe(el); }
+      });
+    };
+    observeSizes();
+    onScroll();
+    const mutations = new MutationObserver((records) => {
+      const changed = records.some((record) => [...record.addedNodes, ...record.removedNodes].some((node) =>
+        node instanceof HTMLElement && (node.matches("[data-depth]") || node.querySelector("[data-depth]"))));
+      if (changed) layersDirty = true;
+      observeSizes();
+      invalidateGeometry();
+    });
+    mutations.observe(root, { childList: true, subtree: true });
+    // Page transitions can translate an ancestor without resizing its layout box.
+    // Track only those ancestors, never the cinematic descendants' per-frame styles.
+    const ancestors = new MutationObserver(invalidateGeometry);
+    for (let parent = root.parentElement; parent && parent !== document.body; parent = parent.parentElement) {
+      ancestors.observe(parent, { attributes: true, attributeFilter: ["style", "class"] });
+    }
+    document.addEventListener("load", invalidateGeometry, true);
+    document.fonts.addEventListener("loadingdone", invalidateGeometry);
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", invalidateGeometry);
     return () => {
       cancelAnimationFrame(frame);
+      clearTimeout(settle);
+      near.disconnect();
+      mutations.disconnect();
+      ancestors.disconnect();
+      sizes.disconnect();
+      document.removeEventListener("load", invalidateGeometry, true);
+      document.fonts.removeEventListener("loadingdone", invalidateGeometry);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", invalidateGeometry);
     };
   }, []);
 

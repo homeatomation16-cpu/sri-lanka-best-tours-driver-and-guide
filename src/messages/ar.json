@@ -90,7 +90,8 @@
     "planTailor": "خطط لجولة مصممة لك",
     "routeMap": "خريطة المسار",
     "mapCaption": "خريطة التضاريس · بيانات الارتفاع: NASA SRTM",
-    "alsoAvailable": "متوفر أيضًا باسم"
+    "alsoAvailable": "متوفر أيضًا باسم",
+    "destinationsOnTour": "الوجهات في هذه الجولة"
   },
   "vehicles": {
     "whatsNew": "الجديد",
@@ -565,7 +566,8 @@
         "category": "المواقع الدينية",
         "description": "أحد أقدم المعابد البوذية في كولومبو."
       }
-    }
+    },
+    "toursVisiting": "جولات تزور {place}"
   },
   "excursions": {
     "title": "رحلاتنا",

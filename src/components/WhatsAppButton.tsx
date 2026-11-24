@@ -1,14 +1,11 @@
-"use client";
-
 // Floating WhatsApp chat button (bottom-left, so it doesn't collide with the language/currency buttons on the right).
 // The number comes from Admin → Site settings.
 import { FaWhatsapp } from "react-icons/fa6";
-import { useContact } from "@/components/ContactProvider";
-import { useTranslations } from "next-intl";
+import type { SiteSettings } from "@/lib/siteSettingsDefaults";
+import { getTranslations } from "next-intl/server";
 
-export default function WhatsAppButton() {
-  const contact = useContact();
-  const t = useTranslations("contact.page");
+export default async function WhatsAppButton({ contact }: { contact: SiteSettings }) {
+  const t = await getTranslations("contact.page");
   if (!contact.whatsappme) return null;
 
   return (

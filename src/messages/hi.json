@@ -90,7 +90,8 @@
     "planTailor": "कस्टम टूर की योजना बनाएं",
     "routeMap": "रूट मैप",
     "mapCaption": "भू-भाग मानचित्र · ऊँचाई डेटा: NASA SRTM",
-    "alsoAvailable": "यह भी उपलब्ध है"
+    "alsoAvailable": "यह भी उपलब्ध है",
+    "destinationsOnTour": "इस टूर के गंतव्य"
   },
   "vehicles": {
     "whatsNew": "नया",
@@ -561,7 +562,8 @@
         "category": "धार्मिक स्थल",
         "description": "कोलंबो के सबसे पुराने बौद्ध मंदिरों में से एक।"
       }
-    }
+    },
+    "toursVisiting": "{place} जाने वाले टूर"
   },
   "excursions": {
     "title": "हमारी यात्राएँ",

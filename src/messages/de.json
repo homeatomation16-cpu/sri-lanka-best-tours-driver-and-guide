@@ -90,7 +90,8 @@
     "planTailor": "Individuelle Tour planen",
     "routeMap": "Routenkarte",
     "mapCaption": "Geländekarte · Höhendaten: NASA SRTM",
-    "alsoAvailable": "Auch erhältlich als"
+    "alsoAvailable": "Auch erhältlich als",
+    "destinationsOnTour": "Ziele dieser Tour"
   },
   "vehicles": {
     "whatsNew": "Neu",
@@ -467,7 +468,8 @@
         "category": "Religiös",
         "description": "Einer der bedeutendsten buddhistischen Tempel in Colombo."
       }
-    }
+    },
+    "toursVisiting": "Touren mit {place}"
   },
   "excursions": {
     "title": "Unsere Ausflüge",

@@ -1,6 +1,7 @@
 // src/components/Footer.tsx
 // Site footer laid out like the live site: logo, text and map | link columns, popular tours, destinations | contact and social.
 import Image from "next/image";
+import DeferredMap from "@/components/DeferredMap";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaXTwitter, FaYoutube } from "react-icons/fa6";
@@ -89,7 +90,7 @@ export default async function Footer() {
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">{t("desc")}</p>
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
-            <iframe src={contact.map} title={`${tContact("findUs")} – ${t("brand")}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="block h-32 w-full border-0 grayscale-35 sm:h-44" />
+            <DeferredMap src={contact.map} title={`${tContact("findUs")} – ${t("brand")}`} className="block h-32 w-full border-0 grayscale-35 sm:h-44" />
             <a href={mapsLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10 hover:text-white">
               <MapPin className="h-4 w-4 shrink-0" aria-hidden />
               {tContact("openMaps")}

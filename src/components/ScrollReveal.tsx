@@ -49,15 +49,23 @@ export default function ScrollReveal() {
     // then causes a hydration mismatch. React tags every node it owns with a __reactFiber$ key.
     const isHydrated = (el: Element) => Object.keys(el).some((k) => k.startsWith("__reactFiber$"));
     let retry: ReturnType<typeof setTimeout> | undefined;
+    const roots = new Set<ParentNode>([document]);
+    const pendingElements = new Set<HTMLElement>();
     const scan = () => {
       const added: HTMLElement[] = [];
-      let pending = false;
-      document.querySelectorAll<HTMLElement>(TARGETS).forEach((el) => {
-        if (seen.has(el) || el.closest(SKIP)) return;
-        if (!isHydrated(el)) { pending = true; return; }
+      const candidates = new Set(pendingElements);
+      pendingElements.clear();
+      roots.forEach((root) => {
+        if (root instanceof HTMLElement && root.matches(TARGETS)) candidates.add(root);
+        root.querySelectorAll<HTMLElement>(TARGETS).forEach((el) => candidates.add(el));
+      });
+      roots.clear();
+      candidates.forEach((el) => {
+        if (!el.isConnected || seen.has(el) || el.closest(SKIP)) return;
         // Only the outermost match animates (a card moves as one piece, not every line inside it)
         const parent = el.parentElement?.closest(TARGETS);
-        if (parent && !parent.closest(SKIP) && seen.has(parent)) return;
+        if (parent && !parent.closest(SKIP) && seen.has(parent)) { seen.add(el); return; }
+        if (!isHydrated(el)) { pendingElements.add(el); return; }
         seen.add(el);
         added.push(el);
       });
@@ -76,16 +84,36 @@ export default function ScrollReveal() {
       });
       // Hydration itself does not mutate the DOM, so check again shortly for nodes that were skipped
       clearTimeout(retry);
-      if (pending) retry = setTimeout(scan, 250);
+      if (pendingElements.size) retry = setTimeout(schedule, 250);
     };
 
-    scan();
+    // Performance: every scan queries the whole document and measures what it finds. Bursts of DOM changes
+    // (hydration, hero slide changes, streamed sections) are coalesced into ONE scan when the main thread is
+    // idle, instead of a full scan per mutation inside the startup long task.
+    let queued = false;
+    let idle: number | undefined;
+    const ric: (cb: () => void, opts?: IdleRequestOptions) => number =
+      window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1));
+    const cic = window.cancelIdleCallback ?? window.clearTimeout;
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      idle = ric(() => { queued = false; scan(); }, { timeout: 500 });
+    }
+
+    schedule();
     // Content that streams in later (Suspense sections) or opens on click
-    const mutations = new MutationObserver(() => scan());
+    const mutations = new MutationObserver((records) => {
+      records.forEach((record) => record.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) roots.add(node);
+      }));
+      if (roots.size) schedule();
+    });
     mutations.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       clearTimeout(retry);
+      if (idle !== undefined) cic(idle);
       observer.disconnect();
       mutations.disconnect();
     };

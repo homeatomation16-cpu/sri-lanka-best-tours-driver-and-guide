@@ -85,7 +85,7 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    // Performance: build this section's scroll animations only when it comes within ~1.5 screens
+    // Performance: build this section's scroll animations only when it comes within half a screen
     // of the viewport, instead of every section measuring the whole page during hydration.
     // Sections on the first screen are set up immediately; the rest are ready before they appear.
     let teardown: (() => void) | undefined;
@@ -96,7 +96,7 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
       void loadGsap().then(() => {
         if (!disposed) teardown = setup(el);
       });
-    }, { rootMargin: "150% 0px" });
+    }, { rootMargin: "50% 0px" });
     near.observe(el);
     return () => {
       disposed = true;
@@ -105,6 +105,16 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
     };
     // Client hover/slideshow state preserves these DOM nodes. Data-driven grids
     // key the section by their item IDs so changed target sets get a fresh scope.
+  }, []);
+
+  // Performance: looping CSS animations (floating cards, cloud sway) pause while this section is off screen
+  // (CSS: [data-offscreen] in globals.css). Nothing visible changes; they resume when it scrolls back in.
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    const visible = new IntersectionObserver(([entry]) => el.toggleAttribute("data-offscreen", !entry.isIntersecting));
+    visible.observe(el);
+    return () => visible.disconnect();
   }, []);
 
   return <section ref={root} {...props}>{children}</section>;
@@ -130,16 +140,9 @@ function setup(el: HTMLElement) {
     const isScene = el.matches("[data-scene]");
     const stickyScene = el.matches(".cine-scene") && !cond.mobile;
     const camera = gsap.timeline({
+      paused: true,
       defaults: { ease: "none" },
-      scrollTrigger: {
-        trigger: el,
-        start: stickyScene ? "top 80px" : "top bottom",
-        end: stickyScene ? "bottom bottom" : "bottom top",
-        scrub: cond.mobile ? 0.25 : 0.55,
-        invalidateOnRefresh: true,
-      },
     });
-    camera.set({}, {}, 1);
 
     if (isScene) {
       const scene = el;
@@ -170,8 +173,14 @@ function setup(el: HTMLElement) {
           { y: 10 * amp }, { y: 0, stagger: 0.02, duration: 0.25 }, 0.1);
       }
     } else {
-      clearVars.push(varTween(el, { "--camera-y": [8 * amp, -8 * amp, "px"] },
-        (target, from, to) => camera.fromTo(target, from, to, 0), { duration: 1 }));
+      // Only direct content children consume the camera offset. Writing an
+      // inherited variable on the section invalidated styles throughout it.
+      if (el.matches(".home-section-spacing, .featured-tours-section")) {
+        el.querySelectorAll<HTMLElement>(':scope > :not([aria-hidden="true"])').forEach((child) => {
+          clearVars.push(varTween(child, { "--camera-y": [8 * amp, -8 * amp, "px"] },
+            (target, from, to) => camera.fromTo(target, from, to, 0), { duration: 1 }));
+        });
+      }
     }
 
     // Entry animation for [data-rise3d] grids/text now lives in
@@ -196,7 +205,6 @@ function setup(el: HTMLElement) {
             start: "top bottom",
             end: "bottom top",
             scrub: 0.6,
-            invalidateOnRefresh: true,
           },
         }));
       });
@@ -213,7 +221,6 @@ function setup(el: HTMLElement) {
           start: "top bottom",
           end: "bottom top",
           scrub: 0.55,
-          invalidateOnRefresh: true,
         },
       });
     });
@@ -258,19 +265,32 @@ function setup(el: HTMLElement) {
         scrollTrigger: { trigger: heading, start: "top 90%", toggleActions: "play none none reverse" },
       });
     });
+    // Register once the timeline is complete. Empty cameras need no trigger;
+    // fixed-pixel/object tweens need no CSSPlugin reinitialization on refresh.
+    if (camera.duration() > 0) ScrollTrigger.create({
+      animation: camera,
+      trigger: el,
+      start: stickyScene ? "top 80px" : "top bottom",
+      end: stickyScene ? "bottom bottom" : "bottom top",
+      scrub: cond.mobile ? 0.25 : 0.55,
+      // Scene layer vh/vw values must still be recalculated after a resize.
+      invalidateOnRefresh: isScene,
+    });
     refresh();
     return () => clearVars.forEach((clear) => clear());
   }, el);
 
   // A later streamed section or loaded image can change trigger positions.
-  let height = el.offsetHeight;
-  const observer = new ResizeObserver(() => {
-    if (el.offsetHeight === height) return;
-    height = el.offsetHeight;
+  let height: number | undefined;
+  const observer = new ResizeObserver(([entry]) => {
+    const nextHeight = entry.borderBoxSize[0]?.blockSize ?? entry.contentRect.height;
+    if (height === undefined) { height = nextHeight; return; }
+    if (nextHeight === height) return;
+    height = nextHeight;
     refresh();
   });
   observer.observe(el);
-  document.fonts.ready.then(refresh).catch(() => {});
+  if (document.fonts.status !== "loaded") document.fonts.ready.then(refresh).catch(() => {});
   refresh();
 
   return () => {

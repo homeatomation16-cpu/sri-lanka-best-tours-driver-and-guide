@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { DESTINATIONS } from "@/data/destinations";
+import { DESTINATIONS, destinationsInItinerary } from "@/data/destinations";
+import { getActiveTours } from "@/lib/tourData";
 import { getSiteSettings } from "@/lib/siteSettings";
 import PackagePrice from "@/components/PackagePrice";
 import { Metadata } from "next";
@@ -93,6 +94,9 @@ export default async function DestinationPage({
   };
 
   const translatedTitle = field("title");
+  const visitingTours = (await getActiveTours(locale))
+    .filter((tour: any) => destinationsInItinerary(tour.translations?.en?.itinerary).some((d) => d.id === destination.id))
+    .map((tour: any) => ({ id: tour.tourId as string, title: (tour.translations?.[locale]?.title || tour.translations?.en?.title || tour.tourId) as string }));
   const translatedDesc = field("description");
   const translatedLocation = field("location");
   const translatedBestTime = field("bestTime");
@@ -247,6 +251,23 @@ export default async function DestinationPage({
               </article>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* ── TOURS THAT VISIT THIS PLACE ── */}
+      {visitingTours.length > 0 && (
+        <div className="max-w-5xl mx-auto px-6 md:px-10 pb-16">
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-stone-900 mb-6">{td("toursVisiting", { place: translatedTitle })}</h2>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {visitingTours.map((tour) => (
+              <li key={tour.id}>
+                <Link href={`/tours/${tour.id}`} className="flex min-h-11 items-center justify-between gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-3 text-stone-800 hover:border-amber-400">
+                  <span className="font-medium">{tour.title}</span>
+                  <span aria-hidden className="text-amber-600 rtl:-scale-x-100">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 

@@ -90,7 +90,8 @@
     "planTailor": "Спланировать индивидуальный тур",
     "routeMap": "Карта маршрута",
     "mapCaption": "Рельефная карта · данные высот: NASA SRTM",
-    "alsoAvailable": "Также доступно:"
+    "alsoAvailable": "Также доступно:",
+    "destinationsOnTour": "Места в этом туре"
   },
   "vehicles": {
     "whatsNew": "Что нового",
@@ -467,7 +468,8 @@
         "category": "Религия",
         "description": "Один из старейших буддийских храмов в Коломбо, культурный и образовательный центр."
       }
-    }
+    },
+    "toursVisiting": "Туры с посещением: {place}"
   },
   "excursions": {
     "title": "Наши поездки",

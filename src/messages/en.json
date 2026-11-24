@@ -90,7 +90,8 @@
     "planTailor": "Plan a tailor-made tour",
     "routeMap": "Route map",
     "mapCaption": "Terrain map · elevation data: NASA SRTM",
-    "alsoAvailable": "Also available as"
+    "alsoAvailable": "Also available as",
+    "destinationsOnTour": "Destinations on this tour"
   },
   "vehicles": {
     "whatsNew": "New",
@@ -467,7 +468,8 @@
       }
     },
     "gettingThere": "Getting there",
-    "experiencesIn": "Things to do in {place}"
+    "experiencesIn": "Things to do in {place}",
+    "toursVisiting": "Tours that visit {place}"
   },
   "excursions": {
     "title": "Our Trips",
