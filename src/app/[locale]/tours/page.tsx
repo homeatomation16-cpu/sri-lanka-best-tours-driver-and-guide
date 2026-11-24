@@ -1,4 +1,5 @@
-import { pageMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -108,6 +109,7 @@ export default async function ToursPage({
 
   return (
     <div className="min-h-screen bg-[#f9f7f2]">
+      <JsonLd data={sectionBreadcrumb(locale, (await getTranslations({ locale, namespace: "nav" }))("home"), (await getTranslations({ locale, namespace: "nav" }))("tours"), "/tours")} />
       {/* ── Hero Section ── */}
       <section className="relative flex min-h-[55vh] items-end overflow-hidden bg-slate-950 text-white">
         <Image src={editorialImages.coast} alt="" fill priority sizes="100vw" className="object-cover opacity-80" />

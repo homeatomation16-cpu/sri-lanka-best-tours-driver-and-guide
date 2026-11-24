@@ -1,4 +1,4 @@
-import { pageMetadata, breadcrumbJsonLd, serializeJsonLd } from "@/lib/seo";
+import { pageMetadata, breadcrumbJsonLd, serializeJsonLd, localizedUrl, absoluteUrl } from "@/lib/seo";
 // src/app/[locale]/destinations/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -119,11 +119,19 @@ export default async function DestinationPage({
 
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd(locale, [
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd([breadcrumbJsonLd(locale, [
         { name: (await getTranslations({ locale, namespace: "nav" }))("home"), path: "" },
         { name: t("label"), path: "/destinations" },
         { name: translatedTitle, path: `/destinations/${encodeURIComponent(destination.id)}` },
-      ])) }} />
+      ]), {
+        "@context": "https://schema.org", "@type": "TouristAttraction",
+        name: translatedTitle,
+        description: translatedDesc,
+        url: localizedUrl(locale, `/destinations/${encodeURIComponent(destination.id)}`),
+        ...(destination.image ? { image: absoluteUrl(destination.image) } : {}),
+        address: { "@type": "PostalAddress", ...(translatedLocation ? { addressLocality: translatedLocation } : {}), addressCountry: "LK" },
+        ...(translatedTags.length ? { keywords: translatedTags.join(", ") } : {}),
+      }]) }} />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <div className="relative h-[60vh] min-h-105 overflow-hidden">

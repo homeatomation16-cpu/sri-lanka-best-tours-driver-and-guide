@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "hero" });
   const inherited = await parent;
-  return pageMetadata(locale, "", inherited.title?.absolute || siteName, inherited.description || t("subtitle"));
+  return pageMetadata(locale, "", inherited.title?.absolute || siteName, inherited.description || t("subtitle"), undefined, { brand: false });
 }
 
 // A sleek loading skeleton to show while MongoDB fetches data

@@ -26,7 +26,7 @@ export default function Loader() {
             className="absolute inset-0 rounded-full border-4 border-emerald-400/40 border-t-sky-500"
           />
           <div className="absolute inset-3 rounded-full bg-white/70 backdrop-blur-xl shadow-lg" />
-          <Image src="/logo.png" alt="Sri Lanka Tours" width={90} height={90} priority className="z-10" />
+          <Image src="/logo.png" alt="Sri Lanka Best Tours Driver & Guide logo" width={90} height={90} priority className="z-10" />
         </div>
 
         <h2 className="text-3xl font-bold mt-6 bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text text-transparent">

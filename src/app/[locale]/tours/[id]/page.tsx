@@ -1,4 +1,4 @@
-import { pageMetadata, localizedUrl, siteUrl, serializeJsonLd } from "@/lib/seo";
+import { pageMetadata, localizedUrl, siteUrl, serializeJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -42,6 +42,7 @@ export default async function TourDetailsPage({ params }: Props) {
 
   // භාෂා ගොනු (messages JSON) වලින් පරිවර්තන ලබාගැනීම
   const t = await getTranslations({ locale, namespace: "tours" });
+  const nav = await getTranslations({ locale, namespace: "nav" });
 
   // 5. අවසාන දත්ත Object එක සකස් කිරීම
   const tour = {
@@ -62,13 +63,25 @@ export default async function TourDetailsPage({ params }: Props) {
 
   return (
     <div className="bg-stone-50 min-h-screen text-stone-800 font-sans">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd([{
         "@context": "https://schema.org", "@type": "TouristTrip",
         name: tour.title, description: tour.overview || tour.shortDescription,
         url: localizedUrl(locale, `/tours/${encodeURIComponent(tour.tourId)}`),
         ...(tour.image ? { image: new URL(tour.image, siteUrl).href } : {}),
         provider: { "@id": `${siteUrl}/#travel-agency` },
-      }) }} />
+        // the day-by-day plan shown on the page
+        ...(itinerary.some((day: any) => day?.title)
+          ? { itinerary: { "@type": "ItemList", itemListElement: itinerary.filter((day: any) => day?.title).map((day: any, i: number) => ({ "@type": "ListItem", position: i + 1, name: day.title })) } }
+          : {}),
+        // the "From $…" price shown on the page; omitted when the tour is "price on request"
+        ...(Number(tour.price) > 0
+          ? { offers: { "@type": "Offer", price: Number(tour.price), priceCurrency: "USD", url: localizedUrl(locale, `/tours/${encodeURIComponent(tour.tourId)}`), seller: { "@id": `${siteUrl}/#travel-agency` } } }
+          : {}),
+      }, breadcrumbJsonLd(locale, [
+        { name: nav("home"), path: "" },
+        { name: nav("tours"), path: "/tours" },
+        { name: tour.title, path: `/tours/${encodeURIComponent(tour.tourId)}` },
+      ])]) }} />
       {/* ── Hero Section ── */}
       <section className="relative h-[90vh] min-h-150 overflow-hidden [@media(orientation:landscape)_and_(max-height:500px)]:min-h-0">
         {tour.image ? (
@@ -170,7 +183,7 @@ export default async function TourDetailsPage({ params }: Props) {
                       <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-100 group-hover:shadow-xl transition-all">
                         <div className="grid md:grid-cols-[250px_1fr]">
                           <div className="relative h-40 min-h-40 sm:h-48 sm:min-h-48 md:h-full">
-                            <Image src={day.image || tour.image || "/logo.png"} alt={`Day ${index + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 250px" />
+                            <Image src={day.image || tour.image || "/logo.png"} alt={day.title ? `${t("day")} ${index + 1}: ${day.title}` : `${tour.title} – ${t("day")} ${index + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 250px" />
                           </div>
                           <div className="p-5 sm:p-8">
                             <span className="text-xs font-black uppercase tracking-widest text-orange-500 mb-2 block">

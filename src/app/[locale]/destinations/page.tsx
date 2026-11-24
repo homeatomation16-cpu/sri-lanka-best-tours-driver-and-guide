@@ -1,7 +1,8 @@
+import JsonLd from "@/components/seo/JsonLd";
+import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 // src/app/[locale]/destinations/page.tsx
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { pageMetadata } from "@/lib/seo";
 import { TOURS as EN_DESTINATIONS } from "@/data/destinations/en";
 import { ListingHero, CategoryChips, ListingCards } from "@/components/site/ListingPage";
 
@@ -55,6 +56,7 @@ export default async function DestinationsPage({ params, searchParams }: { param
 
   return (
     <div className="min-h-screen bg-[#f9f7f2]">
+      <JsonLd data={sectionBreadcrumb(locale, (await getTranslations({ locale, namespace: "nav" }))("home"), (await getTranslations({ locale, namespace: "nav" }))("destinations"), "/destinations")} />
       <ListingHero image="/cover.jpg" eyebrow={t("label")} title={t("heading")} subtitle={tPage("subtitle")} />
       <section className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
         <CategoryChips basePath="/destinations" allLabel={tEx("allCategories")} categories={categories} active={active} />

@@ -53,7 +53,7 @@ export default function ContactPage() {
     <div className="bg-[#faf7f2]">
       {/* HERO */}
       <section className="relative h-[62vh] min-h-110 overflow-hidden">
-        <Image src="/contact-cover.jpg" alt="Sri Lanka" fill priority sizes="100vw" className="object-cover scale-105" />
+        <Image src="/contact-cover.jpg" alt="Sri Lanka landscape – contact Sri Lanka Best Tours Driver & Guide" fill priority sizes="100vw" className="object-cover scale-105" />
         <div className="absolute inset-0 bg-linear-to-b from-[#0b2a22]/70 via-[#0b2a22]/55 to-[#0b2a22]/95" />
         <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-6 pb-16 text-center">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#d4a853]/40 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-[#f5d58a] backdrop-blur">

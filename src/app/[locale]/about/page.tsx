@@ -1,10 +1,11 @@
+import JsonLd from "@/components/seo/JsonLd";
+import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 // About us, laid out like the live site: photo hero, story with checklist, stat tiles, six reasons.
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, Award, CheckCircle2, Heart, Shield, Star, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { pageMetadata } from "@/lib/seo";
 import { ListingHero } from "@/components/site/ListingPage";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -35,6 +36,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <div className="bg-white">
+      <JsonLd data={sectionBreadcrumb(locale, (await getTranslations({ locale, namespace: "nav" }))("home"), (await getTranslations({ locale, namespace: "nav" }))("about"), "/about")} />
       <ListingHero image="/aboutcover.jpg" eyebrow={t("label")} title={t("title")} subtitle={t("desc1")} />
 
       {/* STORY */}
