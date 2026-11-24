@@ -32,6 +32,9 @@ import TrustBar from "../../components/TrustBar";
 import LanguageFloatingButton from "@/components/LanguageFloatingButton";
 import FloatingCurrency from "@/components/FloatingCurrency";
 import PageTracker from "@/components/PageTracker";
+import Snowfall from "@/components/Snowfall";
+import ChristmasGarland from "@/components/ChristmasGarland";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 /* =========================================================
    1. SITE CONFIG
@@ -386,6 +389,7 @@ export default async function LocaleLayout({
       dir={direction}
       data-theme={theme.mode === "visitor" ? undefined : theme.mode}
       data-brand={isCustomBrand(theme) ? "custom" : undefined}
+      data-season={theme.preset === "christmas" ? "christmas" : undefined}
       suppressHydrationWarning
       className={`
         ${poppins.variable}
@@ -452,6 +456,7 @@ export default async function LocaleLayout({
           >
             <Navbar />
             <ScrollReveal />
+            {theme.preset === "christmas" && <ChristmasGarland />}
           </header>
 
           {/* =================================================
@@ -492,8 +497,14 @@ export default async function LocaleLayout({
 
           <FloatingCurrency />
 
+          {/* floating WhatsApp chat */}
+          <WhatsAppButton />
+
           {/* anonymous visitor analytics (see Admin → Analytics) */}
           <PageTracker />
+
+          {/* falling snowflakes over the whole site */}
+          {theme.preset === "christmas" && <Snowfall />}
         </ThemeModeProvider>
         </ContactProvider>
         </NextIntlClientProvider>
