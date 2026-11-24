@@ -44,14 +44,19 @@ export default function ScrollEffects() {
       const vh = window.innerHeight;
       const max = document.documentElement.scrollHeight - vh;
       const progress = max > 0 ? window.scrollY / max : 0;
+      // Collect geometry before reveal classes, the progress bar or parallax
+      // writes can invalidate it. Streamed sections are picked up on each pass.
+      const layers = reduced ? [] : Array.from(document.querySelectorAll<HTMLElement>(".cinematic-root [data-depth]"), (layer) => {
+        const box = (layer.parentElement ?? layer).getBoundingClientRect();
+        return { layer, box };
+      });
+      if (!reduced) revealPassed();
       if (barRef.current) barRef.current.style.transform = `scaleX(${progress})`;
       setShowTop(window.scrollY > vh * 1.2);
 
       if (reduced) return;
-      revealPassed();
       // Each [data-depth] layer moves by (distance from viewport centre × depth).
-      document.querySelectorAll<HTMLElement>(".cinematic-root [data-depth]").forEach((layer) => {
-        const box = (layer.parentElement ?? layer).getBoundingClientRect();
+      layers.forEach(({ layer, box }) => {
         if (box.bottom < -200 || box.top > vh + 200) return; // off-screen: skip work
         const offset = box.top + box.height / 2 - vh / 2;
         layer.style.setProperty("--deco-y", `${(-offset * Number(layer.dataset.depth)).toFixed(1)}px`);

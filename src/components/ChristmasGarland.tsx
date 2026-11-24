@@ -12,7 +12,7 @@ const SAG = 16; // how far each swag dips
 const HEIGHT = 52;
 const BULBS = ["#ff3b4e", "#ffd447", "#3ddc84", "#4fc3ff", "#ff8a3d"];
 
-type Strand = { x: number; y: number; len: number; ang: number; shade: number; tw: number; green: boolean };
+type Strand = { x: number; y: number; endX: number; endY: number; shade: number; tw: number; green: boolean };
 
 export default function ChristmasGarland() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -48,12 +48,14 @@ export default function ChristmasGarland() {
         for (let k = 0; k < 3; k++) {
           const ang = Math.random() * Math.PI * 2;
           const green = k === 0 || Math.random() < 0.25; // pine needles mixed into the silver
+          const y = cy + (Math.random() - 0.5) * 3;
+          const len = 4 + Math.random() * 7;
           strands.push({
             green,
             x,
-            y: cy + (Math.random() - 0.5) * 3,
-            len: 4 + Math.random() * 7,
-            ang,
+            y,
+            endX: x + Math.cos(ang) * len,
+            endY: y + Math.sin(ang) * len * 0.75,
             shade: Math.random(),
             tw: Math.random() * Math.PI * 2,
           });
@@ -83,7 +85,7 @@ export default function ChristmasGarland() {
           ? green[Math.min(5, Math.floor(s.shade * 4 + glint * 2))]
           : silver[Math.min(9, Math.floor(s.shade * 8 + glint * 3))];
         path.moveTo(s.x, s.y);
-        path.lineTo(s.x + Math.cos(s.ang) * s.len, s.y + Math.sin(s.ang) * s.len * 0.75);
+        path.lineTo(s.endX, s.endY);
       }
       green.forEach((path, g) => {
         ctx.strokeStyle = `hsl(${140 - g * 4} ${55 + g * 4}% ${20 + g * 9}%)`; // deep pine to bright, glinting green

@@ -132,6 +132,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   // null until the preference is read after hydration, so the slide timer never starts before React can advance it.
   const [reducedMotion, setReducedMotion] = useState<boolean | null>(null);
   const [inView, setInView] = useState(true);
+  const [pageVisible, setPageVisible] = useState(true);
 
   // The video starts downloading only after the page has loaded (the identical poster image is on
   // screen until then), so its megabytes never compete with the poster, CSS and scripts.
@@ -164,18 +165,25 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   }, []);
 
   useEffect(() => {
+    const update = () => setPageVisible(!document.hidden);
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
+
+  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (inView && !paused && !reducedMotion) {
+    if (inView && pageVisible && !paused && !reducedMotion) {
       void video.play().catch(() => { /* The poster remains visible if autoplay is blocked. */ });
     } else {
       video.pause();
     }
-  }, [current, inView, paused, reducedMotion, videoAllowed]);
+  }, [current, inView, pageVisible, paused, reducedMotion, videoAllowed]);
 
   // Slide & Progress Logic: the active step fills with a CSS animation (runs on the compositor, no per-frame
   // JavaScript) and the slide advances when it ends. Pausing freezes the fill; resuming restarts the slide's timer.
-  const running = inView && !paused && reducedMotion === false && SLIDES.length > 1;
+  const running = inView && pageVisible && !paused && reducedMotion === false && SLIDES.length > 1;
   const [run, setRun] = useState(0);
   const [wasRunning, setWasRunning] = useState(running);
   if (running !== wasRunning) {
@@ -203,7 +211,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
       {slide.type === "image" ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          key={`${slide.src}-${videoAllowed}`} // remount once the sources are added
+          key={slide.src}
           src={slide.src}
           alt={slide.title}
           fetchPriority={current === 0 ? "high" : undefined}
@@ -230,7 +238,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
         <video
           ref={videoRef}
           key={slide.src}
-          autoPlay={videoAllowed && !paused && !reducedMotion}
+          autoPlay={videoAllowed && inView && pageVisible && !paused && !reducedMotion}
           muted
           playsInline
           loop
@@ -255,7 +263,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
         <h1 className="hero-display max-w-4xl font-playfair text-4xl leading-[1.08] sm:text-6xl lg:text-7xl">{t("brand")}</h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl">{t("subtitle")}</p>
         <div className="mt-9 flex flex-wrap gap-4">
-          <Link href="/tours" className="rounded-full bg-amber-400 px-7 py-4 font-semibold text-slate-950 transition-colors hover:bg-amber-300">{t("cta")}</Link>
+          <Link href="/tours" className="hero-primary-cta rounded-full bg-amber-400 px-7 py-4 font-semibold transition-colors hover:bg-amber-300">{t("cta")}</Link>
           <Link href="/contact" className="rounded-full border border-white/60 bg-white/10 px-7 py-4 font-semibold backdrop-blur-sm transition-colors hover:bg-white/20">{t("ctaContact")}</Link>
         </div>
       </div>

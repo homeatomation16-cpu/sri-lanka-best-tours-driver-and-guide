@@ -57,10 +57,14 @@ export function registerRevealSection(section: HTMLElement) {
 export function revealPassed() {
   if (!io) return;
   const vh = window.innerHeight;
-  document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => {
+  const positions = Array.from(document.querySelectorAll<HTMLElement>(".reveal"), (el) => {
     const box = el.getBoundingClientRect();
-    if (box.bottom < 0) el.classList.add("is-in");
-    else if (box.top > vh) el.classList.remove("is-in");
+    return { el, above: box.bottom < 0, below: box.top > vh };
+  });
+  // Read every position before changing classes; transforms can affect layout.
+  positions.forEach(({ el, above, below }) => {
+    if (above) el.classList.add("is-in");
+    else if (below) el.classList.remove("is-in");
   });
 }
 

@@ -399,24 +399,36 @@ export default function Snowfall() {
     // first paint; then re-scan for cards every 2 s (new sections stream in, pages change).
     let scanTimer = 0;
     let started = false;
+    let disposed = false;
+    let idleHandle: number | undefined;
+    const hasIdleCallback = typeof window.requestIdleCallback === "function";
     const start = () => {
-      if (started) return;
+      if (disposed || started) return;
       started = true;
       scanSurfaces();
       resize();
       last = performance.now();
-      raf = requestAnimationFrame(tick);
-      scanTimer = window.setInterval(scanSurfaces, 2000);
+      if (!document.hidden) raf = requestAnimationFrame(tick);
+      scanTimer = window.setInterval(() => {
+        if (!document.hidden) scanSurfaces();
+      }, 2000);
     };
-    const idle = (cb: () => void) =>
-      typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(cb, { timeout: 2500 }) : setTimeout(cb, 1200);
-    const onLoad = () => idle(start);
+    const onLoad = () => {
+      idleHandle = hasIdleCallback
+        ? window.requestIdleCallback(start, { timeout: 2500 })
+        : window.setTimeout(start, 1200);
+    };
     if (document.readyState === "complete") onLoad();
     else window.addEventListener("load", onLoad, { once: true });
     window.addEventListener("resize", resize);
     window.addEventListener("scroll", markDirty, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
+      disposed = true;
+      if (idleHandle !== undefined) {
+        if (hasIdleCallback) window.cancelIdleCallback(idleHandle);
+        else window.clearTimeout(idleHandle);
+      }
       cancelAnimationFrame(raf);
       window.clearInterval(scanTimer);
       window.removeEventListener("load", onLoad);
