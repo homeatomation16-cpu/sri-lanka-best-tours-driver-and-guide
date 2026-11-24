@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 export default function Testimonials() {
   const t = useTranslations("testimonials");
   const ts = useTranslations("home.slider");
+  const tStats = useTranslations("home.stats");
   const sliderRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -69,10 +70,13 @@ export default function Testimonials() {
         </div>
 
         {/* Trust Bar */}
-        <div data-rise3d="self" className="bg-transparent border-y border-emerald-900/15 py-8 flex flex-col lg:flex-row justify-between items-center gap-8 mb-10">
-          <TrustBlock label="Google Reviews" score="4.9" total="1,200+" />
-          <TrustBlock label="TripAdvisor" score="5.0" total="800+" />
-          <TrustBlock label="Happy Travelers" score="98%" total="Satisfaction" />
+        <div data-rise3d="self" className="bg-transparent border-y border-emerald-900/15 py-8 flex flex-col lg:flex-row justify-center items-center gap-8 mb-10">
+          {/* Only the confirmed Google rating; no review counts or other platforms without evidence */}
+          <div className="text-center">
+            <p className="text-gray-500 mb-2">{tStats("ratingLabel")}</p>
+            <span role="img" aria-label={tStats("ratingAria")} className="inline-block"><Stars /></span>
+            <p className="text-3xl font-bold mt-2" aria-hidden>4.9/5</p>
+          </div>
         </div>
 
         {/* Slider: scroll-snap track + arrows + dots */}
@@ -112,19 +116,8 @@ function Stars() {
   return (
     <div className="flex gap-1">
       {[...Array(5)].map((_, i) => (
-        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+        <Star key={i} aria-hidden className="w-4 h-4 fill-amber-400 text-amber-400" />
       ))}
-    </div>
-  );
-}
-
-function TrustBlock({ label, score, total }: { label: string; score: string; total: string }) {
-  return (
-    <div className="text-center">
-      <p className="text-gray-500 mb-2">{label}</p>
-      <Stars />
-      <p className="text-3xl font-bold mt-2">{score}</p>
-      <p className="text-gray-400 text-sm">{total}</p>
     </div>
   );
 }

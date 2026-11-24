@@ -163,8 +163,8 @@
         "desc": "We're locals who love this island and want you to experience it at its finest."
       },
       "pata": {
-        "title": "PATA & Tourism Certified",
-        "desc": "Recognized members of Sri Lanka Tourism and the Pacific Asia Travel Association."
+        "title": "Licensed & Certified Driver",
+        "desc": "A licensed and certified professional tour driver looks after every journey."
       },
       "transparent": {
         "title": "Transparent Pricing",
@@ -225,8 +225,8 @@
         "desc": "We're locals who love this island and want you to experience it at its finest."
       },
       "pata": {
-        "title": "PATA & Tourism Certified",
-        "desc": "Recognized members of Sri Lanka Tourism and the Pacific Asia Travel Association."
+        "title": "Licensed & Certified Driver",
+        "desc": "A licensed and certified professional tour driver looks after every journey."
       },
       "transparent": {
         "title": "Transparent Pricing",
@@ -276,7 +276,7 @@
       "error": "Something went wrong. Please try again or message us on WhatsApp.",
       "whyWrite": "Why travellers write to us",
       "p1": "Reply within a few hours",
-      "p2": "Licensed, SLTDA-approved driver guide",
+      "p2": "Licensed & certified professional tour driver",
       "p3": "No booking fees, pay on arrival",
       "hours": "Open 24 hours · 7 days a week"
     }
@@ -646,7 +646,13 @@
       "tours": "Tours completed",
       "travelers": "Happy travelers",
       "experience": "Years of experience",
-      "satisfaction": "Guest satisfaction"
+      "satisfaction": "Guest satisfaction",
+      "experienceValue": "1 Year",
+      "experienceLabel": "Professional Experience",
+      "certifiedValue": "Licensed & Certified",
+      "certifiedLabel": "Professional Tour Driver",
+      "ratingLabel": "Google Reviews",
+      "ratingAria": "Rated 4.9 out of 5 on Google"
     },
     "gallery": {
       "open": "Open photo",

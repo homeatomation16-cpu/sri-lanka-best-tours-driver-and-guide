@@ -163,8 +163,8 @@
         "desc": "Wir sind Einheimische, die diese Insel lieben und sie Ihnen von ihrer besten Seite zeigen wollen."
       },
       "pata": {
-        "title": "Zertifiziertes Mitglied",
-        "desc": "Anerkannte Mitglieder von Sri Lanka Tourism und der Pacific Asia Travel Association (PATA)."
+        "title": "Lizenzierter & zertifizierter Fahrer",
+        "desc": "Ein lizenzierter und zertifizierter professioneller Reisefahrer begleitet jede Reise."
       },
       "transparent": {
         "title": "Transparente Preise",
@@ -225,8 +225,8 @@
         "desc": "Wir sind Einheimische, die diese Insel lieben und sie Ihnen von ihrer besten Seite zeigen wollen."
       },
       "pata": {
-        "title": "Zertifiziertes Mitglied",
-        "desc": "Anerkannte Mitglieder von Sri Lanka Tourism und der Pacific Asia Travel Association (PATA)."
+        "title": "Lizenzierter & zertifizierter Fahrer",
+        "desc": "Ein lizenzierter und zertifizierter professioneller Reisefahrer begleitet jede Reise."
       },
       "transparent": {
         "title": "Transparente Preise",
@@ -276,7 +276,7 @@
       "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns auf WhatsApp.",
       "whyWrite": "Warum Reisende uns schreiben",
       "p1": "Antwort innerhalb weniger Stunden",
-      "p2": "Lizenzierter, SLTDA-zugelassener Fahrer-Guide",
+      "p2": "Lizenzierter & zertifizierter professioneller Reisefahrer",
       "p3": "Keine Buchungsgebühren, Zahlung bei Ankunft",
       "hours": "24 Stunden geöffnet · 7 Tage die Woche"
     }
@@ -646,7 +646,13 @@
       "tours": "Durchgeführte Touren",
       "travelers": "Zufriedene Reisende",
       "experience": "Jahre Erfahrung",
-      "satisfaction": "Gästezufriedenheit"
+      "satisfaction": "Gästezufriedenheit",
+      "experienceValue": "1 Jahr",
+      "experienceLabel": "Berufserfahrung",
+      "certifiedValue": "Lizenziert & zertifiziert",
+      "certifiedLabel": "Professioneller Reisefahrer",
+      "ratingLabel": "Google-Bewertungen",
+      "ratingAria": "Bewertet mit 4.9 von 5 auf Google"
     },
     "gallery": {
       "open": "Foto öffnen",

@@ -163,8 +163,8 @@
         "desc": "Somos locais que amam esta ilha e queremos que você a vivencie da melhor forma."
       },
       "pata": {
-        "title": "Certificado PATA e Turismo",
-        "desc": "Membros reconhecidos do Sri Lanka Tourism e da Pacific Asia Travel Association."
+        "title": "Motorista licenciado e certificado",
+        "desc": "Cada viagem é acompanhada por um motorista de turismo profissional licenciado e certificado."
       },
       "transparent": {
         "title": "Preços Transparentes",
@@ -225,8 +225,8 @@
         "desc": "Somos locais que amam esta ilha e queremos que você a vivencie da melhor forma."
       },
       "pata": {
-        "title": "Certificado PATA e Turismo",
-        "desc": "Membros reconhecidos do Sri Lanka Tourism e da Pacific Asia Travel Association."
+        "title": "Motorista licenciado e certificado",
+        "desc": "Cada viagem é acompanhada por um motorista de turismo profissional licenciado e certificado."
       },
       "transparent": {
         "title": "Preços Transparentes",
@@ -276,7 +276,7 @@
       "error": "Algo deu errado. Tente novamente ou fale conosco no WhatsApp.",
       "whyWrite": "Por que os viajantes nos escrevem",
       "p1": "Resposta em poucas horas",
-      "p2": "Motorista-guia licenciado e aprovado pela SLTDA",
+      "p2": "Motorista de turismo profissional licenciado e certificado",
       "p3": "Sem taxas de reserva, pague na chegada",
       "hours": "Aberto 24 horas · 7 dias por semana"
     }
@@ -646,7 +646,13 @@
       "tours": "Tours realizados",
       "travelers": "Viajantes felizes",
       "experience": "Anos de experiência",
-      "satisfaction": "Satisfação dos clientes"
+      "satisfaction": "Satisfação dos clientes",
+      "experienceValue": "1 ano",
+      "experienceLabel": "Experiência profissional",
+      "certifiedValue": "Licenciado e certificado",
+      "certifiedLabel": "Motorista de turismo profissional",
+      "ratingLabel": "Avaliações do Google",
+      "ratingAria": "Avaliado com 4.9 de 5 no Google"
     },
     "gallery": {
       "open": "Abrir foto",

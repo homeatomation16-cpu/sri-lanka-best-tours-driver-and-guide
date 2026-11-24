@@ -163,8 +163,8 @@
         "desc": "我们是热爱这片土地的当地人，渴望展示这里最美的一面。"
       },
       "pata": {
-        "title": "PATA 与旅游局认证单位",
-        "desc": "斯里兰卡旅游局及亚太旅游协会 (PATA) 正式会员。"
+        "title": "持证认证司机",
+        "desc": "每一段旅程均由持证认证的专业旅游司机负责。"
       },
       "transparent": {
         "title": "透明定价",
@@ -225,8 +225,8 @@
         "desc": "我们是热爱这片土地的当地人，渴望展示这里最美的一面。"
       },
       "pata": {
-        "title": "PATA 与旅游局认证单位",
-        "desc": "斯里兰卡旅游局及亚太旅游协会 (PATA) 正式会员。"
+        "title": "持证认证司机",
+        "desc": "每一段旅程均由持证认证的专业旅游司机负责。"
       },
       "transparent": {
         "title": "透明定价",
@@ -276,7 +276,7 @@
       "error": "出了点问题。请重试或通过 WhatsApp 联系我们。",
       "whyWrite": "为什么旅行者联系我们",
       "p1": "几小时内回复",
-      "p2": "持证、SLTDA 认可的司机导游",
+      "p2": "持证认证的专业旅游司机",
       "p3": "无预订费，抵达后付款",
       "hours": "24 小时营业 · 每周 7 天"
     }
@@ -646,7 +646,13 @@
       "tours": "已完成行程",
       "travelers": "满意的旅客",
       "experience": "年经验",
-      "satisfaction": "客人满意度"
+      "satisfaction": "客人满意度",
+      "experienceValue": "1 年",
+      "experienceLabel": "专业经验",
+      "certifiedValue": "持证认证",
+      "certifiedLabel": "专业旅游司机",
+      "ratingLabel": "Google 评价",
+      "ratingAria": "Google 评分 4.9（满分 5 分）"
     },
     "gallery": {
       "open": "打开照片",

@@ -38,7 +38,7 @@ export default async function TailorMade() {
           <div className="bespoke-card-back bespoke-card-back-near" aria-hidden="true" data-card-depth="0.6" />
           <div className="bespoke-main-photo" data-card-depth="1" data-drift data-drift-speed="0.65">
             <div className="cine-image-plane" data-drift-layer>
-              <Image src={image} alt={heading} fill sizes="(max-width: 1024px) 90vw, 45vw" className="object-cover" />
+              <Image src={image} alt="" fill sizes="(max-width: 1024px) 90vw, 45vw" className="object-cover" />
             </div>
           </div>
           <div className="bespoke-detail-photo" data-card-depth="-1.8" data-drift data-drift-speed="-0.35">

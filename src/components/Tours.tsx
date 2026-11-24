@@ -6,12 +6,16 @@ import { Link } from "@/i18n/navigation";
 import { ArrowRight, ArrowUpRight, CalendarCheck, Check, Clock, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getActiveTours } from "@/lib/tourData";
+import { getSeason } from "@/utils/season";
 
 export default async function ToursSection({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "tours" });
   const tHome = await getTranslations({ locale, namespace: "home" });
 
-  const wanted = ["05-days-down-south", "08-days-down-south", "10-days-down-south"];
+  // From November to June the Seasonal section above already shows these three Down South tours,
+  // so this section shows their "with hotels" versions instead of repeating the same cards.
+  const suffix = getSeason().isEastCoastSeason ? "" : "-hotels";
+  const wanted = ["05-days-down-south", "08-days-down-south", "10-days-down-south"].map((id) => id + suffix);
   const downSouthTours = (await getActiveTours(locale)).filter((tour: any) => wanted.includes(tour.tourId));
 
   return (

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { 
@@ -11,13 +10,6 @@ import {
 // Contact data import
 import { useContact } from "@/components/ContactProvider";
 
-const partners = [
-  { img: "/images/sri-lanka-logo.webp", link: "https://www.srilanka.travel/", alt: "Sri Lanka Tourism" },
-  { img: "/images/trip-advisor-logo.webp", link: "https://tripadvisor.com", alt: "TripAdvisor" },
-  { img: "/images/sltsm-logo.webp", link: "https://www.sltda.gov.lk/", alt: "SLTDA" },
-  { img: "/images/pata-logo.webp", link: "https://www.pata.org/", alt: "PATA" },
-  { img: "/images/taasl-logo.webp", link: "https://taasl.lk/", alt: "TAASL" },
-];
 
 export default function TrustBar() {
   const contact = useContact();
@@ -61,37 +53,6 @@ export default function TrustBar() {
         <div className="h-1.5 w-full bg-linear-to-r from-orange-400 via-pink-500 to-amber-400" />
 
         <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="text-center mb-8">
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 mb-4">
-              {t("accredited")}
-            </p>
-            <h2 className="text-2xl sm:text-4xl font-black text-zinc-900 leading-tight">
-              {t("trustedBy")}
-            </h2>
-            <div className="mt-4 mx-auto w-20 h-1 rounded-full bg-linear-to-r from-orange-500 to-pink-500" />
-          </div>
-
-          <div className="mx-auto grid max-w-4xl grid-cols-3 md:grid-cols-5 gap-3 mb-10">
-            {partners.map((p, i) => (
-              <Link
-                key={i}
-                href={p.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex h-20 items-center justify-center rounded-2xl border border-zinc-100 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-lg sm:h-24"
-              >
-                <Image
-                  src={p.img}
-                  alt={p.alt}
-                  width={140}
-                  height={60}
-                  // 🌟 Warning එක Fix කිරීම සඳහා w-auto h-auto මෙහි එක් කර ඇත
-                  className="h-auto max-h-14 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105 sm:max-h-16"
-                />
-              </Link>
-            ))}
-          </div>
-
           <div className="flex items-center gap-8 mb-8">
             <div className="flex-1 h-px bg-zinc-100" />
             <span className="text-zinc-600 text-2xl font-serif italic">Connect with us</span>

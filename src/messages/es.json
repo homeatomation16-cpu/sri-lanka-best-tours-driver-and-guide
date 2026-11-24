@@ -163,8 +163,8 @@
         "desc": "Somos locales que aman esta isla y queremos que la vivas al máximo."
       },
       "pata": {
-        "title": "Certificado por PATA y Turismo",
-        "desc": "Miembros reconocidos de Sri Lanka Tourism y la Pacific Asia Travel Association."
+        "title": "Conductor con licencia y certificado",
+        "desc": "Un conductor turístico profesional con licencia y certificado se encarga de cada viaje."
       },
       "transparent": {
         "title": "Precios Transparentes",
@@ -225,8 +225,8 @@
         "desc": "Somos locales que aman esta isla y queremos que la vivas al máximo."
       },
       "pata": {
-        "title": "Certificado por PATA y Turismo",
-        "desc": "Miembros reconocidos de Sri Lanka Tourism y la Pacific Asia Travel Association."
+        "title": "Conductor con licencia y certificado",
+        "desc": "Un conductor turístico profesional con licencia y certificado se encarga de cada viaje."
       },
       "transparent": {
         "title": "Precios Transparentes",
@@ -276,7 +276,7 @@
       "error": "Algo salió mal. Inténtalo de nuevo o escríbenos por WhatsApp.",
       "whyWrite": "Por qué los viajeros nos escriben",
       "p1": "Respuesta en pocas horas",
-      "p2": "Conductor-guía con licencia aprobado por SLTDA",
+      "p2": "Conductor turístico profesional con licencia y certificado",
       "p3": "Sin gastos de reserva, pago a la llegada",
       "hours": "Abierto 24 horas · 7 días a la semana"
     }
@@ -646,7 +646,13 @@
       "tours": "Tours realizados",
       "travelers": "Viajeros felices",
       "experience": "Años de experiencia",
-      "satisfaction": "Satisfacción de los clientes"
+      "satisfaction": "Satisfacción de los clientes",
+      "experienceValue": "1 año",
+      "experienceLabel": "Experiencia profesional",
+      "certifiedValue": "Con licencia y certificado",
+      "certifiedLabel": "Conductor turístico profesional",
+      "ratingLabel": "Reseñas de Google",
+      "ratingAria": "Valoración de 4.9 sobre 5 en Google"
     },
     "gallery": {
       "open": "Abrir foto",

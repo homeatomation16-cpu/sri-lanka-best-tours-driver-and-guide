@@ -163,8 +163,8 @@
         "desc": "Nous sommes des locaux qui aimons cette île."
       },
       "pata": {
-        "title": "Certifié PATA",
-        "desc": "Membres reconnus du Sri Lanka Tourism."
+        "title": "Chauffeur agréé & certifié",
+        "desc": "Un chauffeur touristique professionnel agréé et certifié s'occupe de chaque voyage."
       },
       "transparent": {
         "title": "Tarification Transparente",
@@ -225,8 +225,8 @@
         "desc": "Nous sommes des locaux qui aimons cette île."
       },
       "pata": {
-        "title": "Certifié PATA",
-        "desc": "Membres reconnus du Sri Lanka Tourism."
+        "title": "Chauffeur agréé & certifié",
+        "desc": "Un chauffeur touristique professionnel agréé et certifié s'occupe de chaque voyage."
       },
       "transparent": {
         "title": "Tarification Transparente",
@@ -276,7 +276,7 @@
       "error": "Une erreur s'est produite. Réessayez ou écrivez-nous sur WhatsApp.",
       "whyWrite": "Pourquoi les voyageurs nous écrivent",
       "p1": "Réponse en quelques heures",
-      "p2": "Chauffeur-guide agréé SLTDA",
+      "p2": "Chauffeur touristique professionnel agréé & certifié",
       "p3": "Aucuns frais de réservation, paiement à l'arrivée",
       "hours": "Ouvert 24 h/24 · 7 jours sur 7"
     }
@@ -646,7 +646,13 @@
       "tours": "Circuits réalisés",
       "travelers": "Voyageurs ravis",
       "experience": "Années d'expérience",
-      "satisfaction": "Satisfaction client"
+      "satisfaction": "Satisfaction client",
+      "experienceValue": "1 an",
+      "experienceLabel": "Expérience professionnelle",
+      "certifiedValue": "Agréé & certifié",
+      "certifiedLabel": "Chauffeur touristique professionnel",
+      "ratingLabel": "Avis Google",
+      "ratingAria": "Noté 4.9 sur 5 sur Google"
     },
     "gallery": {
       "open": "Ouvrir la photo",

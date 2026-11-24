@@ -163,8 +163,8 @@
         "desc": "Siamo locali che amano questa isola e vogliamo che tu la viva al meglio."
       },
       "pata": {
-        "title": "Certificato PATA e Turismo",
-        "desc": "Membri riconosciuti dello Sri Lanka Tourism e della Pacific Asia Travel Association."
+        "title": "Autista autorizzato e certificato",
+        "desc": "Ogni viaggio è seguito da un autista turistico professionista autorizzato e certificato."
       },
       "transparent": {
         "title": "Prezzi Trasparenti",
@@ -225,8 +225,8 @@
         "desc": "Siamo locali che amano questa isola e vogliamo che tu la viva al meglio."
       },
       "pata": {
-        "title": "Certificato PATA e Turismo",
-        "desc": "Membri riconosciuti dello Sri Lanka Tourism e della Pacific Asia Travel Association."
+        "title": "Autista autorizzato e certificato",
+        "desc": "Ogni viaggio è seguito da un autista turistico professionista autorizzato e certificato."
       },
       "transparent": {
         "title": "Prezzi Trasparenti",
@@ -276,7 +276,7 @@
       "error": "Qualcosa è andato storto. Riprova o scrivici su WhatsApp.",
       "whyWrite": "Perché i viaggiatori ci scrivono",
       "p1": "Risposta entro poche ore",
-      "p2": "Autista-guida autorizzato SLTDA",
+      "p2": "Autista turistico professionista autorizzato e certificato",
       "p3": "Nessun costo di prenotazione, paghi all'arrivo",
       "hours": "Aperto 24 ore · 7 giorni su 7"
     }
@@ -646,7 +646,13 @@
       "tours": "Tour completati",
       "travelers": "Viaggiatori felici",
       "experience": "Anni di esperienza",
-      "satisfaction": "Soddisfazione degli ospiti"
+      "satisfaction": "Soddisfazione degli ospiti",
+      "experienceValue": "1 anno",
+      "experienceLabel": "Esperienza professionale",
+      "certifiedValue": "Autorizzato e certificato",
+      "certifiedLabel": "Autista turistico professionista",
+      "ratingLabel": "Recensioni Google",
+      "ratingAria": "Valutazione 4.9 su 5 su Google"
     },
     "gallery": {
       "open": "Apri foto",
