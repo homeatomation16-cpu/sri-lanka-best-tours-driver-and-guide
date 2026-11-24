@@ -3,7 +3,7 @@ import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { editorialImages } from "@/data/editorialImages";
 import { getSeason } from "@/utils/season";
@@ -54,6 +54,7 @@ export default async function ToursPage({
   searchParams: Promise<{ category?: string; days?: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const { category: selected, days } = await searchParams;
   const length = LENGTHS.includes(days as (typeof LENGTHS)[number]) ? days : undefined;
   const t = await getTranslations({ locale, namespace: "tours" });

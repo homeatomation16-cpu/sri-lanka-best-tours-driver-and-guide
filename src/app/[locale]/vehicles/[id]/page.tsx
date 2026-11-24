@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { cache } from "react";
 // src/app/[locale]/vehicles/[id]/page.tsx
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   Users, Gauge, Fuel, Star,
   Languages, Check,
@@ -54,6 +54,7 @@ export default async function VehiclePage({
   params: Promise<{ id: string; locale: string }>;
 }) {
   const { id, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("vehicles");
 
   const vehicleRaw = await getVehicle(id);

@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
@@ -85,6 +86,7 @@ export async function GET() {
       { $set: { status: "inactive" } }
     );
 
+    revalidatePath("/", "layout");
     return NextResponse.json({
       success: true,
       message: `Success! ${en.length} tours imported in 14 languages. ${hidden.modifiedCount} old tours hidden.`

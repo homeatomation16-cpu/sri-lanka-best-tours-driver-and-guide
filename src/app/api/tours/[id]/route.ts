@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
@@ -53,6 +54,7 @@ export async function PUT(req: Request, context: Ctx) {
 
     const updatedTour = await Tour.findByIdAndUpdate(id, { $set: set }, { returnDocument: "after" });
     if (!updatedTour) return NextResponse.json({ error: "Tour not found" }, { status: 404 });
+    revalidatePath("/", "layout"); // cached pages show tour/vehicle data
     return NextResponse.json(updatedTour);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -68,6 +70,7 @@ export async function DELETE(_req: Request, context: Ctx) {
     const { id } = await context.params;
     const deleted = await Tour.findByIdAndDelete(id);
     if (!deleted) return NextResponse.json({ error: "Tour not found" }, { status: 404 });
+    revalidatePath("/", "layout"); // cached pages show tour/vehicle data
     return NextResponse.json({ success: true });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

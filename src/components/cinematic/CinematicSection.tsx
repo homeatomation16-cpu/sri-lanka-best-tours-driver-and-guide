@@ -140,8 +140,11 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
       // Layered float: after the entry rise, cards keep moving at their own
       // depth for the whole pass (alternating near/far), and text blocks
       // move gently the opposite way — so copy and cards read as separate layers.
+      // Phones (<600px) skip the continuous card float: scrubbing --float-y on every card each
+      // scroll frame forced a style recalculation of ~55 elements per frame. Entry reveals,
+      // camera, parallax and photo drift still run on phones; tablet/desktop are unchanged.
       const FLOAT_DEPTHS = [1, 0.55, 1.35, 0.8];
-      gsap.utils.toArray<HTMLElement>("[data-rise3d]", el).forEach((grid) => {
+      if (!cond.mobile) gsap.utils.toArray<HTMLElement>("[data-rise3d]", el).forEach((grid) => {
         const self = grid.dataset.rise3d === "self";
         const items = self ? [grid] : (Array.from(grid.children) as HTMLElement[]);
         items.forEach((item, i) => {
@@ -160,7 +163,7 @@ export default function CinematicSection({ children, ...props }: ComponentPropsW
       });
 
       // Alternate card directions throughout scrolling, without hover transforms.
-      el.querySelectorAll<HTMLElement>("[data-scroll-float]").forEach((card) => {
+      if (!cond.mobile) el.querySelectorAll<HTMLElement>("[data-scroll-float]").forEach((card) => {
         const distance = Number(card.dataset.scrollFloat) * 36 * amp;
         gsap.fromTo(card, { y: distance }, {
           y: -distance,

@@ -3,7 +3,7 @@ import { pageMetadata, breadcrumbJsonLd, serializeJsonLd, localizedUrl, absolute
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { DESTINATIONS } from "@/data/destinations";
 import PackagePrice from "@/components/PackagePrice";
 import { Metadata } from "next";
@@ -67,8 +67,8 @@ export default async function DestinationPage({
 }: {
   params: Promise<{ id: string; locale: string }>;
 }) {
-  const { id } = await params; // Next.js 15 Promise Fix
-  const locale = await getLocale();
+  const { id, locale } = await params; // Next.js 15 Promise Fix
+  setRequestLocale(locale);
 
   const t = await getTranslations("destinations");
   const td = await getTranslations("destinationPage");

@@ -9,7 +9,7 @@ import { Poppins, Playfair_Display, Noto_Sans_Sinhala, Libre_Baskerville, Cormor
 import localFont from "next/font/local";
 
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { routing } from "@/i18n/routing";
@@ -102,6 +102,10 @@ const thea = localFont({
 /* =========================================================
    3. STATIC LOCALES
 ========================================================= */
+
+// Pages are now rendered once and cached (instead of on every visit). Admin saves refresh them
+// immediately; this is only a safety net so nothing can stay stale for more than an hour.
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({
@@ -299,20 +303,24 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
        ICONS
     ===================================================== */
 
+    // Small copies of the logo for browser tabs / home screens (the 512px logo.png is 333 KB).
     icons: {
       icon: [
         {
           url: "/favicon.ico",
+          sizes: "48x48",
         },
         {
-          url: "/logo.png",
+          url: "/icons/icon-192.png",
           type: "image/png",
+          sizes: "192x192",
         },
       ],
 
       apple: [
         {
-          url: "/logo.png",
+          url: "/icons/apple-touch-icon.png",
+          sizes: "180x180",
         },
       ],
     },
@@ -362,6 +370,9 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
+
+  // lets next-intl render this locale statically instead of reading request headers
+  setRequestLocale(locale);
 
   /* =======================================================
      LOAD TRANSLATIONS

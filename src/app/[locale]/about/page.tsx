@@ -3,7 +3,7 @@ import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 // About us, laid out like the live site: photo hero, story with checklist, stat tiles, six reasons.
 import type { Metadata } from "next";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowUpRight, Award, CheckCircle2, Heart, Shield, Star, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { ListingHero } from "@/components/site/ListingPage";
@@ -32,6 +32,7 @@ const STATS = [
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "about" });
 
   return (

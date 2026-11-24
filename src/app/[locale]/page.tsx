@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { pageMetadata, siteName } from "@/lib/seo";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import HeroVideo from "@/components/HeroVideo";
 import ExperienceExplorer from "@/components/ExperienceExplorer";
 import SeasonalTours from "@/components/SeasonalTours";
@@ -53,6 +53,7 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   // Hero + gallery are editable in Admin → Website Content (text auto-translated).
   const [heroData, galleryData] = await Promise.all([getSiteContent("hero"), getSiteContent("gallery")]);

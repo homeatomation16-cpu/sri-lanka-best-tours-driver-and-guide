@@ -1,7 +1,7 @@
 import JsonLd from "@/components/seo/JsonLd";
 import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { EXCURSIONS } from "@/data/excursions";
 import { EXCURSION_DETAILS } from "@/data/excursionDetails";
 import { ListingHero, CategoryChips, ListingCards } from "@/components/site/ListingPage";
@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 // Live-site layout: hero, category chips (?category=), cards sorted A–Z.
 export default async function ExcursionsPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ category?: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const { category } = await searchParams;
   const [t, localized] = await Promise.all([getTranslations({ locale, namespace: "excursions" }), loadLocalized(locale)]);
 

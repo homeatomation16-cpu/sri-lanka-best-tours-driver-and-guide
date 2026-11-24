@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import connectDB from "@/lib/mongodb";
 import Vehicle from "@/models/Vehicle";
@@ -32,6 +33,7 @@ export async function POST(req: Request) {
       price: Number(body.price || 0),
     });
 
+    revalidatePath("/", "layout"); // cached pages show tour/vehicle data
     return NextResponse.json(newVehicle, { status: 201 });
 
   } catch (error: any) {

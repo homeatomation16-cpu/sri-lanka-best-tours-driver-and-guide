@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
@@ -84,6 +85,7 @@ export async function GET() {
     // 🔥 FAST INSERT
     const result = await Vehicle.bulkWrite(operations);
 
+    revalidatePath("/", "layout");
     return NextResponse.json({
       success: true,
       message: `✅ ${en.length} vehicles imported successfully`,

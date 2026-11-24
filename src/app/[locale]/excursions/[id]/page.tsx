@@ -3,7 +3,7 @@ import { pageMetadata, breadcrumbJsonLd, serializeJsonLd, localizedUrl, absolute
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { EXCURSIONS } from "@/data/excursions";
 import { EXCURSION_DETAILS } from "@/data/excursionDetails";
 import PackagePrice from "@/components/PackagePrice";
@@ -67,8 +67,8 @@ export default async function ExcursionPage({
 }: {
   params: Promise<{ id: string; locale: string }>;
 }) {
-  const { id } = await params;
-  const locale = await getLocale();
+  const { id, locale } = await params;
+  setRequestLocale(locale);
 
   const t  = await getTranslations("excursions");
   const te = await getTranslations("excursionPage");

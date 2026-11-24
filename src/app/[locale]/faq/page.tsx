@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { ChevronDown } from "lucide-react";
 import { pageMetadata } from "@/lib/seo";
@@ -20,6 +21,7 @@ const faqJsonLd = {
 
 export default async function FaqPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <LegalShell doc={FAQ_DOC} locale={locale} toc={FAQ_GROUPS.map((g) => g.heading)} jsonLd={faqJsonLd}>
       <div className="space-y-8">

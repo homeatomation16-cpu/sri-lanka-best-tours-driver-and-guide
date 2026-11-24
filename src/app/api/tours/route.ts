@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 import { NextResponse } from "next/server";
@@ -52,6 +53,7 @@ export async function POST(req: Request) {
       status: body.status === "inactive" ? "inactive" : "active",
     });
 
+    revalidatePath("/", "layout"); // cached pages show tour/vehicle data
     return NextResponse.json(newTour, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

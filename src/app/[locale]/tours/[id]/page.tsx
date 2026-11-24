@@ -2,7 +2,7 @@ import { pageMetadata, localizedUrl, siteUrl, serializeJsonLd, breadcrumbJsonLd 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import BookingForm from "@/components/BookingForm";
 import TourRouteMap from "@/components/TourRouteMap";
 import { getActiveTours, getTourById } from "@/lib/tourData";
@@ -22,8 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // 🚀 2. ඔයාගේ ප්‍රධාන Page Component එක (මෙතැන් සිට ඔයාගේ කලින් කෝඩ් එක ඒ විදිහටම තියන්න)
+// No tours are pre-built; each tour page is rendered on its first visit and then served from the
+// cache (refreshed when a tour is saved in Admin, or hourly at most).
+export function generateStaticParams() {
+  return [];
+}
+
 export default async function TourDetailsPage({ params }: Props) {
   const { locale, id } = await params;
+  setRequestLocale(locale);
 
   // ... ඔයාගේ කලින් තිබුණු කෝඩ් එක මෙතනින් පහළට ඒ විදිහටම තියන්න ...
 

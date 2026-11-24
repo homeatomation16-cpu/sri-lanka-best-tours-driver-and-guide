@@ -1,7 +1,7 @@
 import JsonLd from "@/components/seo/JsonLd";
 import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import connectDB from "@/lib/mongodb";
 import Vehicle from "@/models/Vehicle";
 import VehiclesPageClient from "@/components/VehiclesPageClient";
@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function VehiclesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   await connectDB();
   // Database එකෙන් වාහන සියල්ල ලබා ගැනීම

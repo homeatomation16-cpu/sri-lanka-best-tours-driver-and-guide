@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata, sectionBreadcrumb } from "@/lib/seo";
 import JsonLd from "@/components/seo/JsonLd";
 
@@ -11,6 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function Layout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const nav = await getTranslations({ locale, namespace: "nav" });
   return (
     <>

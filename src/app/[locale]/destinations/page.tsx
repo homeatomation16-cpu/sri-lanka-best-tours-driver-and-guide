@@ -2,7 +2,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 // src/app/[locale]/destinations/page.tsx
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { TOURS as EN_DESTINATIONS } from "@/data/destinations/en";
 import { ListingHero, CategoryChips, ListingCards } from "@/components/site/ListingPage";
 
@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 // Live-site layout: hero, category chips (?category=), destination cards.
 export default async function DestinationsPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ category?: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const { category } = await searchParams;
   const [t, tPage, tEx, localized] = await Promise.all([
     getTranslations({ locale, namespace: "destinations" }),

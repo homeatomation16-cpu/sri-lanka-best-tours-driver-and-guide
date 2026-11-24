@@ -115,20 +115,36 @@ export default function Snowfall() {
     let frame = 0;
     const markDirty = () => (rectsDirty = true);
 
+    /* Performance: the expensive part (searching the page, de-duplicating nested matches, reading
+       border radius) runs only every couple of seconds; each animation frame just re-reads the
+       positions of that short list, and only after a scroll or every 20 frames. */
+    let candidates: { el: Element; radiusPx: number }[] = [];
+    const scanSurfaces = () => {
+      const found = Array.from(document.querySelectorAll(SURFACES)).filter((el) => !el.closest("header, [aria-hidden=true]"));
+      const rects = new Map(found.map((el) => [el, el.getBoundingClientRect()] as const));
+      candidates = found
+        .filter((el) => {
+          // the same card often matches twice (wrapper + visible box): keep the inner, visible one
+          const r = rects.get(el)!;
+          return !found.some((inner) => {
+            if (inner === el || !el.contains(inner)) return false;
+            const ir = rects.get(inner)!;
+            return Math.abs(ir.top - r.top) < 40 && ir.width > r.width * 0.8;
+          });
+        })
+        .map((el) => ({ el, radiusPx: parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0 }));
+      rectsDirty = true;
+    };
+
     const refreshSurfaces = () => {
       rectsDirty = false;
       const next: Surface[] = [];
-      document.querySelectorAll(SURFACES).forEach((el) => {
-        if (el.closest("header, [aria-hidden=true]")) return;
+      candidates.forEach(({ el, radiusPx }) => {
+        if (!el.isConnected) return;
         const r = el.getBoundingClientRect();
-        // the same card often matches twice (wrapper + visible box): keep the inner, visible one
-        for (const inner of el.querySelectorAll(SURFACES)) {
-          const ir = inner.getBoundingClientRect();
-          if (Math.abs(ir.top - r.top) < 40 && ir.width > r.width * 0.8) return;
-        }
         if (r.width < 40 || r.height < 12 || r.bottom < 0 || r.top > h || r.top < 4) return;
         // snow only rests on the flat-ish part of the top, not down the steep rounded sides (pill buttons)
-        const radius = Math.min(parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0, r.width / 2, r.height / 2, 40);
+        const radius = Math.min(radiusPx, r.width / 2, r.height / 2, 40);
         const inset = radius * 0.6;
         const sl = r.left + inset;
         const sw = r.width - inset * 2;
@@ -372,19 +388,38 @@ export default function Snowfall() {
 
     const onVisibility = () => {
       cancelAnimationFrame(raf);
+      if (!started) return;
       if (!document.hidden) {
         last = performance.now();
         raf = requestAnimationFrame(tick);
       }
     };
 
-    resize();
-    raf = requestAnimationFrame(tick);
+    // Start once the page has loaded and the browser is idle, so the snow never competes with the
+    // first paint; then re-scan for cards every 2 s (new sections stream in, pages change).
+    let scanTimer = 0;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      scanSurfaces();
+      resize();
+      last = performance.now();
+      raf = requestAnimationFrame(tick);
+      scanTimer = window.setInterval(scanSurfaces, 2000);
+    };
+    const idle = (cb: () => void) =>
+      typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(cb, { timeout: 2500 }) : setTimeout(cb, 1200);
+    const onLoad = () => idle(start);
+    if (document.readyState === "complete") onLoad();
+    else window.addEventListener("load", onLoad, { once: true });
     window.addEventListener("resize", resize);
     window.addEventListener("scroll", markDirty, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       cancelAnimationFrame(raf);
+      window.clearInterval(scanTimer);
+      window.removeEventListener("load", onLoad);
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", markDirty);
       document.removeEventListener("visibilitychange", onVisibility);

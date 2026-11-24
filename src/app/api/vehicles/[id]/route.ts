@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
@@ -65,6 +66,7 @@ export async function PUT(
       return NextResponse.json({ error: "Vehicle not found" }, { status: 404 });
     }
 
+    revalidatePath("/", "layout"); // cached pages show tour/vehicle data
     return NextResponse.json(updatedVehicle);
 
   } catch (error: any) {
@@ -91,6 +93,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Vehicle not found" }, { status: 404 });
     }
 
+    revalidatePath("/", "layout"); // cached pages show tour/vehicle data
     return NextResponse.json({ success: true });
 
   } catch (error: any) {
