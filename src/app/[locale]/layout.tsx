@@ -436,6 +436,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      data-scroll-behavior="smooth"
       dir={direction}
       data-theme={theme.mode === "visitor" ? undefined : theme.mode}
       data-brand={isCustomBrand(theme) ? "custom" : undefined}
