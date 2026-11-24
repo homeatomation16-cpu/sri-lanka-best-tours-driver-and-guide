@@ -65,6 +65,7 @@ const sinhala = Noto_Sans_Sinhala({
   weight: ["400", "700"],
   variable: "--font-sinhala",
   display: "swap",
+  preload: false,
 });
 
 const libre = Libre_Baskerville({
@@ -72,6 +73,7 @@ const libre = Libre_Baskerville({
   weight: ["400", "700"],
   variable: "--font-libre",
   display: "swap",
+  preload: false,
 });
 
 // Used by the currency converter and the vehicle pages. Self-hosted instead of a render-blocking
@@ -97,6 +99,7 @@ const thea = localFont({
   src: "../../fonts/TheaAmelia-eZM86.otf",
   variable: "--font-thea",
   display: "swap",
+  preload: false,
 });
 
 /* =========================================================

@@ -1,9 +1,16 @@
 "use client";
 
 import { useEffect, useState, useCallback, useMemo } from "react";
-import Select, { StylesConfig } from "react-select";
+import dynamic from "next/dynamic";
+import type { StylesConfig } from "react-select";
 import { Repeat, X, Banknote, Search } from "lucide-react";
 import { RiExchangeDollarLine } from "react-icons/ri";
+
+// The searchable selectors are needed only after the converter is opened.
+const Select = dynamic(() => import("react-select"), {
+  loading: () => <div className="min-h-12" aria-busy="true" />,
+});
+const warmSelect = () => { void import("react-select").catch(() => {}); };
 
 // 🌍 ලෝකයේ ප්‍රධාන මුදල් ඒකක ලැයිස්තුව (ISO Codes)
 // ඔබට අවශ්‍ය ඕනෑම රටක් මෙතැනට එක් කළ හැක
@@ -239,6 +246,8 @@ export default function FloatingCurrency() {
         aria-expanded={open}
         aria-controls="currency-converter"
         onClick={() => setOpen(!open)}
+        onPointerEnter={warmSelect}
+        onFocus={warmSelect}
         className="fixed bottom-24 right-6 z-50 w-14 h-14 max-sm:bottom-[calc(64px+env(safe-area-inset-bottom))] max-sm:right-3 max-sm:h-[44px] max-sm:w-[44px] bg-linear-to-br from-[#B5541A] to-[#8a3f12] text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 border-2 border-white/20 group"
       >
         {open ? <X className="w-6 h-6" /> : <RiExchangeDollarLine className="w-6 h-6 group-hover:rotate-12 transition-transform" />}
@@ -259,9 +268,10 @@ export default function FloatingCurrency() {
           <div className="space-y-6">
             {/* Amount Input */}
             <div className="relative">
-              <label className="block text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-2">Amount to convert</label>
+              <label htmlFor="currency-amount" className="block text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-2">Amount to convert</label>
               <div className="relative">
                 <input
+                  id="currency-amount"
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
@@ -274,6 +284,7 @@ export default function FloatingCurrency() {
             {/* Selectors */}
             <div className="space-y-3">
               <Select
+                aria-label="From currency"
                 styles={customStyles}
                 options={allCurrencies}
                 value={allCurrencies.find((c) => c.value === from)}
@@ -283,6 +294,8 @@ export default function FloatingCurrency() {
 
               <div className="flex justify-center -my-2 relative z-10">
                 <button 
+                  type="button"
+                  aria-label="Swap currencies"
                   onClick={swap}
                   className="bg-white shadow-md p-2 rounded-full hover:rotate-180 transition-all duration-500 border border-gray-100 group"
                 >
@@ -291,6 +304,7 @@ export default function FloatingCurrency() {
               </div>
 
               <Select
+                aria-label="To currency"
                 styles={customStyles}
                 options={allCurrencies}
                 value={allCurrencies.find((c) => c.value === to)}
