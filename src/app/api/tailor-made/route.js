@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
 import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
-import { emailLayout, notifyAdmins, sendEmail } from "@/lib/email";
+import { emailLayout, emailText, notifyAdmins, sendEmail } from "@/lib/email";
 
 export async function POST(req) {
   try {
@@ -74,14 +74,11 @@ export async function POST(req) {
     });
 
     // Confirmation email to customer (branded layout + signature)
+    const t = await emailText(body.locale);
     await sendEmail({
       to: body.email,
-      subject: "Your Tailor Made Tour Request Received",
-      html: await emailLayout(
-        "We received your tailor-made request",
-        `<p>Thank you ${esc(body.name)}!</p>
-        <p>Our team is planning a route around your dates and interests and will contact you shortly via WhatsApp or e-mail.</p>`,
-      ),
+      subject: t("tailorSubject"),
+      html: await emailLayout(t("tailorSubject"), `<p>${esc(t("hello", { name: body.name }))}</p><p>${esc(t("tailorBody"))}</p>`, undefined, body.locale),
     });
     } catch (mailError) {
       console.error("Tailor-made e-mail failed:", mailError);

@@ -3,15 +3,12 @@ import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import { esc, requireAdmin } from "@/lib/adminAuth";
-import { emailLayout, notifyAdmins, sendEmail, SITE_URL } from "@/lib/email";
+import { emailLayout, emailText, notifyAdmins, sendEmail, SITE_URL } from "@/lib/email";
 
-// What the customer is told when the team changes a booking (pending needs no e-mail).
-const CUSTOMER_MESSAGES: Record<string, { subject: string; text: string }> = {
-  confirmed: { subject: "Your booking is confirmed", text: "Good news – your booking has been confirmed by our team. We will contact you with the final details." },
-  cancelled: { subject: "Your booking has been cancelled", text: "Your booking has been cancelled. If this is unexpected or you would like to rebook, please reply to this e-mail or message us on WhatsApp." },
-  completed: { subject: "Thank you for travelling with us", text: "Your trip is marked as completed. Thank you for travelling with us – we hope to see you again." },
-  paid: { subject: "Payment received", text: "We have received your payment for this booking. Thank you!" },
-};
+// Changes the customer is told about (texts: messages/<locale>.json → emails.<key>Subject / <key>Body).
+// "pending" needs no e-mail.
+const CUSTOMER_EVENTS = ["confirmed", "cancelled", "completed", "paid"] as const;
+type CustomerEvent = (typeof CUSTOMER_EVENTS)[number];
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -60,14 +57,15 @@ export async function PATCH(req: Request, context: Ctx) {
     const changes = [
       set.status && set.status !== before.status ? set.status : null,
       set.paymentStatus === "paid" && before.paymentStatus !== "paid" ? "paid" : null,
-    ].filter((key): key is string => Boolean(key && CUSTOMER_MESSAGES[key]));
+    ].filter((key): key is CustomerEvent => CUSTOMER_EVENTS.includes(key as CustomerEvent));
     for (const key of changes) try {
-      const { subject, text } = CUSTOMER_MESSAGES[key];
+      const t = await emailText(updated.locale);
+      const subject = t(`${key}Subject`);
       const ref = String(updated._id).slice(-8).toUpperCase();
       await sendEmail({
         to: updated.email,
         subject: `${subject} (${ref})`,
-        html: await emailLayout(subject, `<p>Hello ${esc(updated.name)},</p><p>${esc(text)}</p><p><strong>${esc(updated.itemName || "Booking")}</strong> · reference ${esc(ref)}${updated.date ? ` · ${esc(updated.date)}` : ""}</p>`, { label: "View my bookings", url: `${SITE_URL}/account` }),
+        html: await emailLayout(subject, `<p>${esc(t("hello", { name: updated.name }))}</p><p>${esc(t(`${key}Body`))}</p><p><strong>${esc(updated.itemName || "-")}</strong> · ${esc(t("reference"))} ${esc(ref)}${updated.date ? ` · ${esc(updated.date)}` : ""}</p>`, { label: t("viewBookings"), url: `${SITE_URL}/account` }, updated.locale),
       });
       await notifyAdmins({
         replyTo: updated.email,

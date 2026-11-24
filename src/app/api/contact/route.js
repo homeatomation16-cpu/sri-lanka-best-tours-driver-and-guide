@@ -1,4 +1,4 @@
-import { emailLayout, notifyAdmins, sendEmail } from "@/lib/email";
+import { emailLayout, emailText, notifyAdmins, sendEmail } from "@/lib/email";
 import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
@@ -52,10 +52,11 @@ export async function POST(req) {
     // Acknowledgement to the visitor (separate message; admin addresses are never shown to them)
     if (notified || saved) {
       try {
+        const t = await emailText(body.locale);
         await sendEmail({
           to: email,
-          subject: "We received your message",
-          html: await emailLayout("We received your message", `<p>Hello ${esc(name)},</p><p>Thank you for contacting us. We will reply by e-mail or WhatsApp as soon as possible.</p>`),
+          subject: t("contactSubject"),
+          html: await emailLayout(t("contactSubject"), `<p>${esc(t("hello", { name }))}</p><p>${esc(t("contactBody"))}</p>`, undefined, body.locale),
         });
       } catch (mailError) {
         console.error("Contact acknowledgement failed:", mailError?.message || mailError);

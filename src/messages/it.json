@@ -794,5 +794,33 @@
     "verifyPending": "Conferma il tuo indirizzo e-mail ({email}) per vedere qui le tue prenotazioni. Ti abbiamo inviato un link al momento della registrazione.",
     "resendVerification": "Invia di nuovo l'e-mail di conferma",
     "verifySent": "Inviata! Controlla la posta in arrivo e lo spam."
+  },
+  "emails": {
+    "hello": "Ciao {name},",
+    "reference": "Riferimento",
+    "viewBookings": "Vedi le mie prenotazioni",
+    "travellers": "Viaggiatori",
+    "vehicle": "Veicolo",
+    "groupTotal": "Totale del gruppo",
+    "bestRegards": "Cordiali saluti,",
+    "otpSubject": "Il tuo codice di verifica",
+    "otpIntro": "Usa il codice qui sotto per verificare il tuo indirizzo e-mail.",
+    "otpLabel": "Codice di verifica",
+    "otpValid": "Il codice è valido per 5 minuti.",
+    "otpIgnore": "Se non l'hai richiesto, puoi ignorare questa e-mail.",
+    "bookingSubject": "Richiesta di prenotazione ricevuta",
+    "bookingBody": "Grazie – abbiamo ricevuto la tua richiesta di prenotazione per {item}. Non è ancora una prenotazione confermata: verificheremo la disponibilità e ti contatteremo presto via e-mail o WhatsApp.",
+    "contactSubject": "Abbiamo ricevuto il tuo messaggio",
+    "contactBody": "Grazie per averci contattato. Ti risponderemo via e-mail o WhatsApp il prima possibile.",
+    "tailorSubject": "Abbiamo ricevuto la tua richiesta su misura",
+    "tailorBody": "Grazie! Stiamo pianificando un itinerario in base alle tue date e ai tuoi interessi e ti contatteremo a breve via WhatsApp o e-mail.",
+    "confirmedSubject": "La tua prenotazione è confermata",
+    "confirmedBody": "Buone notizie – il nostro team ha confermato la tua prenotazione. Ti contatteremo con i dettagli finali.",
+    "cancelledSubject": "La tua prenotazione è stata annullata",
+    "cancelledBody": "La tua prenotazione è stata annullata. Se non te lo aspettavi o vuoi prenotare di nuovo, rispondi a questa e-mail o scrivici su WhatsApp.",
+    "completedSubject": "Grazie per aver viaggiato con noi",
+    "completedBody": "Il tuo viaggio risulta completato. Grazie per aver viaggiato con noi – speriamo di rivederti.",
+    "paidSubject": "Pagamento ricevuto",
+    "paidBody": "Abbiamo ricevuto il tuo pagamento per questa prenotazione. Grazie!"
   }
 }

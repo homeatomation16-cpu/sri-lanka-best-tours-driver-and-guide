@@ -28,7 +28,7 @@ registerHooks({
     }
     if (specifier.startsWith('@/')) {
       const base = new URL(`../src/${specifier.slice(2)}`, import.meta.url);
-      const file = ['.ts', '.js', '.tsx'].map((ext) => new URL(base.href + ext)).find((u) => fs.existsSync(u));
+      const file = ['.ts', '.js', '.tsx', ''].map((ext) => new URL(base.href + ext)).find((u) => fs.existsSync(u) && fs.statSync(u).isFile());
       if (file) return nextResolve(file.href, context);
     }
     // Next's entry points (next/server, next/headers) need their file extension under plain Node
@@ -38,6 +38,10 @@ registerHooks({
   // The models use `import mongoose, { Schema, models } from "mongoose"`, which Next's bundler allows
   // but plain Node does not (mongoose is CommonJS); read the names from the default export instead.
   load(url, context, nextLoad) {
+    // messages/*.json are imported without an import attribute (fine for Next's bundler, not for plain Node)
+    if (url.startsWith('file:') && url.includes('/src/messages/') && url.endsWith('.json')) {
+      return { format: 'module', source: `export default ${fs.readFileSync(new URL(url), 'utf8')};`, shortCircuit: true };
+    }
     const result = nextLoad(url, context);
     if (!url.includes('/src/models/') || !result.source) return result;
     const source = String(result.source).replace(
@@ -335,4 +339,44 @@ test('sendEmail: refuses bad recipients, strips header line breaks, reports SMTP
     failFor = () => false;
     console.error = originalError;
   }
+});
+
+test('customer e-mails use a known site language, English otherwise; Arabic is right-to-left', async () => {
+  const { emailLocale, emailText, emailLayout } = await loadMail();
+  assert.equal(emailLocale('ar'), 'ar');
+  for (const bad of ['xx', '../en', 'EN', '', null, { toString: () => 'de' }]) assert.equal(emailLocale(bad), 'en');
+  assert.equal((await emailText('de'))('bookingSubject'), 'Buchungsanfrage erhalten');
+  assert.equal((await emailText('not-a-locale'))('bookingSubject'), 'Booking request received');
+  assert.equal((await emailText('fr'))('hello', { name: 'Ana' }), 'Bonjour Ana,');
+  const ar = await emailLayout('عنوان', '<p>x</p>', undefined, 'ar');
+  assert.match(ar, /<html lang="ar" dir="rtl">/);
+  assert.match(await emailLayout('Title', '<p>x</p>', undefined, 'zz'), /<html lang="en" dir="ltr">/);
+});
+
+test('booking e-mail is in the booking language, escapes the customer name and keeps the reference', { skip }, async () => {
+  const email = 'arabic@example.test';
+  const proof = await proofFor(email);
+  sent.length = 0;
+  const res = await call(booking, '/api/booking', vehicleOrder(email, { emailProof: proof, people: 2, locale: 'ar', name: '<img src=x onerror=alert(1)>' }));
+  assert.equal(res.status, 201);
+  const saved = await Booking.findOne({ email }).lean();
+  assert.equal(saved.locale, 'ar');
+  const customer = sent.find((m) => m.to === email);
+  assert.equal(customer.subject, 'تم استلام طلب الحجز');
+  assert.match(customer.html, /dir="rtl"/);
+  assert.ok(!customer.html.includes('<img src=x'), 'the name is escaped');
+  assert.ok(customer.html.includes(String(saved._id).slice(-8).toUpperCase()));
+  const admin = sent.find((m) => m.to === 'owner@gmail.test');
+  assert.match(admin.subject, /^New vehicle booking/, 'admin notifications stay in English');
+  await Booking.deleteMany({ email });
+});
+
+test('verification code e-mail follows the page language; unknown languages fall back to English', { skip }, async () => {
+  sent.length = 0;
+  await call(verifyEmail, '/api/verify-email', { email: 'otp-ja@example.test', action: 'send', locale: 'ja' });
+  await call(verifyEmail, '/api/verify-email', { email: 'otp-xx@example.test', action: 'send', locale: '<script>' });
+  assert.equal(sent.find((m) => m.to === 'otp-ja@example.test').subject, '確認コードのお知らせ');
+  const fallback = sent.find((m) => m.to === 'otp-xx@example.test');
+  assert.equal(fallback.subject, 'Your verification code');
+  assert.match(fallback.html, /lang="en"/);
 });

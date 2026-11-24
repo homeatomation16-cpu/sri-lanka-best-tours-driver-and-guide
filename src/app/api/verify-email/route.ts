@@ -4,7 +4,9 @@
 import crypto from "node:crypto";
 import connectDB from "@/lib/mongodb";
 import EmailOtp from "@/models/EmailOtp";
-import { sendEmail } from "@/lib/email";
+import { emailLocale, emailText, sendEmail } from "@/lib/email";
+import { isRTL } from "@/i18n/routing";
+import { esc } from "@/lib/adminAuth";
 import { clientIp, isEmail, rateLimited, sha256 } from "@/lib/customerAuth";
 
 const CODE_TTL_MS = 5 * 60 * 1000;
@@ -41,12 +43,14 @@ export async function POST(request: Request) {
         { upsert: true },
       );
 
+      const lang = emailLocale(body.locale);
+      const t = await emailText(lang);
       const sent = await sendEmail({
         to: email,
-        subject: "Your Verification Code — Sri Lanka Tours",
+        subject: t("otpSubject"),
         html: `
           <!DOCTYPE html>
-          <html>
+          <html lang="${lang}" dir="${isRTL(lang) ? "rtl" : "ltr"}">
           <head>
             <meta charset="UTF-8" />
             <style>
@@ -70,13 +74,13 @@ export async function POST(request: Request) {
                 <h1>Sri Lanka Best Tours Driver &amp; Guide</h1>
               </div>
               <div class="body">
-                <p>Thank you for your tailor-made tour request.<br/>Please use the code below to verify your email address.</p>
+                <p>${esc(t("otpIntro"))}</p>
                 <div class="otp-box">
-                  <div class="label">Verification Code</div>
+                  <div class="label">${esc(t("otpLabel"))}</div>
                   <div class="otp">${otp}</div>
                 </div>
-                <p>This code is valid for <strong>5 minutes</strong>.</p>
-                <p class="note">If you did not request this, please ignore this email.</p>
+                <p>${esc(t("otpValid"))}</p>
+                <p class="note">${esc(t("otpIgnore"))}</p>
               </div>
               <div class="footer">
                 <p>© ${new Date().getFullYear()} Sri Lanka Best Tours Driver &amp; Guide · info@srilankabesttourdriverandguide.com</p>

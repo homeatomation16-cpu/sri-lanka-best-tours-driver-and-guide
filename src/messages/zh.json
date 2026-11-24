@@ -794,5 +794,33 @@
     "verifyPending": "请确认您的邮箱地址（{email}）以在此查看您的预订。注册时我们已向您发送链接。",
     "resendVerification": "重新发送确认邮件",
     "verifySent": "已发送！请查看收件箱和垃圾邮件文件夹。"
+  },
+  "emails": {
+    "hello": "{name}，您好：",
+    "reference": "预订编号",
+    "viewBookings": "查看我的预订",
+    "travellers": "旅客人数",
+    "vehicle": "车辆",
+    "groupTotal": "团体总价",
+    "bestRegards": "此致敬礼",
+    "otpSubject": "您的验证码",
+    "otpIntro": "请使用以下验证码验证您的电子邮箱地址。",
+    "otpLabel": "验证码",
+    "otpValid": "验证码 5 分钟内有效。",
+    "otpIgnore": "如果这不是您本人的操作，请忽略此邮件。",
+    "bookingSubject": "已收到预订申请",
+    "bookingBody": "谢谢！我们已收到您对 {item} 的预订申请。这还不是已确认的预订：我们会核实可用情况，并尽快通过电子邮件或 WhatsApp 与您联系。",
+    "contactSubject": "我们已收到您的留言",
+    "contactBody": "感谢您联系我们。我们会尽快通过电子邮件或 WhatsApp 回复您。",
+    "tailorSubject": "我们已收到您的定制行程申请",
+    "tailorBody": "谢谢！我们正在根据您的日期和兴趣规划路线，很快会通过 WhatsApp 或电子邮件与您联系。",
+    "confirmedSubject": "您的预订已确认",
+    "confirmedBody": "好消息——我们的团队已确认您的预订。我们会再与您联系确认最终细节。",
+    "cancelledSubject": "您的预订已取消",
+    "cancelledBody": "您的预订已取消。如有疑问或希望重新预订，请回复此邮件或通过 WhatsApp 联系我们。",
+    "completedSubject": "感谢您与我们同行",
+    "completedBody": "您的行程已标记为完成。感谢您与我们同行，期待再次相见。",
+    "paidSubject": "已收到付款",
+    "paidBody": "我们已收到您此次预订的付款。谢谢！"
   }
 }

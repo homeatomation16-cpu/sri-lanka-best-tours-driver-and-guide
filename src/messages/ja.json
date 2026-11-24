@@ -794,5 +794,33 @@
     "verifyPending": "予約をここで表示するには、メールアドレス（{email}）を確認してください。登録時にリンクをお送りしました。",
     "resendVerification": "確認メールを再送",
     "verifySent": "送信しました！受信トレイと迷惑メールフォルダをご確認ください。"
+  },
+  "emails": {
+    "hello": "{name} 様",
+    "reference": "予約番号",
+    "viewBookings": "予約を確認する",
+    "travellers": "人数",
+    "vehicle": "車両",
+    "groupTotal": "グループ合計",
+    "bestRegards": "よろしくお願いいたします。",
+    "otpSubject": "確認コードのお知らせ",
+    "otpIntro": "以下のコードを使ってメールアドレスを確認してください。",
+    "otpLabel": "確認コード",
+    "otpValid": "このコードの有効期限は5分です。",
+    "otpIgnore": "お心当たりのない場合は、このメールを破棄してください。",
+    "bookingSubject": "予約リクエストを受け付けました",
+    "bookingBody": "ありがとうございます。{item} の予約リクエストを受け付けました。まだ予約は確定していません。空き状況を確認のうえ、メールまたは WhatsApp で近日中にご連絡します。",
+    "contactSubject": "お問い合わせを受け付けました",
+    "contactBody": "お問い合わせありがとうございます。できるだけ早くメールまたは WhatsApp でご返信します。",
+    "tailorSubject": "オーダーメイドツアーのリクエストを受け付けました",
+    "tailorBody": "ありがとうございます。ご希望の日程と興味に合わせてルートを計画中です。まもなく WhatsApp またはメールでご連絡します。",
+    "confirmedSubject": "ご予約が確定しました",
+    "confirmedBody": "ご予約が当社スタッフにより確定しました。詳細については改めてご連絡します。",
+    "cancelledSubject": "ご予約はキャンセルされました",
+    "cancelledBody": "ご予約はキャンセルされました。お心当たりのない場合や再予約をご希望の場合は、このメールに返信するか WhatsApp でご連絡ください。",
+    "completedSubject": "ご旅行ありがとうございました",
+    "completedBody": "ご旅行は完了として記録されました。ご利用ありがとうございました。またお会いできるのを楽しみにしています。",
+    "paidSubject": "お支払いを受け付けました",
+    "paidBody": "このご予約のお支払いを受け付けました。ありがとうございます。"
   }
 }

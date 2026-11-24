@@ -6,7 +6,7 @@ import EmailOtp from "@/models/EmailOtp";
 import { NextResponse } from "next/server";
 import { requireAdmin, esc } from "@/lib/adminAuth";
 import { clientIp, isEmail, rateLimited, sha256 } from "@/lib/customerAuth";
-import { emailLayout, notifyAdmins, sendEmail, SITE_URL } from "@/lib/email";
+import { emailLayout, emailLocale, emailText, notifyAdmins, sendEmail, SITE_URL } from "@/lib/email";
 import { formatUsd, MAX_TRAVELLERS, PRICED_TOUR_IDS, serverQuote } from "@/lib/tourPricing";
 
 // 🔹 CREATE BOOKING
@@ -117,6 +117,7 @@ export async function POST(req) {
           ...price,
           message: message || notes,
           status: "pending",
+          locale: emailLocale(body.locale),
         }], { session });
       });
     } catch (error) {
@@ -156,14 +157,17 @@ export async function POST(req) {
 
     // Customer acknowledgement: a request, not a confirmed reservation
     try {
+    const t = await emailText(booking.locale);
     await sendEmail({
       to: email,
-      subject: "Booking request received",
+      subject: t("bookingSubject"),
       html: await emailLayout(
-        "Booking request received",
-        `<p>Hello ${esc(name)},</p>
-        <p>Thank you – we have received your booking request${itemName ? ` for <strong>${esc(itemName)}</strong>` : ""} (reference ${esc(String(booking._id).slice(-8).toUpperCase())}). This is not yet a confirmed reservation: we will check availability and contact you soon by e-mail or WhatsApp.</p>${price.totalPriceCents ? `<table role="presentation" style="margin:16px 0;border-collapse:collapse;font-size:14px"><tr><td style="padding:4px 16px 4px 0;color:#64748b">Travellers</td><td><strong>${esc(requestedPeople)}</strong></td></tr><tr><td style="padding:4px 16px 4px 0;color:#64748b">Vehicle</td><td><strong>${esc(price.vehicle)}</strong></td></tr><tr><td style="padding:4px 16px 4px 0;color:#64748b">Group total</td><td><strong>${formatUsd(price.totalPriceCents)} USD</strong></td></tr></table>` : ""}`,
-        { label: "View my bookings", url: `${SITE_URL}/account` },
+        t("bookingSubject"),
+        `<p>${esc(t("hello", { name }))}</p>
+        <p>${esc(t("bookingBody", { item: itemName || "-" }))}</p>
+        <table role="presentation" style="margin:16px 0;border-collapse:collapse;font-size:14px"><tr><td style="padding:4px 16px 4px 0;color:#64748b">${esc(t("reference"))}</td><td><strong>${esc(String(booking._id).slice(-8).toUpperCase())}</strong></td></tr><tr><td style="padding:4px 16px 4px 0;color:#64748b">${esc(t("travellers"))}</td><td><strong>${esc(requestedPeople)}</strong></td></tr>${price.vehicle ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b">${esc(t("vehicle"))}</td><td><strong>${esc(price.vehicle)}</strong></td></tr>` : ""}${price.totalPriceCents ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b">${esc(t("groupTotal"))}</td><td><strong>${formatUsd(price.totalPriceCents)}</strong></td></tr> USD` : ""}</table>`,
+        { label: t("viewBookings"), url: `${SITE_URL}/account` },
+        booking.locale,
       ),
     });
     } catch (mailError) {

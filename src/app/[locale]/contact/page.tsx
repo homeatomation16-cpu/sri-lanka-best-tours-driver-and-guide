@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ArrowUpRight, CheckCircle2, Clock, Loader2, Mail, MapPin, MessageCircle, Phone, Send, ShieldCheck, Star, Zap } from "lucide-react";
 import { useContact } from "@/components/ContactProvider";
 
@@ -14,6 +14,7 @@ const field =
 export default function ContactPage() {
   const contact = useContact();
   const t = useTranslations("contact");
+  const locale = useLocale();
   const p = useTranslations("contact.page");
   const [form, setForm] = useState<FormState>({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -25,7 +26,7 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, locale }) });
       const data = await res.json();
       if (!data.success) throw new Error();
       setStatus("sent");

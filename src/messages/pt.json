@@ -794,5 +794,33 @@
     "verifyPending": "Confirme o seu e-mail ({email}) para ver aqui as suas reservas. Enviámos-lhe um link no registo.",
     "resendVerification": "Reenviar e-mail de confirmação",
     "verifySent": "Enviado! Verifique a caixa de entrada e o spam."
+  },
+  "emails": {
+    "hello": "Olá {name},",
+    "reference": "Referência",
+    "viewBookings": "Ver as minhas reservas",
+    "travellers": "Viajantes",
+    "vehicle": "Veículo",
+    "groupTotal": "Total do grupo",
+    "bestRegards": "Com os melhores cumprimentos,",
+    "otpSubject": "O seu código de verificação",
+    "otpIntro": "Utilize o código abaixo para verificar o seu endereço de e-mail.",
+    "otpLabel": "Código de verificação",
+    "otpValid": "Este código é válido durante 5 minutos.",
+    "otpIgnore": "Se não fez este pedido, pode ignorar este e-mail.",
+    "bookingSubject": "Pedido de reserva recebido",
+    "bookingBody": "Obrigado – recebemos o seu pedido de reserva para {item}. Ainda não é uma reserva confirmada: vamos verificar a disponibilidade e contactá-lo em breve por e-mail ou WhatsApp.",
+    "contactSubject": "Recebemos a sua mensagem",
+    "contactBody": "Obrigado pelo seu contacto. Responderemos por e-mail ou WhatsApp o mais rapidamente possível.",
+    "tailorSubject": "Recebemos o seu pedido personalizado",
+    "tailorBody": "Obrigado! Estamos a planear um percurso de acordo com as suas datas e interesses e entraremos em contacto em breve por WhatsApp ou e-mail.",
+    "confirmedSubject": "A sua reserva está confirmada",
+    "confirmedBody": "Boas notícias – a nossa equipa confirmou a sua reserva. Entraremos em contacto com os detalhes finais.",
+    "cancelledSubject": "A sua reserva foi cancelada",
+    "cancelledBody": "A sua reserva foi cancelada. Se não esperava isto ou quiser reservar novamente, responda a este e-mail ou envie-nos uma mensagem no WhatsApp.",
+    "completedSubject": "Obrigado por viajar connosco",
+    "completedBody": "A sua viagem está marcada como concluída. Obrigado por viajar connosco – esperamos voltar a vê-lo.",
+    "paidSubject": "Pagamento recebido",
+    "paidBody": "Recebemos o seu pagamento para esta reserva. Obrigado!"
   }
 }

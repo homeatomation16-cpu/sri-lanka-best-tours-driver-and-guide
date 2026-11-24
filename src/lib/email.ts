@@ -7,6 +7,7 @@
 import nodemailer from "nodemailer";
 import { getSiteSettings, type SiteSettings } from "@/lib/siteSettings";
 import { esc } from "@/lib/adminAuth";
+import { isRTL, routing, type Locale } from "@/i18n/routing";
 
 export const BRAND = "Sri Lanka Best Tours Driver & Guide";
 export const SITE_URL = (process.env.SITE_URL || "https://srilankabesttourdriverandguide.com").replace(/\/$/, "");
@@ -35,8 +36,27 @@ export const transporter = nodemailer.createTransport({
   auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
 });
 
+type EmailKey = keyof (typeof import("@/messages/en.json"))["emails"];
+
+/** A supported site locale, or English for anything else (the request value is never trusted as is). */
+export function emailLocale(value: unknown): Locale {
+  return routing.locales.includes(value as Locale) ? (value as Locale) : "en";
+}
+
+/**
+ * Customer e-mail texts (messages/<locale>.json → "emails"), English for any missing key.
+ * Returns plain text with {placeholders} filled in: esc() it before putting it into HTML.
+ */
+export async function emailText(locale: unknown) {
+  const lang = emailLocale(locale);
+  const en = (await import("@/messages/en.json")).default.emails;
+  const texts: Record<string, string> = lang === "en" ? en : { ...en, ...(await import(`@/messages/${lang}.json`)).default.emails };
+  return (key: EmailKey, values: Record<string, unknown> = {}) =>
+    texts[key].replace(/\{(\w+)\}/g, (_, name: string) => String(values[name] ?? ""));
+}
+
 /** "Best regards" block with logo, phone, WhatsApp, e-mail, website and social links (inline styles for e-mail clients). */
-export function emailSignature(contact: SiteSettings) {
+export function emailSignature(contact: SiteSettings, bestRegards = "Best regards,") {
   const BRAND = contact.brand;
   const SOCIAL: [string, string][] = [
     ["Facebook", contact.social.facebook],
@@ -49,7 +69,7 @@ export function emailSignature(contact: SiteSettings) {
     .map(([label, url]) => `<a href="${esc(url)}" style="color:#009f91;text-decoration:none">${label}</a>`)
     .join(" &middot; ");
   const html = `<div style="margin-top:24px;font-family:Arial,sans-serif;font-size:14px;line-height:1.55;color:#334155">
-<p style="margin:0 0 12px">Best regards,</p>
+<p style="margin:0 0 12px">${esc(bestRegards)}</p>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
 <td style="padding-right:12px;vertical-align:top"><a href="${esc(SITE_URL)}"><img src="${esc(SITE_URL)}/logo.png" alt="${esc(BRAND)} logo" width="56" style="display:block;width:56px;height:auto;border:0"></a></td>
 <td style="vertical-align:top"><strong style="font-size:16px;color:#032d55">${esc(BRAND)}</strong><br>
@@ -59,22 +79,23 @@ export function emailSignature(contact: SiteSettings) {
 <a href="${esc(SITE_URL)}" style="color:#009f91;text-decoration:none">Web: ${esc(host)}</a><br>
 <a href="${esc(contact.whatsappme)}" style="color:#009f91;text-decoration:none">WhatsApp</a></td>
 </tr>${social ? `<tr><td colspan="2" style="padding-top:10px"><span style="color:#475569;font-size:13px">Follow us: </span>${social}</td></tr>` : ""}</table></div>`;
-  const text = `Best regards,\n${BRAND}\n${contact.address}\nVoice/WhatsApp: ${contact.phone}\nEmail: ${contact.email}\nWeb: ${SITE_URL}\nWhatsApp: ${contact.whatsappme}`;
+  const text = `${bestRegards}\n${BRAND}\n${contact.address}\nVoice/WhatsApp: ${contact.phone}\nEmail: ${contact.email}\nWeb: ${SITE_URL}\nWhatsApp: ${contact.whatsappme}`;
   return { html, text };
 }
 
-/** Wraps already-escaped body HTML in the branded card and adds the signature. */
-export async function emailLayout(title: string, bodyHtml: string, button?: { label: string; url: string }) {
+/** Wraps already-escaped body HTML in the branded card and adds the signature (in the customer's language, right-to-left for Arabic). */
+export async function emailLayout(title: string, bodyHtml: string, button?: { label: string; url: string }, locale: unknown = "en") {
+  const lang = emailLocale(locale);
   const contact = await getSiteSettings();
   const BRAND = contact.brand;
-  const sig = emailSignature(contact);
+  const sig = emailSignature(contact, (await emailText(lang))("bestRegards"));
   const cta = button
     ? `<p style="margin:28px 0"><a href="${esc(button.url)}" style="display:inline-block;background:#0b2a22;color:#fff;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:bold">${esc(button.label)}</a></p>`
     : "";
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;background:#f6f3ec;font-family:Arial,sans-serif">
+  return `<!DOCTYPE html><html lang="${lang}" dir="${isRTL(lang) ? "rtl" : "ltr"}"><head><meta charset="UTF-8"></head><body style="margin:0;background:#f6f3ec;font-family:Arial,sans-serif">
 <div style="max-width:560px;margin:32px auto;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #ece6da">
 <div style="background:#0b2a22;padding:28px 32px;color:#fbbf24;font-weight:bold;letter-spacing:.15em;text-transform:uppercase;font-size:13px">${esc(BRAND)}</div>
-<div style="padding:32px;color:#334155;font-size:15px;line-height:1.6"><h1 style="margin:0 0 16px;font-size:22px;color:#0f172a">${esc(title)}</h1>${bodyHtml}${cta}${sig.html}</div>
+<div style="padding:32px;color:#334155;font-size:15px;line-height:1.6;text-align:${isRTL(lang) ? "right" : "left"}"><h1 style="margin:0 0 16px;font-size:22px;color:#0f172a">${esc(title)}</h1>${bodyHtml}${cta}${sig.html}</div>
 </div></body></html>`;
 }
 

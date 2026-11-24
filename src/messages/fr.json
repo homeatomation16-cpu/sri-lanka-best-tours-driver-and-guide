@@ -794,5 +794,33 @@
     "verifyPending": "Confirmez votre adresse e-mail ({email}) pour voir vos réservations ici. Nous vous avons envoyé un lien lors de l'inscription.",
     "resendVerification": "Renvoyer l'e-mail de confirmation",
     "verifySent": "Envoyé ! Vérifiez votre boîte de réception et vos spams."
+  },
+  "emails": {
+    "hello": "Bonjour {name},",
+    "reference": "Référence",
+    "viewBookings": "Voir mes réservations",
+    "travellers": "Voyageurs",
+    "vehicle": "Véhicule",
+    "groupTotal": "Total du groupe",
+    "bestRegards": "Cordialement,",
+    "otpSubject": "Votre code de vérification",
+    "otpIntro": "Veuillez utiliser le code ci-dessous pour vérifier votre adresse e-mail.",
+    "otpLabel": "Code de vérification",
+    "otpValid": "Ce code est valable 5 minutes.",
+    "otpIgnore": "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.",
+    "bookingSubject": "Demande de réservation reçue",
+    "bookingBody": "Merci – nous avons bien reçu votre demande de réservation pour {item}. Il ne s'agit pas encore d'une réservation confirmée : nous vérifions les disponibilités et vous contacterons bientôt par e-mail ou WhatsApp.",
+    "contactSubject": "Nous avons reçu votre message",
+    "contactBody": "Merci de nous avoir contactés. Nous vous répondrons par e-mail ou WhatsApp dès que possible.",
+    "tailorSubject": "Nous avons reçu votre demande sur mesure",
+    "tailorBody": "Merci ! Nous préparons un itinéraire selon vos dates et vos envies et vous contacterons très bientôt par WhatsApp ou e-mail.",
+    "confirmedSubject": "Votre réservation est confirmée",
+    "confirmedBody": "Bonne nouvelle – votre réservation a été confirmée par notre équipe. Nous vous contacterons avec les derniers détails.",
+    "cancelledSubject": "Votre réservation a été annulée",
+    "cancelledBody": "Votre réservation a été annulée. Si cela vous surprend ou si vous souhaitez réserver à nouveau, répondez à cet e-mail ou écrivez-nous sur WhatsApp.",
+    "completedSubject": "Merci d'avoir voyagé avec nous",
+    "completedBody": "Votre voyage est indiqué comme terminé. Merci d'avoir voyagé avec nous – au plaisir de vous revoir.",
+    "paidSubject": "Paiement reçu",
+    "paidBody": "Nous avons bien reçu votre paiement pour cette réservation. Merci !"
   }
 }

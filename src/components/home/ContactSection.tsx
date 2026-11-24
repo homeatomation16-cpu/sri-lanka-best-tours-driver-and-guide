@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2, Mail, MessageCircle, Phone, Send } from "lucide-react";
 import CinematicSection from "@/components/cinematic/CinematicSection";
 import DecoShapes from "@/components/home/DecoShapes";
@@ -19,6 +19,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 export default function ContactSection() {
   const contact = useContact();
   const t = useTranslations("home.contactForm");
+  const locale = useLocale();
   const tc = useTranslations("contact");
   const [form, setForm] = useState<Fields>({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Errors>({});
@@ -51,7 +52,7 @@ export default function ContactSection() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, name: form.name.trim(), email: form.email.trim() }),
+        body: JSON.stringify({ ...form, name: form.name.trim(), email: form.email.trim(), locale }),
       });
       const data = await res.json();
       if (!data.success) throw new Error("failed");

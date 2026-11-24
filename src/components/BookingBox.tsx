@@ -4,7 +4,7 @@
 import { useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useContact } from "@/components/ContactProvider";
 
 /**
@@ -13,6 +13,7 @@ import { useContact } from "@/components/ContactProvider";
  */
 export default function BookingBox({ vehicle }: { vehicle?: any }) {
   const t = useTranslations("booking");
+  const locale = useLocale();
   const contact = useContact();
   const maxPassengers = Number(vehicle?.passengers) > 0 ? Number(vehicle.passengers) : 50;
   const [form, setForm] = useState({ name: "", email: "", phone: "", date: "", time: "", notes: "", people: "" });
@@ -32,7 +33,7 @@ export default function BookingBox({ vehicle }: { vehicle?: any }) {
     setStatus("sending");
     setMessage("");
     try {
-      const res = await fetch("/api/verify-email", { method: "POST", body: JSON.stringify({ email: form.email.trim(), action: "send" }) });
+      const res = await fetch("/api/verify-email", { method: "POST", body: JSON.stringify({ email: form.email.trim(), action: "send", locale }) });
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
       setStep("code");
@@ -74,6 +75,7 @@ export default function BookingBox({ vehicle }: { vehicle?: any }) {
           itemName: vehicle ? undefined : "Booking request",
           bookingType: vehicle ? "Vehicle" : "Request",
           emailProof: verify.proof,
+          locale,
         }),
       });
       const data = await res.json();

@@ -11,6 +11,7 @@ export interface IBooking {
   internalNotes?: string;
   itemName?: string;
   bookingType?: string;
+  locale?: string; // customer's site language, for e-mails
   people: number;
   adults?: number;
   children?: number;
@@ -48,6 +49,7 @@ const BookingSchema = new Schema<IBooking>(
     internalNotes: String,
     itemName: String,
     bookingType: String,
+    locale: String,
     people: { type: Number, required: true, min: 1 },
     adults: Number,
     children: Number,
