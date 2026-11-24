@@ -2,13 +2,17 @@ import nodemailer from "nodemailer";
 import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
+import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
 import { emailLayout, sendEmail } from "@/lib/email";
 
 export async function POST(req) {
   try {
+    if (rateLimited(`tailor-made:${clientIp(req)}`, 5, 3600000)) {
+      return Response.json({ success: false }, { status: 429 });
+    }
     const body = await req.json();
-    // Same rule as the contact form: nothing is saved or e-mailed without a name and e-mail address.
-    if (!body?.name || !body?.email) {
+    // Same rule as the contact form: nothing is saved or e-mailed without a name and a valid e-mail address.
+    if (typeof body?.name !== "string" || !body.name.trim() || body.name.length > 120 || !isEmail(body.email) || JSON.stringify(body).length > 20000) {
       return Response.json({ success: false }, { status: 400 });
     }
 

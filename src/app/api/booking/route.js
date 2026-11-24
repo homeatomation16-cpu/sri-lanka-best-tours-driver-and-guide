@@ -3,6 +3,7 @@ import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import { NextResponse } from "next/server";
 import { requireAdmin, esc } from "@/lib/adminAuth";
+import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
 import { emailLayout, sendEmail, SITE_URL } from "@/lib/email";
 import { formatUsd, MAX_TRAVELLERS, PRICED_TOUR_IDS, serverQuote } from "@/lib/tourPricing";
 
@@ -20,6 +21,9 @@ const transporter = nodemailer.createTransport({
 // 🔹 CREATE BOOKING
 export async function POST(req) {
   try {
+    if (rateLimited(`booking:${clientIp(req)}`, 10, 3600000)) {
+      return NextResponse.json({ error: "Too many requests, please try again later" }, { status: 429 });
+    }
     const body = await req.json();
 
     const { name, email, phone, date, time, notes, itemName, bookingType, message, people, pricePerPerson, additionalPersonPrice, totalPrice, country, endDate, adults, children, childrenAges, pickupLocation, vehicle, tourId, quotedTotal } = body;
@@ -28,7 +32,7 @@ export async function POST(req) {
     // ✅ VALIDATION
     const requestedPeople = Number(people);
 
-    if (!name || !email || !Number.isInteger(requestedPeople) || requestedPeople < 1) {
+    if (typeof name !== "string" || !name.trim() || name.length > 120 || !isEmail(email) || !Number.isInteger(requestedPeople) || requestedPeople < 1) {
       // the minimum per tour (1 with a price table, else 2) is enforced by the booking form
       return NextResponse.json({ error: "Name, email, and at least 1 person are required" }, { status: 400 });
     }

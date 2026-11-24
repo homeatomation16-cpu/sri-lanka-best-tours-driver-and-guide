@@ -2,6 +2,7 @@
 // OTP Send + Verify — Nodemailer SMTP
 
 import nodemailer from "nodemailer";
+import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
 
 // ── In-memory OTP store (production වල Redis use කරන්න) ──
 // Map<email, { otp: string, expiresAt: number }>
@@ -28,8 +29,16 @@ export async function POST(request) {
     const body = await request.json();
     const { email, otp: userOtp, action } = body;
 
-    if (!email || !action) {
+    if (!isEmail(email) || !action) {
       return Response.json({ success: false, message: "Missing fields" }, { status: 400 });
+    }
+    // Limits: codes sent per address and per visitor, and guesses per address (a 6-digit code must not be brute-forced).
+    const ip = clientIp(request);
+    const limited = action === "send"
+      ? rateLimited(`otp-send:${ip}`, 5, 900000) || rateLimited(`otp-send:${email.toLowerCase()}`, 3, 900000)
+      : rateLimited(`otp-verify:${email.toLowerCase()}`, 8, 900000);
+    if (limited) {
+      return Response.json({ success: false, message: "Too many attempts. Please wait a few minutes." }, { status: 429 });
     }
 
     // ── SEND OTP ──
