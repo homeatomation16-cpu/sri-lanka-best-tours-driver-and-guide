@@ -133,6 +133,16 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   const [reducedMotion, setReducedMotion] = useState<boolean | null>(null);
   const [inView, setInView] = useState(true);
 
+  // The video starts downloading only after the page has loaded (the identical poster image is on
+  // screen until then), so its megabytes never compete with the poster, CSS and scripts.
+  const [videoAllowed, setVideoAllowed] = useState(false);
+  useEffect(() => {
+    const allow = () => setVideoAllowed(true);
+    if (document.readyState === "complete") allow();
+    else window.addEventListener("load", allow, { once: true });
+    return () => window.removeEventListener("load", allow);
+  }, []);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -161,7 +171,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
     } else {
       video.pause();
     }
-  }, [current, inView, paused, reducedMotion]);
+  }, [current, inView, paused, reducedMotion, videoAllowed]);
 
   // Slide & Progress Logic: the active step fills with a CSS animation (runs on the compositor, no per-frame
   // JavaScript) and the slide advances when it ends. Pausing freezes the fill; resuming restarts the slide's timer.
@@ -193,7 +203,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
       {slide.type === "image" ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          key={slide.src}
+          key={`${slide.src}-${videoAllowed}`} // remount once the sources are added
           src={slide.src}
           alt={slide.title}
           fetchPriority={current === 0 ? "high" : undefined}
@@ -220,16 +230,20 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
         <video
           ref={videoRef}
           key={slide.src}
-          autoPlay={!paused && !reducedMotion}
+          autoPlay={videoAllowed && !paused && !reducedMotion}
           muted
           playsInline
           loop
           aria-hidden="true"
-          preload="metadata"
+          preload={videoAllowed ? "metadata" : "none"}
           style={MEDIA_STYLE}
         >
-          <source src={slide.src.replace(VIDEO_TRANSFORM, MOBILE_VIDEO_TRANSFORM)} media="(max-width: 767px)" />
-          <source src={slide.src} />
+          {videoAllowed && (
+            <>
+              <source src={slide.src.replace(VIDEO_TRANSFORM, MOBILE_VIDEO_TRANSFORM)} media="(max-width: 767px)" />
+              <source src={slide.src} />
+            </>
+          )}
         </video>
         </>
       )}
