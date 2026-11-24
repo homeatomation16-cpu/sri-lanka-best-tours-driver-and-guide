@@ -158,6 +158,8 @@ body {
 .hero-section {
   min-height: clamp(620px, 88svh, 920px);
 }
+.hero-primary-cta { color: var(--t-accent-text, #020618); }
+.hero-primary-cta:hover { color: #020618; }
 /* Phones in landscape: the 620px minimum is almost two screens tall and pushes the CTAs below the fold. */
 @media (orientation: landscape) and (max-height: 500px) {
   .hero-section { min-height: 100svh; }
@@ -231,10 +233,10 @@ body {
   gap: 12px;
   min-height: 48px;
   max-width: 100%;
-  border: 1px solid #b86525;
+  border: 1px solid #ad5b20;
   border-radius: 999px;
   padding: 13px 25px;
-  background: #b86525;
+  background: #ad5b20;
   color: white;
   box-shadow: 0 6px 18px -10px #9a4d20;
   font-weight: 600;

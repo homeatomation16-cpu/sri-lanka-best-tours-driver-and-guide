@@ -94,7 +94,7 @@ export default function TrustBar() {
 
           <div className="flex items-center gap-8 mb-8">
             <div className="flex-1 h-px bg-zinc-100" />
-            <span className="text-zinc-200 text-2xl font-serif italic">Connect with us</span>
+            <span className="text-zinc-600 text-2xl font-serif italic">Connect with us</span>
             <div className="flex-1 h-px bg-zinc-100" />
           </div>
 

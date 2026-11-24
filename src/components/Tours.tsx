@@ -66,7 +66,8 @@ export default async function ToursSection({ locale }: { locale: string }) {
             );
           })}
         </div>
-        <div className="mt-8 flex justify-center">
+        {/* extra room on phones: the last floating tour card would otherwise cover the top of the button */}
+        <div className="mt-16 flex justify-center sm:mt-8">
           <Link href="/tours" className="home-section-link">
             {t("viewAll")} <ArrowRight size={18} aria-hidden="true" />
           </Link>
