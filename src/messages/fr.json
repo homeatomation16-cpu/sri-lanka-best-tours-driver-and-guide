@@ -89,7 +89,9 @@
     "cantFindDesc": "Nous en créons un selon vos dates et vos envies.",
     "planTailor": "Créer un circuit sur mesure",
     "routeMap": "Carte de l’itinéraire",
-    "mapCaption": "Carte du relief · données d’altitude : NASA SRTM"
+    "mapCaption": "Carte du relief · données d’altitude : NASA SRTM",
+    "alsoAvailable": "Également disponible :",
+    "destinationsOnTour": "Destinations de ce circuit"
   },
   "vehicles": {
     "whatsNew": "Nouveau",
@@ -151,8 +153,8 @@
         "desc": "Tous nos guides sont agréés par le gouvernement."
       },
       "rated": {
-        "title": "Service 5 Étoiles",
-        "desc": "Régulièrement salué sur TripAdvisor."
+        "title": "Noté 4.9/5 sur Google",
+        "desc": "Les voyageurs notent notre service 4.9 sur 5 dans leurs avis Google."
       },
       "private": {
         "title": "Privé & Personnalisé",
@@ -163,8 +165,8 @@
         "desc": "Nous sommes des locaux qui aimons cette île."
       },
       "pata": {
-        "title": "Certifié PATA",
-        "desc": "Membres reconnus du Sri Lanka Tourism."
+        "title": "Chauffeur agréé & certifié",
+        "desc": "Un chauffeur touristique professionnel agréé et certifié s'occupe de chaque voyage."
       },
       "transparent": {
         "title": "Tarification Transparente",
@@ -213,8 +215,8 @@
         "desc": "Tous nos guides sont agréés par le gouvernement."
       },
       "rated": {
-        "title": "Service 5 Étoiles",
-        "desc": "Régulièrement salué sur TripAdvisor."
+        "title": "Noté 4.9/5 sur Google",
+        "desc": "Les voyageurs notent notre service 4.9 sur 5 dans leurs avis Google."
       },
       "private": {
         "title": "Privé & Personnalisé",
@@ -225,8 +227,8 @@
         "desc": "Nous sommes des locaux qui aimons cette île."
       },
       "pata": {
-        "title": "Certifié PATA",
-        "desc": "Membres reconnus du Sri Lanka Tourism."
+        "title": "Chauffeur agréé & certifié",
+        "desc": "Un chauffeur touristique professionnel agréé et certifié s'occupe de chaque voyage."
       },
       "transparent": {
         "title": "Tarification Transparente",
@@ -276,7 +278,7 @@
       "error": "Une erreur s'est produite. Réessayez ou écrivez-nous sur WhatsApp.",
       "whyWrite": "Pourquoi les voyageurs nous écrivent",
       "p1": "Réponse en quelques heures",
-      "p2": "Chauffeur-guide agréé SLTDA",
+      "p2": "Chauffeur touristique professionnel agréé & certifié",
       "p3": "Aucuns frais de réservation, paiement à l'arrivée",
       "hours": "Ouvert 24 h/24 · 7 jours sur 7"
     }
@@ -402,7 +404,17 @@
     "perPersonApprox": "≈ {price} par personne",
     "estimateNote": "Nous confirmons le prix final après votre demande. Aucun paiement maintenant.",
     "largeGroup": "Pour les groupes de plus de {max} personnes, nous vous enverrons un devis.",
-    "priceChanged": "Le prix de ce forfait vient d'être mis à jour à {price}. Veuillez vérifier le nouveau prix et renvoyer votre demande."
+    "priceChanged": "Le prix de ce forfait vient d'être mis à jour à {price}. Veuillez vérifier le nouveau prix et renvoyer votre demande.",
+    "passengers": "Passagers",
+    "getCode": "Recevoir le code de vérification",
+    "codeSent": "Nous avons envoyé un code à 6 chiffres à {email}",
+    "code": "Code de vérification",
+    "confirm": "Confirmer la réservation",
+    "resend": "Envoyer un nouveau code",
+    "editDetails": "Modifier les informations",
+    "invalidCode": "Ce code est incorrect ou a expiré. Veuillez en demander un nouveau.",
+    "verifyAgain": "Votre vérification a expiré. Veuillez demander un nouveau code.",
+    "missingFields": "Veuillez indiquer votre nom, une adresse e-mail valide et le nombre de passagers."
   },
   "loader": {
     "tagline": "Explorez l'Île Paradis 🌴",
@@ -456,7 +468,8 @@
         "category": "Religieux",
         "description": "L'un des plus anciens et importants temples de Colombo."
       }
-    }
+    },
+    "toursVisiting": "Circuits qui passent par {place}"
   },
   "excursions": {
     "title": "Nos Escapades",
@@ -646,7 +659,13 @@
       "tours": "Circuits réalisés",
       "travelers": "Voyageurs ravis",
       "experience": "Années d'expérience",
-      "satisfaction": "Satisfaction client"
+      "satisfaction": "Satisfaction client",
+      "experienceValue": "1 an",
+      "experienceLabel": "Expérience professionnelle",
+      "certifiedValue": "Agréé & certifié",
+      "certifiedLabel": "Chauffeur touristique professionnel",
+      "ratingLabel": "Avis Google",
+      "ratingAria": "Noté 4.9 sur 5 sur Google"
     },
     "gallery": {
       "open": "Ouvrir la photo",
@@ -777,5 +796,33 @@
     "verifyPending": "Confirmez votre adresse e-mail ({email}) pour voir vos réservations ici. Nous vous avons envoyé un lien lors de l'inscription.",
     "resendVerification": "Renvoyer l'e-mail de confirmation",
     "verifySent": "Envoyé ! Vérifiez votre boîte de réception et vos spams."
+  },
+  "emails": {
+    "hello": "Bonjour {name},",
+    "reference": "Référence",
+    "viewBookings": "Voir mes réservations",
+    "travellers": "Voyageurs",
+    "vehicle": "Véhicule",
+    "groupTotal": "Total du groupe",
+    "bestRegards": "Cordialement,",
+    "otpSubject": "Votre code de vérification",
+    "otpIntro": "Veuillez utiliser le code ci-dessous pour vérifier votre adresse e-mail.",
+    "otpLabel": "Code de vérification",
+    "otpValid": "Ce code est valable 5 minutes.",
+    "otpIgnore": "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.",
+    "bookingSubject": "Demande de réservation reçue",
+    "bookingBody": "Merci – nous avons bien reçu votre demande de réservation pour {item}. Il ne s'agit pas encore d'une réservation confirmée : nous vérifions les disponibilités et vous contacterons bientôt par e-mail ou WhatsApp.",
+    "contactSubject": "Nous avons reçu votre message",
+    "contactBody": "Merci de nous avoir contactés. Nous vous répondrons par e-mail ou WhatsApp dès que possible.",
+    "tailorSubject": "Nous avons reçu votre demande sur mesure",
+    "tailorBody": "Merci ! Nous préparons un itinéraire selon vos dates et vos envies et vous contacterons très bientôt par WhatsApp ou e-mail.",
+    "confirmedSubject": "Votre réservation est confirmée",
+    "confirmedBody": "Bonne nouvelle – votre réservation a été confirmée par notre équipe. Nous vous contacterons avec les derniers détails.",
+    "cancelledSubject": "Votre réservation a été annulée",
+    "cancelledBody": "Votre réservation a été annulée. Si cela vous surprend ou si vous souhaitez réserver à nouveau, répondez à cet e-mail ou écrivez-nous sur WhatsApp.",
+    "completedSubject": "Merci d'avoir voyagé avec nous",
+    "completedBody": "Votre voyage est indiqué comme terminé. Merci d'avoir voyagé avec nous – au plaisir de vous revoir.",
+    "paidSubject": "Paiement reçu",
+    "paidBody": "Nous avons bien reçu votre paiement pour cette réservation. Merci !"
   }
 }

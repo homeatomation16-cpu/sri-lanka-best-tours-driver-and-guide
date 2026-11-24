@@ -1,5 +1,4 @@
 // src/app/[locale]/page.tsx
-import { Suspense } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { pageMetadata, siteName } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -30,18 +29,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: "hero" });
   const inherited = await parent;
   return pageMetadata(locale, "", inherited.title?.absolute || siteName, inherited.description || t("subtitle"), undefined, { brand: false });
-}
-
-// A sleek loading skeleton to show while MongoDB fetches data
-function SectionLoader() {
-  return (
-    <div className="w-full h-[60vh] flex flex-col items-center justify-center bg-zinc-50/50">
-      <div className="w-10 h-10 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin" />
-      <p className="mt-4 text-sm font-medium text-zinc-400 uppercase tracking-widest animate-pulse">
-        Loading Experiences...
-      </p>
-    </div>
-  );
 }
 
 // Re-render daily so the seasonal packages follow the current month.
@@ -82,10 +69,7 @@ export default async function HomePage({
 
       <CloudBridge />
       <AscentScene />
-
-      <Suspense fallback={<SectionLoader />}>
         <SeasonalTours locale={locale} />
-      </Suspense>
 
       <ExperienceExplorer />
 
@@ -94,21 +78,13 @@ export default async function HomePage({
       <TopDestinations locale={locale} />
       <SriLankaMap locale={locale} />
 
-      {/* DB-HEAVY SECTIONS - Wrapped in Suspense to prevent server blocking */}
-      <Suspense fallback={<SectionLoader />}>
+      {/* Database sections render on the server (the page is static and revalidated daily), so their content is in the HTML */}
         <Tours locale={locale} />
-      </Suspense>
 
 
       <TailorMade />
-
-      <Suspense fallback={<SectionLoader />}>
         <OneDayTours locale={locale} />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
         <TourCollections locale={locale} />
-      </Suspense>
 
       {/* NEW: animated number counters (figures in src/data/homeStats.ts) */}
       <StatsCounters />

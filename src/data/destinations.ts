@@ -1052,3 +1052,42 @@ export const DESTINATIONS = [
   }
 
 ];
+
+// How a tour's English itinerary names each destination (whole words). Towns use their title.
+// Colombo is left out on purpose: most tours only start or end there (airport pick-up / drop-off).
+const ITINERARY_NAMES: Record<string, RegExp | null> = {
+  "colombo": null,
+  "colombo-city": null,
+  "old-parliament-building": /\bOld Parliament\b/,
+  "jami-ul-alfar-mosque": /\bJami Ul-Alfar\b|\bRed Mosque\b/,
+  "gangaramaya-temple": /\bGangaramaya\b/,
+  "galle-face-green": /\bGalle Face\b/,
+  "galle": /\bGalle\b(?! Face)/,
+  "kelaniya-raja-maha-viharaya": /\bKelaniya\b/,
+  "yala-national-park": /\bYala National Park\b/,
+  "st-marys-church-negombo": /\bSt\.? Mary/,
+};
+const nameRule = (destination: { id: string; title: string }) =>
+  destination.id in ITINERARY_NAMES
+    ? ITINERARY_NAMES[destination.id]
+    : new RegExp(`\\b${destination.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`);
+
+/** Destinations a tour visits, from its English day-by-day itinerary. */
+export function destinationsInItinerary(itinerary: { title?: string; description?: string }[] = []) {
+  const text = itinerary.map((day) => `${day?.title ?? ""} ${day?.description ?? ""}`).join(" ");
+  return DESTINATIONS.filter((destination) => nameRule(destination)?.test(text));
+}
+
+/** Destination titles in a site language (same files the destination pages use), by id. */
+export async function destinationTitles(locale: string): Promise<Record<string, string>> {
+  const load = async (lang: string) => {
+    try {
+      const mod = await import(`@/data/destinations/${lang}`);
+      const list: { id?: string; title?: string }[] = mod.TOURS ?? mod.default ?? [];
+      return Object.fromEntries(list.filter((d) => d?.id && d.title).map((d) => [d.id, d.title]));
+    } catch {
+      return {};
+    }
+  };
+  return { ...(await load("en")), ...(await load(locale)) };
+}

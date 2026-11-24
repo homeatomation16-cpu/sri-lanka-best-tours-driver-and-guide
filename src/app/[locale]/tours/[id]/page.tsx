@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import BookingForm from "@/components/BookingForm";
+import { Link } from "@/i18n/navigation";
 import TourRouteMap from "@/components/TourRouteMap";
 import { getActiveTours, getTourById } from "@/lib/tourData";
+import { destinationsInItinerary, destinationTitles } from "@/data/destinations";
 
 interface Props {
   params: Promise<{ locale: string; id: string }>;
@@ -58,11 +60,19 @@ export default async function TourDetailsPage({ params }: Props) {
   };
 
   const itinerary = tour.itinerary ?? [];
+  const activeTours = await getActiveTours(locale);
+
+  // The same tour with / without hotels is a separate product; link the two pages to each other.
+  const variantId = tour.tourId.endsWith("-hotels") ? tour.tourId.replace(/-hotels$/, "") : `${tour.tourId}-hotels`;
+  const variant = activeTours.find((other: any) => other.tourId === variantId);
+  const visited = destinationsInItinerary(tourPlain.translations?.en?.itinerary);
+  const placeTitles = visited.length ? await destinationTitles(locale) : {};
+  const variantTitle = variant && (variant.translations?.[locale]?.title || variant.translations?.en?.title || variant.tourId);
 
   // Other lengths of this tour for the booking form (same category, priced, with/without hotels kept apart)
   const withHotels = (tourId: string) => tourId.endsWith("-hotels");
   const lengths = tour.groupPrices?.length
-    ? (await getActiveTours(locale))
+    ? activeTours
         .filter((other: any) => other.category === tour.category && other.groupPrices?.length && other.duration && withHotels(other.tourId) === withHotels(tour.tourId))
         .map((other: any) => ({ tourId: other.tourId as string, days: Number(other.duration) }))
         .sort((a, b) => a.days - b.days)
@@ -137,6 +147,12 @@ export default async function TourDetailsPage({ params }: Props) {
               <section>
                 <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-orange-600 mb-6">{t("overview")}</p>
                 <p className="text-lg leading-relaxed text-stone-600 font-light whitespace-pre-line">{tour.overview}</p>
+                {variant && (
+                  <p className="mt-6 text-sm text-stone-600">
+                    {t("alsoAvailable")}:{" "}
+                    <Link href={`/tours/${variant.tourId}`} className="font-semibold text-orange-700 underline underline-offset-4 hover:text-orange-800">{variantTitle}</Link>
+                  </p>
+                )}
               </section>
             )}
 
@@ -236,6 +252,21 @@ export default async function TourDetailsPage({ params }: Props) {
                 <section>
                   <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-orange-600 mb-4">{t("routeMap")}</p>
                   <TourRouteMap stops={tour.stops} label={t("routeMap")} caption={t("mapCaption")} />
+                </section>
+              )}
+
+              {visited.length > 0 && (
+                <section>
+                  <h2 className="text-[10px] font-bold tracking-[0.25em] uppercase text-orange-600 mb-4">{t("destinationsOnTour")}</h2>
+                  <ul className="flex flex-wrap gap-2">
+                    {visited.map((place) => (
+                      <li key={place.id}>
+                        <Link href={`/destinations/${place.id}`} className="inline-flex min-h-11 items-center rounded-full border border-stone-200 bg-white px-4 text-sm font-medium text-stone-700 hover:border-orange-400 hover:text-orange-700">
+                          {placeTitles[place.id] || place.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </section>
               )}
             </div>

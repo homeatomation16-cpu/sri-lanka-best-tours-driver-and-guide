@@ -5,6 +5,7 @@ import { promisify } from "node:util";
 import { cookies } from "next/headers";
 import connectDB from "@/lib/mongodb";
 import Customer from "@/models/Customer";
+import RateLimit from "@/models/RateLimit";
 
 const scrypt = promisify(crypto.scrypt) as (password: string, salt: string, keylen: number) => Promise<Buffer>;
 
@@ -96,17 +97,35 @@ export async function getCurrentCustomer() {
   return { id: String(customer._id), name: customer.name, email: customer.email, emailVerified: customer.emailVerified, createdAt: customer.createdAt };
 }
 
-// ── rate limiting (per server instance; enough to slow down password guessing) ──
-const hits = new Map<string, number[]>();
-export function rateLimited(key: string, limit: number, windowMs: number) {
-  const now = Date.now();
-  const recent = (hits.get(key) || []).filter((t) => now - t < windowMs);
-  recent.push(now);
-  hits.set(key, recent);
-  if (hits.size > 5000) for (const [k, v] of hits) if (now - v[v.length - 1] > windowMs) hits.delete(k);
-  return recent.length > limit;
+// ── rate limiting: shared by all server instances through MongoDB (fixed windows) ──
+// The count is one atomic $inc per request. If the database is unreachable the request is refused:
+// every limited route needs the database anyway, and a per-instance count would not hold on Vercel.
+export async function rateLimited(key: string, limit: number, windowMs: number) {
+  const window = Math.floor(Date.now() / windowMs);
+  const count = () =>
+    RateLimit.findOneAndUpdate(
+      { _id: `${sha256(key)}:${window}` },
+      { $inc: { count: 1 }, $setOnInsert: { expiresAt: new Date((window + 1) * windowMs) } },
+      { upsert: true, new: true, lean: true },
+    );
+  try {
+    await connectDB();
+    let doc;
+    try {
+      doc = await count();
+    } catch (error) {
+      // two first requests in the same window can race on the upsert; the retry increments the winner's document
+      if ((error as { code?: number }).code !== 11000) throw error;
+      doc = await count();
+    }
+    return doc.count > limit;
+  } catch (error) {
+    console.error("Rate limit store unavailable:", (error as Error).message);
+    return true;
+  }
 }
 
 export function clientIp(req: Request) {
-  return req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.headers.get("x-real-ip") || "local";
+  // x-real-ip is set by Vercel's edge from the TCP connection; a client-sent x-forwarded-for comes second.
+  return req.headers.get("x-real-ip") || req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "local";
 }

@@ -4,7 +4,7 @@ import { sectionBreadcrumb, pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowUpRight, Award, CheckCircle2, Heart, Shield, Star, Users } from "lucide-react";
+import { ArrowUpRight, Award, CheckCircle2, Heart, Star, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { ListingHero } from "@/components/site/ListingPage";
 
@@ -15,7 +15,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 const REASONS = [
-  { key: "licensed", icon: Shield },
   { key: "rated", icon: Star },
   { key: "private", icon: Users },
   { key: "passionate", icon: Heart },
@@ -23,17 +22,18 @@ const REASONS = [
   { key: "transparent", icon: CheckCircle2 },
 ] as const;
 
+// Confirmed business facts only (same as the homepage "Trusted on every road" section).
 const STATS = [
-  { value: "10+", key: "experience" },
-  { value: "5000+", key: "travelers" },
-  { value: "24/7", key: "support" },
-  { value: "100%", key: "certified" },
+  { value: "experienceValue", label: "experienceLabel" },
+  { value: "certifiedValue", label: "certifiedLabel" },
+  { value: "4.9/5", label: "ratingLabel" },
 ] as const;
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "about" });
+  const tStats = await getTranslations({ locale, namespace: "home.stats" });
 
   return (
     <div className="bg-white">
@@ -85,11 +85,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       {/* STATS */}
       <section className="pb-16 sm:pb-24">
-        <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-5 px-6 lg:grid-cols-4">
+        <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-5 px-6 lg:grid-cols-3">
           {STATS.map((s) => (
-            <div key={s.key} className="flex min-w-0 flex-col-reverse rounded-4xl border border-amber-100 bg-amber-50/60 px-3 py-6 text-center sm:p-10">
-              <dt className="mt-2 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-amber-700 sm:tracking-[0.2em]">{t(`stats.${s.key}`)}</dt>
-              <dd className="font-playfair text-3xl text-slate-900 sm:text-5xl">{s.value}</dd>
+            <div key={s.label} className="flex min-w-0 last:max-lg:col-span-2 flex-col-reverse rounded-4xl border border-amber-100 bg-amber-50/60 px-3 py-6 text-center sm:p-10">
+              <dt className="mt-2 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-amber-700 sm:tracking-[0.2em]">{tStats(s.label)}</dt>
+              <dd className="font-playfair text-2xl text-slate-900 sm:text-4xl">{s.value === "4.9/5" ? s.value : tStats(s.value)}</dd>
             </div>
           ))}
         </dl>

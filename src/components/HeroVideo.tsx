@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { preload } from "react-dom";
 import { Link } from "@/i18n/navigation";
 import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react";
@@ -11,8 +11,8 @@ const SLIDE_DURATION = 8000;
 // Shared Cloudinary transformation strings — kept as constants so all three
 // slides stay in sync if you tune quality/width later.
 const VIDEO_TRANSFORM = "w_1920,c_limit,q_auto:good,f_auto,vc_auto";
-// Phones get a narrower encode (still sharp on a ~400px-wide, 2–3x screen) to save mobile data.
-const MOBILE_VIDEO_TRANSFORM = "w_1080,c_limit,q_auto:good,f_auto,vc_auto";
+// Keep desktop quality; the moving mobile background uses a smaller, economical encode.
+const MOBILE_VIDEO_TRANSFORM = "w_720,c_limit,q_auto:eco,f_auto,vc_auto";
 const POSTER_TRANSFORM = "so_auto,f_auto,q_auto,w_1920";
 
 const DEFAULT_SLIDES = [
@@ -91,6 +91,18 @@ function posterSources(poster: string) {
   };
 }
 
+/**
+ * Portrait phones only show the centre ~9:16 of the 16:9 poster (object-fit: cover), yet the srcset above
+ * has to fetch the full 1920px frame to keep that centre sharp. Cloudinary crops the same centre server-side
+ * instead, so the phone LCP image is about a third of the bytes with identical framing.
+ */
+const MOBILE_POSTER_MEDIA = "(max-width: 767px) and (orientation: portrait)";
+const MOBILE_POSTER_WIDTHS = [540, 828, 1080];
+function mobilePosterSrcSet(poster: string) {
+  if (!poster.includes("w_1920")) return null;
+  return MOBILE_POSTER_WIDTHS.map((w) => `${poster.replace("w_1920", `w_${w},h_${Math.round((w * 16) / 9)},c_fill,g_center`)} ${w}w`).join(", ");
+}
+
 /** Covers the hero exactly like the video does (the poster used to be drawn by the <video> itself). */
 const MEDIA_STYLE = {
   position: "absolute",
@@ -132,19 +144,39 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   // null until the preference is read after hydration, so the slide timer never starts before React can advance it.
   const [reducedMotion, setReducedMotion] = useState<boolean | null>(null);
   const [inView, setInView] = useState(true);
+  const [pageVisible, setPageVisible] = useState(true);
 
   // The video starts downloading only after the page has loaded (the identical poster image is on
   // screen until then), so its megabytes never compete with the poster, CSS and scripts.
   const [videoAllowed, setVideoAllowed] = useState(false);
   useEffect(() => {
-    const allow = () => setVideoAllowed(true);
+    let frame = 0;
+    // A loaded image is not necessarily painted yet. Leave a paint opportunity
+    // before adding video sources and starting their download/decoder work.
+    const allow = () => {
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(() => setVideoAllowed(true));
+      });
+    };
     if (document.readyState === "complete") allow();
     else window.addEventListener("load", allow, { once: true });
-    return () => window.removeEventListener("load", allow);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("load", allow);
+    };
   }, []);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const posterRef = useRef<HTMLImageElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const syncPoster = useCallback(() => {
+    const image = posterRef.current, video = videoRef.current;
+    if (!video || !image?.complete || !image.naturalWidth) return;
+    // Reuse the picture's selected URL: native video handover gets the same
+    // poster, without requesting a second desktop-sized poster on phones.
+    const src = image.currentSrc || image.src;
+    if (video.poster !== src) video.poster = src;
+  }, []);
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -164,18 +196,26 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   }, []);
 
   useEffect(() => {
+    const update = () => setPageVisible(!document.hidden);
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
+
+  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (inView && !paused && !reducedMotion) {
+    syncPoster();
+    if (videoAllowed && inView && pageVisible && !paused && reducedMotion === false) {
       void video.play().catch(() => { /* The poster remains visible if autoplay is blocked. */ });
     } else {
       video.pause();
     }
-  }, [current, inView, paused, reducedMotion, videoAllowed]);
+  }, [current, inView, pageVisible, paused, reducedMotion, videoAllowed, syncPoster]);
 
   // Slide & Progress Logic: the active step fills with a CSS animation (runs on the compositor, no per-frame
   // JavaScript) and the slide advances when it ends. Pausing freezes the fill; resuming restarts the slide's timer.
-  const running = inView && !paused && reducedMotion === false && SLIDES.length > 1;
+  const running = inView && pageVisible && !paused && reducedMotion === false && SLIDES.length > 1;
   const [run, setRun] = useState(0);
   const [wasRunning, setWasRunning] = useState(running);
   if (running !== wasRunning) {
@@ -189,21 +229,28 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
   // srcset, instead of being discovered late as a <video poster> (which can't be responsive).
   const first = SLIDES[0];
   const lcpImage = first.type === "image" ? { src: first.src } : first.poster ? posterSources(first.poster) : null;
+  const firstMobile = first.type === "video" && first.poster ? mobilePosterSrcSet(first.poster) : null;
   if (lcpImage) {
+    if (firstMobile) {
+      // Each device preloads only the variant its <picture> will pick.
+      preload(lcpImage.src, { as: "image", fetchPriority: "high", imageSrcSet: firstMobile, imageSizes: "100vw", media: MOBILE_POSTER_MEDIA });
+    }
     preload(lcpImage.src, {
       as: "image",
       fetchPriority: "high",
       ...("srcSet" in lcpImage ? { imageSrcSet: lcpImage.srcSet, imageSizes: lcpImage.sizes } : {}),
+      ...(firstMobile ? { media: `not all and ${MOBILE_POSTER_MEDIA}` } : {}),
     });
   }
   const poster = slide.type === "video" && slide.poster ? posterSources(slide.poster) : null;
+  const mobilePoster = slide.type === "video" && slide.poster ? mobilePosterSrcSet(slide.poster) : null;
 
   return (
     <section ref={sectionRef} className="hero-section relative flex flex-col overflow-hidden bg-slate-950 text-white" aria-label={t("brand")}>
       {slide.type === "image" ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          key={`${slide.src}-${videoAllowed}`} // remount once the sources are added
+          key={slide.src}
           src={slide.src}
           alt={slide.title}
           fetchPriority={current === 0 ? "high" : undefined}
@@ -214,23 +261,27 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
         {poster && (
           // The poster as a real image under the video: identical position/crop, but responsive and
           // high priority. The video has no poster of its own, so it is transparent until it plays.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={`poster-${slide.src}`}
-            src={poster.src}
-            srcSet={"srcSet" in poster ? poster.srcSet : undefined}
-            sizes={"sizes" in poster ? poster.sizes : undefined}
-            alt=""
-            aria-hidden="true"
-            fetchPriority={current === 0 ? "high" : undefined}
-            decoding="async"
-            style={MEDIA_STYLE}
-          />
+          <picture key={`poster-${slide.src}`}>
+            {mobilePoster && <source media={MOBILE_POSTER_MEDIA} srcSet={mobilePoster} sizes="100vw" />}
+            <img
+              ref={posterRef}
+              onLoad={syncPoster}
+              src={poster.src}
+              srcSet={"srcSet" in poster ? poster.srcSet : undefined}
+              sizes={"sizes" in poster ? poster.sizes : undefined}
+              alt=""
+              aria-hidden="true"
+              fetchPriority={current === 0 ? "high" : undefined}
+              // the first slide is the LCP image: let it paint as soon as it arrives (async decode can defer it)
+              decoding={current === 0 ? undefined : "async"}
+              style={MEDIA_STYLE}
+            />
+          </picture>
         )}
         <video
           ref={videoRef}
           key={slide.src}
-          autoPlay={videoAllowed && !paused && !reducedMotion}
+          autoPlay={videoAllowed && inView && pageVisible && !paused && !reducedMotion}
           muted
           playsInline
           loop
@@ -255,7 +306,7 @@ export default function HeroVideo({ slides }: { slides?: HeroSlideInput[] }) {
         <h1 className="hero-display max-w-4xl font-playfair text-4xl leading-[1.08] sm:text-6xl lg:text-7xl">{t("brand")}</h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl">{t("subtitle")}</p>
         <div className="mt-9 flex flex-wrap gap-4">
-          <Link href="/tours" className="rounded-full bg-amber-400 px-7 py-4 font-semibold text-slate-950 transition-colors hover:bg-amber-300">{t("cta")}</Link>
+          <Link href="/tours" className="hero-primary-cta rounded-full bg-amber-400 px-7 py-4 font-semibold transition-colors hover:bg-amber-300">{t("cta")}</Link>
           <Link href="/contact" className="rounded-full border border-white/60 bg-white/10 px-7 py-4 font-semibold backdrop-blur-sm transition-colors hover:bg-white/20">{t("ctaContact")}</Link>
         </div>
       </div>

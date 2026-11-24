@@ -2,7 +2,13 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
-import { requireAdmin } from "@/lib/adminAuth";
+import { esc, requireAdmin } from "@/lib/adminAuth";
+import { emailLayout, emailText, notifyAdmins, sendEmail, SITE_URL } from "@/lib/email";
+
+// Changes the customer is told about (texts: messages/<locale>.json → emails.<key>Subject / <key>Body).
+// "pending" needs no e-mail.
+const CUSTOMER_EVENTS = ["confirmed", "cancelled", "completed", "paid"] as const;
+type CustomerEvent = (typeof CUSTOMER_EVENTS)[number];
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -43,8 +49,32 @@ export async function PATCH(req: Request, context: Ctx) {
     const update: any = { $set: set };
     if (log.length) update.$push = { history: { $each: log.map((action) => ({ action, at: new Date() })) } };
 
-    const updated = await Booking.findByIdAndUpdate(id, update, { returnDocument: "after" }).lean();
-    if (!updated) return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+    const before: any = await Booking.findByIdAndUpdate(id, update, { returnDocument: "before" }).lean();
+    if (!before) return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+    const updated: any = await Booking.findById(id).lean();
+
+    // E-mail the customer and the team only when the status / payment really changed (no repeats on re-save)
+    const changes = [
+      set.status && set.status !== before.status ? set.status : null,
+      set.paymentStatus === "paid" && before.paymentStatus !== "paid" ? "paid" : null,
+    ].filter((key): key is CustomerEvent => CUSTOMER_EVENTS.includes(key as CustomerEvent));
+    for (const key of changes) try {
+      const t = await emailText(updated.locale);
+      const subject = t(`${key}Subject`);
+      const ref = String(updated._id).slice(-8).toUpperCase();
+      await sendEmail({
+        to: updated.email,
+        subject: `${subject} (${ref})`,
+        html: await emailLayout(subject, `<p>${esc(t("hello", { name: updated.name }))}</p><p>${esc(t(`${key}Body`))}</p><p><strong>${esc(updated.itemName || "-")}</strong> · ${esc(t("reference"))} ${esc(ref)}${updated.date ? ` · ${esc(updated.date)}` : ""}</p>`, { label: t("viewBookings"), url: `${SITE_URL}/account` }, updated.locale),
+      });
+      await notifyAdmins({
+        replyTo: updated.email,
+        subject: `Booking ${key === "paid" ? "paid" : key} - ${updated.itemName || "Booking"} (${ref})`,
+        html: `<p>Booking <b>${esc(String(updated._id))}</b> (${esc(updated.name)}, ${esc(updated.email)}) is now <b>${esc(key)}</b>.</p>`,
+      });
+    } catch (mailError: any) {
+      console.error("Status e-mail failed:", mailError?.message || mailError); // the change itself is saved
+    }
     return NextResponse.json(updated);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

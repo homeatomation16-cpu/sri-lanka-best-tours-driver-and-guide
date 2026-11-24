@@ -89,7 +89,9 @@
     "cantFindDesc": "Wir planen eine nach Ihren Daten und Wünschen.",
     "planTailor": "Individuelle Tour planen",
     "routeMap": "Routenkarte",
-    "mapCaption": "Geländekarte · Höhendaten: NASA SRTM"
+    "mapCaption": "Geländekarte · Höhendaten: NASA SRTM",
+    "alsoAvailable": "Auch erhältlich als",
+    "destinationsOnTour": "Ziele dieser Tour"
   },
   "vehicles": {
     "whatsNew": "Neu",
@@ -151,8 +153,8 @@
         "desc": "Alle unsere Guides sind staatlich lizenziert und in Colombo ansässig."
       },
       "rated": {
-        "title": "5-Sterne Service",
-        "desc": "Auf TripAdvisor regelmäßig für Gastfreundschaft und lokales Wissen gelobt."
+        "title": "Mit 4.9/5 auf Google bewertet",
+        "desc": "Reisende bewerten unseren Service in ihren Google-Bewertungen mit 4.9 von 5."
       },
       "private": {
         "title": "Privat & Persönlich",
@@ -163,8 +165,8 @@
         "desc": "Wir sind Einheimische, die diese Insel lieben und sie Ihnen von ihrer besten Seite zeigen wollen."
       },
       "pata": {
-        "title": "Zertifiziertes Mitglied",
-        "desc": "Anerkannte Mitglieder von Sri Lanka Tourism und der Pacific Asia Travel Association (PATA)."
+        "title": "Lizenzierter & zertifizierter Fahrer",
+        "desc": "Ein lizenzierter und zertifizierter professioneller Reisefahrer begleitet jede Reise."
       },
       "transparent": {
         "title": "Transparente Preise",
@@ -213,8 +215,8 @@
         "desc": "Alle unsere Guides sind staatlich lizenziert und in Colombo ansässig."
       },
       "rated": {
-        "title": "5-Sterne Service",
-        "desc": "Auf TripAdvisor regelmäßig für Gastfreundschaft und lokales Wissen gelobt."
+        "title": "Mit 4.9/5 auf Google bewertet",
+        "desc": "Reisende bewerten unseren Service in ihren Google-Bewertungen mit 4.9 von 5."
       },
       "private": {
         "title": "Privat & Persönlich",
@@ -225,8 +227,8 @@
         "desc": "Wir sind Einheimische, die diese Insel lieben und sie Ihnen von ihrer besten Seite zeigen wollen."
       },
       "pata": {
-        "title": "Zertifiziertes Mitglied",
-        "desc": "Anerkannte Mitglieder von Sri Lanka Tourism und der Pacific Asia Travel Association (PATA)."
+        "title": "Lizenzierter & zertifizierter Fahrer",
+        "desc": "Ein lizenzierter und zertifizierter professioneller Reisefahrer begleitet jede Reise."
       },
       "transparent": {
         "title": "Transparente Preise",
@@ -276,7 +278,7 @@
       "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns auf WhatsApp.",
       "whyWrite": "Warum Reisende uns schreiben",
       "p1": "Antwort innerhalb weniger Stunden",
-      "p2": "Lizenzierter, SLTDA-zugelassener Fahrer-Guide",
+      "p2": "Lizenzierter & zertifizierter professioneller Reisefahrer",
       "p3": "Keine Buchungsgebühren, Zahlung bei Ankunft",
       "hours": "24 Stunden geöffnet · 7 Tage die Woche"
     }
@@ -402,7 +404,17 @@
     "perPersonApprox": "≈ {price} pro Person",
     "estimateNote": "Den Endpreis bestätigen wir nach Ihrer Anfrage. Jetzt keine Zahlung.",
     "largeGroup": "Für Gruppen über {max} Personen senden wir ein individuelles Angebot.",
-    "priceChanged": "Der Preis für dieses Paket wurde gerade auf {price} aktualisiert. Bitte prüfen Sie den neuen Preis und senden Sie Ihre Anfrage erneut."
+    "priceChanged": "Der Preis für dieses Paket wurde gerade auf {price} aktualisiert. Bitte prüfen Sie den neuen Preis und senden Sie Ihre Anfrage erneut.",
+    "passengers": "Mitreisende",
+    "getCode": "Bestätigungscode anfordern",
+    "codeSent": "Wir haben einen 6-stelligen Code an {email} gesendet",
+    "code": "Bestätigungscode",
+    "confirm": "Buchung bestätigen",
+    "resend": "Neuen Code senden",
+    "editDetails": "Angaben bearbeiten",
+    "invalidCode": "Der Code ist falsch oder abgelaufen. Bitte fordern Sie einen neuen an.",
+    "verifyAgain": "Ihre Bestätigung ist abgelaufen. Bitte fordern Sie einen neuen Code an.",
+    "missingFields": "Bitte geben Sie Ihren Namen, eine gültige E-Mail-Adresse und die Anzahl der Mitreisenden an."
   },
   "loader": {
     "tagline": "Entdecken Sie das Inselparadies 🌴",
@@ -456,7 +468,8 @@
         "category": "Religiös",
         "description": "Einer der bedeutendsten buddhistischen Tempel in Colombo."
       }
-    }
+    },
+    "toursVisiting": "Touren mit {place}"
   },
   "excursions": {
     "title": "Unsere Ausflüge",
@@ -646,7 +659,13 @@
       "tours": "Durchgeführte Touren",
       "travelers": "Zufriedene Reisende",
       "experience": "Jahre Erfahrung",
-      "satisfaction": "Gästezufriedenheit"
+      "satisfaction": "Gästezufriedenheit",
+      "experienceValue": "1 Jahr",
+      "experienceLabel": "Berufserfahrung",
+      "certifiedValue": "Lizenziert & zertifiziert",
+      "certifiedLabel": "Professioneller Reisefahrer",
+      "ratingLabel": "Google-Bewertungen",
+      "ratingAria": "Bewertet mit 4.9 von 5 auf Google"
     },
     "gallery": {
       "open": "Foto öffnen",
@@ -777,5 +796,33 @@
     "verifyPending": "Bitte bestätigen Sie Ihre E-Mail-Adresse ({email}), um hier Ihre Buchungen zu sehen. Wir haben Ihnen bei der Registrierung einen Link gesendet.",
     "resendVerification": "Bestätigungs-E-Mail erneut senden",
     "verifySent": "Gesendet! Prüfen Sie Posteingang und Spam-Ordner."
+  },
+  "emails": {
+    "hello": "Hallo {name},",
+    "reference": "Referenz",
+    "viewBookings": "Meine Buchungen ansehen",
+    "travellers": "Reisende",
+    "vehicle": "Fahrzeug",
+    "groupTotal": "Gesamtpreis der Gruppe",
+    "bestRegards": "Viele Grüße,",
+    "otpSubject": "Ihr Bestätigungscode",
+    "otpIntro": "Bitte verwenden Sie den folgenden Code, um Ihre E-Mail-Adresse zu bestätigen.",
+    "otpLabel": "Bestätigungscode",
+    "otpValid": "Dieser Code ist 5 Minuten gültig.",
+    "otpIgnore": "Falls Sie dies nicht angefordert haben, können Sie diese E-Mail ignorieren.",
+    "bookingSubject": "Buchungsanfrage erhalten",
+    "bookingBody": "Vielen Dank – wir haben Ihre Buchungsanfrage für {item} erhalten. Dies ist noch keine bestätigte Reservierung: Wir prüfen die Verfügbarkeit und melden uns bald per E-Mail oder WhatsApp.",
+    "contactSubject": "Wir haben Ihre Nachricht erhalten",
+    "contactBody": "Vielen Dank für Ihre Nachricht. Wir antworten so bald wie möglich per E-Mail oder WhatsApp.",
+    "tailorSubject": "Wir haben Ihre individuelle Reiseanfrage erhalten",
+    "tailorBody": "Vielen Dank! Wir planen eine Route passend zu Ihren Daten und Interessen und melden uns in Kürze per WhatsApp oder E-Mail.",
+    "confirmedSubject": "Ihre Buchung ist bestätigt",
+    "confirmedBody": "Gute Nachricht – Ihre Buchung wurde von unserem Team bestätigt. Wir melden uns mit den letzten Details.",
+    "cancelledSubject": "Ihre Buchung wurde storniert",
+    "cancelledBody": "Ihre Buchung wurde storniert. Falls das unerwartet ist oder Sie neu buchen möchten, antworten Sie bitte auf diese E-Mail oder schreiben Sie uns auf WhatsApp.",
+    "completedSubject": "Danke, dass Sie mit uns gereist sind",
+    "completedBody": "Ihre Reise ist als abgeschlossen markiert. Danke, dass Sie mit uns gereist sind – wir hoffen, Sie wiederzusehen.",
+    "paidSubject": "Zahlung erhalten",
+    "paidBody": "Wir haben Ihre Zahlung für diese Buchung erhalten. Vielen Dank!"
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2, Mail, MessageCircle, Phone, Send } from "lucide-react";
 import CinematicSection from "@/components/cinematic/CinematicSection";
 import DecoShapes from "@/components/home/DecoShapes";
@@ -19,6 +19,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 export default function ContactSection() {
   const contact = useContact();
   const t = useTranslations("home.contactForm");
+  const locale = useLocale();
   const tc = useTranslations("contact");
   const [form, setForm] = useState<Fields>({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Errors>({});
@@ -51,7 +52,7 @@ export default function ContactSection() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, name: form.name.trim(), email: form.email.trim() }),
+        body: JSON.stringify({ ...form, name: form.name.trim(), email: form.email.trim(), locale }),
       });
       const data = await res.json();
       if (!data.success) throw new Error("failed");
@@ -81,7 +82,7 @@ export default function ContactSection() {
           <h2 className="font-playfair text-3xl leading-tight sm:text-4xl">{t("heading")}</h2>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-white/75 sm:mt-4 sm:text-base">{t("sub")}</p>
           <ul className="mt-4 space-y-2 text-sm text-white/85 sm:mt-6 sm:space-y-3 sm:text-base">
-            <li><a href={contact.whatsappme} target="_blank" rel="noopener noreferrer" className="contact-line"><MessageCircle size={20} aria-hidden="true" />WhatsApp {contact.phone}</a></li>
+            <li><a href={contact.whatsappme} target="_blank" rel="noopener noreferrer" className="contact-line"><MessageCircle size={20} aria-hidden="true" />WhatsApp {contact.whatsapp || contact.phone}</a></li>
             <li><a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="contact-line"><Phone size={20} aria-hidden="true" />{contact.phone}</a></li>
             <li><a href={`mailto:${contact.email}`} className="contact-line"><Mail size={20} aria-hidden="true" className="shrink-0" /><span className="min-w-0 break-all">{contact.email}</span></a></li>
           </ul>

@@ -1,14 +1,12 @@
-"use client";
-
 import CinematicSection from "@/components/cinematic/CinematicSection";
 // src/components/WhyUs.tsx
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Star, MapPin, Sliders, Car, BadgeCheck, Zap } from "lucide-react";
 
-export default function WhyUs() {
-  const t = useTranslations("whyUs");
+export default async function WhyUs() {
+  const t = await getTranslations("whyUs");
 
   const features = [
     { title: t("features.agent.title"), description: t("features.agent.desc"), icon: Star },

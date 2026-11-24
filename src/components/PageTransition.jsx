@@ -1,15 +1,18 @@
 "use client";
 
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, LazyMotion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
+
+const loadMotionFeatures = () => import("@/lib/motionFeatures").then((mod) => mod.default);
 
 export default function PageTransition({ children }) {
   const pathname = usePathname();
   const reducedMotion = useReducedMotion();
 
   return (
+    <LazyMotion features={loadMotionFeatures}>
     <AnimatePresence mode="wait" initial={false}>
-      <motion.div
+      <m.div
         key={pathname}
         // Keep server-rendered content visible; animate subsequent navigation only.
         initial={reducedMotion ? false : { opacity: 0, y: 30 }}
@@ -21,7 +24,8 @@ export default function PageTransition({ children }) {
         }}
       >
         {children}
-      </motion.div>
+      </m.div>
     </AnimatePresence>
+    </LazyMotion>
   );
 }

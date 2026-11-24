@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Edit2, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { useContact } from "@/components/ContactProvider";
@@ -44,6 +44,7 @@ function tripEndDate(start: string, days?: number) {
 export default function BookingForm({ tour, lengths = [], sticky = true }: BookingFormProps) {
   const contact = useContact();
   const t = useTranslations("booking");
+  const locale = useLocale();
   const tTours = useTranslations("tours");
   const router = useRouter();
 
@@ -130,7 +131,7 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
     try {
       const res = await fetch("/api/verify-email", {
         method: "POST",
-        body: JSON.stringify({ email: form.email, action: "send" }),
+        body: JSON.stringify({ email: form.email, action: "send", locale }),
       });
       const data = await res.json();
 
@@ -193,6 +194,8 @@ export default function BookingForm({ tour, lengths = [], sticky = true }: Booki
           quotedTotal: priceRow?.price,
           itemName: tour.title,
           bookingType: "Tour",
+          emailProof: verifyData.proof, // the server checks this instead of trusting the browser
+          locale,
         }),
       });
 

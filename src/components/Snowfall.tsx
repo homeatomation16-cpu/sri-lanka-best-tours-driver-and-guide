@@ -97,6 +97,7 @@ export default function Snowfall() {
     const sprites = [0, 1, 2].map((v) => makeCrystal(96, v));
     let w = 0;
     let h = 0;
+    let mobile = false;
     let flakes: Flake[] = [];
     let raf = 0;
     let last = performance.now();
@@ -115,36 +116,52 @@ export default function Snowfall() {
     let frame = 0;
     const markDirty = () => (rectsDirty = true);
 
-    /* Performance: the expensive part (searching the page, de-duplicating nested matches, reading
-       border radius) runs only every couple of seconds; each animation frame just re-reads the
-       positions of that short list, and only after a scroll or every 20 frames. */
-    let candidates: { el: Element; radiusPx: number }[] = [];
+    // Discover surfaces without measuring the whole page. Geometry, nested-match
+    // deduplication and corner styles are needed only for nearby elements.
+    let candidates: Element[] = [];
+    const nearby = new Set<Element>();
+    const nearSurfaces = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) nearby.add(entry.target);
+        else nearby.delete(entry.target);
+      });
+      rectsDirty = true;
+    }, { rootMargin: "100px 0px" });
+    // getComputedStyle forces a style recalculation of the page; an element's corner radius doesn't change,
+    // so it is read once per element instead of for every candidate on every 2-second scan.
+    const radii = new WeakMap<Element, number>();
+    const radiusOf = (el: Element) => {
+      let r = radii.get(el);
+      if (r === undefined) radii.set(el, (r = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0));
+      return r;
+    };
     const scanSurfaces = () => {
       const found = Array.from(document.querySelectorAll(SURFACES)).filter((el) => !el.closest("header, [aria-hidden=true]"));
-      const rects = new Map(found.map((el) => [el, el.getBoundingClientRect()] as const));
-      candidates = found
-        .filter((el) => {
-          // the same card often matches twice (wrapper + visible box): keep the inner, visible one
-          const r = rects.get(el)!;
-          return !found.some((inner) => {
-            if (inner === el || !el.contains(inner)) return false;
-            const ir = rects.get(inner)!;
-            return Math.abs(ir.top - r.top) < 40 && ir.width > r.width * 0.8;
-          });
-        })
-        .map((el) => ({ el, radiusPx: parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0 }));
+      const previous = new Set(candidates);
+      candidates = found;
+      candidates.forEach((el) => {
+        if (!previous.delete(el)) nearSurfaces.observe(el);
+      });
+      previous.forEach((el) => { nearSurfaces.unobserve(el); nearby.delete(el); });
       rectsDirty = true;
     };
 
     const refreshSurfaces = () => {
       rectsDirty = false;
       const next: Surface[] = [];
-      candidates.forEach(({ el, radiusPx }) => {
-        if (!el.isConnected) return;
-        const r = el.getBoundingClientRect();
+      const visible = candidates.filter((el) => el.isConnected && nearby.has(el));
+      const rects = new Map(visible.map((el) => [el, el.getBoundingClientRect()] as const));
+      visible.forEach((el) => {
+        const r = rects.get(el)!;
         if (r.width < 40 || r.height < 12 || r.bottom < 0 || r.top > h || r.top < 4) return;
+        // The same card can match twice: retain its inner visible surface.
+        if (visible.some((inner) => {
+          if (inner === el || !el.contains(inner)) return false;
+          const ir = rects.get(inner)!;
+          return Math.abs(ir.top - r.top) < 40 && ir.width > r.width * 0.8;
+        })) return;
         // snow only rests on the flat-ish part of the top, not down the steep rounded sides (pill buttons)
-        const radius = Math.min(radiusPx, r.width / 2, r.height / 2, 40);
+        const radius = Math.min(radiusOf(el), r.width / 2, r.height / 2, 40);
         const inset = radius * 0.6;
         const sl = r.left + inset;
         const sw = r.width - inset * 2;
@@ -242,9 +259,12 @@ export default function Snowfall() {
       grad.addColorStop(0.6, "#f4f9ff");
       grad.addColorStop(1, "#cfe0f2");
       ctx.fillStyle = grad;
-      ctx.shadowColor = "rgba(40, 80, 130, 0.35)";
-      ctx.shadowBlur = 5;
-      ctx.shadowOffsetY = 2;
+      // Canvas shadow blur is the costliest part of a pile; phones draw the piles without it
+      if (!mobile) {
+        ctx.shadowColor = "rgba(40, 80, 130, 0.35)";
+        ctx.shadowBlur = 5;
+        ctx.shadowOffsetY = 2;
+      }
 
       // mound: smooth curve over the top, then back along the card edge (sinking 3px onto it)
       ctx.beginPath();
@@ -266,7 +286,7 @@ export default function Snowfall() {
       ctx.fill();
 
       // soft overhanging lumps on the front edge
-      ctx.shadowBlur = 3;
+      if (!mobile) ctx.shadowBlur = 3;
       for (const t of s.drips) {
         const i = Math.round(t * (n - 1));
         const hh = hAt(i);
@@ -316,17 +336,28 @@ export default function Snowfall() {
 
     const resize = () => {
       rectsDirty = true;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Phones fire resize when the address bar slides in/out while scrolling: keep the canvas and the
+      // falling flakes (reallocating the canvas and respawning every flake there caused a hitch).
+      if (w && window.innerWidth === w && Math.abs(window.innerHeight - h) < 160) return;
+      // Phones (<768px): canvas resolution capped at 1.5x instead of 2x, ~44% fewer pixels to clear and draw per frame
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.5 : 2);
       w = window.innerWidth;
       h = window.innerHeight;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round(Math.min(220, (w * h) / 7000));
+      mobile = w < 768;
+      // Phones: ~40% fewer flakes (a phone screen already shows ~50); desktop density unchanged
+      const count = Math.round(Math.min(220, (w * h) / 7000) * (mobile ? 0.6 : 1));
       flakes = Array.from({ length: count }, () => spawn(true));
     };
 
     const tick = (now: number) => {
+      // Phones redraw at ~30 fps (snow falls slowly, so the motion looks the same at half the CPU cost)
+      if (mobile && now - last < 30) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
       ctx.clearRect(0, 0, w, h);
@@ -398,27 +429,51 @@ export default function Snowfall() {
     // Start once the page has loaded and the browser is idle, so the snow never competes with the
     // first paint; then re-scan for cards every 2 s (new sections stream in, pages change).
     let scanTimer = 0;
+    let domChanged = false;
+    let mutations: MutationObserver | undefined;
     let started = false;
+    let disposed = false;
+    let idleHandle: number | undefined;
+    const hasIdleCallback = typeof window.requestIdleCallback === "function";
     const start = () => {
-      if (started) return;
+      if (disposed || started) return;
       started = true;
       scanSurfaces();
       resize();
       last = performance.now();
-      raf = requestAnimationFrame(tick);
-      scanTimer = window.setInterval(scanSurfaces, 2000);
+      if (!document.hidden) raf = requestAnimationFrame(tick);
+      // Re-search the page only after elements were added or removed (sections streamed in, a page change,
+      // a panel opened), at most every 2 s. Only childList is observed, so class/style/attribute churn from
+      // animations never triggers it; surface positions are still refreshed per frame.
+      domChanged = false;
+      mutations = new MutationObserver(() => { domChanged = true; });
+      mutations.observe(document.body, { childList: true, subtree: true });
+      scanTimer = window.setInterval(() => {
+        if (document.hidden || !domChanged) return;
+        domChanged = false;
+        scanSurfaces();
+      }, 2000);
     };
-    const idle = (cb: () => void) =>
-      typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(cb, { timeout: 2500 }) : setTimeout(cb, 1200);
-    const onLoad = () => idle(start);
+    const onLoad = () => {
+      idleHandle = hasIdleCallback
+        ? window.requestIdleCallback(start, { timeout: 2500 })
+        : window.setTimeout(start, 1200);
+    };
     if (document.readyState === "complete") onLoad();
     else window.addEventListener("load", onLoad, { once: true });
     window.addEventListener("resize", resize);
     window.addEventListener("scroll", markDirty, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
+      disposed = true;
+      if (idleHandle !== undefined) {
+        if (hasIdleCallback) window.cancelIdleCallback(idleHandle);
+        else window.clearTimeout(idleHandle);
+      }
       cancelAnimationFrame(raf);
       window.clearInterval(scanTimer);
+      mutations?.disconnect();
+      nearSurfaces.disconnect();
       window.removeEventListener("load", onLoad);
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", markDirty);

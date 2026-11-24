@@ -6,10 +6,12 @@ import { Menu, X, Phone } from "lucide-react";
 import AccountMenu from "@/components/account/AccountMenu";
 import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence, LazyMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ThemeToggle from "@/components/ThemeToggle";
+
+const loadMotionFeatures = () => import("@/lib/motionFeatures").then((mod) => mod.default);
 import { useContact } from "@/components/ContactProvider";
 
 const BRAND_NAME = "Sri Lanka Best Tours Driver & Guide";
@@ -18,6 +20,7 @@ export default function Navbar() {
   const contact = useContact();
   const t = useTranslations("nav");
   const tHome = useTranslations("home");
+  const tContact = useTranslations("contact.page");
   const pathname = usePathname();
 
   const [scrolled, setScrolled] = useState(false);
@@ -103,10 +106,10 @@ export default function Navbar() {
 
           <a
             href={`tel:${contact.phone}`}
-            aria-label={contact.phone}
+            aria-label={`${tContact("callUs")} ${contact.phone}`}
             className={`hidden h-11 w-11 items-center justify-center rounded-full transition-colors lg:inline-flex ${textColor} ${solid ? "hover:bg-slate-100" : "hover:bg-white/10"}`}
           >
-            <Phone size={16} />
+            <Phone size={16} aria-hidden />
           </a>
 
           <ThemeToggle className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors ${textColor} ${solid ? "hover:bg-slate-100" : "hover:bg-white/10"}`} />
@@ -135,9 +138,10 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE MENU */}
+      <LazyMotion features={loadMotionFeatures}>
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -170,9 +174,10 @@ export default function Navbar() {
                 {t("whatsapp")}
               </a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
+      </LazyMotion>
     </nav>
   );
 }

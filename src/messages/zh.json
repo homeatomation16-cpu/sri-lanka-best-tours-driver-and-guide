@@ -89,7 +89,9 @@
     "cantFindDesc": "我们会根据您的日期和兴趣为您设计。",
     "planTailor": "规划定制行程",
     "routeMap": "路线地图",
-    "mapCaption": "地形图 · 高程数据：NASA SRTM"
+    "mapCaption": "地形图 · 高程数据：NASA SRTM",
+    "alsoAvailable": "另有此行程",
+    "destinationsOnTour": "本行程的目的地"
   },
   "vehicles": {
     "whatsNew": "最新动态",
@@ -151,8 +153,8 @@
         "desc": "所有导游均为政府持证专业人员。"
       },
       "rated": {
-        "title": "五星级评价服务",
-        "desc": "在 TripAdvisor 上因卓越的热情待客而屡获好评。"
+        "title": "Google 评分 4.9/5",
+        "desc": "旅行者在 Google 评价中给我们的服务打出 4.9 分（满分 5 分）。"
       },
       "private": {
         "title": "私密与个性化",
@@ -163,8 +165,8 @@
         "desc": "我们是热爱这片土地的当地人，渴望展示这里最美的一面。"
       },
       "pata": {
-        "title": "PATA 与旅游局认证单位",
-        "desc": "斯里兰卡旅游局及亚太旅游协会 (PATA) 正式会员。"
+        "title": "持证认证司机",
+        "desc": "每一段旅程均由持证认证的专业旅游司机负责。"
       },
       "transparent": {
         "title": "透明定价",
@@ -213,8 +215,8 @@
         "desc": "所有导游均为政府持证专业人员。"
       },
       "rated": {
-        "title": "五星级评价服务",
-        "desc": "在 TripAdvisor 上因卓越的热情待客而屡获好评。"
+        "title": "Google 评分 4.9/5",
+        "desc": "旅行者在 Google 评价中给我们的服务打出 4.9 分（满分 5 分）。"
       },
       "private": {
         "title": "私密与个性化",
@@ -225,8 +227,8 @@
         "desc": "我们是热爱这片土地的当地人，渴望展示这里最美的一面。"
       },
       "pata": {
-        "title": "PATA 与旅游局认证单位",
-        "desc": "斯里兰卡旅游局及亚太旅游协会 (PATA) 正式会员。"
+        "title": "持证认证司机",
+        "desc": "每一段旅程均由持证认证的专业旅游司机负责。"
       },
       "transparent": {
         "title": "透明定价",
@@ -276,7 +278,7 @@
       "error": "出了点问题。请重试或通过 WhatsApp 联系我们。",
       "whyWrite": "为什么旅行者联系我们",
       "p1": "几小时内回复",
-      "p2": "持证、SLTDA 认可的司机导游",
+      "p2": "持证认证的专业旅游司机",
       "p3": "无预订费，抵达后付款",
       "hours": "24 小时营业 · 每周 7 天"
     }
@@ -402,7 +404,17 @@
     "perPersonApprox": "约每人 {price}",
     "estimateNote": "最终价格将在您提交后确认，现在无需付款。",
     "largeGroup": "超过 {max} 人的团体我们将单独报价。",
-    "priceChanged": "此套餐的价格刚刚更新为 {price}。请查看新价格后重新提交您的请求。"
+    "priceChanged": "此套餐的价格刚刚更新为 {price}。请查看新价格后重新提交您的请求。",
+    "passengers": "乘客人数",
+    "getCode": "获取验证码",
+    "codeSent": "我们已向 {email} 发送 6 位验证码",
+    "code": "验证码",
+    "confirm": "确认预订",
+    "resend": "重新发送验证码",
+    "editDetails": "修改信息",
+    "invalidCode": "验证码错误或已过期，请重新获取。",
+    "verifyAgain": "验证已过期，请重新获取验证码。",
+    "missingFields": "请输入您的姓名、有效的电子邮箱和乘客人数。"
   },
   "loader": {
     "tagline": "探索天堂岛 🌴",
@@ -456,7 +468,8 @@
         "category": "宗教圣地",
         "description": "科伦坡最古老的佛教寺庙之一，也是文化教育中心。"
       }
-    }
+    },
+    "toursVisiting": "包含{place}的行程"
   },
   "excursions": {
     "title": "短途游项目",
@@ -646,7 +659,13 @@
       "tours": "已完成行程",
       "travelers": "满意的旅客",
       "experience": "年经验",
-      "satisfaction": "客人满意度"
+      "satisfaction": "客人满意度",
+      "experienceValue": "1 年",
+      "experienceLabel": "专业经验",
+      "certifiedValue": "持证认证",
+      "certifiedLabel": "专业旅游司机",
+      "ratingLabel": "Google 评价",
+      "ratingAria": "Google 评分 4.9（满分 5 分）"
     },
     "gallery": {
       "open": "打开照片",
@@ -777,5 +796,33 @@
     "verifyPending": "请确认您的邮箱地址（{email}）以在此查看您的预订。注册时我们已向您发送链接。",
     "resendVerification": "重新发送确认邮件",
     "verifySent": "已发送！请查看收件箱和垃圾邮件文件夹。"
+  },
+  "emails": {
+    "hello": "{name}，您好：",
+    "reference": "预订编号",
+    "viewBookings": "查看我的预订",
+    "travellers": "旅客人数",
+    "vehicle": "车辆",
+    "groupTotal": "团体总价",
+    "bestRegards": "此致敬礼",
+    "otpSubject": "您的验证码",
+    "otpIntro": "请使用以下验证码验证您的电子邮箱地址。",
+    "otpLabel": "验证码",
+    "otpValid": "验证码 5 分钟内有效。",
+    "otpIgnore": "如果这不是您本人的操作，请忽略此邮件。",
+    "bookingSubject": "已收到预订申请",
+    "bookingBody": "谢谢！我们已收到您对 {item} 的预订申请。这还不是已确认的预订：我们会核实可用情况，并尽快通过电子邮件或 WhatsApp 与您联系。",
+    "contactSubject": "我们已收到您的留言",
+    "contactBody": "感谢您联系我们。我们会尽快通过电子邮件或 WhatsApp 回复您。",
+    "tailorSubject": "我们已收到您的定制行程申请",
+    "tailorBody": "谢谢！我们正在根据您的日期和兴趣规划路线，很快会通过 WhatsApp 或电子邮件与您联系。",
+    "confirmedSubject": "您的预订已确认",
+    "confirmedBody": "好消息——我们的团队已确认您的预订。我们会再与您联系确认最终细节。",
+    "cancelledSubject": "您的预订已取消",
+    "cancelledBody": "您的预订已取消。如有疑问或希望重新预订，请回复此邮件或通过 WhatsApp 联系我们。",
+    "completedSubject": "感谢您与我们同行",
+    "completedBody": "您的行程已标记为完成。感谢您与我们同行，期待再次相见。",
+    "paidSubject": "已收到付款",
+    "paidBody": "我们已收到您此次预订的付款。谢谢！"
   }
 }

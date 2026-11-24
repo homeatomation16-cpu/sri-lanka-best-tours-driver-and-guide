@@ -1,66 +1,77 @@
 "use client";
 
-import { useEffect, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, useScroll, useSpring, useTransform, useVelocity, type MotionStyle } from "framer-motion";
 
-function subscribeReducedMotion(notify: () => void) {
-  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-  query.addEventListener("change", notify);
-  return () => query.removeEventListener("change", notify);
-}
-
-const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+/**
+ * Site-wide landscape backdrop.
+ *  - Vertical drift (-45px → 45px over the page) is a CSS scroll-driven animation (.world-landscape in
+ *    globals.css): it runs off the main thread, with no scroll listener or per-frame JavaScript.
+ *  - Desktop mouse drift (±18px): a short requestAnimationFrame ease that only runs while the backdrop is
+ *    catching up with the pointer, then stops. Touch devices never start it.
+ */
 export default function SiteMotion({ children }: { children: ReactNode }) {
-  // Match the server on the first hydration pass, then apply the real preference.
-  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false);
-  const { scrollY, scrollYProgress } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const velocity = useSpring(scrollVelocity, { stiffness: 90, damping: 30 });
-  const pointer = useMotionValue(0);
-  const smoothPointer = useSpring(pointer, { stiffness: 65, damping: 24 });
-  const drift = useTransform(velocity, [-2000, 2000], ["8px", "-8px"]);
-  const pitch = useTransform(velocity, [-2000, 2000], ["1.8deg", "-1.8deg"]);
-  const yaw = useTransform(smoothPointer, [-1, 1], ["-1.4deg", "1.4deg"]);
-  const backgroundX = useTransform(smoothPointer, [-1, 1], ["-18px", "18px"]);
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["-45px", "45px"]);
+  const landscape = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (reducedMotion) return;
-    const preference = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const move = (event: PointerEvent) => {
-      if (preference.matches && event.pointerType === "mouse") {
-        pointer.set((event.clientX / window.innerWidth - 0.5) * 2);
-      }
+    const el = landscape.current;
+    if (!el) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    let target = 0;
+    let x = 0;
+    let frame = 0;
+
+    const step = () => {
+      x += (target - x) * 0.08;
+      if (Math.abs(target - x) < 0.05) x = target;
+      el.style.translate = `${x.toFixed(2)}px 0`;
+      frame = x === target ? 0 : requestAnimationFrame(step);
     };
-    const reset = () => pointer.set(0);
+    const moveTo = (value: number) => {
+      target = value;
+      if (!frame) frame = requestAnimationFrame(step);
+    };
+    const move = (event: PointerEvent) => {
+      if (document.hidden || reduced.matches || !finePointer.matches || event.pointerType !== "mouse") return;
+      moveTo((event.clientX / window.innerWidth - 0.5) * 36);
+    };
+    const reset = () => moveTo(0);
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      target = x = 0;
+      el.style.translate = "0px 0";
+    };
+    const onVisibility = () => { if (document.hidden) stop(); };
+    const onPreference = () => { if (reduced.matches || !finePointer.matches) stop(); };
+
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("blur", reset);
+    document.addEventListener("visibilitychange", onVisibility);
+    reduced.addEventListener("change", onPreference);
+    finePointer.addEventListener("change", onPreference);
     document.documentElement.addEventListener("pointerleave", reset);
     return () => {
+      cancelAnimationFrame(frame);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("blur", reset);
+      document.removeEventListener("visibilitychange", onVisibility);
+      reduced.removeEventListener("change", onPreference);
+      finePointer.removeEventListener("change", onPreference);
       document.documentElement.removeEventListener("pointerleave", reset);
-      reset();
     };
-  }, [pointer, reducedMotion]);
-
-  const style = {
-    "--world-drift": reducedMotion ? "0px" : drift,
-    "--world-pitch": reducedMotion ? "0deg" : pitch,
-    "--world-yaw": reducedMotion ? "0deg" : yaw,
-  } as MotionStyle;
+  }, []);
 
   return (
-    <motion.div className="site-world" style={style}>
+    <div className="site-world">
       <div className="world-backdrop" aria-hidden="true">
-        <motion.div className="world-landscape" style={{ x: reducedMotion ? 0 : backgroundX, y: reducedMotion ? 0 : backgroundY }}>
-          <Image src="/images/editorial/highlands.webp" alt="" fill quality={60} sizes="100vw" className="object-cover" />
-        </motion.div>
+        <div ref={landscape} className="world-landscape">
+          <Image src="/images/editorial/highlands.webp" alt="" fill quality={75} sizes="100vw" className="object-cover" />
+        </div>
         <div className="world-atmosphere" />
       </div>
       {children}
-    </motion.div>
+    </div>
   );
 }

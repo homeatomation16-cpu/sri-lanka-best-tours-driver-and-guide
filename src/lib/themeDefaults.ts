@@ -71,5 +71,13 @@ export const isCustomBrand = (t: ThemeSettings) =>
 /** CSS variables for <style id="site-theme">. Values are validated hex colours only. */
 export function themeToCss(t: ThemeSettings) {
   const k = t.colors;
-  return `:root{--t-primary:${k.primary};--t-accent:${k.accent};--t-bg:${k.bg};--t-dark-bg:${k.darkBg};--t-dark-surface:${k.darkSurface};--t-dark-text:${k.darkText};--t-dark-muted:${k.darkMuted};--t-dark-border:${k.darkBorder}}`;
+  // Pick the higher-contrast text colour for filled accent buttons, including
+  // the Christmas red and custom accents saved by the admin.
+  const channels = k.accent.slice(1).match(/../g)!.map((hex) => {
+    const value = parseInt(hex, 16) / 255;
+    return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  });
+  const luminance = channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+  const accentText = luminance > 0.179 ? "#000000" : "#ffffff";
+  return `:root{--t-primary:${k.primary};--t-accent:${k.accent};--t-accent-text:${accentText};--t-bg:${k.bg};--t-dark-bg:${k.darkBg};--t-dark-surface:${k.darkSurface};--t-dark-text:${k.darkText};--t-dark-muted:${k.darkMuted};--t-dark-border:${k.darkBorder}}`;
 }

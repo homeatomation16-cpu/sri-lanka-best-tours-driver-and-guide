@@ -1,14 +1,12 @@
-"use client";
-
 import CinematicSection from "@/components/cinematic/CinematicSection";
 // src/components/SpecialOffer.tsx
 
 import { Check, Star } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-export default function SpecialOffer() {
-  const t = useTranslations("specialOffer");
+export default async function SpecialOffer() {
+  const t = await getTranslations("specialOffer");
 
   const included = ["Private A/C Luxury Vehicle", "Personal English-Speaking Chauffeur", "4★ & 5★ Hotels with Breakfast", "All Fuel, Tolls & Parking"];
 

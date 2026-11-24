@@ -89,7 +89,9 @@
     "cantFindDesc": "일정과 관심사에 맞춰 만들어 드립니다.",
     "planTailor": "맞춤 투어 계획하기",
     "routeMap": "경로 지도",
-    "mapCaption": "지형도 · 고도 데이터: NASA SRTM"
+    "mapCaption": "지형도 · 고도 데이터: NASA SRTM",
+    "alsoAvailable": "다음 상품도 있습니다",
+    "destinationsOnTour": "이 투어의 여행지"
   },
   "vehicles": {
     "whatsNew": "새로운 기능",
@@ -151,8 +153,8 @@
         "desc": "모든 가이드는 콜롬보를 기반으로 활동하는 정부 공인 전문가입니다."
       },
       "rated": {
-        "title": "별 5개 등급 서비스",
-        "desc": "뛰어난 환대와 지역 지식으로 트립어드바이저에서 꾸준히 높은 평가를 받고 있습니다."
+        "title": "Google 평점 4.9/5",
+        "desc": "여행객들은 Google 리뷰에서 저희 서비스에 5점 만점에 4.9점을 주었습니다."
       },
       "private": {
         "title": "프라이빗 & 퍼스널",
@@ -163,8 +165,8 @@
         "desc": "스리랑카를 사랑하는 현지인으로서, 여러분이 섬의 가장 아름다운 모습을 경험하시길 바랍니다."
       },
       "pata": {
-        "title": "PATA 및 관광청 인증",
-        "desc": "스리랑카 관광청 및 아시아 태평양 관광 협회(PATA)의 공식 회원사입니다."
+        "title": "면허 및 자격 보유 드라이버",
+        "desc": "모든 여행을 면허와 자격을 갖춘 전문 투어 드라이버가 담당합니다."
       },
       "transparent": {
         "title": "투명한 가격 정책",
@@ -213,8 +215,8 @@
         "desc": "모든 가이드는 콜롬보를 기반으로 활동하는 정부 공인 전문가입니다."
       },
       "rated": {
-        "title": "별 5개 등급 서비스",
-        "desc": "뛰어난 환대와 지역 지식으로 트립어드바이저에서 꾸준히 높은 평가를 받고 있습니다."
+        "title": "Google 평점 4.9/5",
+        "desc": "여행객들은 Google 리뷰에서 저희 서비스에 5점 만점에 4.9점을 주었습니다."
       },
       "private": {
         "title": "프라이빗 & 퍼스널",
@@ -225,8 +227,8 @@
         "desc": "스리랑카를 사랑하는 현지인으로서, 여러분이 섬의 가장 아름다운 모습을 경험하시길 바랍니다."
       },
       "pata": {
-        "title": "PATA 및 관광청 인증",
-        "desc": "스리랑카 관광청 및 아시아 태평양 관광 협회(PATA)의 공식 회원사입니다."
+        "title": "면허 및 자격 보유 드라이버",
+        "desc": "모든 여행을 면허와 자격을 갖춘 전문 투어 드라이버가 담당합니다."
       },
       "transparent": {
         "title": "투명한 가격 정책",
@@ -276,7 +278,7 @@
       "error": "문제가 발생했습니다. 다시 시도하시거나 WhatsApp으로 문의해 주세요.",
       "whyWrite": "여행자들이 저희에게 연락하는 이유",
       "p1": "몇 시간 내 답변",
-      "p2": "SLTDA 승인 공인 기사 가이드",
+      "p2": "면허 및 자격을 갖춘 전문 투어 드라이버",
       "p3": "예약 수수료 없음, 도착 시 결제",
       "hours": "24시간 운영 · 연중무휴"
     }
@@ -402,7 +404,17 @@
     "perPersonApprox": "1인당 약 {price}",
     "estimateNote": "최종 요금은 요청 후 확정됩니다. 지금은 결제가 필요 없습니다.",
     "largeGroup": "{max}명 초과 그룹은 별도 견적을 보내드립니다.",
-    "priceChanged": "이 패키지의 가격이 방금 {price}(으)로 변경되었습니다. 새 가격을 확인하신 후 다시 요청해 주세요."
+    "priceChanged": "이 패키지의 가격이 방금 {price}(으)로 변경되었습니다. 새 가격을 확인하신 후 다시 요청해 주세요.",
+    "passengers": "탑승 인원",
+    "getCode": "인증 코드 받기",
+    "codeSent": "{email}(으)로 6자리 코드를 보냈습니다",
+    "code": "인증 코드",
+    "confirm": "예약 확정",
+    "resend": "새 코드 보내기",
+    "editDetails": "정보 수정",
+    "invalidCode": "코드가 틀렸거나 만료되었습니다. 새 코드를 요청하세요.",
+    "verifyAgain": "인증이 만료되었습니다. 새 코드를 요청하세요.",
+    "missingFields": "이름, 올바른 이메일 주소, 탑승 인원을 입력하세요."
   },
   "loader": {
     "tagline": "낙원의 섬을 탐험하세요 🌴",
@@ -456,7 +468,8 @@
         "category": "종교 성지",
         "description": "콜롬보에서 가장 중요하고 유서 깊은 불교 사원 중 하나입니다."
       }
-    }
+    },
+    "toursVisiting": "{place}을(를) 방문하는 투어"
   },
   "excursions": {
     "title": "추천 여행",
@@ -646,7 +659,13 @@
       "tours": "진행한 투어",
       "travelers": "만족한 여행자",
       "experience": "년의 경험",
-      "satisfaction": "고객 만족도"
+      "satisfaction": "고객 만족도",
+      "experienceValue": "1년",
+      "experienceLabel": "전문 경력",
+      "certifiedValue": "면허 및 자격 보유",
+      "certifiedLabel": "전문 투어 드라이버",
+      "ratingLabel": "Google 리뷰",
+      "ratingAria": "Google 평점 5점 만점에 4.9점"
     },
     "gallery": {
       "open": "사진 열기",
@@ -777,5 +796,33 @@
     "verifyPending": "여기에서 예약을 보려면 이메일 주소({email})를 확인하세요. 가입 시 링크를 보내드렸습니다.",
     "resendVerification": "확인 이메일 다시 보내기",
     "verifySent": "보냈습니다! 받은편지함과 스팸함을 확인하세요."
+  },
+  "emails": {
+    "hello": "{name}님, 안녕하세요.",
+    "reference": "예약 번호",
+    "viewBookings": "내 예약 보기",
+    "travellers": "인원",
+    "vehicle": "차량",
+    "groupTotal": "그룹 합계",
+    "bestRegards": "감사합니다.",
+    "otpSubject": "인증 코드 안내",
+    "otpIntro": "아래 코드를 사용해 이메일 주소를 인증하세요.",
+    "otpLabel": "인증 코드",
+    "otpValid": "이 코드는 5분 동안 유효합니다.",
+    "otpIgnore": "요청하지 않으셨다면 이 이메일을 무시하셔도 됩니다.",
+    "bookingSubject": "예약 요청이 접수되었습니다",
+    "bookingBody": "감사합니다. {item} 예약 요청이 접수되었습니다. 아직 확정된 예약이 아닙니다. 가능 여부를 확인한 뒤 곧 이메일 또는 WhatsApp으로 연락드리겠습니다.",
+    "contactSubject": "메시지가 접수되었습니다",
+    "contactBody": "문의해 주셔서 감사합니다. 가능한 한 빨리 이메일 또는 WhatsApp으로 답변드리겠습니다.",
+    "tailorSubject": "맞춤 투어 요청이 접수되었습니다",
+    "tailorBody": "감사합니다! 고객님의 일정과 관심사에 맞춰 경로를 계획하고 있으며 곧 WhatsApp 또는 이메일로 연락드리겠습니다.",
+    "confirmedSubject": "예약이 확정되었습니다",
+    "confirmedBody": "좋은 소식입니다. 저희 팀이 예약을 확정했습니다. 최종 세부 사항은 따로 연락드리겠습니다.",
+    "cancelledSubject": "예약이 취소되었습니다",
+    "cancelledBody": "예약이 취소되었습니다. 예상치 못한 일이거나 다시 예약하고 싶으시면 이 이메일에 답장하거나 WhatsApp으로 메시지를 보내 주세요.",
+    "completedSubject": "함께 여행해 주셔서 감사합니다",
+    "completedBody": "여행이 완료로 처리되었습니다. 함께 여행해 주셔서 감사합니다. 다시 뵙기를 바랍니다.",
+    "paidSubject": "결제가 확인되었습니다",
+    "paidBody": "이 예약에 대한 결제를 받았습니다. 감사합니다!"
   }
 }

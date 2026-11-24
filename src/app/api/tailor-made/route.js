@@ -1,14 +1,22 @@
-import nodemailer from "nodemailer";
 import connectDB from "@/lib/mongodb";
 import Inquiry from "@/models/Inquiry";
 import { esc } from "@/lib/adminAuth";
-import { emailLayout, sendEmail } from "@/lib/email";
+import { clientIp, isEmail, rateLimited } from "@/lib/customerAuth";
+import { emailLayout, emailText, notifyAdmins, sendEmail } from "@/lib/email";
 
 export async function POST(req) {
   try {
+    if (await rateLimited(`tailor-made:${clientIp(req)}`, 5, 3600000)) {
+      return Response.json({ success: false }, { status: 429 });
+    }
     const body = await req.json();
+    // Same rule as the contact form: nothing is saved or e-mailed without a name and a valid e-mail address.
+    if (typeof body?.name !== "string" || !body.name.trim() || body.name.length > 120 || !isEmail(body.email) || JSON.stringify(body).length > 20000) {
+      return Response.json({ success: false }, { status: 400 });
+    }
 
     // Save to CRM first so the request is never lost even if e-mail fails
+    let saved = false;
     try {
       await connectDB();
       await Inquiry.create({
@@ -19,21 +27,17 @@ export async function POST(req) {
         message: body.additionalRequirements,
         data: body,
       });
+      saved = true;
     } catch (dbError) {
       console.error("Inquiry save failed:", dbError);
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Sri Lanka Tours Driver" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
+    // E-mails are best-effort: the request is already saved, so a mail failure must not
+    // show the customer an error (they would send the same request again).
+    let notified = false;
+    try {
+    notified = await notifyAdmins({
+      replyTo: body.email,
       subject: `🌴 New Tailor Made Tour Request`,
       html: `
         <h2>Tailor Made Tour Request</h2>
@@ -70,16 +74,17 @@ export async function POST(req) {
     });
 
     // Confirmation email to customer (branded layout + signature)
+    const t = await emailText(body.locale);
     await sendEmail({
       to: body.email,
-      subject: "Your Tailor Made Tour Request Received",
-      html: await emailLayout(
-        "We received your tailor-made request",
-        `<p>Thank you ${esc(body.name)}!</p>
-        <p>Our team is planning a route around your dates and interests and will contact you shortly via WhatsApp or e-mail.</p>`,
-      ),
+      subject: t("tailorSubject"),
+      html: await emailLayout(t("tailorSubject"), `<p>${esc(t("hello", { name: body.name }))}</p><p>${esc(t("tailorBody"))}</p>`, undefined, body.locale),
     });
+    } catch (mailError) {
+      console.error("Tailor-made e-mail failed:", mailError);
+    }
 
+    if (!saved && !notified) return Response.json({ success: false }, { status: 500 });
     return Response.json({ success: true });
 
   } catch (error) {
