@@ -14,7 +14,7 @@ import { notFound } from "next/navigation";
 
 import { routing } from "@/i18n/routing";
 
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 import "../globals.css";
 import "../theme.css";
@@ -489,6 +489,7 @@ export default async function LocaleLayout({
         ================================================= */}
 
         <GoogleTagManager gtmId="GTM-WZFP43TS" />
+        <GoogleAnalytics gaId="G-62T0D6J38X" />
 
         {/* =================================================
             INTERNATIONALIZATION
